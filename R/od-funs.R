@@ -1,3 +1,80 @@
+#' @examples
+#' x = od_data_leeds
+#' class(x)
+#' x_od = od(x)
+#' class(x_od)
+od = function(x) {
+  class(x) = c("od", class(x))
+  return(x)
+}
+
+#' @examples
+#' x = od_data_leeds
+#' p = sf::st_centroid(od::od_data_zones)
+od_coordinates_from_points = function(x, p, p_destinations = NULL) {
+  o_code = x[[1]]
+  d_code = x[[2]]
+  p_code = p[[1]]
+  stopifnot(all(o_code %in% p_code)) # todo: add error message
+  o_matching_p = match(o_code, p_code)
+  d_matching_p = match(d_code, p_code)
+  p_coordinates = sf::st_coordinates(p)
+  o_coords = p_coordinates[o_matching_p, ]
+  d_coords = p_coordinates[d_matching_p, ]
+  od_coordinates = cbind(o_coords, d_coords)
+  colnames(od_coordinates) = c("ox", "oy", "dx", "dy")
+  od_coordinates
+}
+
+#' @examples
+#' od_coordinates(od_data_leeds, od::od_data_zones)
+od_coordinates = function(x, z) {
+  geometry_contains_polygons = geometry_contains_polygons(z)
+  if(geometry_contains_polygons) { suppressWarnings({
+      sf::st_geometry(z) = sf::st_centroid(sf::st_geometry(z))
+  })}
+  od_coordinates_from_points(x, z)
+}
+
+geometry_contains_polygons = function(z) {
+  grepl(pattern = "POLY", unique(sf::st_geometry_type(z)))
+}
+
+#' @examples
+#' odm = od_coordinates(od_data_leeds, od_data_zones)
+#' odm_id = od:::od_coordinates_ids(odm)
+#' odl = od_coordinates_to_linstring(odm_id)
+#' class(odl)
+#' plot(odl)
+#'
+#' # testing the result
+#' odsf_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+#' odl_stplanr = sf::st_geometry(odsf_stplanr)
+#' odl_stplanr[1]
+#' odl[1]
+#' bench::mark(check = FALSE,
+#' od_coordinates_to_linstring(odm_id),
+#' stplanr::od2line(od_data_leeds, od_data_zones)
+#' )
+#' # system.time({odl_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)})
+#' # plot(sf::st_geometry(odl_stplanr))
+od_coordinates_to_linstring = function(odm) {
+  sfheaders::sfc_linestring(obj = odm_id, x = "x", y = "y", linestring_id = "id")
+}
+
+od_coordinates_ids = function(odm) {
+  res = data.frame(id = rep(1:nrow(odm), each = 2), x = NA, y = NA)
+  ids_odd = seq(1, nrow(res), by = 2)
+  ids_even = ids_odd + 1
+  res[ids_odd, c("x", "y")] = odm[, 1:2]
+  res[ids_even, c("x", "y")] = odm[, 3:4]
+  res
+}
+
+x <- data.frame( id = 1:2, x = 1:2, y = 2:1 )
+sfheaders::sfc_linestring( x )
+sfheaders::sfc_linestring( x, linestring_id = "id", x = "x", y = "y")
+
 #' Extract coordinates from OD data
 #'
 #' @details
