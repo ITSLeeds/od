@@ -22,6 +22,41 @@ od_to_sf = function(odf, zones, destinations = NULL) {
   odc_to_sf(odc, df = odf[-c(1:2)])
 }
 
+#' Create matrices representing origin-destination coordinates
+#'
+#' This function takes a wide range of input data types (spatial lines, points or text strings)
+#' and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
+#' @param x A data frame in which the first two columns are codes
+#'   representing points/zones of origin and destination
+#' @param p Points representing origins and destinations
+#' @param z Zones representing origins and destinations
+#' @export
+#' @examples
+#' od_coordinates(od_data_leeds, od::od_data_zones)
+#' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
+#' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
+#' # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
+#' # # od_coords("Hereford", "Leeds") # geocode locations
+#' # od_coords(flowlines[1:3, ])
+#' # od_coords(flowlines_sf[1:3, ])
+od_coordinates = function(x, p = NULL, z = NULL) {
+  if(is.null(p) && !is.null(z)) {
+    geometry_contains_polygons = geometry_contains_polygons(z)
+    if(geometry_contains_polygons) { suppressWarnings({
+      p = sf::st_centroid(sf::st_geometry(z))
+    })}
+  }
+  od_coordinates_from_points(x, p)
+}
+# #' @rdname od_coordinates
+# od_coords <- function(from = NULL, to = NULL, l = NULL) {
+#   # todo: re-implement this from stplanr
+# }
+
+# od_to_odc = function(from = NULL, to = NULL, l = NULL) {
+#   # todo: decide its future
+# }
+
 #' Convert od coordinates to sf object
 #' @examples
 #' odc = od_coordinates(od_data_leeds, od_data_zones)
@@ -71,9 +106,6 @@ od_coordinates_ids = function(odc) {
   res
 }
 
-x <- data.frame( id = 1:2, x = 1:2, y = 2:1 )
-sfheaders::sfc_linestring( x )
-sfheaders::sfc_linestring( x, linestring_id = "id", x = "x", y = "y")
 
 #' Extract coordinates from OD data
 #'
@@ -95,77 +127,10 @@ sfheaders::sfc_linestring( x, linestring_id = "id", x = "x", y = "y")
 #' data(zones)
 #' od2odf(flow[1:2, ], zones)
 od2odf <- function(flow, zones) {
-  coords <- dplyr::data_frame(
-    code = as.character(zones[[1]]),
-    fx = coordinates(zones)[, 1], fy = coordinates(zones)[, 2]
-  )
-  flowcode <- dplyr::data_frame(code_o = as.character(flow[[1]]), code_d = as.character(flow[[2]]))
-  odf <- dplyr::left_join(flowcode, coords, by = c("code_o" = "code"))
-  coords <- dplyr::rename_(coords, tx = quote(fx), ty = quote(fy))
-  odf <- dplyr::left_join(odf, coords, by = c("code_d" = "code"))
-
-  data.frame(odf) # return data.frame as more compatible with spatial data
+  # do we have an equivalent function in the od package?
 }
 
-#' Create matrices representing origin-destination coordinates
-#'
-#' This function takes a wide range of input data types (spatial lines, points or text strings)
-#' and returns a matrix of coordinates representing origin (fx, fy) and destination (tx, ty) points.
-#'
-#' @param from An object representing origins
-#' (if lines are provided as the first argument, from is assigned to `l`)
-#' @param to An object representing destinations
-#' @param l Only needed if from and to are empty, in which case this
-#' should be a spatial object representing desire lines
-#' @family od
-#' @export
-#' @examples
-#' od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
-#' od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
-#' od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
-#' # od_coords("Hereford", "Leeds") # geocode locations
-#' od_coords(flowlines[1:3, ])
-#' od_coords(flowlines_sf[1:3, ])
-od_coords <- function(from = NULL, to = NULL, l = NULL) {
 
-  if (is(object = from, class2 = "sf")) {
-    is_sf_line <- all(sf::st_geometry_type(from) == "LINESTRING")
-  } else {
-    is_sf_line <- FALSE
-  }
-
-  if (is_sf_line | any(grepl(pattern = "Line", x = class(from)))) {
-    l <- from
-  }
-
-  if (!is.null(l)) {
-    coord_matrix <- line2df(l) %>%
-      dplyr::select("fx", "fy", "tx", "ty")
-  }
-
-  else {
-    # Convert sp object to lat/lon vector
-    if (is(object = from, "Spatial")) from <- sp::coordinates(from)
-    if (is(object = to, "Spatial")) to <- sp::coordinates(to)
-
-    # sf objects
-    if (is(object = from, "sf") | is(object = from, "sfc")) from <- sf::st_coordinates(from)
-    if (is(object = to, "sf") | is(object = to, "sfc")) to <- sf::st_coordinates(to)
-
-    # Convert character strings to lon/lat if needs be
-    if (is.character(from)) from <- matrix(geo_code(from), ncol = 2)
-    if (is.character(to)) to <- matrix(geo_code(to), ncol = 2)
-    if (is.vector(from) & is.vector(to)) {
-      coord_matrix <- matrix(c(from, to), ncol = 4)
-    } else {
-      coord_matrix <- cbind(from, to)
-    }
-    colnames(coord_matrix) <- c("fx", "fy", "tx", "ty")
-  }
-
-  as.matrix(coord_matrix)
-
-}
 
 points2line <- function(p) {
   UseMethod("points2line")
@@ -247,17 +212,10 @@ od_coordinates_from_points = function(x, p, p_destinations = NULL) {
   od_coordinates
 }
 
-#' @examples
-#' od_coordinates(od_data_leeds, od::od_data_zones)
-od_coordinates = function(x, z) {
-  geometry_contains_polygons = geometry_contains_polygons(z)
-  if(geometry_contains_polygons) { suppressWarnings({
-    sf::st_geometry(z) = sf::st_centroid(sf::st_geometry(z))
-  })}
-  od_coordinates_from_points(x, z)
-}
-
 geometry_contains_polygons = function(z) {
+  if(!requireNamespace("sf", quietly = TRUE)) {
+    stop("sf package required, to install it see https://github.com/r-spatial/sf#installing")
+  }
   grepl(pattern = "POLY", unique(sf::st_geometry_type(z)))
 }
 
