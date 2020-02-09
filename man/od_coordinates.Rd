@@ -4,7 +4,7 @@
 \alias{od_coordinates}
 \title{Create matrices representing origin-destination coordinates}
 \usage{
-od_coordinates(x, p = NULL, z = NULL)
+od_coordinates(x, p = NULL, verbose = FALSE)
 }
 \arguments{
 \item{x}{A data frame in which the first two columns are codes
@@ -12,14 +12,15 @@ representing points/zones of origin and destination}
 
 \item{p}{Points representing origins and destinations}
 
-\item{z}{Zones representing origins and destinations}
+\item{verbose}{Print messages providing progress updates? FALSE by default}
 }
 \description{
 This function takes a wide range of input data types (spatial lines, points or text strings)
 and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 }
 \examples{
-od_coordinates(od_data_leeds, z = od::od_data_zones)
+od_coordinates(od_data_leeds, p = od::od_data_zones)
+od_coordinates(od_data_leeds, p = od::od_data_zones, verbose = TRUE)
 # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
