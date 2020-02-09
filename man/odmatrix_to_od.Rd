@@ -27,8 +27,4 @@ zone code values and with names `orig`, `dest` and `flow`.
 # flow[1:9, 1:3]
 # odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
 }
-\seealso{
-Other od: 
-\code{\link{od_to_odmatrix}()}
-}
 \concept{od}

@@ -4,17 +4,15 @@
 \alias{od_to_sf}
 \title{Convert origin-destination coordinates into desire lines}
 \usage{
-od_to_sf(odf, zones, destinations = NULL)
+od_to_sf(x, z, zd = NULL)
 }
 \arguments{
-\item{odc}{A data frame or matrix representing the coordinates
-of origin-destination data. The first two columns represent the
-coordinates of the origin (typically longitude and latitude) points;
-the third and fourth columns represent the coordinates of the destination
-(in the same CRS). Each row represents travel from origin to destination.}
+\item{x}{A data frame in which the first two columns are codes
+representing points/zones of origin and destination}
 
-\item{crs}{A number representing the coordinate reference system
-of the result, 4326 by default.}
+\item{z}{Zones representing origins and destinations}
+
+\item{zd}{Zones representing destinations}
 }
 \description{
 Convert origin-destination coordinates into desire lines

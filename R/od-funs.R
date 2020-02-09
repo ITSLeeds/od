@@ -1,12 +1,9 @@
 #' Convert origin-destination coordinates into desire lines
 #'
-#' @param odc A data frame or matrix representing the coordinates
-#' of origin-destination data. The first two columns represent the
-#' coordinates of the origin (typically longitude and latitude) points;
-#' the third and fourth columns represent the coordinates of the destination
-#' (in the same CRS). Each row represents travel from origin to destination.
-#' @param crs A number representing the coordinate reference system
-#' of the result, 4326 by default.
+#' @param x A data frame in which the first two columns are codes
+#'   representing points/zones of origin and destination
+#' @param z Zones representing origins and destinations
+#' @param zd Zones representing destinations
 #' @export
 #' @examples
 #' desire_lines = od_to_sf(od_data_leeds, od_data_zones)
@@ -18,19 +15,21 @@
 #' #   desire_lines = od_to_sf(od_data_leeds, od_data_zones)
 #' #   desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
 #' # )
-od_to_sf = function(odf, zones, destinations = NULL) {
-  odc = od_coordinates(x = odf, z = zones)
-  odc_to_sf(odc, df = odf[-c(1:2)])
+od_to_sf = function(x, z, zd = NULL) {
+  odc = od_coordinates(x, z = z) # todo: add support for p
+  odc_to_sf(
+    odc,
+    # df = odf[-c(1:2)]
+    df = x[-c(1:2)]
+    )
 }
 
 #' Create matrices representing origin-destination coordinates
 #'
 #' This function takes a wide range of input data types (spatial lines, points or text strings)
 #' and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
-#' @param x A data frame in which the first two columns are codes
-#'   representing points/zones of origin and destination
 #' @param p Points representing origins and destinations
-#' @param z Zones representing origins and destinations
+#' @inheritParams od_to_sf
 #' @export
 #' @examples
 #' od_coordinates(od_data_leeds, z = od::od_data_zones)
@@ -58,6 +57,11 @@ od_coordinates = function(x, p = NULL, z = NULL) {
 #   # todo: decide its future
 # }
 
+#' @param odc A data frame or matrix representing the coordinates
+#' of origin-destination data. The first two columns represent the
+#' coordinates of the origin (typically longitude and latitude) points;
+#' the third and fourth columns represent the coordinates of the destination
+#' (in the same CRS). Each row represents travel from origin to destination.
 #' Convert od coordinates to sf object
 #' @examples
 #' odc = od_coordinates(od_data_leeds, z = od_data_zones)
@@ -109,53 +113,6 @@ od_coordinates_ids = function(odc) {
 }
 
 
-#' Extract coordinates from OD data
-#'
-#' @details
-#' Origin-destination (OD) data is often provided
-#' in the form of 1 line per OD pair, with zone codes of the trip origin in the first
-#' column and the zone codes of the destination in the second column
-#' (see the [`vignette("stplanr-od")`](https://docs.ropensci.org/stplanr/articles/stplanr-od.html)) for details.
-#' `od2odf()` creates an 'origin-destination data frame', based on a data frame containing
-#' origin and destination cones (`flow`) that match the first column in a
-#' a spatial (polygon or point) object (`zones`).
-#'
-#' The function returns a data frame with coordinates for the origin and destination.
-#' @export
-#' @examples
-#' data(flow)
-#' data(zones)
-#' od2odf(flow[1:2, ], zones)
-od2odf <- function(flow, zones) {
-  # do we have an equivalent function in the od package?
-}
-
-
-
-points2line <- function(p) {
-  UseMethod("points2line")
-}
-
-#' Convert origin-destination data from long to wide format
-#'
-#' This function takes a data frame representing travel between origins
-#' (with origin codes in `name_orig`, typically the 1st column)
-#' and destinations
-#' (with destination codes in `name_dest`, typically the second column) and returns a matrix
-#' with cell values (from `attrib`, the third column by default) representing travel between
-#' origins and destinations.
-#'
-#' @param flow A data frame representing flows between origin and destinations
-#' @param attrib A number or character string representing the column containing the attribute data
-#' of interest from the `flow` data frame
-#' @param name_orig A number or character string representing the zone of origin
-#' @param name_dest A number or character string representing the zone of destination
-#' @family od
-#' @export
-#' @examples
-#' # od_to_odmatrix(flow)
-#' # od_to_odmatrix(flow[1:9, ])
-#' # od_to_odmatrix(flow[1:9, ], attrib = "Bicycle")
 od_to_odmatrix <- function(flow, attrib = 3, name_orig = 1, name_dest = 2) {
   # todo: add this function from stplanr
 }
@@ -188,9 +145,9 @@ odmatrix_to_od <- function(odmatrix) {
 }
 
 
-#' # @examples
-#' # x = od_data_leeds
-#' # p = sf::st_centroid(od::od_data_zones)
+# @examples
+# x = od_data_leeds
+# p = sf::st_centroid(od::od_data_zones)
 od_coordinates_from_points = function(x, p, p_destinations = NULL) {
   o_code = x[[1]]
   d_code = x[[2]]
