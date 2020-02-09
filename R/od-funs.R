@@ -7,16 +7,17 @@
 #' (in the same CRS). Each row represents travel from origin to destination.
 #' @param crs A number representing the coordinate reference system
 #' of the result, 4326 by default.
+#' @export
 #' @examples
 #' desire_lines = od_to_sf(od_data_leeds, od_data_zones)
 #' plot(desire_lines)
 #'
-#' desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
-#' plot(desire_lines2[-c(1:2)])
-#' bench::mark(check = FALSE,
-#'   desire_lines = od_to_sf(od_data_leeds, od_data_zones)
-#'   desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
-#' )
+#' # desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
+#' # plot(desire_lines2[-c(1:2)])
+#' # bench::mark(check = FALSE,
+#' #   desire_lines = od_to_sf(od_data_leeds, od_data_zones)
+#' #   desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
+#' # )
 od_to_sf = function(odf, zones, destinations = NULL) {
   odc = od_coordinates(x = odf, z = zones)
   odc_to_sf(odc, df = odf[-c(1:2)])
@@ -32,7 +33,7 @@ od_to_sf = function(odf, zones, destinations = NULL) {
 #' @param z Zones representing origins and destinations
 #' @export
 #' @examples
-#' od_coordinates(od_data_leeds, od::od_data_zones)
+#' od_coordinates(od_data_leeds, z = od::od_data_zones)
 #' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 #' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 #' # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
@@ -43,7 +44,7 @@ od_coordinates = function(x, p = NULL, z = NULL) {
   if(is.null(p) && !is.null(z)) {
     geometry_contains_polygons = geometry_contains_polygons(z)
     if(geometry_contains_polygons) { suppressWarnings({
-      p = sf::st_centroid(sf::st_geometry(z))
+      p = sf::st_centroid(z[1])
     })}
   }
   od_coordinates_from_points(x, p)
@@ -59,26 +60,27 @@ od_coordinates = function(x, p = NULL, z = NULL) {
 
 #' Convert od coordinates to sf object
 #' @examples
-#' odc = od_coordinates(od_data_leeds, od_data_zones)
-#' odl = od_coordinates_to_sfc(odc)
-#' class(odl)
-#' plot(odl)
+#' odc = od_coordinates(od_data_leeds, z = od_data_zones)
+#' odc
+#' # odl = od_coordinates_to_sfc(odc) # currently fails...
+#' # class(odl)
+#' # plot(odl)
 #'
-#' odc_to_sf(odc, df = od_data_leeds)
-#' odsf = odc_to_sf()
+#' # odc_to_sf(odc, df = od_data_leeds)
+#' # odsf = odc_to_sf()
 #'
 #' # testing the result
-#' odlsf = od_coordinates_to_sfc(odc, "sf")
-#' odsf_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
-#' odl_stplanr = sf::st_geometry(odsf_stplanr)
-#' odl_stplanr[1]
-#' odl[1]
-#' odlsf[1]
-#' bench::mark(check = FALSE,
-#'   od_coordinates_to_sfc(odc),
-#'   od_coordinates_to_sfc(odc, package = "sf"),
-#'   stplanr::od2line(od_data_leeds, od_data_zones)
-#' )
+#' # odlsf = od_coordinates_to_sfc(odc, "sf")
+#' # odsf_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+#' # odl_stplanr = sf::st_geometry(odsf_stplanr)
+#' # odl_stplanr[1]
+#' # odl[1]
+#' # odlsf[1]
+#' # bench::mark(check = FALSE,
+#' #   od_coordinates_to_sfc(odc),
+#' #   od_coordinates_to_sfc(odc, package = "sf"),
+#' #   stplanr::od2line(od_data_leeds, od_data_zones)
+#' # )
 #' # system.time({odl_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)})
 #' # plot(sf::st_geometry(odl_stplanr))
 odc_to_sf = function(odc, df, package = "sfheaders", crs = 4326) {
@@ -119,8 +121,6 @@ od_coordinates_ids = function(odc) {
 #' a spatial (polygon or point) object (`zones`).
 #'
 #' The function returns a data frame with coordinates for the origin and destination.
-#' @inheritParams od2line
-#' @family od
 #' @export
 #' @examples
 #' data(flow)
@@ -153,17 +153,11 @@ points2line <- function(p) {
 #' @family od
 #' @export
 #' @examples
-#' od_to_odmatrix(flow)
-#' od_to_odmatrix(flow[1:9, ])
-#' od_to_odmatrix(flow[1:9, ], attrib = "Bicycle")
+#' # od_to_odmatrix(flow)
+#' # od_to_odmatrix(flow[1:9, ])
+#' # od_to_odmatrix(flow[1:9, ], attrib = "Bicycle")
 od_to_odmatrix <- function(flow, attrib = 3, name_orig = 1, name_dest = 2) {
-  out <- matrix(
-    nrow = length(unique(flow[[name_orig]])),
-    ncol = length(unique(flow[[name_dest]])),
-    dimnames = list(unique(flow[[name_orig]]), unique(flow[[name_dest]]))
-  )
-  out[cbind(flow[[name_orig]], flow[[name_dest]])] <- flow[[attrib]]
-  out
+  # todo: add this function from stplanr
 }
 
 #' Convert origin-destination data from wide to long format
@@ -182,10 +176,10 @@ od_to_odmatrix <- function(flow, attrib = 3, name_orig = 1, name_dest = 2) {
 #' @family od
 #' @export
 #' @examples
-#' odmatrix <- od_to_odmatrix(flow)
-#' odmatrix_to_od(odmatrix)
-#' flow[1:9, 1:3]
-#' odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
+#' # odmatrix <- od_to_odmatrix(flow)
+#' # odmatrix_to_od(odmatrix)
+#' # flow[1:9, 1:3]
+#' # odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
 odmatrix_to_od <- function(odmatrix) {
   od <- as.data.frame(as.table(odmatrix))
   names(od) <- c("orig", "dest", "flow")
@@ -194,9 +188,9 @@ odmatrix_to_od <- function(odmatrix) {
 }
 
 
-#' @examples
-#' x = od_data_leeds
-#' p = sf::st_centroid(od::od_data_zones)
+#' # @examples
+#' # x = od_data_leeds
+#' # p = sf::st_centroid(od::od_data_zones)
 od_coordinates_from_points = function(x, p, p_destinations = NULL) {
   o_code = x[[1]]
   d_code = x[[2]]

@@ -16,3 +16,4 @@ Suggests:
     sf
 Imports: 
     sfheaders
+RoxygenNote: 7.0.2
