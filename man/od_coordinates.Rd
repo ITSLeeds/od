@@ -4,7 +4,7 @@
 \alias{od_coordinates}
 \title{Create matrices representing origin-destination coordinates}
 \usage{
-od_coordinates(x, p = NULL, verbose = FALSE)
+od_coordinates(x, p = NULL, verbose = FALSE, sfnames = FALSE)
 }
 \arguments{
 \item{x}{A data frame in which the first two columns are codes
@@ -13,14 +13,17 @@ representing points/zones of origin and destination}
 \item{p}{Points representing origins and destinations}
 
 \item{verbose}{Print messages providing progress updates? FALSE by default}
+
+\item{sfnames}{Should output column names be compatible with the sf package?}
 }
 \description{
 This function takes a wide range of input data types (spatial lines, points or text strings)
 and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 }
 \examples{
-od_coordinates(od_data_leeds, p = od::od_data_zones)
-od_coordinates(od_data_leeds, p = od::od_data_zones, verbose = TRUE)
+od_coordinates(od_data_leeds, p = od::od_data_zones)[1:2, ]
+od_coordinates(od_data_leeds, p = od::od_data_zones, sfnames = TRUE)[1:2, ]
+od_coordinates(od_data_leeds, p = od::od_data_zones, verbose = TRUE)[1:2, ]
 # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points

@@ -1,0 +1,153 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# od
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of od is to provide tools and example datasets for working with origin-destination (OD) datasets.
+
+## Installation
+
+<!-- You can install the released version of od from [CRAN](https://CRAN.R-project.org) with: 
+
+``` r
+install.packages("od")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+-->
+
+``` r
+# install.packages("devtools")
+devtools::install_github("robinlovelace/od")
+```
+
+## Motivation
+
+The package came out of conversations about the OD functions in the package `stplanr`, particularly `od2line` which works as follows:
+
+```{r}
+library(od) # load example datasets
+od_data_leeds[1:2, 1:9] # OD data as data frame
+od_data_zones[1:2, ]
+desire_lines_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+desire_lines_stplanr[1:2, 1:9]
+```
+
+It works great, and is plenty fast enough for most applications, but there are some issues with `stplanr::od2line()`:
+
+- The function is a commonly needed and low-level function, buried in a large package, reducing 'findability'
+- To get the function you must install `stplanr` plus its numerous dependencies
+- The function has not been optimised
+- It has no class definition of 'od' data
+
+The `od` package, as it currently stands, addresses the first three of these issues (it may at some point define a class for `od` objects but there are no immediate plans to do so).
+
+The equivalent code in the `od` package is as follows:
+
+```{r}
+desire_lines_od = od_to_sfc(od_data_leeds, od_data_zones)
+```
+
+The result is an `sfc` object that has the same geometry as the output from `od2line`:
+
+```{r}
+desire_lines_od[1:2]
+desire_lines_stplanr$geometry[1:2]
+```
+
+To make the results (almost) identical, we can specify `sf` outputs:
+
+```{r}
+desire_lines_od_sf1 = od_to_sf(od_data_leeds, od_data_zones)
+desire_lines_od_sf1[1:2, 1:9]
+sf::st_crs(desire_lines_od_sf1)
+```
+
+An additional option, that requires the `sf` package is to be installed, is to use sf during the creation of the lines, allowing crss to be provided:
+
+```{r}
+desire_lines_od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf", crs = 4326)
+sf::st_crs(desire_lines_od_sf2)
+```
+
+
+## Performance
+
+The package is designed to be fast, with centroids only created when needed and the use of `sfheaders`.
+The benchmark shows this performance.
+
+```{r, message=FALSE}
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr = stplanr::od2line(od_data_leeds, od_data_zones),
+  od = od_to_sfc(od_data_leeds, od_data_zones),
+  od_sf1 = od_to_sf(od_data_leeds, od_data_zones),
+  od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf", crs = 4326)
+)
+
+```
+
+```{r}
+centroids = sf::st_centroid(od_data_zones)
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr_centroids = stplanr::od2line(od_data_leeds, centroids),
+  od_sf3 = od_to_sf(od_data_leeds, centroids)
+  # od_sf4 = od_to_sf(od_data_leeds, centroids, package = "sf", crs = 4326)
+)
+
+```
+
+
+## Testing the similarity between stplanr and sf objects
+
+Due to the way `od2line()` works and the outputs `sfheaders` functions, there are slight differences in the outputs of `od2line()` and `od_to_sf()`. 
+These have no impact on real-world applications, as far as we are aware but are outlined below 
+
+```{r}
+desire_lines_od[1:2]
+desire_lines_od_sf = sf::st_as_sf(od_data_leeds, geometry = desire_lines_od, crs = 4326)
+identical(desire_lines_od_sf, desire_lines_stplanr)
+identical(sf::st_drop_geometry(desire_lines_stplanr), sf::st_drop_geometry(desire_lines_od_sf))
+attributes(desire_lines_od_sf$geometry) = attributes(desire_lines_stplanr$geometry)
+identical(attributes(desire_lines_od_sf$geometry), attributes(desire_lines_stplanr$geometry))
+attributes(desire_lines_od_sf) = attributes(desire_lines_stplanr)
+identical(attributes(desire_lines_od_sf), attributes(desire_lines_stplanr))
+identical(desire_lines_od_sf, desire_lines_stplanr)
+identical(desire_lines_od_sf$geometry[1], desire_lines_stplanr$geometry[1])
+identical(
+  unclass(desire_lines_stplanr$geometry[1][[1]]),
+  unclass(desire_lines_od_sf$geometry[1][[1]])
+)
+identical(
+  unclass(desire_lines_stplanr$geometry[1][[1]]),
+  unclass(desire_lines_od_sf$geometry[1][[1]])
+)
+attributes((desire_lines_od_sf$geometry[1]))
+attributes((desire_lines_od_sf$geometry[1][[1]]))
+attributes((desire_lines_stplanr$geometry[1][[1]]))
+identical(
+  as.numeric(unclass(desire_lines_stplanr$geometry[1][[1]])),
+  as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
+)
+
+all.equal(
+  as.numeric(unclass(desire_lines_stplanr$geometry[1][[1]])),
+  as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
+)
+```
+
