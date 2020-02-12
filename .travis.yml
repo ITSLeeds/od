@@ -24,6 +24,14 @@ cache:
   - $HOME/Library/Caches/Homebrew
 latex: false
 
+addons:
+    apt:
+        packages:
+            - libudunits2-dev
+            - libproj-dev
+            - libgeos-dev
+            - libgdal-dev
+
 # environment variables --------------------------------------------------------
 
 env:
