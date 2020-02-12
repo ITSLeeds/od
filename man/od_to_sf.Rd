@@ -27,18 +27,18 @@ representing points/zones of origin and destination}
 Convert origin-destination coordinates into geographic 'desire line' objects
 }
 \examples{
-desire_lines = od_to_sfc(od_data_leeds, od_data_zones)
+desire_lines = od_to_sfc(od_data_df, od_data_zones)
 desire_lines[1:3]
 if(requireNamespace("stplanr") && requireNamespace("bench")) {
-desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
+desire_lines2 = stplanr::od2line(od_data_df, od_data_zones)
 plot(desire_lines)
 plot(desire_lines2)
 bench::mark(check = FALSE, max_iterations = 10,
-  od = od_to_sfc(od_data_leeds, od_data_zones),
-  od2 = od_to_sfc(od_data_leeds, od_data_zones, package = "sf"),
-  od_sf = od_to_sf(od_data_leeds, od_data_zones),
-  od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf"),
-  stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+  od = od_to_sfc(od_data_df, od_data_zones),
+  od2 = od_to_sfc(od_data_df, od_data_zones, package = "sf"),
+  od_sf = od_to_sf(od_data_df, od_data_zones),
+  od_sf2 = od_to_sf(od_data_df, od_data_zones, package = "sf"),
+  stplanr = stplanr::od2line(od_data_df, od_data_zones)
 )
 }
 }

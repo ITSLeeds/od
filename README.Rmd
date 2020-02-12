@@ -39,17 +39,17 @@ devtools::install_github("robinlovelace/od")
 
 ## Motivation
 
-The package came out of conversations about the OD functions in the package `stplanr`, particularly `od2line` which works as follows:
+The package originated as a set of functions in the package `stplanr` for handline origin-destination dat, particularly `od2line` which works as follows:
 
 ```{r}
 library(od) # load example datasets
-od_data_leeds[1:2, 1:9] # OD data as data frame
-od_data_zones[1:2, ]
-desire_lines_stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+od_data_df # OD data as data frame
+od_data_centroids[1:2, ]
+desire_lines_stplanr = stplanr::od2line(od_data_df, od_data_centroids)
 desire_lines_stplanr[1:2, 1:9]
 ```
 
-It works great, and is plenty fast enough for most applications, but there are some issues with `stplanr::od2line()`:
+It works great, and is plenty fast enough for most applications, but there are some issues with `stplanr::od2line()` (which also affect the other `od_*()` functions in `stplanr`):
 
 - The function is a commonly needed and low-level function, buried in a large package, reducing 'findability'
 - To get the function you must install `stplanr` plus its numerous dependencies
@@ -61,7 +61,7 @@ The `od` package, as it currently stands, addresses the first three of these iss
 The equivalent code in the `od` package is as follows:
 
 ```{r}
-desire_lines_od = od_to_sfc(od_data_leeds, od_data_zones)
+desire_lines_od = od_to_sfc(od_data_df, od_data_centroids)
 ```
 
 The result is an `sfc` object that has the same geometry as the output from `od2line`:
@@ -71,10 +71,18 @@ desire_lines_od[1:2]
 desire_lines_stplanr$geometry[1:2]
 ```
 
+These are 'desire lines' representing the shortest (straight line) path between two centoids and can plotted using geographic data and mapping packages such as `sf`, `mapview`, `tmap` and `mapdeck`, e.g.:
+
+```{r, out.width="50%", fig.show='hold'}
+plot(desire_lines_od)
+plot(desire_lines_stplanr$geometry)
+```
+
+
 To make the results (almost) identical, we can specify `sf` outputs:
 
 ```{r}
-desire_lines_od_sf1 = od_to_sf(od_data_leeds, od_data_zones)
+desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
 desire_lines_od_sf1[1:2, 1:9]
 sf::st_crs(desire_lines_od_sf1)
 ```
@@ -82,7 +90,7 @@ sf::st_crs(desire_lines_od_sf1)
 An additional option, that requires the `sf` package is to be installed, is to use sf during the creation of the lines, allowing crss to be provided:
 
 ```{r}
-desire_lines_od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf", crs = 4326)
+desire_lines_od_sf2 = od_to_sf(od_data_df, od_data_centroids, package = "sf", crs = 4326)
 sf::st_crs(desire_lines_od_sf2)
 ```
 
@@ -94,20 +102,19 @@ The benchmark shows this performance.
 
 ```{r, message=FALSE}
 bench::mark(check = FALSE, max_iterations = 100,
-  stplanr = stplanr::od2line(od_data_leeds, od_data_zones),
-  od = od_to_sfc(od_data_leeds, od_data_zones),
-  od_sf1 = od_to_sf(od_data_leeds, od_data_zones),
-  od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf", crs = 4326)
+  stplanr = stplanr::od2line(od_data_df, od_data_zones),
+  od = od_to_sfc(od_data_df, od_data_zones),
+  od_sf1 = od_to_sf(od_data_df, od_data_zones),
+  od_sf2 = od_to_sf(od_data_df, od_data_zones, package = "sf", crs = 4326)
 )
 
 ```
 
 ```{r}
-centroids = sf::st_centroid(od_data_zones)
 bench::mark(check = FALSE, max_iterations = 100,
-  stplanr_centroids = stplanr::od2line(od_data_leeds, centroids),
-  od_sf3 = od_to_sf(od_data_leeds, centroids)
-  # od_sf4 = od_to_sf(od_data_leeds, centroids, package = "sf", crs = 4326)
+  stplanr_centroids = stplanr::od2line(od_data_df, od_data_centroids),
+  od_sf3 = od_to_sf(od_data_df, od_data_centroids)
+  # od_sf4 = od_to_sf(od_data_df, centroids, package = "sf", crs = 4326)
 )
 
 ```
@@ -115,12 +122,14 @@ bench::mark(check = FALSE, max_iterations = 100,
 
 ## Testing the similarity between stplanr and sf objects
 
+To be split-out into a separate vignette...
+
 Due to the way `od2line()` works and the outputs `sfheaders` functions, there are slight differences in the outputs of `od2line()` and `od_to_sf()`. 
 These have no impact on real-world applications, as far as we are aware but are outlined below 
 
 ```{r}
 desire_lines_od[1:2]
-desire_lines_od_sf = sf::st_as_sf(od_data_leeds, geometry = desire_lines_od, crs = 4326)
+desire_lines_od_sf = sf::st_as_sf(od_data_df, geometry = desire_lines_od, crs = 4326)
 identical(desire_lines_od_sf, desire_lines_stplanr)
 identical(sf::st_drop_geometry(desire_lines_stplanr), sf::st_drop_geometry(desire_lines_od_sf))
 attributes(desire_lines_od_sf$geometry) = attributes(desire_lines_stplanr$geometry)
@@ -145,9 +154,5 @@ identical(
   as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
 )
 
-all.equal(
-  as.numeric(unclass(desire_lines_stplanr$geometry[1][[1]])),
-  as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
-)
 ```
 

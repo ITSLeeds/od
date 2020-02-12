@@ -9,18 +9,18 @@
 #' @param crs The coordinate reference system of the output, 4326 by default
 #' @export
 #' @examples
-#' desire_lines = od_to_sfc(od_data_leeds, od_data_zones)
+#' desire_lines = od_to_sfc(od_data_df, od_data_zones)
 #' desire_lines[1:3]
 #' if(requireNamespace("stplanr") && requireNamespace("bench")) {
-#' desire_lines2 = stplanr::od2line(od_data_leeds, od_data_zones)
+#' desire_lines2 = stplanr::od2line(od_data_df, od_data_zones)
 #' plot(desire_lines)
 #' plot(desire_lines2)
 #' bench::mark(check = FALSE, max_iterations = 10,
-#'   od = od_to_sfc(od_data_leeds, od_data_zones),
-#'   od2 = od_to_sfc(od_data_leeds, od_data_zones, package = "sf"),
-#'   od_sf = od_to_sf(od_data_leeds, od_data_zones),
-#'   od_sf2 = od_to_sf(od_data_leeds, od_data_zones, package = "sf"),
-#'   stplanr = stplanr::od2line(od_data_leeds, od_data_zones)
+#'   od = od_to_sfc(od_data_df, od_data_zones),
+#'   od2 = od_to_sfc(od_data_df, od_data_zones, package = "sf"),
+#'   od_sf = od_to_sf(od_data_df, od_data_zones),
+#'   od_sf2 = od_to_sf(od_data_df, od_data_zones, package = "sf"),
+#'   stplanr = stplanr::od2line(od_data_df, od_data_zones)
 #' )
 #' }
 od_to_sf = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
@@ -49,9 +49,9 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
 #' @inheritParams od_to_sfc
 #' @export
 #' @examples
-#' od_coordinates(od_data_leeds, p = od::od_data_zones)[1:2, ]
-#' od_coordinates(od_data_leeds, p = od::od_data_zones, sfnames = TRUE)[1:2, ]
-#' od_coordinates(od_data_leeds, p = od::od_data_zones, verbose = TRUE)[1:2, ]
+#' od_coordinates(od_data_df, p = od::od_data_zones)[1:2, ]
+#' od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)[1:2, ]
+#' od_coordinates(od_data_df, p = od::od_data_zones, verbose = TRUE)[1:2, ]
 #' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 #' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 #' # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
@@ -92,7 +92,7 @@ od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
   odc
 }
 # example
-# odc = od_coordinates(od_data_leeds, p = od::od_data_zones, sfnames = TRUE)
+# odc = od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)
 # od:::od_coordinates_to_sfc_sf(odc)
 od_coordinates_to_sfc = function(odc) {
   odc_id = od_coordinates_ids(odc)
