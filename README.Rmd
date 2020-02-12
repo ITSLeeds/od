@@ -16,6 +16,16 @@ knitr::opts_chunk$set(
 # od
 
 <!-- badges: start -->
+
+<!-- badges: start -->
+[![Travis build status](https://img.shields.io/travis/robinlovelace/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/robinlovelace/od)
+<!-- [![AppVeyor build status](https://img.shields.io/appveyor/ci/robinlovelace/od?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/robinlovelace/od) -->
+<!-- [![CircleCI](https://img.shields.io/circleci/build/gh/robinlovelace/od/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/robinlovelace/od) -->
+[![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
+<!-- [![codecov](https://codecov.io/gh/robinlovelace/od/branch/master/graph/badge.svg)](https://codecov.io/gh/robinlovelace/od) -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with origin-destination (OD) datasets.

@@ -5,6 +5,19 @@
 
 <!-- badges: start -->
 
+<!-- badges: start -->
+
+[![Travis build
+status](https://img.shields.io/travis/robinlovelace/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/robinlovelace/od)
+<!-- [![AppVeyor build status](https://img.shields.io/appveyor/ci/robinlovelace/od?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/robinlovelace/od) -->
+<!-- [![CircleCI](https://img.shields.io/circleci/build/gh/robinlovelace/od/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/robinlovelace/od) -->
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
+<!-- [![codecov](https://codecov.io/gh/robinlovelace/od/branch/master/graph/badge.svg)](https://codecov.io/gh/robinlovelace/od) -->
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with
@@ -169,10 +182,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      4.36ms   5.44ms      133.    1.27MB     6.99
-#> 2 od           1.66ms   2.04ms      337.   39.73KB     6.89
-#> 3 od_sf1       1.98ms   2.42ms      278.   18.27KB     8.60
-#> 4 od_sf2       2.04ms   2.49ms      270.   21.19KB     8.35
+#> 1 stplanr      4.41ms   5.48ms      128.    1.27MB     7.12
+#> 2 od           1.64ms   2.29ms      240.   39.73KB     4.89
+#> 3 od_sf1       1.99ms   2.64ms      251.   18.27KB     7.78
+#> 4 od_sf2       2.08ms   2.65ms      252.   21.19KB     7.79
 ```
 
 ``` r
@@ -184,8 +197,8 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.44ms   1.89ms      331.      21KB    10.2 
-#> 2 od_sf3              1.15ms   1.38ms      467.    10.4KB     9.53
+#> 1 stplanr_centroids   1.74ms   2.39ms      233.      21KB     7.22
+#> 2 od_sf3              1.16ms   1.54ms      401.    10.4KB     8.18
 ```
 
 ## Testing the similarity between stplanr and sf objects
