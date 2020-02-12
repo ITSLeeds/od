@@ -39,7 +39,8 @@ devtools::install_github("robinlovelace/od")
 
 ## Motivation
 
-The package originated as a set of functions in the package `stplanr` for handline origin-destination dat, particularly `od2line` which works as follows:
+The package originated as a set of functions in the package `stplanr` for working with origin-destination data.
+The `od2line()` function, for example, takes a data frame and a spatial object as inputs and outputs geographic lines representing movement between origins and destinations:
 
 ```{r}
 library(od) # load example datasets

@@ -31,8 +31,9 @@ devtools::install_github("robinlovelace/od")
 ## Motivation
 
 The package originated as a set of functions in the package `stplanr`
-for handline origin-destination dat, particularly `od2line` which works
-as follows:
+for working with origin-destination data. The `od2line()` function, for
+example, takes a data frame and a spatial object as inputs and outputs
+geographic lines representing movement between origins and destinations:
 
 ``` r
 library(od) # load example datasets
@@ -168,10 +169,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      4.37ms   5.76ms      124.    1.27MB     6.78
-#> 2 od           1.65ms   2.08ms      329.   39.73KB     6.70
-#> 3 od_sf1       1.98ms   2.31ms      325.   18.27KB    10.0 
-#> 4 od_sf2       2.04ms   2.44ms      276.   21.19KB     8.55
+#> 1 stplanr      4.36ms   5.44ms      133.    1.27MB     6.99
+#> 2 od           1.66ms   2.04ms      337.   39.73KB     6.89
+#> 3 od_sf1       1.98ms   2.42ms      278.   18.27KB     8.60
+#> 4 od_sf2       2.04ms   2.49ms      270.   21.19KB     8.35
 ```
 
 ``` r
@@ -183,8 +184,8 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.42ms   1.91ms      316.      21KB     9.76
-#> 2 od_sf3              1.16ms   1.29ms      509.    10.4KB    10.4
+#> 1 stplanr_centroids   1.44ms   1.89ms      331.      21KB    10.2 
+#> 2 od_sf3              1.15ms   1.38ms      467.    10.4KB     9.53
 ```
 
 ## Testing the similarity between stplanr and sf objects
