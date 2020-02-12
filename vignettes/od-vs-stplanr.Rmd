@@ -1,0 +1,54 @@
+---
+title: "Testing the similarity between stplanr and sf objects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{od-vs-stplanr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(od)
+```
+
+
+Due to the way `od2line()` works and the outputs `sfheaders` functions, there are slight differences in the outputs of `od2line()` and `od_to_sf()`. 
+These have no impact on real-world applications, as far as we are aware but are outlined below 
+
+```{r}
+desire_lines_od = od_to_sfc(od_data_df, od_data_centroids)
+desire_lines_stplanr = stplanr::od2line(od_data_df, od_data_centroids)
+
+desire_lines_od[1:2]
+desire_lines_od_sf = sf::st_as_sf(od_data_df, geometry = desire_lines_od, crs = 4326)
+identical(desire_lines_od_sf, desire_lines_stplanr)
+identical(sf::st_drop_geometry(desire_lines_stplanr), sf::st_drop_geometry(desire_lines_od_sf))
+attributes(desire_lines_od_sf$geometry) = attributes(desire_lines_stplanr$geometry)
+identical(attributes(desire_lines_od_sf$geometry), attributes(desire_lines_stplanr$geometry))
+attributes(desire_lines_od_sf) = attributes(desire_lines_stplanr)
+identical(attributes(desire_lines_od_sf), attributes(desire_lines_stplanr))
+identical(desire_lines_od_sf, desire_lines_stplanr)
+identical(desire_lines_od_sf$geometry[1], desire_lines_stplanr$geometry[1])
+identical(
+  unclass(desire_lines_stplanr$geometry[1][[1]]),
+  unclass(desire_lines_od_sf$geometry[1][[1]])
+)
+identical(
+  unclass(desire_lines_stplanr$geometry[1][[1]]),
+  unclass(desire_lines_od_sf$geometry[1][[1]])
+)
+attributes((desire_lines_od_sf$geometry[1]))
+attributes((desire_lines_od_sf$geometry[1][[1]]))
+attributes((desire_lines_stplanr$geometry[1][[1]]))
+identical(
+  as.numeric(unclass(desire_lines_stplanr$geometry[1][[1]])),
+  as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
+)
+```

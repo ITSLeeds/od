@@ -15,7 +15,10 @@ Depends: R (>= 3.4.0)
 Suggests: 
     sf,
     bench,
-    stplanr
+    stplanr,
+    knitr,
+    rmarkdown
 Imports: 
     sfheaders
 RoxygenNote: 7.0.2
+VignetteBuilder: knitr

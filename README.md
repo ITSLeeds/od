@@ -182,10 +182,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      4.41ms   5.48ms      128.    1.27MB     7.12
-#> 2 od           1.64ms   2.29ms      240.   39.73KB     4.89
-#> 3 od_sf1       1.99ms   2.64ms      251.   18.27KB     7.78
-#> 4 od_sf2       2.08ms   2.65ms      252.   21.19KB     7.79
+#> 1 stplanr      5.18ms  11.65ms      78.3    1.27MB     4.23
+#> 2 od           1.98ms   3.21ms     195.    39.73KB     4.69
+#> 3 od_sf1       2.34ms   3.49ms     180.    18.27KB     4.34
+#> 4 od_sf2       2.38ms   4.28ms     161.    21.19KB     4.23
 ```
 
 ``` r
@@ -197,95 +197,8 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.74ms   2.39ms      233.      21KB     7.22
-#> 2 od_sf3              1.16ms   1.54ms      401.    10.4KB     8.18
+#> 1 stplanr_centroids    1.7ms   2.97ms      202.      21KB     4.12
+#> 2 od_sf3              1.24ms   1.71ms      302.    10.4KB     6.16
 ```
 
-## Testing the similarity between stplanr and sf objects
-
-To be split-out into a separate vignette…
-
-Due to the way `od2line()` works and the outputs `sfheaders` functions,
-there are slight differences in the outputs of `od2line()` and
-`od_to_sf()`. These have no impact on real-world applications, as far as
-we are aware but are outlined below
-
-``` r
-desire_lines_od[1:2]
-#> Geometry set for 2 features 
-#> geometry type:  LINESTRING
-#> dimension:      XY
-#> bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859
-#> epsg (SRID):    NA
-#> proj4string:    NA
-#> LINESTRING (-1.534957 53.82859, -1.545708 53.79...
-#> LINESTRING (-1.581773 53.8186, -1.545708 53.79593)
-desire_lines_od_sf = sf::st_as_sf(od_data_df, geometry = desire_lines_od, crs = 4326)
-identical(desire_lines_od_sf, desire_lines_stplanr)
-#> [1] FALSE
-identical(sf::st_drop_geometry(desire_lines_stplanr), sf::st_drop_geometry(desire_lines_od_sf))
-#> [1] TRUE
-attributes(desire_lines_od_sf$geometry) = attributes(desire_lines_stplanr$geometry)
-identical(attributes(desire_lines_od_sf$geometry), attributes(desire_lines_stplanr$geometry))
-#> [1] TRUE
-attributes(desire_lines_od_sf) = attributes(desire_lines_stplanr)
-identical(attributes(desire_lines_od_sf), attributes(desire_lines_stplanr))
-#> [1] TRUE
-identical(desire_lines_od_sf, desire_lines_stplanr)
-#> [1] FALSE
-identical(desire_lines_od_sf$geometry[1], desire_lines_stplanr$geometry[1])
-#> [1] FALSE
-identical(
-  unclass(desire_lines_stplanr$geometry[1][[1]]),
-  unclass(desire_lines_od_sf$geometry[1][[1]])
-)
-#> [1] FALSE
-identical(
-  unclass(desire_lines_stplanr$geometry[1][[1]]),
-  unclass(desire_lines_od_sf$geometry[1][[1]])
-)
-#> [1] FALSE
-attributes((desire_lines_od_sf$geometry[1]))
-#> $class
-#> [1] "sfc_LINESTRING" "sfc"           
-#> 
-#> $precision
-#> [1] 0
-#> 
-#> $bbox
-#>      xmin      ymin      xmax      ymax 
-#> -1.545708 53.795934 -1.534957 53.828587 
-#> 
-#> $crs
-#> Coordinate Reference System:
-#>   EPSG: 4326 
-#>   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
-#> 
-#> $n_empty
-#> [1] 0
-attributes((desire_lines_od_sf$geometry[1][[1]]))
-#> $dim
-#> [1] 2 2
-#> 
-#> $class
-#> [1] "XY"         "LINESTRING" "sfg"
-attributes((desire_lines_stplanr$geometry[1][[1]]))
-#> $dim
-#> [1] 2 2
-#> 
-#> $dimnames
-#> $dimnames[[1]]
-#> NULL
-#> 
-#> $dimnames[[2]]
-#> [1] "X" "Y"
-#> 
-#> 
-#> $class
-#> [1] "XY"         "LINESTRING" "sfg"
-identical(
-  as.numeric(unclass(desire_lines_stplanr$geometry[1][[1]])),
-  as.numeric(unclass(desire_lines_od_sf$geometry[1][[1]]))
-)
-#> [1] TRUE
-```
+##
