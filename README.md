@@ -182,10 +182,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.18ms  11.65ms      78.3    1.27MB     4.23
-#> 2 od           1.98ms   3.21ms     195.    39.73KB     4.69
-#> 3 od_sf1       2.34ms   3.49ms     180.    18.27KB     4.34
-#> 4 od_sf2       2.38ms   4.28ms     161.    21.19KB     4.23
+#> 1 stplanr      5.64ms   14.9ms      60.9    1.27MB     2.03
+#> 2 od           1.65ms   2.01ms     291.    39.73KB     9.00
+#> 3 od_sf1       2.02ms   3.73ms     181.    18.27KB     4.12
+#> 4 od_sf2       2.65ms   8.64ms     119.    21.19KB     4.34
 ```
 
 ``` r
@@ -197,8 +197,23 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids    1.7ms   2.97ms      202.      21KB     4.12
-#> 2 od_sf3              1.24ms   1.71ms      302.    10.4KB     6.16
+#> 1 stplanr_centroids   1.79ms   6.21ms      168.      21KB     4.30
+#> 2 od_sf3              1.14ms   1.26ms      619.    10.4KB    12.6
 ```
 
-##
+## Related open source projects
+
+  - [stplanr](https://github.com/ropensci/stplanr/) is an R package
+    package designed to support transport planning, with a focus on
+    geographic transport datasets and many functions for working with OD
+    data in the [od function
+    family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
+  - [cartography](http://riatelab.github.io/cartography) is an R package
+    with functions for working with OD data, including
+    [`getLinkLayer()`](http://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
+  - [gravity](https://pacha.dev/gravity/) is an R package for developing
+    ‘gravity models’ to estimate flow between zones
+  - [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript
+    package for visualising OD data
+  - [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript
+    project for working with OD data
