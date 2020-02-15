@@ -170,9 +170,13 @@ sf::st_crs(desire_lines_od_sf2)
 ## Performance
 
 The package is designed to be fast, with centroids only created when
-needed and the use of `sfheaders`. The benchmark shows this performance.
+needed and the use of `sfheaders`.
+
+### Benchmark on a small dataset:
 
 ``` r
+nrow(od_data_df)
+#> [1] 6
 bench::mark(check = FALSE, max_iterations = 100,
   stplanr = stplanr::od2line(od_data_df, od_data_zones),
   od = od_to_sfc(od_data_df, od_data_zones),
@@ -182,10 +186,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.64ms   14.9ms      60.9    1.27MB     2.03
-#> 2 od           1.65ms   2.01ms     291.    39.73KB     9.00
-#> 3 od_sf1       2.02ms   3.73ms     181.    18.27KB     4.12
-#> 4 od_sf2       2.65ms   8.64ms     119.    21.19KB     4.34
+#> 1 stplanr      5.08ms   9.38ms      108.    1.27MB     6.63
+#> 2 od           1.96ms   2.56ms      332.   39.73KB     6.79
+#> 3 od_sf1       2.58ms   5.58ms      145.   18.27KB     4.28
+#> 4 od_sf2        2.4ms   2.86ms      283.   21.19KB     8.75
 ```
 
 ``` r
@@ -197,8 +201,43 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.79ms   6.21ms      168.      21KB     4.30
-#> 2 od_sf3              1.14ms   1.26ms      619.    10.4KB    12.6
+#> 1 stplanr_centroids   1.68ms      2ms      351.      21KB     7.17
+#> 2 od_sf3              1.36ms   1.82ms      347.    10.4KB     3.51
+```
+
+### Benchmark on medium-sized dataset
+
+``` r
+nrow(od_data_df)
+#> [1] 6
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr = stplanr::od2line(od_data_df_medium, od_data_zones),
+  od = od_to_sfc(od_data_df_medium, od_data_zones),
+  od_sf1 = od_to_sf(od_data_df_medium, od_data_zones),
+  od_sf2 = od_to_sf(od_data_df_medium, od_data_zones, package = "sf", crs = 4326)
+)
+#> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
+#> # A tibble: 4 x 6
+#>   expression      min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 stplanr     613.7ms  613.7ms      1.63   11.86MB     4.89
+#> 2 od           35.3ms   44.4ms     21.7     4.72MB     3.94
+#> 3 od_sf1         41ms   50.6ms     19.6     5.42MB     3.91
+#> 4 od_sf2      577.6ms  577.6ms      1.73    5.64MB     5.19
+```
+
+``` r
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr_centroids = stplanr::od2line(od_data_df_medium, od_data_centroids),
+  od_sf3 = od_to_sf(od_data_df_medium, od_data_centroids)
+  # od_sf4 = od_to_sf(od_data_df_medium, centroids, package = "sf", crs = 4326)
+)
+#> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
+#> # A tibble: 2 x 6
+#>   expression             min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 stplanr_centroids  769.8ms  769.8ms      1.30    9.03MB     3.90
+#> 2 od_sf3              39.2ms   52.5ms     18.8     5.36MB     1.88
 ```
 
 ## Related open source projects

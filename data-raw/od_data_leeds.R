@@ -7,13 +7,15 @@ library(stplanr)
 od = pct::get_od()
 centroids_ew_all = pct::get_centroids_ew() # todo: add centroids dataset based on this
 
-od_data_df_all = od %>%
-  filter(la_1 == "Leeds") %>%
-  filter(la_2 == "Leeds") %>%
+od_data_df_medium = od %>%
+  filter(geo_code1 %in% od_data_zones$msoa11cd) %>%
+  filter(geo_code2 %in% od_data_zones$msoa11cd) %>%
   filter(geo_code1 != geo_code2) %>%
-  select(1:14)
+  select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot)
 
-od_data_df = od_data_df_all %>%
+usethis::use_data(od_data_df_medium)
+
+od_data_df = od_data_df_medium %>%
   select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot) %>%
   top_n(n = 6, bicycle) %>%
   as.data.frame(stringsAsFactors = FALSE)

@@ -109,9 +109,11 @@ sf::st_crs(desire_lines_od_sf2)
 ## Performance
 
 The package is designed to be fast, with centroids only created when needed and the use of `sfheaders`.
-The benchmark shows this performance.
+
+### Benchmark on a small dataset:
 
 ```{r, message=FALSE}
+nrow(od_data_df)
 bench::mark(check = FALSE, max_iterations = 100,
   stplanr = stplanr::od2line(od_data_df, od_data_zones),
   od = od_to_sfc(od_data_df, od_data_zones),
@@ -127,8 +129,29 @@ bench::mark(check = FALSE, max_iterations = 100,
   od_sf3 = od_to_sf(od_data_df, od_data_centroids)
   # od_sf4 = od_to_sf(od_data_df, centroids, package = "sf", crs = 4326)
 )
+```
+
+### Benchmark on medium-sized dataset
+
+```{r, message=FALSE}
+nrow(od_data_df)
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr = stplanr::od2line(od_data_df_medium, od_data_zones),
+  od = od_to_sfc(od_data_df_medium, od_data_zones),
+  od_sf1 = od_to_sf(od_data_df_medium, od_data_zones),
+  od_sf2 = od_to_sf(od_data_df_medium, od_data_zones, package = "sf", crs = 4326)
+)
 
 ```
+
+```{r}
+bench::mark(check = FALSE, max_iterations = 100,
+  stplanr_centroids = stplanr::od2line(od_data_df_medium, od_data_centroids),
+  od_sf3 = od_to_sf(od_data_df_medium, od_data_centroids)
+  # od_sf4 = od_to_sf(od_data_df_medium, centroids, package = "sf", crs = 4326)
+)
+```
+
 
 ## Related open source projects
 
