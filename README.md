@@ -186,10 +186,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.08ms   9.38ms      108.    1.27MB     6.63
-#> 2 od           1.96ms   2.56ms      332.   39.73KB     6.79
-#> 3 od_sf1       2.58ms   5.58ms      145.   18.27KB     4.28
-#> 4 od_sf2        2.4ms   2.86ms      283.   21.19KB     8.75
+#> 1 stplanr      5.19ms   9.43ms      88.3    1.27MB     4.20
+#> 2 od           1.96ms   3.34ms     202.    39.73KB     4.99
+#> 3 od_sf1       2.62ms   4.76ms     146.    18.27KB     4.23
+#> 4 od_sf2       2.69ms   4.12ms     156.    21.19KB     4.17
 ```
 
 ``` r
@@ -201,15 +201,15 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.68ms      2ms      351.      21KB     7.17
-#> 2 od_sf3              1.36ms   1.82ms      347.    10.4KB     3.51
+#> 1 stplanr_centroids   1.67ms   2.22ms      302.      21KB     6.16
+#> 2 od_sf3              1.35ms   1.51ms      430.    10.4KB     8.78
 ```
 
 ### Benchmark on medium-sized dataset
 
 ``` r
-nrow(od_data_df)
-#> [1] 6
+nrow(od_data_df_medium)
+#> [1] 10245
 bench::mark(check = FALSE, max_iterations = 100,
   stplanr = stplanr::od2line(od_data_df_medium, od_data_zones),
   od = od_to_sfc(od_data_df_medium, od_data_zones),
@@ -220,10 +220,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr     613.7ms  613.7ms      1.63   11.86MB     4.89
-#> 2 od           35.3ms   44.4ms     21.7     4.72MB     3.94
-#> 3 od_sf1         41ms   50.6ms     19.6     5.42MB     3.91
-#> 4 od_sf2      577.6ms  577.6ms      1.73    5.64MB     5.19
+#> 1 stplanr     662.3ms  662.3ms      1.51     9.1MB     4.53
+#> 2 od           33.4ms   54.4ms     18.3     4.72MB     1.83
+#> 3 od_sf1       44.2ms   55.2ms     17.4     5.42MB     3.87
+#> 4 od_sf2      632.1ms  632.1ms      1.58    5.64MB     4.75
 ```
 
 ``` r
@@ -236,8 +236,100 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids  769.8ms  769.8ms      1.30    9.03MB     3.90
-#> 2 od_sf3              39.2ms   52.5ms     18.8     5.36MB     1.88
+#> 1 stplanr_centroids  818.1ms  818.1ms      1.22    9.03MB     4.89
+#> 2 od_sf3              46.3ms   65.9ms     12.8     5.36MB     1.60
+```
+
+### Benchmark using low-level functions and made-up data
+
+``` r
+sf_internal = function(x) {
+  matrix(
+    unlist(x, use.names = FALSE),
+    nrow = length(x),
+    byrow = TRUE,
+    dimnames = list(1:length(x))
+  )
+}
+
+n = 1e5
+df = data.frame(x = rnorm(n),
+                y = rnorm(n))
+
+pts = sfheaders::sf_point(obj = df)
+
+sf = sf::st_coordinates(pts)
+sfh = sfheaders::sf_to_df(pts)
+sfi = sf_internal(pts$geometry)
+head(sf)
+#>            X            Y
+#> 1  0.3511762 -0.092791070
+#> 2 -0.6864000 -0.539929283
+#> 3 -1.5311851 -0.108977646
+#> 4 -0.7158086 -0.237707738
+#> 5  1.1207717  0.007628652
+#> 6 -1.2323664 -1.280546494
+head(sfh)
+#>   sfg_id point_id          x            y
+#> 1      1        1  0.3511762 -0.092791070
+#> 2      2        2 -0.6864000 -0.539929283
+#> 3      3        3 -1.5311851 -0.108977646
+#> 4      4        4 -0.7158086 -0.237707738
+#> 5      5        5  1.1207717  0.007628652
+#> 6      6        6 -1.2323664 -1.280546494
+head(sfi)
+#>         [,1]         [,2]
+#> 1  0.3511762 -0.092791070
+#> 2 -0.6864000 -0.539929283
+#> 3 -1.5311851 -0.108977646
+#> 4 -0.7158086 -0.237707738
+#> 5  1.1207717  0.007628652
+#> 6 -1.2323664 -1.280546494
+
+all.equal(unname(as.matrix(sfh[, c("x", "y")])), unname(sf))
+#> [1] TRUE
+all.equal(unname(sfi), unname(sf))
+#> [1] TRUE
+
+res = bench::press(
+  rows = 10 ^ (1:5),
+  bench::mark(
+    check = FALSE,
+    sf = sf::st_coordinates(pts[1:rows, ]),
+    sfh = sfheaders::sf_to_df(pts[1:rows, ]),
+    sfi = sf_internal(pts[1:rows, ])
+  )
+)
+#> Running with:
+#>     rows
+#> 1     10
+#> 2    100
+#> 3   1000
+#> 4  10000
+#> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
+#> 5 100000
+#> Warning: Some expressions had a GC in every iteration; so filtering is disabled.
+
+res
+#> # A tibble: 15 x 7
+#>    expression   rows      min   median `itr/sec` mem_alloc `gc/sec`
+#>    <bch:expr>  <dbl> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#>  1 sf             10 961.25µs   1.11ms   574.       6.36KB     2.06
+#>  2 sfh            10 934.15µs   1.05ms   607.       8.24KB     4.21
+#>  3 sfi            10 901.24µs 975.46µs   660.      39.08KB     2.07
+#>  4 sf            100   3.15ms   3.53ms   200.      56.44KB     4.26
+#>  5 sfh           100   3.19ms   3.97ms   187.      66.91KB     2.01
+#>  6 sfi           100   3.09ms    3.5ms   194.      54.83KB     4.26
+#>  7 sf           1000  25.78ms  43.41ms    24.4    474.55KB     4.43
+#>  8 sfh          1000  26.29ms  40.09ms    25.1    551.82KB     5.03
+#>  9 sfi          1000   25.4ms  41.58ms    25.6    458.88KB     2.13
+#> 10 sf          10000 416.72ms 427.67ms     2.34     4.94MB     2.34
+#> 11 sfh         10000 426.63ms 438.26ms     2.28     5.67MB     3.42
+#> 12 sfi         10000 406.44ms 430.72ms     2.32     4.79MB     2.32
+#> 13 sf         100000    4.79s    4.79s     0.209    47.3MB     2.50
+#> 14 sfh        100000    5.06s    5.06s     0.197   54.55MB     2.57
+#> 15 sfi        100000    5.16s    5.16s     0.194   45.77MB     2.32
+# ggplot2::autoplot(res)
 ```
 
 ## Related open source projects
