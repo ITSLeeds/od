@@ -8,6 +8,7 @@ od_oneway(
   x,
   attrib = names(x[-c(1:2)])[vapply(x[-c(1:2)], is.numeric, TRUE)],
   FUN = sum,
+  ...,
   id1 = names(x)[1],
   id2 = names(x)[2],
   oneway_key = NULL
@@ -20,6 +21,8 @@ od_oneway(
 By default, all numeric variables are selected.}
 
 \item{FUN}{The aggregating function such as `sum` (the default) and `mean`}
+
+\item{...}{Further arguments passed to or used by methods}
 
 \item{id1}{Optional (it is assumed to be the first column)
 text string referring to the name of the variable containing
@@ -59,4 +62,6 @@ nrow(od_oneway) < nrow(od_min) # result has fewer rows
 sum(od_min$all) == sum(od_oneway$all) # but the same total flow
 (od_oneway = od_oneway(od_min, FUN = mean))
 od_oneway(od_min, attrib = "all")
+od_min$all[3] = NA
+(od_oneway = od_oneway(od_min, FUN = mean, na.rm = TRUE))
 }
