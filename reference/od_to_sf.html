@@ -165,8 +165,8 @@ representing points/zones of origin and destination</p></td>
 #&gt; epsg (SRID):    NA
 #&gt; proj4string:    NA</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stplanr"</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"bench"</span>)) {
 <span class='no'>desire_lines2</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>desire_lines2</span>)
 <span class='kw pkg'>bench</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/bench/man/mark.html'>mark</a></span>(<span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>max_iterations</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>od</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>),
   <span class='kw'>od2</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>),
@@ -175,13 +175,13 @@ representing points/zones of origin and destination</p></td>
   <span class='kw'>stplanr</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
 )
 }</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; # A tibble: 5 x 13
-#&gt;   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#&gt;   &lt;bch:expr&gt; &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-#&gt; 1 od          3.13ms  3.24ms     306.     18.3KB        0    10     0     32.6ms
-#&gt; 2 od2         3.71ms  4.07ms     224.     33.5KB        0    10     0     44.6ms
-#&gt; 3 od_sf        3.8ms  5.16ms     207.     25.4KB        0    10     0     48.3ms
-#&gt; 4 od_sf2      5.96ms  6.16ms     162.     21.2KB        0    10     0     61.9ms
-#&gt; 5 stplanr    10.92ms 11.02ms      89.9      92KB        0    10     0    111.2ms
+#&gt;   expression    min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+#&gt;   &lt;bch:expr&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+#&gt; 1 od            2ms 2.07ms      475.    18.3KB      0      10     0     21.1ms
+#&gt; 2 od2        2.11ms 2.16ms      463.    33.9KB      0      10     0     21.6ms
+#&gt; 3 od_sf      2.38ms  2.4ms      415.    25.4KB     46.1     9     1     21.7ms
+#&gt; 4 od_sf2     2.49ms 2.53ms      393.    21.2KB      0      10     0     25.5ms
+#&gt; 5 stplanr     4.9ms 5.03ms      199.    86.4KB     22.1     9     1     45.3ms
 #&gt; # … with 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
