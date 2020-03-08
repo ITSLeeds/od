@@ -29,6 +29,7 @@ zone code values and with names `orig`, `dest` and `flow`.
 }
 \seealso{
 Other od: 
-\code{\link{od_id}}
+\code{\link{od_id}},
+\code{\link{od_oneway}()}
 }
 \concept{od}

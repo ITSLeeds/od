@@ -63,6 +63,7 @@ bench::mark(
 od_oneway
 
 Other od: 
+\code{\link{od_oneway}()},
 \code{\link{odmatrix_to_od}()}
 }
 \concept{od}
