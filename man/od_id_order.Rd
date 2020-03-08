@@ -23,6 +23,6 @@ Generate ordered ids of OD pairs so lowest is always first
 This function is slow on large datasets, see szudzik_pairing for faster alternative
 }
 \examples{
-x <- data.frame(id1 = c(1, 1, 2, 2, 3), id2 = c(1, 2, 3, 1, 4))
-od_id_order(x) # 4th line switches id1 and id2 so stplanr.key is in order
+x = data.frame(id1 = c(1, 1, 2, 2, 3), id2 = c(1, 2, 3, 1, 4))
+od_id_order(x) # 4th line switches id1 and id2 so oneway_key is in order
 }

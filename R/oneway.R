@@ -9,15 +9,15 @@
 #' text string referring to the name of the variable containing
 #' the unique id of the destination
 #' @examples
-#' x <- data.frame(id1 = c(1, 1, 2, 2, 3), id2 = c(1, 2, 3, 1, 4))
-#' od_id_order(x) # 4th line switches id1 and id2 so stplanr.key is in order
+#' x = data.frame(id1 = c(1, 1, 2, 2, 3), id2 = c(1, 2, 3, 1, 4))
+#' od_id_order(x) # 4th line switches id1 and id2 so oneway_key is in order
 #' @export
-od_id_order <- function(x, id1 = names(x)[1], id2 = names(x)[2]) {
+od_id_order = function(x, id1 = names(x)[1], id2 = names(x)[2]) {
   data.frame(
     stringsAsFactors = FALSE,
     stplanr.id1 = x[[id1]],
     stplanr.id1 = x[[id2]],
-    stplanr.key = od_id_character(x[[id1]], x[[id2]])
+    oneway_key = od_id_character(x[[id1]], x[[id2]])
   )
 }
 #' Combine two ID values to create a single ID number
@@ -41,21 +41,22 @@ od_id_order <- function(x, id1 = names(x)[1], id2 = names(x)[2]) {
 #' @seealso od_oneway
 #' @name od_id
 #' @examples
-#' (d <- od_data_df[2:9, 1:2])
-#' (id <- od_id_character(d[[1]], d[[2]]))
+#' (d = od_data_df[2:9, 1:2])
+#' (id = od_id_character(d[[1]], d[[2]]))
 #' duplicated(id)
 #' od_id_szudzik(d[[1]], d[[2]])
 #' od_id_max_min(d[[1]], d[[2]])
-#' n <- 100
-#' ids <- as.character(runif(n, 1e4, 1e7 - 1))
+#' n = 100
+#' ids = as.character(runif(n, 1e4, 1e7 - 1))
 #' # benchmark of methods:
-#' x <- data.frame(
+#' x = data.frame(
 #'   id1 = rep(ids, times = n),
 #'   id2 = rep(ids, each = n),
 #'   val = 1,
 #'   stringsAsFactors = FALSE
 #' )
-#' bench::mark(check = FALSE, iterations = 10,
+#' bench::mark(
+#'   check = FALSE, iterations = 10,
 #'   od_id_order(x),
 #'   od_id_character(x$id1, x$id2),
 #'   od_id_szudzik(x$id1, x$id2),
@@ -64,65 +65,65 @@ od_id_order <- function(x, id1 = names(x)[1], id2 = names(x)[2]) {
 NULL
 #' @rdname od_id
 #' @export
-od_id_szudzik <- function(x, y, ordermatters = FALSE) {
+od_id_szudzik = function(x, y, ordermatters = FALSE) {
   if (length(x) != length(y)) {
     stop("x and y are not of equal length")
   }
 
   if (class(x) == "factor") {
-    x <- as.character(x)
+    x = as.character(x)
   }
   if (class(y) == "factor") {
-    y <- as.character(y)
+    y = as.character(y)
   }
-  lvls <- unique(c(x, y))
-  x <- as.integer(factor(x, levels = lvls))
-  y <- as.integer(factor(y, levels = lvls))
+  lvls = unique(c(x, y))
+  x = as.integer(factor(x, levels = lvls))
+  y = as.integer(factor(y, levels = lvls))
   if (ordermatters) {
-    ismax <- x > y
-    stplanr.key <- (ismax * 1) * (x^2 + x + y) + ((!ismax) * 1) * (y^2 + x)
+    ismax = x > y
+    oneway_key = (ismax * 1) * (x^2 + x + y) + ((!ismax) * 1) * (y^2 + x)
   } else {
-    a <- ifelse(x > y, y, x)
-    b <- ifelse(x > y, x, y)
-    stplanr.key <- b^2 + a
+    a = ifelse(x > y, y, x)
+    b = ifelse(x > y, x, y)
+    oneway_key = b^2 + a
   }
-  return(stplanr.key)
+  return(oneway_key)
 }
 #' @export
 #' @rdname od_id
-od_id_max_min <- function(x, y) {
-  d <- convert_to_numeric(x, y)
-  a <- pmax(d$x, d$y)
-  b <- pmin(d$x, d$y)
+od_id_max_min = function(x, y) {
+  d = convert_to_numeric(x, y)
+  a = pmax(d$x, d$y)
+  b = pmin(d$x, d$y)
   a * (a + 1) / 2 + b
 }
 
 #' @export
 #' @rdname od_id
-od_id_character <- function(x, y) {
+od_id_character = function(x, y) {
   paste(
     pmin(x, y),
     pmax(x, y)
   )
 }
 
-convert_to_numeric <- function(x, y) {
+convert_to_numeric = function(x, y) {
   if (length(x) != length(y)) stop("x and y are not of equal length")
-  if (class(x) == "factor") x <- as.character(x)
-  if (class(y) == "factor") y <- as.character(y)
-  lvls <- unique(c(x, y))
-  x <- as.integer(factor(x, levels = lvls))
-  y <- as.integer(factor(y, levels = lvls))
+  if (class(x) == "factor") x = as.character(x)
+  if (class(y) == "factor") y = as.character(y)
+  lvls = unique(c(x, y))
+  x = as.integer(factor(x, levels = lvls))
+  y = as.integer(factor(y, levels = lvls))
   list(x = x, y = y)
 }
 
-od_id_order_base <- function(x, y) {
-  d <- convert_to_numeric(x, y)
-  x <- d$x
-  y <- d$y
+od_id_order_base = function(x, y) {
+  d = convert_to_numeric(x, y)
+  x = d$x
+  y = d$y
   paste(pmin(x, y), pmax(x, y))
 }
 
-not_duplicated <- function(x) {
+not_duplicated = function(x) {
   !duplicated(x)
 }
