@@ -175,13 +175,13 @@ representing points/zones of origin and destination</p></td>
   <span class='kw'>stplanr</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
 )
 }</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; # A tibble: 5 x 13
-#&gt;   expression    min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#&gt;   &lt;bch:expr&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-#&gt; 1 od         1.94ms 2.02ms      488.    18.3KB        0    10     0     20.5ms
-#&gt; 2 od2        2.32ms 2.35ms      420.    33.5KB        0    10     0     23.8ms
-#&gt; 3 od_sf      2.37ms 2.66ms      378.    25.4KB        0    10     0     26.4ms
-#&gt; 4 od_sf2     3.15ms  3.2ms      306.    21.2KB        0    10     0     32.7ms
-#&gt; 5 stplanr    6.04ms 6.13ms      163.      92KB        0    10     0     61.3ms
+#&gt;   expression    min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+#&gt;   &lt;bch:expr&gt; &lt;bch:&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+#&gt; 1 od         3.09ms  3.24ms     304.     18.3KB     33.8     9     1     29.6ms
+#&gt; 2 od2        3.68ms   3.7ms     266.     33.5KB      0      10     0     37.6ms
+#&gt; 3 od_sf      3.71ms  3.73ms     265.     25.4KB      0      10     0     37.8ms
+#&gt; 4 od_sf2     4.37ms  5.05ms     190.     21.2KB      0      10     0     52.6ms
+#&gt; 5 stplanr    8.13ms 11.27ms      93.3      92KB      0      10     0    107.2ms
 #&gt; # … with 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
