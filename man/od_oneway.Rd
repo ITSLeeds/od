@@ -7,6 +7,7 @@
 od_oneway(
   x,
   attrib = names(x[-c(1:2)])[vapply(x[-c(1:2)], is.numeric, TRUE)],
+  FUN = sum,
   id1 = names(x)[1],
   id2 = names(x)[2],
   oneway_key = NULL
@@ -16,8 +17,9 @@ od_oneway(
 \item{x}{A data frame or SpatialLinesDataFrame, representing an OD matrix}
 
 \item{attrib}{A vector of column numbers or names, representing variables to be aggregated.
-By default, all numeric variables are selected.
-aggregate}
+By default, all numeric variables are selected.}
+
+\item{FUN}{The aggregating function such as `sum` (the default) and `mean`}
 
 \item{id1}{Optional (it is assumed to be the first column)
 text string referring to the name of the variable containing
@@ -55,5 +57,6 @@ od_min[3, 3:4] = od_min[3, 3:4] - 5
 (od_oneway = od_oneway(od_min))
 nrow(od_oneway) < nrow(od_min) # result has fewer rows
 sum(od_min$all) == sum(od_oneway$all) # but the same total flow
+(od_oneway = od_oneway(od_min, FUN = mean))
 od_oneway(od_min, attrib = "all")
 }

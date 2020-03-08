@@ -4,7 +4,7 @@
 #' @param x A data frame or SpatialLinesDataFrame, representing an OD matrix
 #' @param attrib A vector of column numbers or names, representing variables to be aggregated.
 #' By default, all numeric variables are selected.
-#' aggregate
+#' @param FUN The aggregating function such as `sum` (the default) and `mean`
 #' @param id1 Optional (it is assumed to be the first column)
 #' text string referring to the name of the variable containing
 #' the unique id of the origin
@@ -33,11 +33,13 @@
 #' (od_oneway = od_oneway(od_min))
 #' nrow(od_oneway) < nrow(od_min) # result has fewer rows
 #' sum(od_min$all) == sum(od_oneway$all) # but the same total flow
+#' (od_oneway = od_oneway(od_min, FUN = mean))
 #' od_oneway(od_min, attrib = "all")
 od_oneway = function(x,
-                      attrib = names(x[-c(1:2)])[vapply(x[-c(1:2)], is.numeric, TRUE)],
-                      id1 = names(x)[1],
-                      id2 = names(x)[2],
+                     attrib = names(x[-c(1:2)])[vapply(x[-c(1:2)], is.numeric, TRUE)],
+                     FUN = sum,
+                     id1 = names(x)[1],
+                     id2 = names(x)[2],
                       oneway_key = NULL) {
   # is_sf = is(x, "sf") # only make it work with dfs for now
 
@@ -47,11 +49,10 @@ od_oneway = function(x,
     x[[id2]] = pmax(id1_temp, x[[id2]])
   }
 
-
   if (is.numeric(attrib)) {
     attrib = attrib - 2 # account for 1st 2 columns being ids
   }
-  x_oneway = stats::aggregate(x = x[attrib], by = list(o = x[[id1]], d = x[[id2]]), FUN = sum)
+  x_oneway = stats::aggregate(x = x[attrib], by = list(o = x[[id1]], d = x[[id2]]), FUN = FUN)
 
   if (is.numeric(attrib)) {
     attrib_names = names(x)[attrib]
