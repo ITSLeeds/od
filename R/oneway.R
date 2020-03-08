@@ -34,30 +34,30 @@
 #' nrow(od_oneway) < nrow(od_min) # result has fewer rows
 #' sum(od_min$all) == sum(od_oneway$all) # but the same total flow
 #' od_oneway(od_min, attrib = "all")
-od_oneway <- function(x,
+od_oneway = function(x,
                       attrib = names(x[-c(1:2)])[vapply(x[-c(1:2)], is.numeric, TRUE)],
                       id1 = names(x)[1],
                       id2 = names(x)[2],
                       oneway_key = NULL) {
-  # is_sf <- is(x, "sf") # only make it work with dfs for now
+  # is_sf = is(x, "sf") # only make it work with dfs for now
 
   if (is.null(oneway_key)) {
-    id1_temp <- x[[id1]]
-    x[[id1]] <- pmin(x[[id1]], x[[id2]])
-    x[[id2]] <- pmax(id1_temp, x[[id2]])
+    id1_temp = x[[id1]]
+    x[[id1]] = pmin(x[[id1]], x[[id2]])
+    x[[id2]] = pmax(id1_temp, x[[id2]])
   }
 
 
   if (is.numeric(attrib)) {
-    attrib <- attrib - 2 # account for 1st 2 columns being ids
+    attrib = attrib - 2 # account for 1st 2 columns being ids
   }
   x_oneway = stats::aggregate(x = x[attrib], by = list(o = x[[id1]], d = x[[id2]]), FUN = sum)
 
   if (is.numeric(attrib)) {
-    attrib_names <- names(x)[attrib]
+    attrib_names = names(x)[attrib]
   } else {
-    attrib_names <- attrib
-    attrib <- which(names(x) %in% attrib)
+    attrib_names = attrib
+    attrib = which(names(x) %in% attrib)
   }
 
   return(x_oneway)
