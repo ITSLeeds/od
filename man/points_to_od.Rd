@@ -4,10 +4,14 @@
 \alias{points_to_od}
 \title{Convert a series of points into a dataframe of origins and destinations}
 \usage{
-points_to_od(p)
+points_to_od(p, interzone_only = FALSE)
 }
 \arguments{
 \item{p}{A spatial points object}
+
+\item{interzone_only}{Should the result only include interzonal OD pairs, in which
+the ID of the origin is different from the ID of the destination zone?
+`FALSE` by default}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
@@ -16,7 +20,8 @@ of points.
 }
 \examples{
 p = od_data_centroids[1:3, ]
-od1 <- points_to_od(p)
+(od1 = points_to_od(p))
+points_to_od(p, interzone_only = TRUE)
 od1
 od1$v = 1
 unique(od1)
