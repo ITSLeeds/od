@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Datasets reporesenting zone centroids — od_data_centroids • od</title>
+<title>Convert a series of points into a dataframe of origins and destinations — points_to_od • od</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,10 @@
 
 
 
-<meta property="og:title" content="Datasets reporesenting zone centroids — od_data_centroids" />
-<meta property="og:description" content="These are provided as a geographic (sf) object and a simple
-data frame with longitude (`X`) and latitude (`Y`) columns." />
+<meta property="og:title" content="Convert a series of points into a dataframe of origins and destinations — points_to_od" />
+<meta property="og:description" content="Takes a series of geographical points and converts them into a data.frame
+representing the potential flows, or 'spatial interaction', between every combination
+of points." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,53 +114,63 @@ data frame with longitude (`X`) and latitude (`Y`) columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Datasets reporesenting zone centroids</h1>
+    <h1>Convert a series of points into a dataframe of origins and destinations</h1>
     
-    <div class="hidden name"><code>od_data_centroids.Rd</code></div>
+    <div class="hidden name"><code>points_to_od.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These are provided as a geographic (sf) object and a simple
-data frame with longitude (`X`) and latitude (`Y`) columns.</p>
+    <p>Takes a series of geographical points and converts them into a data.frame
+representing the potential flows, or 'spatial interaction', between every combination
+of points.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>p</th>
+      <td><p>A spatial points object</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The schema data can be (re-)generated using code in the
-`data-raw` directory.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>od_data_centroids</span></div><div class='output co'>#&gt; Simple feature collection with 107 features and 1 field
-#&gt; geometry type:  POINT
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.743246 ymin: 53.71565 xmax: -1.336928 ymax: 53.92942
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#&gt; First 10 features:
-#&gt;     geo_code                   geometry
-#&gt; 1  E02002407 POINT (-1.609934 53.79079)
-#&gt; 2  E02002336  POINT (-1.62463 53.88605)
-#&gt; 3  E02002353 POINT (-1.518058 53.84066)
-#&gt; 4  E02002399 POINT (-1.502589 53.78754)
-#&gt; 5  E02002423  POINT (-1.52152 53.75969)
-#&gt; 6  E02002436  POINT (-1.54873 53.72793)
-#&gt; 7  E02002392  POINT (-1.561249 53.8047)
-#&gt; 8  E02002390 POINT (-1.468561 53.80627)
-#&gt; 9  E02002411   POINT (-1.561448 53.785)
-#&gt; 10 E02002420 POINT (-1.554941 53.76671)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>od_data_coordinates</span>)</div><div class='output co'>#&gt;    geo_code         X        Y
-#&gt; 1 E02002407 -1.609934 53.79079
-#&gt; 2 E02002336 -1.624630 53.88605
-#&gt; 3 E02002353 -1.518058 53.84066
-#&gt; 4 E02002399 -1.502589 53.78754
-#&gt; 5 E02002423 -1.521520 53.75969
-#&gt; 6 E02002436 -1.548730 53.72793</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>=</span> <span class='no'>od_data_centroids</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
+<span class='no'>od1</span> <span class='kw'>&lt;-</span> <span class='fu'>points_to_od</span>(<span class='no'>p</span>)
+<span class='no'>od1</span></div><div class='output co'>#&gt;           O         D
+#&gt; 1 E02002407 E02002407
+#&gt; 2 E02002407 E02002336
+#&gt; 3 E02002407 E02002353
+#&gt; 4 E02002336 E02002407
+#&gt; 5 E02002336 E02002336
+#&gt; 6 E02002336 E02002353
+#&gt; 7 E02002353 E02002407
+#&gt; 8 E02002353 E02002336
+#&gt; 9 E02002353 E02002353</div><div class='input'><span class='no'>od1</span>$<span class='no'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>od1</span>)</div><div class='output co'>#&gt;           O         D v
+#&gt; 1 E02002407 E02002407 1
+#&gt; 2 E02002407 E02002336 1
+#&gt; 3 E02002407 E02002353 1
+#&gt; 4 E02002336 E02002407 1
+#&gt; 5 E02002336 E02002336 1
+#&gt; 6 E02002336 E02002353 1
+#&gt; 7 E02002353 E02002407 1
+#&gt; 8 E02002353 E02002336 1
+#&gt; 9 E02002353 E02002353 1</div><div class='input'><span class='fu'><a href='od_oneway.html'>od_oneway</a></span>(<span class='no'>od1</span>)</div><div class='output co'>#&gt;           o         d v
+#&gt; 1 E02002336 E02002336 1
+#&gt; 2 E02002336 E02002353 2
+#&gt; 3 E02002353 E02002353 1
+#&gt; 4 E02002336 E02002407 2
+#&gt; 5 E02002353 E02002407 2
+#&gt; 6 E02002407 E02002407 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#note">Note</a></li>
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
