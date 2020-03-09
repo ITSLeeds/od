@@ -125,7 +125,7 @@ representing the potential flows, or 'spatial interaction', between every combin
 of points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>)</pre>
+    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,13 +134,33 @@ of points.</p>
       <th>p</th>
       <td><p>A spatial points object</p></td>
     </tr>
+    <tr>
+      <th>interzone_only</th>
+      <td><p>Should the result only include interzonal OD pairs, in which
+the ID of the origin is different from the ID of the destination zone?
+`FALSE` by default</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>=</span> <span class='no'>od_data_centroids</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
-<span class='no'>od1</span> <span class='kw'>&lt;-</span> <span class='fu'>points_to_od</span>(<span class='no'>p</span>)
-<span class='no'>od1</span></div><div class='output co'>#&gt;           O         D
+(<span class='no'>od1</span> <span class='kw'>=</span> <span class='fu'>points_to_od</span>(<span class='no'>p</span>))</div><div class='output co'>#&gt;           O         D
+#&gt; 1 E02002407 E02002407
+#&gt; 2 E02002407 E02002336
+#&gt; 3 E02002407 E02002353
+#&gt; 4 E02002336 E02002407
+#&gt; 5 E02002336 E02002336
+#&gt; 6 E02002336 E02002353
+#&gt; 7 E02002353 E02002407
+#&gt; 8 E02002353 E02002336
+#&gt; 9 E02002353 E02002353</div><div class='input'><span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;           O         D
+#&gt; 2 E02002407 E02002336
+#&gt; 3 E02002407 E02002353
+#&gt; 4 E02002336 E02002407
+#&gt; 6 E02002336 E02002353
+#&gt; 7 E02002353 E02002407
+#&gt; 8 E02002353 E02002336</div><div class='input'><span class='no'>od1</span></div><div class='output co'>#&gt;           O         D
 #&gt; 1 E02002407 E02002407
 #&gt; 2 E02002407 E02002336
 #&gt; 3 E02002407 E02002353
