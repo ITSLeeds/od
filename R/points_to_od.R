@@ -5,21 +5,23 @@
 #' of points.
 #'
 #' @param p A spatial points object
-#' @family od
 #' @export
 #' @examples
-#' data(cents)
-#' df <- points2odf(cents)
-#' cents_centroids <- rgeos::gCentroid(cents, byid = TRUE)
-#' df2 <- points2odf(cents_centroids)
-#' df3 <- points2odf(cents_sf)
-points2odf <- function(p) {
-  UseMethod("points2odf")
+#' p = od_data_centroids[1:3, ]
+#' od1 <- points_to_od(p)
+#' od1
+#' od1$v = 1
+#' unique(od1)
+#' od_oneway(od1)
+points_to_od <- function(p) {
+  # to work with other classes at some point, possibly, it's a generic:
+  UseMethod("points_to_od")
 }
 #' @export
-points2odf.sf <- function(p) {
+points_to_od.sf <- function(p) {
   odf <- data.frame(
-    expand.grid(p[[1]], p[[1]])[2:1]
+    stringsAsFactors = FALSE,
+    expand.grid(p[[1]], p[[1]], stringsAsFactors = FALSE)[2:1]
   )
   names(odf) <- c("O", "D")
   odf
