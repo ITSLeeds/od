@@ -84,6 +84,29 @@ od_agg = od_aggregate(flow = od_data_df, od_data_zones, od_data_csa_zones) # fai
 plot(od_agg)
 
 
+# get network for leeds ---------------------------------------------------
+
+library(geofabrik)
+route_network_west_yorkshire = get_geofabrik("west yorkshire")
+route_network_leeds = route_network_west_yorkshire[od_data_zones, ]
+summary(as.factor(route_network_leeds$highway))
+
+# could save this at some point:
+od_data_zones_min = od_data_zones %>%
+  filter(geo_code %in% c(od_data_df$geo_code1, od_data_df$geo_code2))
+
+od_data_region_1km = stplanr::geo_buffer(od_data_zones_min, dist = 500)
+route_network_min = route_network_west_yorkshire[od_data_region_1km, ]
+mapview::mapview(route_network_min)
+od_data_network = route_network_min %>%
+  filter(str_detect(highway, "cycleway|primary|second|tert|trunk"))
+
+mapview::mapview(od_data_network) +
+  mapview::mapview(od_data_zones_min)
+
+usethis::use_data(od_data_network)
+usethis::use_data(od_data_zones_min)
+
 # get od_aggregate working ------------------------------------------------
 
 

@@ -1,4 +1,4 @@
-#' Convert origin-destination coordinates into geographic 'desire line' objects
+#' Convert OD data into geographic 'desire line' objects
 #'
 #' @param x A data frame in which the first two columns are codes
 #'   representing points/zones of origin and destination
@@ -155,3 +155,77 @@ geometry_contains_polygons = function(z) {
   grepl(pattern = "POLY", class(z$geometry)[1])
 }
 
+#' Convert OD data into lines with start and end points sampled on a network
+#'
+#' @inheritParams od_to_sf
+#' @param network An sf object representing a transport network
+#' @export
+#' @examples
+#' x = od_data_df
+#' z = od_data_zones_min
+#' network = od_data_network
+#' (lines_to_points_on_network = od_to_sf_network(x, z, network = network))
+#' (lines_to_points = od_to_sf(x, z))
+#' # to put in vignette...
+#' # library(tmap)
+#' # tmap_mode("view")
+#' # tm_shape(lines_to_points_on_network) + tm_lines() +
+#' #  tm_shape(lines_to_points) + tm_lines(col = "grey") +
+#' #  tm_shape(od_data_zones_min) + tm_borders() +
+#' #  qtm(od_data_network, lines.col = "yellow")
+#' plot(sf::st_geometry(lines_to_points_on_network))
+#' plot(lines_to_points, col = "grey", add = TRUE)
+#' plot(sf::st_geometry(z), add = TRUE)
+od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", crs = 4326,
+                    network = NULL) {
+  # browser() # todo: remove and optimise
+  # odc = od_coordinates(x, z, verbose = verbose) # we want the data in this format
+
+  # suppressWarnings({
+  network_points = sf::st_cast(network, "POINT")
+  network_points = network_points[z, ] # subset only points on network in the zones
+  # })
+
+  network_points_joined = sf::st_join(network_points, z[1])
+
+  # unique_origin_ids = unique(x[[1]])
+  unique_origin_ids = table(x[[1]])
+  unique_destination_ids = table(x[[2]])
+
+  i = 1 # for testing
+  odc_origin = NULL
+  for(i in seq_along(unique_origin_ids)) {
+    network_points_in_zone = network_points_joined[
+      network_points_joined$geo_code == names(unique_origin_ids)[i],
+    ]
+    random_ids = sample(nrow(network_points_in_zone), size = unique_origin_ids[i])
+    points_to_sample_sf = network_points_in_zone[random_ids, 1]
+    odc_origin = rbind(odc_origin, sf::st_coordinates(points_to_sample_sf))
+  }
+
+  odc_destination = NULL
+  for(i in seq_along(unique_destination_ids)) {
+    network_points_in_zone = network_points_joined[
+      network_points_joined$geo_code == names(unique_destination_ids)[i],
+    ]
+    random_ids = sample(nrow(network_points_in_zone), size = unique_destination_ids[i])
+    points_to_sample_sf = network_points_in_zone[random_ids, 1]
+    odc_destination = rbind(odc_destination, sf::st_coordinates(points_to_sample_sf))
+  }
+
+  # browser()
+  odc = as.matrix(data.frame(
+    ox = odc_origin[, 1],
+    oy = odc_origin[, 2],
+    dx = odc_destination[, 1],
+    dy = odc_destination[, 2]
+  ))
+
+
+  # od_sfc = od_coordinates_to_sfc(odc) # sfheaders way: todo add it
+  od_sfc = od_coordinates_to_sfc_sf(odc)
+
+
+  sf::st_sf(x, geometry = od_sfc)
+
+}

@@ -8,7 +8,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name od_data_zones
-#' @aliases od_data_csa_zones
+#' @aliases od_data_csa_zones od_data_zones_min
 NULL
 #' Origin-destination datasets
 #'
@@ -44,4 +44,17 @@ NULL
 #' @examples
 #' od_data_centroids
 #' head(od_data_coordinates)
+NULL
+
+#' Route network data for Leeds
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_network
+#' @examples
+#' od_data_network
+#' head(od_data_network)
 NULL

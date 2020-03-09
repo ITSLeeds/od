@@ -3,7 +3,7 @@
 \name{od_to_sf}
 \alias{od_to_sf}
 \alias{od_to_sfc}
-\title{Convert origin-destination coordinates into geographic 'desire line' objects}
+\title{Convert OD data into geographic 'desire line' objects}
 \usage{
 od_to_sf(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326)
 
@@ -24,7 +24,7 @@ representing points/zones of origin and destination}
 \item{crs}{The coordinate reference system of the output, 4326 by default}
 }
 \description{
-Convert origin-destination coordinates into geographic 'desire line' objects
+Convert OD data into geographic 'desire line' objects
 }
 \examples{
 desire_lines = od_to_sfc(od_data_df, od_data_zones)
