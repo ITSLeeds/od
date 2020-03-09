@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert origin-destination coordinates into geographic 'desire line' objects — od_to_sf • od</title>
+<title>Convert OD data into geographic 'desire line' objects — od_to_sf • od</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Convert origin-destination coordinates into geographic 'desire line' objects — od_to_sf" />
-<meta property="og:description" content="Convert origin-destination coordinates into geographic 'desire line' objects" />
+<meta property="og:title" content="Convert OD data into geographic 'desire line' objects — od_to_sf" />
+<meta property="og:description" content="Convert OD data into geographic 'desire line' objects" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,13 +112,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert origin-destination coordinates into geographic 'desire line' objects</h1>
+    <h1>Convert OD data into geographic 'desire line' objects</h1>
     
     <div class="hidden name"><code>od_to_sf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert origin-destination coordinates into geographic 'desire line' objects</p>
+    <p>Convert OD data into geographic 'desire line' objects</p>
     </div>
 
     <pre class="usage"><span class='fu'>od_to_sf</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sfheaders"</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)
@@ -175,13 +175,13 @@ representing points/zones of origin and destination</p></td>
   <span class='kw'>stplanr</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
 )
 }</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; # A tibble: 5 x 13
-#&gt;   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#&gt;   &lt;bch:expr&gt; &lt;bch:t&gt; &lt;bch:t&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-#&gt; 1 od          3.09ms  3.22ms     293.     18.3KB        0    10     0     34.1ms
-#&gt; 2 od2         3.73ms  4.17ms     220.     33.5KB        0    10     0     45.4ms
-#&gt; 3 od_sf       4.95ms   5.3ms     170.     25.4KB        0    10     0     58.7ms
-#&gt; 4 od_sf2         6ms  6.38ms     150.     21.2KB        0    10     0     66.8ms
-#&gt; 5 stplanr    10.69ms 12.03ms      80.8      92KB        0    10     0    123.8ms
+#&gt;   expression    min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+#&gt;   &lt;bch:expr&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
+#&gt; 1 od         1.88ms 1.92ms      518.    18.3KB      0      10     0     19.3ms
+#&gt; 2 od2        1.93ms 1.96ms      489.    33.9KB     54.3     9     1     18.4ms
+#&gt; 3 od_sf      2.12ms 2.17ms      460.    25.5KB      0      10     0     21.8ms
+#&gt; 4 od_sf2     2.26ms 2.31ms      434.    21.2KB      0      10     0     23.1ms
+#&gt; 5 stplanr    4.82ms 5.32ms      191.    89.8KB      0      10     0     52.2ms
 #&gt; # … with 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
