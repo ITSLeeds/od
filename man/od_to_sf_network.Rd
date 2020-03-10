@@ -42,8 +42,8 @@ network = od_data_network
 # to put in vignette...
 # library(tmap)
 # tmap_mode("view")
-# tm_shape(lines_to_points_on_network) + tm_lines() +
-#  tm_shape(lines_to_points) + tm_lines(col = "grey") +
+# tm_shape(lines_to_points_on_network) + tm_lines(lwd = 5) +
+#  tm_shape(lines_to_points) + tm_lines(col = "grey", lwd = 5) +
 #  tm_shape(od_data_zones_min) + tm_borders() +
 #  qtm(od_data_network, lines.col = "yellow")
 plot(sf::st_geometry(lines_to_points_on_network))

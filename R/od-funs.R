@@ -169,8 +169,8 @@ geometry_contains_polygons = function(z) {
 #' # to put in vignette...
 #' # library(tmap)
 #' # tmap_mode("view")
-#' # tm_shape(lines_to_points_on_network) + tm_lines() +
-#' #  tm_shape(lines_to_points) + tm_lines(col = "grey") +
+#' # tm_shape(lines_to_points_on_network) + tm_lines(lwd = 5) +
+#' #  tm_shape(lines_to_points) + tm_lines(col = "grey", lwd = 5) +
 #' #  tm_shape(od_data_zones_min) + tm_borders() +
 #' #  qtm(od_data_network, lines.col = "yellow")
 #' plot(sf::st_geometry(lines_to_points_on_network))
@@ -181,45 +181,51 @@ od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", cr
   # browser() # todo: remove and optimise
   # odc = od_coordinates(x, z, verbose = verbose) # we want the data in this format
 
+  zones_o = z[z[[1]] %in% x[[1]], ]
+  zones_d = z[z[[1]] %in% x[[2]], ]
   # suppressWarnings({
   network_points = sf::st_cast(network, "POINT")
-  network_points = network_points[z, ] # subset only points on network in the zones
+  network_points_o = network_points[zones_o, ] # subset only points on network in the zones
+  network_points_d = network_points[zones_d, ] # subset only points on network in the zones
   # })
 
-  network_points_joined = sf::st_join(network_points, z[1])
+  net_o = sf::st_join(network_points_o, z[1])
+  net_d = sf::st_join(network_points_d, z[1])
 
   # unique_origin_ids = unique(x[[1]])
-  unique_origin_ids = table(x[[1]])
-  unique_destination_ids = table(x[[2]])
+  # uoid = table(x[[1]])
+  # udid = table(x[[2]])
+  #
+  z_nm = names(z)[1]
+  # s_origin = split(net_o, net_o[[z_nm]])
+  # l_origin = lapply(seq_along(uoid),
+  #        function(i) {
+  #          g = s_origin[[i]]
+  #          g[sample(nrow(g), size = uoid[i]), ]
+  #        })
+  l_origin = lapply(seq(nrow(x)),
+         function(i) {
+           g = net_o[net_o[[z_nm]] == x[[1]][i], ]
+           g[sample(nrow(g), size = 1), ]
+         })
+  d_origin = do.call(rbind, l_origin)
+  # d_origin$geo_code == x[[1]] TRUE
+  odc_origin = sf::st_coordinates(d_origin)
 
-  i = 1 # for testing
-  odc_origin = NULL
-  for(i in seq_along(unique_origin_ids)) {
-    network_points_in_zone = network_points_joined[
-      network_points_joined$geo_code == names(unique_origin_ids)[i],
-    ]
-    random_ids = sample(nrow(network_points_in_zone), size = unique_origin_ids[i])
-    points_to_sample_sf = network_points_in_zone[random_ids, 1]
-    odc_origin = rbind(odc_origin, sf::st_coordinates(points_to_sample_sf))
-  }
+  l_destination = lapply(seq(nrow(x)),
+                    function(i) {
+                      g = net_d[net_d[[z_nm]] == x[[2]][i], ]
+                      g[sample(nrow(g), size = 1), ]
+                    })
+  d_destination = do.call(rbind, l_destination)
+  odc_destination = sf::st_coordinates(d_destination)
 
-  odc_destination = NULL
-  for(i in seq_along(unique_destination_ids)) {
-    network_points_in_zone = network_points_joined[
-      network_points_joined$geo_code == names(unique_destination_ids)[i],
-    ]
-    random_ids = sample(nrow(network_points_in_zone), size = unique_destination_ids[i])
-    points_to_sample_sf = network_points_in_zone[random_ids, 1]
-    odc_destination = rbind(odc_destination, sf::st_coordinates(points_to_sample_sf))
-  }
-
-  # browser()
-  odc = as.matrix(data.frame(
+  odc = cbind(
     ox = odc_origin[, 1],
     oy = odc_origin[, 2],
     dx = odc_destination[, 1],
     dy = odc_destination[, 2]
-  ))
+  )
 
 
   # od_sfc = od_coordinates_to_sfc(odc) # sfheaders way: todo add it
