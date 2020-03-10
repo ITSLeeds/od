@@ -189,10 +189,10 @@ length. It returns a vector of ID numbers.</p>
 )</div><div class='output co'>#&gt; # A tibble: 4 x 13
 #&gt;   expression                       min median `itr/sec` mem_alloc `gc/sec` n_itr
 #&gt;   &lt;bch:expr&gt;                    &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 od_id_order(x)                6.88ms 7.17ms      133.  240.28KB      0      10
-#&gt; 2 od_id_character(x$id1, x$id2) 6.58ms 6.71ms      148.  234.52KB      0      10
-#&gt; 3 od_id_szudzik(x$id1, x$id2)   3.81ms 4.07ms      246.    3.02MB      0      10
-#&gt; 4 od_id_max_min(x$id1, x$id2)   1.86ms 1.92ms      520.    1.03MB     57.8     9
+#&gt; 1 od_id_order(x)                5.01ms 5.07ms      194.  240.31KB     21.5     9
+#&gt; 2 od_id_character(x$id1, x$id2) 4.71ms 4.76ms      210.  234.52KB      0      10
+#&gt; 3 od_id_szudzik(x$id1, x$id2)   1.41ms 1.59ms      624.    1.64MB      0      10
+#&gt; 4 od_id_max_min(x$id1, x$id2)   1.12ms 1.14ms      870.  974.84KB      0      10
 #&gt; # … with 6 more variables: n_gc &lt;dbl&gt;, total_time &lt;bch:tm&gt;, result &lt;list&gt;,
 #&gt; #   memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
   </div>
