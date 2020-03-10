@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • od</title>
+<title>Return only interzonal (io intrazonal) OD pairs — od_interzone • od</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Return only interzonal (io intrazonal) OD pairs — od_interzone" />
+<meta property="og:description" content="This function takes an OD dataset and returns only the rows
+corresponding to movements in which the origin is different than
+the destination." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +58,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,121 +112,46 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Return only interzonal (io intrazonal) OD pairs</h1>
+    
+    <div class="hidden name"><code>od_interzone.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function takes an OD dataset and returns only the rows
+corresponding to movements in which the origin is different than
+the destination.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>od_interzone</span>(<span class='no'>x</span>)
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="od_coordinates.html">od_coordinates()</a></code> </p>
-        </td>
-        <td><p>Create matrices representing origin-destination coordinates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_data_centroids.html">od_data_centroids</a></code> </p>
-        </td>
-        <td><p>Datasets reporesenting zone centroids</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_data_df.html">od_data_df</a></code> </p>
-        </td>
-        <td><p>Origin-destination datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_data_network.html">od_data_network</a></code> </p>
-        </td>
-        <td><p>Route network data for Leeds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_data_zones.html">od_data_zones</a></code> </p>
-        </td>
-        <td><p>Example od data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_id.html">od_id_szudzik()</a></code> <code><a href="od_id.html">od_id_max_min()</a></code> <code><a href="od_id.html">od_id_character()</a></code> </p>
-        </td>
-        <td><p>Combine two ID values to create a single ID number</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_id_order.html">od_id_order()</a></code> </p>
-        </td>
-        <td><p>Generate ordered ids of OD pairs so lowest is always first
-This function is slow on large datasets, see szudzik_pairing for faster alternative</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_interzone.html">od_interzone()</a></code> <code><a href="od_interzone.html">od_intrazone()</a></code> </p>
-        </td>
-        <td><p>Return only interzonal (io intrazonal) OD pairs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_oneway.html">od_oneway()</a></code> </p>
-        </td>
-        <td><p>Aggregate od pairs they become non-directional</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_to_sf.html">od_to_sf()</a></code> <code><a href="od_to_sf.html">od_to_sfc()</a></code> </p>
-        </td>
-        <td><p>Convert OD data into geographic 'desire line' objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="od_to_sf_network.html">od_to_sf_network()</a></code> </p>
-        </td>
-        <td><p>Convert OD data into lines with start and end points sampled on a network</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="odmatrix_to_od.html">odmatrix_to_od()</a></code> </p>
-        </td>
-        <td><p>Convert origin-destination data from wide to long format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="points_to_od.html">points_to_od()</a></code> </p>
-        </td>
-        <td><p>Convert a series of points into a dataframe of origins and destinations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sfc_point_to_matrix.html">sfc_point_to_matrix()</a></code> </p>
-        </td>
-        <td><p>Extract coordinates from sfc objects with point geometry</p></td>
-      </tr>
-    </tbody>
+<span class='fu'>od_intrazone</span>(<span class='no'>x</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A data frame in which the first two columns are codes
+representing points/zones of origin and destination</p></td>
+    </tr>
     </table>
-  </div>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>od_data</span> <span class='kw'>=</span> <span class='fu'><a href='points_to_od.html'>points_to_od</a></span>(<span class='no'>od_data_centroids</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>od_data</span>)</div><div class='output co'>#&gt; [1] 11449</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='fu'>od_interzone</span>(<span class='no'>od_data</span>))</div><div class='output co'>#&gt; [1] 11342</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='fu'>od_intrazone</span>(<span class='no'>od_data</span>))</div><div class='output co'>#&gt; [1] 107</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
