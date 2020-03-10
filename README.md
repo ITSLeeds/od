@@ -8,12 +8,12 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://img.shields.io/travis/robinlovelace/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/robinlovelace/od)
-<!-- [![AppVeyor build status](https://img.shields.io/appveyor/ci/robinlovelace/od?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/robinlovelace/od) -->
-<!-- [![CircleCI](https://img.shields.io/circleci/build/gh/robinlovelace/od/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/robinlovelace/od) -->
+status](https://img.shields.io/travis/itsleeds/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/itsleeds/od)
+<!-- [![AppVeyor build status](https://img.shields.io/appveyor/ci/itsleeds/od?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/itsleeds/od) -->
+<!-- [![CircleCI](https://img.shields.io/circleci/build/gh/itsleeds/od/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/itsleeds/od) -->
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
-<!-- [![codecov](https://codecov.io/gh/robinlovelace/od/branch/master/graph/badge.svg)](https://codecov.io/gh/robinlovelace/od) -->
+<!-- [![codecov](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od) -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -21,8 +21,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](http
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with
-origin-destination (OD)
-datasets.
+origin-destination (OD) datasets.
 
 ## Installation
 
@@ -38,7 +37,7 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("robinlovelace/od")
+devtools::install_github("itsleeds/od")
 ```
 
 ## Motivation
@@ -59,9 +58,9 @@ od_data_df # OD data as data frame
 #> 5 E02006852 E02006875 1221    14 509   13        401            50      99  118
 #> 6 E02006861 E02006875 1177    43 400   30        123            28      56  492
 od_data_centroids[1:2, ]
-#>     geo_code             geometry
-#> 22 E02002407 -1.609934, 53.790790
-#> 27 E02002336   -1.62463, 53.88605
+#>    geo_code             geometry
+#> 1 E02002407 -1.609934, 53.790790
+#> 2 E02002336   -1.62463, 53.88605
 desire_lines_stplanr = stplanr::od2line(od_data_df, od_data_centroids)
 desire_lines_stplanr[1:2, 1:9]
 #> Simple feature collection with 2 features and 9 fields
@@ -186,10 +185,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.19ms   9.43ms      88.3    1.27MB     4.20
-#> 2 od           1.96ms   3.34ms     202.    39.73KB     4.99
-#> 3 od_sf1       2.62ms   4.76ms     146.    18.27KB     4.23
-#> 4 od_sf2       2.69ms   4.12ms     156.    21.19KB     4.17
+#> 1 stplanr      3.74ms   3.96ms      253.   593.8KB     10.6
+#> 2 od           1.48ms   1.52ms      643.    39.7KB     19.9
+#> 3 od_sf1       1.75ms   1.79ms      550.    18.3KB     11.2
+#> 4 od_sf2       1.78ms   1.82ms      540.    21.2KB     16.7
 ```
 
 ``` r
@@ -201,8 +200,8 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids   1.67ms   2.22ms      302.      21KB     6.16
-#> 2 od_sf3              1.35ms   1.51ms      430.    10.4KB     8.78
+#> 1 stplanr_centroids    1.3ms   1.34ms      722.      21KB     14.7
+#> 2 od_sf3              1.06ms   1.08ms      902.    10.4KB     18.4
 ```
 
 ### Benchmark on medium-sized dataset
@@ -220,10 +219,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr     662.3ms  662.3ms      1.51     9.1MB     4.53
-#> 2 od           33.4ms   54.4ms     18.3     4.72MB     1.83
-#> 3 od_sf1       44.2ms   55.2ms     17.4     5.42MB     3.87
-#> 4 od_sf2      632.1ms  632.1ms      1.58    5.64MB     4.75
+#> 1 stplanr       341ms  343.4ms      2.91    9.13MB     8.73
+#> 2 od           24.1ms     25ms     38.4     4.87MB     7.68
+#> 3 od_sf1       28.5ms   29.7ms     29.7     5.42MB     5.95
+#> 4 od_sf2        341ms  348.2ms      2.87    5.64MB     7.18
 ```
 
 ``` r
@@ -236,8 +235,8 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 2 x 6
 #>   expression             min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr_centroids  818.1ms  818.1ms      1.22    9.03MB     4.89
-#> 2 od_sf3              46.3ms   65.9ms     12.8     5.36MB     1.60
+#> 1 stplanr_centroids  379.3ms  381.4ms      2.62    9.03MB    10.5 
+#> 2 od_sf3              27.2ms   28.1ms     29.9     5.36MB     5.97
 ```
 
 ### Benchmark using low-level functions and made-up data
@@ -262,29 +261,29 @@ sf = sf::st_coordinates(pts)
 sfh = sfheaders::sf_to_df(pts)
 sfi = sf_internal(pts$geometry)
 head(sf)
-#>            X            Y
-#> 1  0.3511762 -0.092791070
-#> 2 -0.6864000 -0.539929283
-#> 3 -1.5311851 -0.108977646
-#> 4 -0.7158086 -0.237707738
-#> 5  1.1207717  0.007628652
-#> 6 -1.2323664 -1.280546494
+#>            X           Y
+#> 1 -0.7926019 -0.95508049
+#> 2  1.4427497 -0.17210975
+#> 3 -0.6752244  0.60099582
+#> 4 -1.4010203 -0.08182133
+#> 5  1.1906365  0.56727967
+#> 6 -0.1277217  1.97600713
 head(sfh)
-#>   sfg_id point_id          x            y
-#> 1      1        1  0.3511762 -0.092791070
-#> 2      2        2 -0.6864000 -0.539929283
-#> 3      3        3 -1.5311851 -0.108977646
-#> 4      4        4 -0.7158086 -0.237707738
-#> 5      5        5  1.1207717  0.007628652
-#> 6      6        6 -1.2323664 -1.280546494
+#>   sfg_id point_id          x           y
+#> 1      1        1 -0.7926019 -0.95508049
+#> 2      2        2  1.4427497 -0.17210975
+#> 3      3        3 -0.6752244  0.60099582
+#> 4      4        4 -1.4010203 -0.08182133
+#> 5      5        5  1.1906365  0.56727967
+#> 6      6        6 -0.1277217  1.97600713
 head(sfi)
-#>         [,1]         [,2]
-#> 1  0.3511762 -0.092791070
-#> 2 -0.6864000 -0.539929283
-#> 3 -1.5311851 -0.108977646
-#> 4 -0.7158086 -0.237707738
-#> 5  1.1207717  0.007628652
-#> 6 -1.2323664 -1.280546494
+#>         [,1]        [,2]
+#> 1 -0.7926019 -0.95508049
+#> 2  1.4427497 -0.17210975
+#> 3 -0.6752244  0.60099582
+#> 4 -1.4010203 -0.08182133
+#> 5  1.1906365  0.56727967
+#> 6 -0.1277217  1.97600713
 
 all.equal(unname(as.matrix(sfh[, c("x", "y")])), unname(sf))
 #> [1] TRUE
@@ -314,21 +313,21 @@ res
 #> # A tibble: 15 x 7
 #>    expression   rows      min   median `itr/sec` mem_alloc `gc/sec`
 #>    <bch:expr>  <dbl> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#>  1 sf             10 961.25µs   1.11ms   574.       6.36KB     2.06
-#>  2 sfh            10 934.15µs   1.05ms   607.       8.24KB     4.21
-#>  3 sfi            10 901.24µs 975.46µs   660.      39.08KB     2.07
-#>  4 sf            100   3.15ms   3.53ms   200.      56.44KB     4.26
-#>  5 sfh           100   3.19ms   3.97ms   187.      66.91KB     2.01
-#>  6 sfi           100   3.09ms    3.5ms   194.      54.83KB     4.26
-#>  7 sf           1000  25.78ms  43.41ms    24.4    474.55KB     4.43
-#>  8 sfh          1000  26.29ms  40.09ms    25.1    551.82KB     5.03
-#>  9 sfi          1000   25.4ms  41.58ms    25.6    458.88KB     2.13
-#> 10 sf          10000 416.72ms 427.67ms     2.34     4.94MB     2.34
-#> 11 sfh         10000 426.63ms 438.26ms     2.28     5.67MB     3.42
-#> 12 sfi         10000 406.44ms 430.72ms     2.32     4.79MB     2.32
-#> 13 sf         100000    4.79s    4.79s     0.209    47.3MB     2.50
-#> 14 sfh        100000    5.06s    5.06s     0.197   54.55MB     2.57
-#> 15 sfi        100000    5.16s    5.16s     0.194   45.77MB     2.32
+#>  1 sf             10 793.37µs 849.31µs  1101.       6.36KB     6.21
+#>  2 sfh            10 766.77µs 828.31µs  1126.       8.24KB     6.18
+#>  3 sfi            10 745.85µs 800.39µs  1163.      39.08KB     8.34
+#>  4 sf            100   2.56ms   2.75ms   343.      56.44KB     6.28
+#>  5 sfh           100   2.63ms   2.87ms   331.      66.91KB     6.32
+#>  6 sfi           100   2.52ms   2.72ms   341.      54.83KB     6.35
+#>  7 sf           1000  21.11ms  21.71ms    44.2    474.55KB     6.98
+#>  8 sfh          1000  22.16ms  22.83ms    42.2    551.82KB     7.04
+#>  9 sfi          1000  21.09ms  21.67ms    44.6    458.88KB     7.43
+#> 10 sf          10000 235.54ms 235.57ms     4.15     4.94MB     5.53
+#> 11 sfh         10000 261.03ms 262.56ms     3.81     5.67MB     7.62
+#> 12 sfi         10000 236.12ms 237.67ms     4.15     4.79MB     5.53
+#> 13 sf         100000     2.2s     2.2s     0.454    47.3MB     5.90
+#> 14 sfh        100000    2.37s    2.37s     0.422   54.55MB     6.34
+#> 15 sfi        100000    2.17s    2.17s     0.461   45.77MB     6.00
 # ggplot2::autoplot(res)
 ```
 
