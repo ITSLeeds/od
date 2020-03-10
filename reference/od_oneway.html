@@ -124,6 +124,8 @@
     <pre class="usage"><span class='fu'>od_oneway</span>(
   <span class='no'>x</span>,
   <span class='kw'>attrib</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>[-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>)])[<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span>(<span class='no'>x</span>[-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>)], <span class='no'>is.numeric</span>, <span class='fl'>TRUE</span>)],
+  <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>sum</span>,
+  <span class='no'>...</span>,
   <span class='kw'>id1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>)[<span class='fl'>1</span>],
   <span class='kw'>id2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>)[<span class='fl'>2</span>],
   <span class='kw'>oneway_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
@@ -139,8 +141,15 @@
     <tr>
       <th>attrib</th>
       <td><p>A vector of column numbers or names, representing variables to be aggregated.
-By default, all numeric variables are selected.
-aggregate</p></td>
+By default, all numeric variables are selected.</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>The aggregating function such as `sum` (the default) and `mean`</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to or used by methods</p></td>
     </tr>
     <tr>
       <th>id1</th>
@@ -185,9 +194,14 @@ for users and are difficult to plot.</p>
 <span class='no'>od_min</span>[<span class='fl'>3</span>, <span class='fl'>3</span>:<span class='fl'>4</span>] <span class='kw'>=</span> <span class='no'>od_min</span>[<span class='fl'>3</span>, <span class='fl'>3</span>:<span class='fl'>4</span>] - <span class='fl'>5</span>
 (<span class='no'>od_oneway</span> <span class='kw'>=</span> <span class='fu'>od_oneway</span>(<span class='no'>od_min</span>))</div><div class='output co'>#&gt;           o         d  all train
 #&gt; 1 E02002363 E02006875 1839     5
-#&gt; 2 E02002373 E02006875 1037   111</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>od_oneway</span>) <span class='kw'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>od_min</span>) <span class='co'># result has fewer rows</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>od_min</span>$<span class='no'>all</span>) <span class='kw'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>od_oneway</span>$<span class='no'>all</span>) <span class='co'># but the same total flow</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>od_oneway</span>(<span class='no'>od_min</span>, <span class='kw'>attrib</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt;           o         d  all
+#&gt; 2 E02002373 E02006875 1037   111</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>od_oneway</span>) <span class='kw'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>od_min</span>) <span class='co'># result has fewer rows</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>od_min</span>$<span class='no'>all</span>) <span class='kw'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>od_oneway</span>$<span class='no'>all</span>) <span class='co'># but the same total flow</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>(<span class='no'>od_oneway</span> <span class='kw'>=</span> <span class='fu'>od_oneway</span>(<span class='no'>od_min</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>))</div><div class='output co'>#&gt;           o         d    all train
+#&gt; 1 E02002363 E02006875  919.5   2.5
+#&gt; 2 E02002373 E02006875 1037.0 111.0</div><div class='input'><span class='fu'>od_oneway</span>(<span class='no'>od_min</span>, <span class='kw'>attrib</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</div><div class='output co'>#&gt;           o         d  all
 #&gt; 1 E02002363 E02006875 1839
-#&gt; 2 E02002373 E02006875 1037</div></pre>
+#&gt; 2 E02002373 E02006875 1037</div><div class='input'><span class='no'>od_min</span>$<span class='no'>all</span>[<span class='fl'>3</span>] <span class='kw'>=</span> <span class='fl'>NA</span>
+(<span class='no'>od_oneway</span> <span class='kw'>=</span> <span class='fu'>od_oneway</span>(<span class='no'>od_min</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;           o         d  all train
+#&gt; 1 E02002363 E02006875  922   2.5
+#&gt; 2 E02002373 E02006875 1037 111.0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
