@@ -33,15 +33,25 @@ points_to_od.sf <- function(p, interzone_only = FALSE) {
   }
   odf
 }
-# todo: export at some point
+#' Return only interzonal (io intrazonal) OD pairs
+#'
+#' This function takes an OD dataset and returns only the rows
+#' corresponding to movements in which the origin is different than
+#' the destination.
+#'
+#' @inheritParams od_to_sf
+#' @export
+#' @examples
+#'
+#' od_data = points_to_od(od_data_centroids)
+#' nrow(od_data)
+#' nrow(od_interzone(od_data))
+#' nrow(od_intrazone(od_data))
 od_interzone = function(x) {
-  x[!x[[1]] == x[[2]], ]
+  x[x[[1]] != x[[2]], ]
 }
+#' @rdname od_interzone
+#' @export
 od_intrazone = function(x) {
   x[x[[1]] == x[[2]], ]
 }
-# library(od)
-# od_data = points_to_od(od_data_centroids)
-# nrow(od_data)
-# nrow(od_interzone(od_data))
-# nrow(od_intrazone(od_data))
