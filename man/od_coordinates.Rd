@@ -21,9 +21,15 @@ This function takes a wide range of input data types (spatial lines, points or t
 and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 }
 \examples{
-od_coordinates(od_data_df, p = od::od_data_zones)[1:2, ]
-od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)[1:2, ]
-od_coordinates(od_data_df, p = od::od_data_zones, verbose = TRUE)[1:2, ]
+x = od_data_df
+p = od_data_centroids
+od_coordinates(x, p)[1:2, ]
+od_coordinates(x, p, sfnames = TRUE)[1:2, ]
+od_coordinates(x, p, verbose = TRUE)[1:2, ]
+# x[[1]][1] =  "404"
+# Next line will error:
+# od_coordinates(x, p, verbose = TRUE)[1:2, ]
+# From original stplanr function:
 # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points

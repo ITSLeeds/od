@@ -31,8 +31,9 @@ desire_lines = od_to_sfc(od_data_df, od_data_zones)
 desire_lines[1:3]
 if(requireNamespace("stplanr") && requireNamespace("bench")) {
 desire_lines2 = stplanr::od2line(od_data_df, od_data_zones)
+par(mfrow = c(1, 2))
 plot(desire_lines)
-plot(desire_lines2)
+plot(desire_lines2$geometry)
 bench::mark(check = FALSE, max_iterations = 10,
   od = od_to_sfc(od_data_df, od_data_zones),
   od2 = od_to_sfc(od_data_df, od_data_zones, package = "sf"),
