@@ -13,8 +13,9 @@
 #' desire_lines[1:3]
 #' if(requireNamespace("stplanr") && requireNamespace("bench")) {
 #' desire_lines2 = stplanr::od2line(od_data_df, od_data_zones)
+#' par(mfrow = c(1, 2))
 #' plot(desire_lines)
-#' plot(desire_lines2)
+#' plot(desire_lines2$geometry)
 #' bench::mark(check = FALSE, max_iterations = 10,
 #'   od = od_to_sfc(od_data_df, od_data_zones),
 #'   od2 = od_to_sfc(od_data_df, od_data_zones, package = "sf"),
@@ -33,6 +34,9 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
   if(package == "sfheaders") {
     odc = od_coordinates(x, z, verbose = verbose) # todo: add support for p
     od_sfc = od_coordinates_to_sfc(odc)
+    if(requireNamespace("sf")) {
+      sf::st_crs(od_sfc) = sf::st_crs(z)
+    }
   } else {
     odc = od_coordinates(x, z, verbose = verbose, sfnames = TRUE) # todo: add support for p
     od_sfc = od_coordinates_to_sfc_sf(odc, crs = crs)
@@ -49,9 +53,15 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
 #' @inheritParams od_to_sfc
 #' @export
 #' @examples
-#' od_coordinates(od_data_df, p = od::od_data_zones)[1:2, ]
-#' od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)[1:2, ]
-#' od_coordinates(od_data_df, p = od::od_data_zones, verbose = TRUE)[1:2, ]
+#' x = od_data_df
+#' p = od_data_centroids
+#' od_coordinates(x, p)[1:2, ]
+#' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
+#' od_coordinates(x, p, verbose = TRUE)[1:2, ]
+#' # x[[1]][1] =  "404"
+#' # Next line will error:
+#' # od_coordinates(x, p, verbose = TRUE)[1:2, ]
+#' # From original stplanr function:
 #' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 #' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
 #' # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
