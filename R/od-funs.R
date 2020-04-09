@@ -181,6 +181,7 @@ od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", cr
   # browser() # todo: remove and optimise
   # odc = od_coordinates(x, z, verbose = verbose) # we want the data in this format
 
+  z_nm = names(z)[1]
   zones_o = z[z[[1]] %in% x[[1]], ]
   zones_d = z[z[[1]] %in% x[[2]], ]
   # suppressWarnings({
@@ -196,13 +197,13 @@ od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", cr
   # uoid = table(x[[1]])
   # udid = table(x[[2]])
   #
-  z_nm = names(z)[1]
   # s_origin = split(net_o, net_o[[z_nm]])
   # l_origin = lapply(seq_along(uoid),
   #        function(i) {
   #          g = s_origin[[i]]
   #          g[sample(nrow(g), size = uoid[i]), ]
   #        })
+  i = 1
   l_origin = lapply(seq(nrow(x)),
          function(i) {
            g = net_o[net_o[[z_nm]] == x[[1]][i], ]
