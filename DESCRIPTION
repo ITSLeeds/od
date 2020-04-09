@@ -14,7 +14,7 @@ Description: The aim of od is to provide tools and example datasets for working 
   developing new functions for working with od data straighforward, with od datasets
   based on the data.frame class.
 License: GPL-3
-URL: https://github.com/itsleeds/od, hhttps://itsleeds.github.io/od/
+URL: https://github.com/itsleeds/od, https://itsleeds.github.io/od/
 BugReports: https://github.com/itsleeds/od/issues
 Encoding: UTF-8
 LazyData: true

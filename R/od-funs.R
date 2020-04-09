@@ -79,6 +79,7 @@ od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
   if(verbose) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
   p_code = p_code_original[sel_p_in_x]
   stopifnot(all(o_code %in% p_code)) # todo: add error message
+  stopifnot(all(d_code %in% p_code)) # todo: add error message
   o_matching_p = match(o_code, p_code)
   d_matching_p = match(d_code, p_code)
 
