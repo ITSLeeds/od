@@ -13,6 +13,11 @@ od_data_df_medium = od %>%
   filter(geo_code1 != geo_code2) %>%
   select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot)
 
+od_data_df_medium
+class(od_data_df_medium)
+class(od_data_df_medium) = "data.frame"
+class(od_data_df_medium)
+
 usethis::use_data(od_data_df_medium)
 
 od_data_df = od_data_df_medium %>%
@@ -25,11 +30,16 @@ od_data_df
 usethis::use_data(od_data_df)
 
 zones_leeds = ukboundaries::msoa2011_lds
+class(zones_leeds)
+sf::st_crs(zones_leeds) = 4326
 zones_leeds = zones_leeds %>%
   transmute(geo_code = as.character(geo_code))
 summary(zones_leeds)
 zones_leeds_cents = st_centroid(zones_leeds)
 zones_uk = ukboundaries::msoa2011_vsimple
+sf::st_crs(zones_uk)
+sf::st_crs(zones_uk) = 4326
+sf::st_crs(zones_uk)
 zones_leeds_simple = zones_uk[zones_leeds_cents, ]
 zones_leeds_simple = zones_leeds_simple %>%
   select(msoa11cd, msoa11nm) %>%
@@ -39,23 +49,25 @@ object.size(zones_leeds_simple) # 1/3rd size
 object.size(zones_leeds_cents)
 
 od_data_zones = zones_leeds_simple
+class(od_data_zones)
 
 od_data_centroids = zones_leeds_cents %>%
   select(geo_code)
 class(od_data_centroids)
+identical(sf::st_crs(od_data_centroids), sf::st_crs(od_data_zones))
 od_data_coordinates = cbind(
   sf::st_drop_geometry(od_data_centroids),
   sf::st_coordinates(od_data_centroids)
 )
+class(od_data_centroids)
 
+usethis::use_data(od_data_zones, overwrite = TRUE)
 usethis::use_data(od_data_centroids, overwrite = TRUE)
 usethis::use_data(od_data_coordinates, overwrite = TRUE)
 
 l = stplanr::od2line(od_data_df, zones_leeds)
 mapview::mapview(l)
 
-
-usethis::use_data(od_data_zones, overwrite = TRUE)
 l = stplanr::od2line(od_data_df_all, zones_leeds)
 plot(l[1:1000, ]) # slow, messy
 l
