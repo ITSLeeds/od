@@ -28,11 +28,12 @@ In OD data it is common to have many 'oneway' flows from "A to B" and "B to A".
 It can be useful to group these an have a single ID that represents pairs of IDs
 with or without directionality, so they contain 'twoway' or bi-directional values.
 
-`od_id*` functions take two vectors of equal length and return a vector of IDs,
+\verb{od_id*} functions take two vectors of equal length and return a vector of IDs,
 which are unique for each combination but the same for twoway flows.
-
--  the Szudzik pairing function, on two vectors of equal
+\itemize{
+\item the Szudzik pairing function, on two vectors of equal
 length. It returns a vector of ID numbers.
+}
 
 This function superseeds od_id_order as it is faster on large datasets
 }

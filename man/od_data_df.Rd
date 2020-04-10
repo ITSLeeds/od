@@ -10,13 +10,13 @@ Datasets representing top commuter desire lines
 in Leeds based on the 2011 Census.
 The first two variables of the data frame are the zone code of origin and destination, respectively.
 The other columns record the number of people who travel by different modes, including
-`all`, `train`, `bus`, `bicycle` and by `foot`.
+\code{all}, \code{train}, \code{bus}, \code{bicycle} and by \code{foot}.
 }
 \details{
-`od_data_df_medium` is a larger dataset with the same variables, with around 10k rows.
+\code{od_data_df_medium} is a larger dataset with the same variables, with around 10k rows.
 }
 \note{
 The schema data can be (re-)generated using code in the
-`data-raw` directory.
+\code{data-raw} directory.
 }
 \keyword{datasets}

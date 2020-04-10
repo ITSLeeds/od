@@ -11,6 +11,6 @@ Zone datasets for packages examples
 }
 \note{
 The schema data can be (re-)generated using code in the
-`data-raw` directory.
+\code{data-raw} directory.
 }
 \keyword{datasets}
