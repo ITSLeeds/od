@@ -22,7 +22,6 @@ Depends: R (>= 3.4.0)
 Suggests: 
     sf,
     bench,
-    stplanr,
     knitr,
     rmarkdown, tinytest
 Imports: 
