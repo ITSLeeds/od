@@ -7,3 +7,6 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^bench$
+^\.ccache$
+^\.github$
+^clang-.*
