@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Route network data for Leeds — od_data_network" />
 <meta property="og:description" content="Route network data for Leeds" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -98,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/itsleeds/od/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Route network data for Leeds</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>od_data_network.Rd</code></div>
     </div>
 
@@ -133,64 +141,59 @@
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.614562 ymin: 53.7799 xmax: -1.510987 ymax: 53.85616
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#&gt; # A tibble: 1,433 x 28
+#&gt; CRS:            WGS 84
+#&gt; <span style='color: #555555;'># A tibble: 1,433 x 28</span><span>
 #&gt;    osm_id name  highway waterway aerialway barrier man_made maxspeed oneway
-#&gt;  * &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; 
-#&gt;  1 17094… Hano… tertia… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt;  2 23905… Arml… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     40 mph   yes   
-#&gt;  3 24475… Ingr… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     40 mph   yes   
-#&gt;  4 25267… Huns… primar… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   yes   
-#&gt;  5 40024… Card… tertia… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt;  6 40043… Nort… second… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt;  7 40043… Vict… tertia… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;  
-#&gt;  8 40044… Head… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt;  9 40044… Wood… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   yes   
-#&gt; 10 40075… Well… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     40 mph   yes   
-#&gt; # … with 1,423 more rows, and 19 more variables: building &lt;chr&gt;, surface &lt;chr&gt;,
-#&gt; #   landuse &lt;chr&gt;, natural &lt;chr&gt;, start_date &lt;chr&gt;, wall &lt;chr&gt;, service &lt;chr&gt;,
-#&gt; #   lanes &lt;chr&gt;, layer &lt;chr&gt;, tracktype &lt;chr&gt;, bridge &lt;chr&gt;, foot &lt;chr&gt;,
-#&gt; #   bicycle &lt;chr&gt;, lit &lt;chr&gt;, railway &lt;chr&gt;, footway &lt;chr&gt;, z_order &lt;int&gt;,
-#&gt; #   other_tags &lt;chr&gt;, `_ogr_geometry_` &lt;LINESTRING [°]&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>od_data_network</span>)</div><div class='output co'>#&gt; Simple feature collection with 6 features and 27 fields
+#&gt;  </span><span style='color: #555555;'>*</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'> 1</span><span> 17094… Hano… tertia… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'> 2</span><span> 23905… Arml… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
+#&gt; </span><span style='color: #555555;'> 3</span><span> 24475… Ingr… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
+#&gt; </span><span style='color: #555555;'> 4</span><span> 25267… Huns… primar… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   yes   
+#&gt; </span><span style='color: #555555;'> 5</span><span> 40024… Card… tertia… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'> 6</span><span> 40043… Nort… second… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'> 7</span><span> 40043… Vict… tertia… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'> 8</span><span> 40044… Head… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'> 9</span><span> 40044… Wood… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   yes   
+#&gt; </span><span style='color: #555555;'>10</span><span> 40075… Well… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
+#&gt; </span><span style='color: #555555;'># … with 1,423 more rows, and 19 more variables: building </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, surface </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   landuse </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, natural </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, start_date </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, wall </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, service </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   lanes </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, layer </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, tracktype </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, bridge </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   bicycle </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, lit </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, railway </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, footway </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, z_order </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   other_tags </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, `_ogr_geometry_` </span><span style='color: #555555;font-style: italic;'>&lt;LINESTRING [m]&gt;</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>od_data_network</span>)</div><div class='output co'>#&gt; Simple feature collection with 6 features and 27 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.581808 ymin: 53.78572 xmax: -1.532446 ymax: 53.8213
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#&gt; # A tibble: 6 x 28
+#&gt; CRS:            WGS 84
+#&gt; </span><span style='color: #555555;'># A tibble: 6 x 28</span><span>
 #&gt;   osm_id name  highway waterway aerialway barrier man_made maxspeed oneway
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; 
-#&gt; 1 17094… Hano… tertia… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt; 2 23905… Arml… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     40 mph   yes   
-#&gt; 3 24475… Ingr… trunk   &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     40 mph   yes   
-#&gt; 4 25267… Huns… primar… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   yes   
-#&gt; 5 40024… Card… tertia… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt; 6 40043… Nort… second… &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     30 mph   &lt;NA&gt;  
-#&gt; # … with 19 more variables: building &lt;chr&gt;, surface &lt;chr&gt;, landuse &lt;chr&gt;,
-#&gt; #   natural &lt;chr&gt;, start_date &lt;chr&gt;, wall &lt;chr&gt;, service &lt;chr&gt;, lanes &lt;chr&gt;,
-#&gt; #   layer &lt;chr&gt;, tracktype &lt;chr&gt;, bridge &lt;chr&gt;, foot &lt;chr&gt;, bicycle &lt;chr&gt;,
-#&gt; #   lit &lt;chr&gt;, railway &lt;chr&gt;, footway &lt;chr&gt;, z_order &lt;int&gt;, other_tags &lt;chr&gt;,
-#&gt; #   `_ogr_geometry_` &lt;LINESTRING [°]&gt;</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> 17094… Hano… tertia… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>2</span><span> 23905… Arml… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
+#&gt; </span><span style='color: #555555;'>3</span><span> 24475… Ingr… trunk   </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
+#&gt; </span><span style='color: #555555;'>4</span><span> 25267… Huns… primar… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   yes   
+#&gt; </span><span style='color: #555555;'>5</span><span> 40024… Card… tertia… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'>6</span><span> 40043… Nort… second… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
+#&gt; </span><span style='color: #555555;'># … with 19 more variables: building </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, surface </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, landuse </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   natural </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, start_date </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, wall </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, service </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, lanes </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   layer </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, tracktype </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, bridge </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   lit </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, railway </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, footway </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, z_order </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, other_tags </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   `_ogr_geometry_` </span><span style='color: #555555;font-style: italic;'>&lt;LINESTRING [m]&gt;</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#note">Note</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Robin Lovelace, David Cooley.</p>
+  <p>Developed by Robin Lovelace.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Convert OD data into geographic 'desire line' objects — od_to_sf" />
 <meta property="og:description" content="Convert OD data into geographic 'desire line' objects" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -98,7 +101,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/itsleeds/od/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert OD data into geographic 'desire line' objects</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/od-funs.R'><code>R/od-funs.R</code></a></small>
     <div class="hidden name"><code>od_to_sf.Rd</code></div>
     </div>
 
@@ -162,11 +170,11 @@ representing points/zones of origin and destination</p></td>
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.582003 ymin: 53.79587 xmax: -1.534793 ymax: 53.82864
-#&gt; epsg (SRID):    NA
-#&gt; proj4string:    NA</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stplanr"</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"bench"</span>)) {
+#&gt; CRS:            EPSG:4326</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stplanr"</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"bench"</span>)) {
 <span class='no'>desire_lines2</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines2</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines2</span>$<span class='no'>geometry</span>)
 <span class='kw pkg'>bench</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/bench/man/mark.html'>mark</a></span>(<span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>max_iterations</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>od</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>),
   <span class='kw'>od2</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>),
@@ -174,34 +182,31 @@ representing points/zones of origin and destination</p></td>
   <span class='kw'>od_sf2</span> <span class='kw'>=</span> <span class='fu'>od_to_sf</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>),
   <span class='kw'>stplanr</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
 )
-}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; # A tibble: 5 x 13
+}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 13</span><span>
 #&gt;   expression    min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#&gt;   &lt;bch:expr&gt; &lt;bch:&gt; &lt;bch:&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;bch:tm&gt;
-#&gt; 1 od         2.06ms 2.19ms      448.    18.3KB        0    10     0     22.3ms
-#&gt; 2 od2        2.48ms 2.52ms      396.    33.5KB        0    10     0     25.2ms
-#&gt; 3 od_sf      2.59ms 2.98ms      336.    25.4KB        0    10     0     29.8ms
-#&gt; 4 od_sf2     3.66ms 3.88ms      257.    21.2KB        0    10     0     38.9ms
-#&gt; 5 stplanr    7.05ms 8.11ms      127.      92KB        0    10     0     78.8ms
-#&gt; # … with 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;bch:expr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:byt&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;bch:tm&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> od         4.08ms 4.44ms      226.     111KB     25.2     9     1     39.7ms
+#&gt; </span><span style='color: #555555;'>2</span><span> od2        4.35ms 4.62ms      209.     125KB      0      10     0     47.8ms
+#&gt; </span><span style='color: #555555;'>3</span><span> od_sf       4.5ms 4.68ms      211.     119KB     23.4     9     1     42.7ms
+#&gt; </span><span style='color: #555555;'>4</span><span> od_sf2     4.09ms 4.45ms      222.     114KB      0      10     0     45.1ms
+#&gt; </span><span style='color: #555555;'>5</span><span> stplanr     6.8ms 7.96ms      125.     182KB      0      10     0     79.7ms
+#&gt; </span><span style='color: #555555;'># … with 4 more variables: result </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, memory </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, time </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, gc </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Robin Lovelace, David Cooley.</p>
+  <p>Developed by Robin Lovelace.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
