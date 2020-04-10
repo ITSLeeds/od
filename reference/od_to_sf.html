@@ -85,19 +85,10 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/od.html">Get started</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/od-vs-stplanr.html">Testing the similarity between stplanr and sf objects</a>
-    </li>
-  </ul>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -155,42 +146,25 @@ representing points/zones of origin and destination</p></td>
     </tr>
     <tr>
       <th>package</th>
-      <td><p>Which package to use to create the sf object? `sfheaders` is the default.</p></td>
+      <td><p>Which package to use to create the sf object? <code>sfheaders</code> is the default.</p></td>
     </tr>
     <tr>
       <th>crs</th>
-      <td><p>The coordinate reference system of the output, 4326 by default</p></td>
+      <td><p>The coordinate reference system of the output, if not known in <code>z</code>.
+4326 by default.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>desire_lines</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
+<span class='no'>z</span> <span class='kw'>=</span> <span class='no'>od_data_zones</span>
+<span class='no'>desire_lines</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>x</span>, <span class='no'>z</span>)
 <span class='no'>desire_lines</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt; Geometry set for 3 features 
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.582003 ymin: 53.79587 xmax: -1.534793 ymax: 53.82864
-#&gt; CRS:            EPSG:4326</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"stplanr"</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"bench"</span>)) {
-<span class='no'>desire_lines2</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines2</span>$<span class='no'>geometry</span>)
-<span class='kw pkg'>bench</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/bench/man/mark.html'>mark</a></span>(<span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>max_iterations</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>od</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>),
-  <span class='kw'>od2</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>),
-  <span class='kw'>od_sf</span> <span class='kw'>=</span> <span class='fu'>od_to_sf</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>),
-  <span class='kw'>od_sf2</span> <span class='kw'>=</span> <span class='fu'>od_to_sf</span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>),
-  <span class='kw'>stplanr</span> <span class='kw'>=</span> <span class='kw pkg'>stplanr</span><span class='kw ns'>::</span><span class='fu'><a href='https://docs.ropensci.org/stplanr/reference/od2line.html'>od2line</a></span>(<span class='no'>od_data_df</span>, <span class='no'>od_data_zones</span>)
-)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: stplanr</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='output co'>#&gt; <span class='message'>Creating centroids representing desire line start and end points.</span></div><div class='img'><img src='od_to_sf-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 13</span><span>
-#&gt;   expression    min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;bch:expr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;bch:byt&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;bch:tm&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> od         4.66ms 4.73ms      207.     111KB      0      10     0     48.3ms
-#&gt; </span><span style='color: #555555;'>2</span><span> od2        4.66ms 4.77ms      208.     125KB     23.1     9     1     43.4ms
-#&gt; </span><span style='color: #555555;'>3</span><span> od_sf      5.17ms 5.28ms      189.     119KB      0      10     0       53ms
-#&gt; </span><span style='color: #555555;'>4</span><span> od_sf2     4.96ms 5.01ms      193.     114KB     21.4     9     1     46.7ms
-#&gt; </span><span style='color: #555555;'>5</span><span> stplanr    8.67ms 8.86ms      112.     182KB      0      10     0       89ms
-#&gt; </span><span style='color: #555555;'># … with 4 more variables: result </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, memory </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, time </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, gc </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span></div></span></pre>
+#&gt; CRS:            EPSG:4326</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

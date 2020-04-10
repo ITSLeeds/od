@@ -50,19 +50,10 @@
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="articles/od.html">Get started</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/od-vs-stplanr.html">Testing the similarity between stplanr and sf objects</a>
-    </li>
-  </ul>
+  <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -122,7 +113,7 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="co">#&gt;    geo_code             geometry</span>
 <span class="co">#&gt; 1 E02002407 -1.609934, 53.790790</span>
 <span class="co">#&gt; 2 E02002336   -1.62463, 53.88605</span>
-<span class="no">desire_lines_stplanr</span> <span class="kw">=</span> <span class="kw pkg">stplanr</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_centroids</span>)
+<span class="no">desire_lines_stplanr</span> <span class="kw">=</span> <span class="kw pkg">stplanr</span><span class="kw ns">::</span><span class="fu">od2line</span>(<span class="no">od_data_df</span>, <span class="no">od_data_centroids</span>)
 <span class="no">desire_lines_stplanr</span>[<span class="fl">1</span>:<span class="fl">2</span>, <span class="fl">1</span>:<span class="fl">9</span>]
 <span class="co">#&gt; Simple feature collection with 2 features and 9 fields</span>
 <span class="co">#&gt; geometry type:  LINESTRING</span>
@@ -135,7 +126,7 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="co">#&gt;                         geometry</span>
 <span class="co">#&gt; 1 LINESTRING (-1.534957 53.82...</span>
 <span class="co">#&gt; 2 LINESTRING (-1.581773 53.81...</span></pre></div>
-<p>It works great, and is plenty fast enough for most applications, but there are some issues with <code><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">stplanr::od2line()</a></code> (which also affect the other <code>od_*()</code> functions in <code>stplanr</code>):</p>
+<p>It works great, and is plenty fast enough for most applications, but there are some issues with <code>stplanr::od2line()</code> (which also affect the other <code>od_*()</code> functions in <code>stplanr</code>):</p>
 <ul>
 <li>The function is a commonly needed and low-level function, buried in a large package, reducing ‘findability’</li>
 <li>To get the function you must install <code>stplanr</code> plus its numerous dependencies</li>
@@ -179,7 +170,7 @@ And the development version from [GitHub](https://github.com/) with:
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">od_data_df</span>)
 <span class="co">#&gt; [1] 6</span>
 <span class="kw pkg">bench</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">check</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">max_iterations</span> <span class="kw">=</span> <span class="fl">100</span>,
-  <span class="kw">stplanr</span> <span class="kw">=</span> <span class="kw pkg">stplanr</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
+  <span class="kw">stplanr</span> <span class="kw">=</span> <span class="kw pkg">stplanr</span><span class="kw ns">::</span><span class="fu">od2line</span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
   <span class="kw">od</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sfc</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
   <span class="kw">od_sf1</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
   <span class="kw">od_sf2</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"sf"</span>, <span class="kw">crs</span> <span class="kw">=</span> <span class="fl">4326</span>)

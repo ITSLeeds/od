@@ -2,6 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  od-vs-stplanr: od-vs-stplanr.html
-last_built: 2020-04-10T13:59Z
+  od: od.html
+last_built: 2020-04-10T14:55Z
 
