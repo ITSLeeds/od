@@ -14,10 +14,6 @@
 #' z = od_data_zones
 #' desire_lines = od_to_sfc(x, z)
 #' desire_lines[1:3]
-#' if(requireNamespace("sf")) {
-#' z_projected = sf::st_transform(z, 27700)
-#' od_to_sfc(x, z_projected)
-#' }
 od_to_sf = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
   od_sfc = od_to_sfc(x, z, zd = zd, verbose = verbose, package = package, crs = crs)
   sf::st_sf(x, geometry = od_sfc)

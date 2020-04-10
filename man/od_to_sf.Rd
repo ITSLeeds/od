@@ -32,8 +32,4 @@ x = od_data_df
 z = od_data_zones
 desire_lines = od_to_sfc(x, z)
 desire_lines[1:3]
-if(requireNamespace("sf")) {
-z_projected = sf::st_transform(z, 27700)
-od_to_sfc(x, z_projected)
-}
 }
