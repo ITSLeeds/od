@@ -7,11 +7,11 @@
 \title{Datasets reporesenting zone centroids}
 \description{
 These are provided as a geographic (sf) object and a simple
-data frame with longitude (`X`) and latitude (`Y`) columns.
+data frame with longitude (\code{X}) and latitude (\code{Y}) columns.
 }
 \note{
 The schema data can be (re-)generated using code in the
-`data-raw` directory.
+\code{data-raw} directory.
 }
 \examples{
 od_data_centroids

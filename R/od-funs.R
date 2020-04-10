@@ -6,23 +6,17 @@
 #' @param zd Zones representing destinations
 #' @param verbose Print messages providing progress updates? FALSE by default
 #' @param package Which package to use to create the sf object? `sfheaders` is the default.
-#' @param crs The coordinate reference system of the output, 4326 by default
+#' @param crs The coordinate reference system of the output, if not known in `z`.
+#' 4326 by default.
 #' @export
 #' @examples
-#' desire_lines = od_to_sfc(od_data_df, od_data_zones)
+#' x = od_data_df
+#' z = od_data_zones
+#' desire_lines = od_to_sfc(x, z)
 #' desire_lines[1:3]
-#' if(requireNamespace("stplanr") && requireNamespace("bench")) {
-#' desire_lines2 = stplanr::od2line(od_data_df, od_data_zones)
-#' par(mfrow = c(1, 2))
-#' plot(desire_lines)
-#' plot(desire_lines2$geometry)
-#' bench::mark(check = FALSE, max_iterations = 10,
-#'   od = od_to_sfc(od_data_df, od_data_zones),
-#'   od2 = od_to_sfc(od_data_df, od_data_zones, package = "sf"),
-#'   od_sf = od_to_sf(od_data_df, od_data_zones),
-#'   od_sf2 = od_to_sf(od_data_df, od_data_zones, package = "sf"),
-#'   stplanr = stplanr::od2line(od_data_df, od_data_zones)
-#' )
+#' if(requireNamespace("sf")) {
+#' z_projected = sf::st_transform(z, 27700)
+#' od_to_sfc(x, z_projected)
 #' }
 od_to_sf = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
   od_sfc = od_to_sfc(x, z, zd = zd, verbose = verbose, package = package, crs = crs)
@@ -35,7 +29,10 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
     odc = od_coordinates(x, z, verbose = verbose) # todo: add support for p
     od_sfc = od_coordinates_to_sfc(odc)
     if(requireNamespace("sf")) {
-      sf::st_crs(od_sfc) = sf::st_crs(z)
+      if(!is.na(sf::st_crs(z))) {
+        crs = sf::st_crs(z)
+      }
+      sf::st_crs(od_sfc) = sf::st_crs(crs)
     }
   } else {
     odc = od_coordinates(x, z, verbose = verbose, sfnames = TRUE) # todo: add support for p

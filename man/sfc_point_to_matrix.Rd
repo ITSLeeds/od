@@ -7,10 +7,10 @@
 sfc_point_to_matrix(x)
 }
 \arguments{
-\item{x}{An `sfc` object}
+\item{x}{An \code{sfc} object}
 }
 \description{
-This functions takes point geometries with class `sfc` from the `sf` package
+This functions takes point geometries with class \code{sfc} from the \code{sf} package
 and returns a matrix representing x and y (typically lon/lat) coordinates.
 }
 \details{

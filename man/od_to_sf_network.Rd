@@ -24,9 +24,10 @@ representing points/zones of origin and destination}
 
 \item{verbose}{Print messages providing progress updates? FALSE by default}
 
-\item{package}{Which package to use to create the sf object? `sfheaders` is the default.}
+\item{package}{Which package to use to create the sf object? \code{sfheaders} is the default.}
 
-\item{crs}{The coordinate reference system of the output, 4326 by default}
+\item{crs}{The coordinate reference system of the output, if not known in \code{z}.
+4326 by default.}
 
 \item{network}{An sf object representing a transport network}
 }

@@ -9,7 +9,7 @@ Route network data for Leeds
 }
 \note{
 The schema data can be (re-)generated using code in the
-`data-raw` directory.
+\code{data-raw} directory.
 }
 \examples{
 od_data_network

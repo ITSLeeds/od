@@ -12,14 +12,14 @@ and cells representing the flow between these zones.}
 }
 \description{
 This function takes a matrix representing travel between origins
-(with origin codes in the `rownames` of the matrix)
+(with origin codes in the \code{rownames} of the matrix)
 and destinations
-(with destination codes in the `colnames` of the matrix)
+(with destination codes in the \code{colnames} of the matrix)
 and returns a data frame representing origin-destination pairs.
 }
 \details{
 The function returns a data frame with rows ordered by origin and then destination
-zone code values and with names `orig`, `dest` and `flow`.
+zone code values and with names \code{orig}, \code{dest} and \code{flow}.
 }
 \examples{
 # odmatrix <- od_to_odmatrix(flow)

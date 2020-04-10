@@ -11,7 +11,7 @@ points_to_od(p, interzone_only = FALSE)
 
 \item{interzone_only}{Should the result only include interzonal OD pairs, in which
 the ID of the origin is different from the ID of the destination zone?
-`FALSE` by default}
+\code{FALSE} by default}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
