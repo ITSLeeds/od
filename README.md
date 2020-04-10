@@ -5,19 +5,15 @@
 
 <!-- badges: start -->
 
-<!-- badges: start -->
-
 [![Travis build
 status](https://img.shields.io/travis/itsleeds/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/itsleeds/od)
-<!-- [![AppVeyor build status](https://img.shields.io/appveyor/ci/itsleeds/od?label=Windows&logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/itsleeds/od) -->
-<!-- [![CircleCI](https://img.shields.io/circleci/build/gh/itsleeds/od/master?label=Linux&logo=circle&logoColor=green&style=flat-square)](https://circleci.com/gh/itsleeds/od) -->
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
-<!-- [![codecov](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od) -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-<!-- badges: end -->
-
+[![R CMD Check via
+{tic}](https://github.com/robinlovelace/od/workflows/R%20CMD%20Check%20via%20%7Btic%7D/badge.svg?branch=master)](https://github.com/robinlovelace/od/actions)
+<!-- [![codecov](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od) -->
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with
@@ -156,10 +152,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      4.73ms   5.12ms      190.   596.5KB     11.6
-#> 2 od           2.36ms   2.54ms      369.    78.2KB     11.4
-#> 3 od_sf1       2.63ms   2.88ms      332.      74KB     10.3
-#> 4 od_sf2       2.63ms    2.9ms      311.      87KB     12.9
+#> 1 stplanr      4.64ms      5ms      196.   596.5KB     11.4
+#> 2 od           2.32ms   2.46ms      386.    78.2KB     11.9
+#> 3 od_sf1       2.61ms    2.8ms      339.      74KB     10.5
+#> 4 od_sf2        2.6ms   2.73ms      344.      87KB     14.3
 ```
 
 ## Related open source projects
