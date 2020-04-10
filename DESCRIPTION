@@ -29,3 +29,4 @@ Imports:
     sfheaders
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
