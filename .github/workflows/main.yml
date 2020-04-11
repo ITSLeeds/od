@@ -19,6 +19,8 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
+          # comment out windows because it fails?
+          # https://github.com/ITSLeeds/od/runs/579151535?check_suite_focus=true#step:17:190
           - { os: windows-latest, r: "release" }
           - { os: ubuntu-latest, r: "release", pkgdown: "true" }
 
