@@ -170,11 +170,11 @@ representing points/zones of origin and destination</p></td>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
 <span class='no'>z</span> <span class='kw'>=</span> <span class='no'>od_data_zones_min</span>
 <span class='no'>network</span> <span class='kw'>=</span> <span class='no'>od_data_network</span>
-(<span class='no'>lines_to_points_on_network</span> <span class='kw'>=</span> <span class='fu'>od_to_sf_network</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='no'>network</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
+(<span class='no'>lines_to_points_on_network</span> <span class='kw'>=</span> <span class='fu'>od_to_sf_network</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='no'>network</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.593286 ymin: 53.79002 xmax: -1.533616 ymax: 53.83497
-#&gt; CRS:            EPSG:4326
+#&gt; geographic CRS: WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
 #&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53
 #&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214
@@ -194,7 +194,7 @@ representing points/zones of origin and destination</p></td>
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316
 #&gt; z_range:        zmin: NA zmax: NA
 #&gt; m_range:        mmin: NA mmax: NA
-#&gt; CRS:            EPSG:4326
+#&gt; geographic CRS: WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
 #&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53
 #&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214
