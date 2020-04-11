@@ -140,8 +140,8 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/78998
 
 ## OD data representing travel to work
 
-
-
+This next example uses a small dataset that comes pre-loaded with the package, called `od_data_df`.
+We will copy it into an object called `x` for conciseness and to highlight the fact that these operations can be generalised to many OD datasets.
 
 ```{r od-sf}
 # example data from the od package:
