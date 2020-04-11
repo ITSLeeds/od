@@ -97,11 +97,16 @@ jobs:
       - name: sf and system libraries
         if: runner.os == 'Linux'
         run: |
-          sudo add-apt-repository ppa:ubuntugis/ppa
-          # sudo apt install libudunits2-dev
-          # libproj-dev libgeos-dev libgdal-dev
-          # sudo R -e "install.packages('sf')"
-      - name: Install system dependencies
+
+      - name: Install sf dependencies
+        #if: runner.os == 'Linux'
+        #env:
+        #  RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+          sudo apt update
+          apt install -y  libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+      - name: Install system dependencies with sysreqs
         if: runner.os == 'Linux'
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
