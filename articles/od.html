@@ -133,7 +133,7 @@
 <span class="co">#&gt; 1  Leeds POINT (-1.5 53.8)</span>
 <span class="co">#&gt; 2 London POINT (-0.1 51.5)</span></pre></body></html></div>
 <p>This can be plotted as follows (result from mapview shown):</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p</span>)
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">p</span>)
 <span class="kw pkg">mapview</span><span class="kw ns">::</span><span class="fu">mapview</span>(<span class="no">p</span>)</pre></body></html></div>
 <p><img src="https://user-images.githubusercontent.com/1825120/78998042-b18a2c00-7b3f-11ea-9d08-21be332633fc.png"><!-- --></p>
 <p>The plot above shows that OD data is fundamentally geographic data, although it is not always represented geographically. To convert the non-geographic OD datasets into a geographic object, we can use the <code><a href="../reference/od_to_sf.html">od_to_sf()</a></code> function from the <code>od</code> package as follows:</p>
@@ -225,9 +225,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">od</span>) - <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">l</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">l</span>) - <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">od</span>)</pre></body></html></div>
 <p>The new column is the geometry column, which can be plotted as follows:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">l</span>$<span class="no">geometry</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">l</span>$<span class="no">geometry</span>)</pre></body></html></div>
 <p>By default, plotting <code>l</code> shows the attributes for each line:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">l</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">l</span>)</pre></body></html></div>
 <p>Because these lines have a coordinate reference system (CRS) inherited from the zones data, they can also be plotted on an interactive map, as follows:</p>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">leaflet</span>)
 <span class="fu">leaflet</span>() <span class="kw">%&gt;%</span>
@@ -287,12 +287,12 @@
 <div id="plotting-origin-destination-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#plotting-origin-destination-data" class="anchor"></a>Plotting origin-destination data</h1>
-<p>Once you have an OD dataset of a size that can be plotted (20,000 desire lines is quick to plot on most computers) a logical next stage is to plot it, e.g. with <code>sf</code>’s <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> method:</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">desire_lines_top</span>[<span class="st">"all"</span>])</pre></body></html></div>
+<p>Once you have an OD dataset of a size that can be plotted (20,000 desire lines is quick to plot on most computers) a logical next stage is to plot it, e.g. with <code>sf</code>’s <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> method:</p>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">desire_lines_top</span>[<span class="st">"all"</span>])</pre></body></html></div>
 <p>You may be disapointed by the result, which is more of a ‘hay stack’ plot than an intuitive illustration of flows across the city. To overcome this issue, you can set the aesthetics to emphasize with important flows, e.g. by line width in <code>sf</code>’s plotting system:</p>
 <div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">lwd</span> <span class="kw">&lt;-</span> <span class="no">desire_lines_top</span>$<span class="no">all</span> / <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">desire_lines_top</span>$<span class="no">all</span>) / <span class="fl">10</span>
 <span class="no">desire_lines_top</span>$<span class="no">percent_dont_drive</span> <span class="kw">&lt;-</span> <span class="fl">100</span> - <span class="no">desire_lines_top</span>$<span class="no">car_driver</span> / <span class="no">desire_lines_top</span>$<span class="no">all</span> * <span class="fl">100</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">desire_lines_top</span>[<span class="st">"percent_dont_drive"</span>], <span class="kw">lwd</span> <span class="kw">=</span> <span class="no">lwd</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">95</span>, <span class="fl">100</span>))</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">desire_lines_top</span>[<span class="st">"percent_dont_drive"</span>], <span class="kw">lwd</span> <span class="kw">=</span> <span class="no">lwd</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">95</span>, <span class="fl">100</span>))</pre></body></html></div>
 <p>This is better, but is still not ideal: the code was not intuitive to write, and the result is still not publication quality. Instead, it makes sense to make a dedicated mapping package such <strong>tmap</strong>, as outlined in the <a href="http://geocompr.robinlovelace.net/adv-map.html">visualisation chapter</a> of the open source book <em>Geocomputation with R</em> <span class="citation">[@lovelace_geocomputation_2019]</span>. As shown in the transport chapter of that book, OD flows can be visualised with the following code:</p>
 <div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tmap</span>)
 <span class="no">desire_lines_top</span> <span class="kw">&lt;-</span> <span class="no">desire_lines_top</span> <span class="kw">%&gt;%</span>
@@ -335,7 +335,7 @@
   <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu">rename</span>(<span class="kw">geo_code</span> <span class="kw">=</span> <span class="no">geo_code1</span>)
 <span class="co"># origin_attributes &lt;-</span>
 <span class="no">zones_origins</span> <span class="kw">&lt;-</span> <span class="fu">left_join</span>(<span class="no">zones_london</span>, <span class="no">origin_attributes</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"geo_code"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">zones_origins</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="fl">NA</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">zones_origins</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="fl">NA</span>)</pre></body></html></div>
 <p>We can observe a number of features, including that:</p>
 <ul>
 <li>Rail is much more common in the south, reflecting the greater density of the local rail network, with short distances between stops, in the South of the city.</li>
@@ -350,7 +350,7 @@
   <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu">rename</span>(<span class="kw">geo_code</span> <span class="kw">=</span> <span class="no">geo_code2</span>) <span class="kw">%&gt;%</span>
   <span class="fu">mutate_at</span>(<span class="fu">vars</span>(-<span class="fu">matches</span>(<span class="st">"geo_|all"</span>)), <span class="fu">funs</span>(<span class="no">.</span> / <span class="no">all</span>)) <span class="kw">%&gt;%</span>
   <span class="fu">left_join</span>(<span class="no">zones_london</span>, <span class="no">.</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"geo_code"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">destination_attributes</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="fl">NA</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">destination_attributes</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="fl">NA</span>)</pre></body></html></div>
 </div>
 <div id="further-reading" class="section level1">
 <h1 class="hasAnchor">

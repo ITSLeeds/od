@@ -154,8 +154,8 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="co">#&gt; LINESTRING (-1.534957 53.82859, -1.545708 53.79...</span>
 <span class="co">#&gt; LINESTRING (-1.581773 53.8186, -1.545708 53.79593)</span></pre></div>
 <p>These are ‘desire lines’ representing the shortest (straight line) path between two centoids and can plotted using geographic data and mapping packages such as <code>sf</code>, <code>mapview</code>, <code>tmap</code> and <code>mapdeck</code>, e.g.:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">desire_lines_od</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">desire_lines_stplanr</span>$<span class="no">geometry</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">desire_lines_od</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">desire_lines_stplanr</span>$<span class="no">geometry</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="50%"><img src="reference/figures/README-unnamed-chunk-5-2.png" width="50%"></p>
 <p>By default the package uses the <code>sfheaders</code> package to create sf objects. You can can also specify <code>sf</code> outputs as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="no">desire_lines_od_sf1</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_centroids</span>)</pre></div>
