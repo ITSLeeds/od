@@ -2,9 +2,12 @@
 % Please edit documentation in R/points_to_od.R
 \name{points_to_od}
 \alias{points_to_od}
+\alias{points_to_odl}
 \title{Convert a series of points into a dataframe of origins and destinations}
 \usage{
 points_to_od(p, interzone_only = FALSE, ids_only = FALSE)
+
+points_to_odl(p, interzone_only = FALSE, ids_only = FALSE)
 }
 \arguments{
 \item{p}{A spatial points object or a matrix of coordinates representing points}
@@ -22,10 +25,17 @@ Takes a series of geographical points and converts them into a data.frame
 representing the potential flows, or 'spatial interaction', between every combination
 of points.
 }
+\details{
+\code{points_to_odl()} generates the same output but returns
+a geographic object representing desire lines in the class \code{sf}.
+}
 \examples{
+library(sf)
 p = od_data_centroids[1:3, ]
 points_to_od(p)
 points_to_od(p, ids_only = TRUE)
+(l = points_to_odl(p, interzone_only = TRUE))
+plot(l)
 (od = points_to_od(p, interzone_only = TRUE))
 l2 = od_to_sf(od, od_data_centroids)
 l2$v = 1

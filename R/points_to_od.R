@@ -4,6 +4,9 @@
 #' representing the potential flows, or 'spatial interaction', between every combination
 #' of points.
 #'
+#' `points_to_odl()` generates the same output but returns
+#' a geographic object representing desire lines in the class `sf`.
+#'
 #' @param p A spatial points object or a matrix of coordinates representing points
 #' @param interzone_only Should the result only include interzonal OD pairs, in which
 #' the ID of the origin is different from the ID of the destination zone?
@@ -13,9 +16,12 @@
 #' coordinates of the start and end points of each OD pair.
 #' @export
 #' @examples
+#' library(sf)
 #' p = od_data_centroids[1:3, ]
 #' points_to_od(p)
 #' points_to_od(p, ids_only = TRUE)
+#' (l = points_to_odl(p, interzone_only = TRUE))
+#' plot(l)
 #' (od = points_to_od(p, interzone_only = TRUE))
 #' l2 = od_to_sf(od, od_data_centroids)
 #' l2$v = 1
@@ -44,6 +50,13 @@ points_to_od.sf = function(p, interzone_only = FALSE, ids_only = FALSE) {
 #' @export
 points_to_od.matrix =  function(p, interzone_only = FALSE, ids_only = FALSE) {
   coords_to_od(p, interzone_only = interzone_only, ids_only = ids_only)
+}
+#' @rdname points_to_od
+#' @inheritParams points_to_od
+#' @export
+points_to_odl = function(p, interzone_only = FALSE, ids_only = FALSE) {
+  odf = points_to_od(p, interzone_only, ids_only)
+  odc_to_sf(odf[3:6], d = odf[1:2])
 }
 #' Convert coordinates into a data frame of origins and destinations
 #'
