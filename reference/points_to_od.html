@@ -124,7 +124,9 @@ representing the potential flows, or 'spatial interaction', between every combin
 of points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>points_to_odl</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,9 +149,13 @@ coordinates of the start and end points of each OD pair.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>points_to_odl()</code> generates the same output but returns
+a geographic object representing desire lines in the class <code>sf</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>=</span> <span class='no'>od_data_centroids</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>sf</span>)</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></div><div class='input'><span class='no'>p</span> <span class='kw'>=</span> <span class='no'>od_data_centroids</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, ]
 <span class='fu'>points_to_od</span>(<span class='no'>p</span>)</div><div class='output co'>#&gt;             O         D        ox       oy        dx       dy
 #&gt; 1   E02002407 E02002407 -1.609934 53.79079 -1.609934 53.79079
 #&gt; 1.1 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
@@ -168,7 +174,20 @@ coordinates of the start and end points of each OD pair.</p></td>
 #&gt; 6 E02002336 E02002353
 #&gt; 7 E02002353 E02002407
 #&gt; 8 E02002353 E02002336
-#&gt; 9 E02002353 E02002353</div><div class='input'>(<span class='no'>od</span> <span class='kw'>=</span> <span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;           O         D        ox       oy        dx       dy
+#&gt; 9 E02002353 E02002353</div><div class='input'>(<span class='no'>l</span> <span class='kw'>=</span> <span class='fu'>points_to_odl</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; Simple feature collection with 6 features and 2 fields
+#&gt; geometry type:  LINESTRING
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605
+#&gt; z_range:        zmin: NA zmax: NA
+#&gt; m_range:        mmin: NA mmax: NA
+#&gt; geographic CRS: WGS 84
+#&gt;           O         D                       geometry
+#&gt; 1 E02002407 E02002336 LINESTRING (-1.609934 53.79...
+#&gt; 2 E02002407 E02002353 LINESTRING (-1.609934 53.79...
+#&gt; 3 E02002336 E02002407 LINESTRING (-1.62463 53.886...
+#&gt; 4 E02002336 E02002353 LINESTRING (-1.62463 53.886...
+#&gt; 5 E02002353 E02002407 LINESTRING (-1.518058 53.84...
+#&gt; 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='no'>l</span>)</div><div class='img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></div><div class='input'>(<span class='no'>od</span> <span class='kw'>=</span> <span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;           O         D        ox       oy        dx       dy
 #&gt; 2 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
 #&gt; 3 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066
 #&gt; 4 E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079
@@ -189,7 +208,7 @@ coordinates of the start and end points of each OD pair.</p></td>
 #&gt;                         geometry
 #&gt; 1 LINESTRING (-1.62463 53.886...
 #&gt; 2 LINESTRING (-1.609934 53.79...
-#&gt; 3 LINESTRING (-1.609934 53.79...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>l2</span>)</div><div class='img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; 3 LINESTRING (-1.609934 53.79...</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='no'>l2</span>)</div><div class='img'><img src='points_to_od-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
