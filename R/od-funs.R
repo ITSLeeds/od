@@ -95,9 +95,32 @@ od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
   colnames(odc) = c("ox", "oy", "dx", "dy")
   odc
 }
-# example
-# odc = od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)
-# od:::odc_to_sfc_sf(odc)
+#' Convert origin-destination coordinates into geographic desire lines
+#' @inheritParams od_to_sf
+#' @param odc A matrix containing coordinates representing line start and end points
+#' @param d An optional data frame to add to the geometry column
+#' @export
+#' @examples
+#' (odc = od_coordinates(od_data_df, p = od_data_zones, sfnames = TRUE))
+#' (l = odc_to_sf(odc))
+#' plot(l)
+#' lsfc = odc_to_sfc(odc)
+odc_to_sf = function(odc, d = NULL, crs = 4326) {
+  odc_id = od_coordinates_ids(odc)
+  odc_sfc = sfheaders::sfc_linestring(obj = odc_id, x = "x", y = "y", linestring_id = "id")
+  if(is.null(d)) {
+    return(sf::st_sf(geometry = odc_sfc, crs = crs))
+  }
+  sf::st_sf(d, geometry = odc_sfc, crs = crs)
+}
+#' Convert origin-destination coordinates into geographic desire lines
+#'
+#' @param odc A matrix containing coordinates representing line start and end points
+#' @export
+#' @examples
+#' (odc = od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE))
+#' (l = odc_to_sfc(odc))
+#' plot(l)
 odc_to_sfc = function(odc) {
   odc_id = od_coordinates_ids(odc)
   sfheaders::sfc_linestring(obj = odc_id, x = "x", y = "y", linestring_id = "id")

@@ -55,12 +55,12 @@ points_to_od.matrix =  function(p, interzone_only = FALSE, ids_only = FALSE) {
 #' @export
 #' @examples
 #' p = sf::st_coordinates(od_data_centroids[1:3, ])
-#' points_to_od(p)
+#' od = points_to_od(p)
 #' (od = coords_to_od(p, interzone_only = TRUE))
-#' # l2 = od:::odc_to_sfc(od)
-#' # l2$v = 1
-#' # (l2_oneway = od_oneway(l2))
-#' # plot(l2)
+#' l = odc_to_sf(od[3:6], d = od[1:2])
+#' l$v = 1
+#' (l_oneway = od_oneway(l))
+#' plot(l_oneway)
 #' @export
 coords_to_od = function(p, interzone_only = FALSE, ids_only = FALSE) {
   id = seq(nrow(p))
