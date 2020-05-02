@@ -53,10 +53,11 @@ points_to_od.matrix =  function(p, interzone_only = FALSE, ids_only = FALSE) {
 }
 #' @rdname points_to_od
 #' @inheritParams points_to_od
+#' @inheritParams odc_to_sf
 #' @export
-points_to_odl = function(p, interzone_only = FALSE, ids_only = FALSE) {
+points_to_odl = function(p, interzone_only = FALSE, ids_only = FALSE, crs = 4326) {
   odf = points_to_od(p, interzone_only, ids_only)
-  odc_to_sf(odf[3:6], d = odf[1:2])
+  odc_to_sf(odf[3:6], d = odf[1:2], crs = crs)
 }
 #' Convert coordinates into a data frame of origins and destinations
 #'

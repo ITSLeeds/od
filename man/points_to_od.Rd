@@ -7,7 +7,7 @@
 \usage{
 points_to_od(p, interzone_only = FALSE, ids_only = FALSE)
 
-points_to_odl(p, interzone_only = FALSE, ids_only = FALSE)
+points_to_odl(p, interzone_only = FALSE, ids_only = FALSE, crs = 4326)
 }
 \arguments{
 \item{p}{A spatial points object or a matrix of coordinates representing points}
@@ -19,6 +19,9 @@ the ID of the origin is different from the ID of the destination zone?
 \item{ids_only}{Should a data frame with only 2 columns (origin and destination IDs)
 be returned? The default is \code{FALSE}, meaning the result should also contain the
 coordinates of the start and end points of each OD pair.}
+
+\item{crs}{The coordinate reference system of the output, if not known in \code{z}.
+4326 by default.}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
