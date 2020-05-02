@@ -126,7 +126,7 @@ of points.</p>
 
     <pre class="usage"><span class='fu'>points_to_od</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>points_to_odl</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>points_to_odl</span>(<span class='no'>p</span>, <span class='kw'>interzone_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ids_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +146,11 @@ the ID of the origin is different from the ID of the destination zone?
       <td><p>Should a data frame with only 2 columns (origin and destination IDs)
 be returned? The default is <code>FALSE</code>, meaning the result should also contain the
 coordinates of the start and end points of each OD pair.</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>The coordinate reference system of the output, if not known in <code>z</code>.
+4326 by default.</p></td>
     </tr>
     </table>
 
