@@ -23,7 +23,7 @@ od_to_sf = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs
 od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
   if(package == "sfheaders") {
     odc = od_coordinates(x, z, verbose = verbose) # todo: add support for p
-    od_sfc = od_coordinates_to_sfc(odc)
+    od_sfc = odc_to_sfc(odc)
     if(requireNamespace("sf")) {
       if(!is.na(sf::st_crs(z))) {
         crs = sf::st_crs(z)
@@ -32,7 +32,7 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
     }
   } else {
     odc = od_coordinates(x, z, verbose = verbose, sfnames = TRUE) # todo: add support for p
-    od_sfc = od_coordinates_to_sfc_sf(odc, crs = crs)
+    od_sfc = odc_to_sfc_sf(odc, crs = crs)
   }
   od_sfc
 }
@@ -97,12 +97,12 @@ od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
 }
 # example
 # odc = od_coordinates(od_data_df, p = od::od_data_zones, sfnames = TRUE)
-# od:::od_coordinates_to_sfc_sf(odc)
-od_coordinates_to_sfc = function(odc) {
+# od:::odc_to_sfc_sf(odc)
+odc_to_sfc = function(odc) {
   odc_id = od_coordinates_ids(odc)
   sfheaders::sfc_linestring(obj = odc_id, x = "x", y = "y", linestring_id = "id")
 }
-od_coordinates_to_sfc_sf = function(odc, crs = 4326) {
+odc_to_sfc_sf = function(odc, crs = 4326) {
   linestring_list = lapply(seq(nrow(odc)), function(i) {
     sf::st_linestring(rbind(odc[i, 1:2], odc[i, 3:4]))
     })
@@ -233,8 +233,8 @@ od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", cr
   )
 
 
-  # od_sfc = od_coordinates_to_sfc(odc) # sfheaders way: todo add it
-  od_sfc = od_coordinates_to_sfc_sf(odc)
+  # od_sfc = odc_to_sfc(odc) # sfheaders way: todo add it
+  od_sfc = odc_to_sfc_sf(odc)
 
 
   sf::st_sf(x, geometry = od_sfc)
