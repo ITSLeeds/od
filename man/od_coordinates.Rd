@@ -4,7 +4,7 @@
 \alias{od_coordinates}
 \title{Create matrices representing origin-destination coordinates}
 \usage{
-od_coordinates(x, p = NULL, verbose = FALSE, sfnames = FALSE)
+od_coordinates(x, p = NULL, silent = TRUE, sfnames = FALSE)
 }
 \arguments{
 \item{x}{A data frame in which the first two columns are codes
@@ -12,7 +12,7 @@ representing points/zones of origin and destination}
 
 \item{p}{Points representing origins and destinations}
 
-\item{verbose}{Print messages providing progress updates? FALSE by default}
+\item{silent}{Hide messages? \code{FALSE} by default.}
 
 \item{sfnames}{Should output column names be compatible with the sf package?}
 }
@@ -25,10 +25,10 @@ x = od_data_df
 p = od_data_centroids
 od_coordinates(x, p)[1:2, ]
 od_coordinates(x, p, sfnames = TRUE)[1:2, ]
-od_coordinates(x, p, verbose = TRUE)[1:2, ]
+od_coordinates(x, p, silent = FALSE)[1:2, ]
 # x[[1]][1] =  "404"
 # Next line will error:
-# od_coordinates(x, p, verbose = TRUE)[1:2, ]
+# od_coordinates(x, p, silent = FALSE)[1:2, ]
 # From original stplanr function:
 # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points

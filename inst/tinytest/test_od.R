@@ -1,4 +1,5 @@
 library(od)
+library(tinytest)
 
 # Placeholder with simple test
 expect_equal(1 + 1, 2)
@@ -9,10 +10,10 @@ z = od_data_zones_min
 expect_true(is(od_to_sf(x, z), "sf"))
 
 x$geo_code1[1] = "444"
-expect_error(od_to_sf(x, z))
+expect_error(od_to_sf(x, z, filter = FALSE))
 x = od_data_df
 x$geo_code2[1] = "444"
-expect_error(od_to_sf(x, z))
+expect_error(od_to_sf(x, z, filter = FALSE))
 
 x = od_data_df
 # test crss

@@ -8,7 +8,7 @@ od_to_sf_network(
   x,
   z,
   zd = NULL,
-  verbose = FALSE,
+  silent = TRUE,
   package = "sf",
   crs = 4326,
   network = NULL
@@ -22,7 +22,7 @@ representing points/zones of origin and destination}
 
 \item{zd}{Zones representing destinations}
 
-\item{verbose}{Print messages providing progress updates? FALSE by default}
+\item{silent}{Hide messages? \code{FALSE} by default.}
 
 \item{package}{Which package to use to create the sf object? \code{sfheaders} is the default.}
 

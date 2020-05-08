@@ -5,9 +5,25 @@
 \alias{od_to_sfc}
 \title{Convert OD data into geographic 'desire line' objects}
 \usage{
-od_to_sf(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326)
+od_to_sf(
+  x,
+  z,
+  zd = NULL,
+  silent = FALSE,
+  filter = TRUE,
+  package = "sfheaders",
+  crs = 4326
+)
 
-od_to_sfc(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326)
+od_to_sfc(
+  x,
+  z,
+  zd = NULL,
+  silent = TRUE,
+  package = "sfheaders",
+  crs = 4326,
+  filter = TRUE
+)
 }
 \arguments{
 \item{x}{A data frame in which the first two columns are codes
@@ -17,7 +33,9 @@ representing points/zones of origin and destination}
 
 \item{zd}{Zones representing destinations}
 
-\item{verbose}{Print messages providing progress updates? FALSE by default}
+\item{silent}{Hide messages? \code{FALSE} by default.}
+
+\item{filter}{Remove rows with no matches in \code{z}? \code{TRUE} by default}
 
 \item{package}{Which package to use to create the sf object? \code{sfheaders} is the default.}
 
@@ -30,6 +48,6 @@ Convert OD data into geographic 'desire line' objects
 \examples{
 x = od_data_df
 z = od_data_zones
-desire_lines = od_to_sfc(x, z)
+desire_lines = od_to_sf(x, z)
 desire_lines[1:3]
 }

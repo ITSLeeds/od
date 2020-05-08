@@ -4,7 +4,8 @@
 #'   representing points/zones of origin and destination
 #' @param z Zones representing origins and destinations
 #' @param zd Zones representing destinations
-#' @param verbose Print messages providing progress updates? FALSE by default
+#' @param silent Hide messages? `FALSE` by default.
+#' @param filter Remove rows with no matches in `z`? `TRUE` by default
 #' @param package Which package to use to create the sf object? `sfheaders` is the default.
 #' @param crs The coordinate reference system of the output, if not known in `z`.
 #' 4326 by default.
@@ -12,17 +13,27 @@
 #' @examples
 #' x = od_data_df
 #' z = od_data_zones
-#' desire_lines = od_to_sfc(x, z)
+#' desire_lines = od_to_sf(x, z)
 #' desire_lines[1:3]
-od_to_sf = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
-  od_sfc = od_to_sfc(x, z, zd = zd, verbose = verbose, package = package, crs = crs)
+od_to_sf = function(x, z, zd = NULL, silent = FALSE, filter = TRUE,
+                    package = "sfheaders", crs = 4326) {
+  if (filter && is.null(zd)) {
+    x = od_filter(x, codes = z[[1]], silent = silent)
+  }
+  od_sfc = od_to_sfc(x, z, zd, silent, package, crs, filter)
   sf::st_sf(x, geometry = od_sfc)
 }
 #' @rdname od_to_sf
 #' @export
-od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", crs = 4326) {
+od_to_sfc = function(x,
+                     z,
+                     zd = NULL,
+                     silent = TRUE,
+                     package = "sfheaders",
+                     crs = 4326,
+                     filter = TRUE) {
   if(package == "sfheaders") {
-    odc = od_coordinates(x, z, verbose = verbose) # todo: add support for p
+    odc = od_coordinates(x, z, silent = silent) # todo: add support for p
     od_sfc = odc_to_sfc(odc)
     if(requireNamespace("sf")) {
       if(!is.na(sf::st_crs(z))) {
@@ -31,7 +42,7 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
       sf::st_crs(od_sfc) = sf::st_crs(crs)
     }
   } else {
-    odc = od_coordinates(x, z, verbose = verbose, sfnames = TRUE) # todo: add support for p
+    odc = od_coordinates(x, z, silent = silent, sfnames = TRUE) # todo: add support for p
     od_sfc = odc_to_sfc_sf(odc, crs = crs)
   }
   od_sfc
@@ -50,10 +61,10 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
 #' p = od_data_centroids
 #' od_coordinates(x, p)[1:2, ]
 #' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
-#' od_coordinates(x, p, verbose = TRUE)[1:2, ]
+#' od_coordinates(x, p, silent = FALSE)[1:2, ]
 #' # x[[1]][1] =  "404"
 #' # Next line will error:
-#' # od_coordinates(x, p, verbose = TRUE)[1:2, ]
+#' # od_coordinates(x, p, silent = FALSE)[1:2, ]
 #' # From original stplanr function:
 #' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 #' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
@@ -61,7 +72,7 @@ od_to_sfc = function(x, z, zd = NULL, verbose = FALSE, package = "sfheaders", cr
 #' # # od_coords("Hereford", "Leeds") # geocode locations
 #' # od_coords(flowlines[1:3, ])
 #' # od_coords(flowlines_sf[1:3, ])
-od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
+od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
   o_code = x[[1]]
   d_code = x[[2]]
   p_code_original = p[[1]]
@@ -79,7 +90,7 @@ od_coordinates = function(x, p = NULL, verbose = FALSE, sfnames = FALSE) {
   } else {
     p_in_x = sf::st_geometry(p)[sel_p_in_x]
   }
-  if(verbose) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
+  if(!silent) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
   p_code = p_code_original[sel_p_in_x]
   stopifnot(all(o_code %in% p_code)) # todo: add error message
   stopifnot(all(d_code %in% p_code)) # todo: add error message
@@ -203,10 +214,10 @@ geometry_contains_polygons = function(z) {
 #' plot(sf::st_geometry(lines_to_points_on_network))
 #' plot(lines_to_points, col = "grey", add = TRUE)
 #' plot(sf::st_geometry(z), add = TRUE)
-od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", crs = 4326,
+od_to_sf_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs = 4326,
                     network = NULL) {
   # browser() # todo: remove and optimise
-  # odc = od_coordinates(x, z, verbose = verbose) # we want the data in this format
+  # odc = od_coordinates(x, z, silent = silent) # we want the data in this format
 
   z_nm = names(z)[1]
   zones_o = z[z[[1]] %in% x[[1]], ]
@@ -254,12 +265,45 @@ od_to_sf_network = function(x, z, zd = NULL, verbose = FALSE, package = "sf", cr
     dx = odc_destination[, 1],
     dy = odc_destination[, 2]
   )
-
-
   # od_sfc = odc_to_sfc(odc) # sfheaders way: todo add it
   od_sfc = odc_to_sfc_sf(odc)
-
-
   sf::st_sf(x, geometry = od_sfc)
+}
 
+#' Convert OD data into geographic 'desire line' objects
+#' @param codes The zone codes that must be in origins and destination
+#' @inheritParams od_to_sf
+#' @export
+#' @examples
+#' x = od_data_df
+#' z = od_data_zones
+#' codes = z[[1]]
+#' z_in_x_o = codes %in% x[[1]]
+#' z_in_x_d = codes %in% x[[2]]
+#' sum(z_in_x_d)
+#' sum(z_in_x_o)
+#' z = z[which(z_in_x_o | z_in_x_d)[-1], ]
+#' z[[1]]
+#' unique(c(x[[1]], x[[2]]))
+#' try(od_to_sf(x, z)) # fails
+#' nrow(x)
+#' x = od_filter(x, z[[1]])
+#' nrow(x)
+#' od_to_sf(x, z)
+od_filter = function(x, codes, silent = FALSE) {
+  sel_o_in_codes = x[[1]] %in% codes
+  sel_d_in_codes = x[[2]] %in% codes
+  if(!silent) {
+    message(sum(!sel_o_in_codes), " origins with no match in zone ids")
+    message(sum(!sel_d_in_codes), " destinations with no match in zone ids")
+  }
+  x[sel_o_in_codes & sel_d_in_codes, ]
+}
+od_filter_origins = function(x, codes) {
+  sel_o_in_codes = x[[1]] %in% codes
+  x[sel_o_in_codes, ]
+}
+od_filter_destinations = function(x, codes) {
+  sel_d_in_codes = x[[2]] %in% codes
+  x[sel_d_in_codes, ]
 }
