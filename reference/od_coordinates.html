@@ -122,7 +122,7 @@ and returns a matrix of coordinates representing origin (ox, oy) and destination
 and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,8 +137,8 @@ representing points/zones of origin and destination</p></td>
       <td><p>Points representing origins and destinations</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>Print messages providing progress updates? FALSE by default</p></td>
+      <th>silent</th>
+      <td><p>Hide messages? <code>FALSE</code> by default.</p></td>
     </tr>
     <tr>
       <th>sfnames</th>
@@ -154,11 +154,11 @@ representing points/zones of origin and destination</p></td>
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
 #&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]</div><div class='output co'>#&gt;           x        y         x        y
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]</div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]</div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
 #&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'># x[[1]][1] =  "404"
 # Next line will error:
-# od_coordinates(x, p, verbose = TRUE)[1:2, ]
+# od_coordinates(x, p, silent = FALSE)[1:2, ]
 # From original stplanr function:
 # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
 # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points

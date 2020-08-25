@@ -124,7 +124,7 @@
   <span class='no'>x</span>,
   <span class='no'>z</span>,
   <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
   <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>,
   <span class='kw'>network</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
@@ -147,8 +147,8 @@ representing points/zones of origin and destination</p></td>
       <td><p>Zones representing destinations</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>Print messages providing progress updates? FALSE by default</p></td>
+      <th>silent</th>
+      <td><p>Hide messages? <code>FALSE</code> by default.</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -173,7 +173,7 @@ representing points/zones of origin and destination</p></td>
 (<span class='no'>lines_to_points_on_network</span> <span class='kw'>=</span> <span class='fu'>od_to_sf_network</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='no'>network</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.593286 ymin: 53.79002 xmax: -1.533616 ymax: 53.83497
+#&gt; bbox:           xmin: -1.593406 ymin: 53.78785 xmax: -1.528137 ymax: 53.84003
 #&gt; geographic CRS: WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
 #&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53
@@ -183,12 +183,12 @@ representing points/zones of origin and destination</p></td>
 #&gt; 5 E02006852 E02006875 1221    14 509   13        401            50      99  118
 #&gt; 6 E02006861 E02006875 1177    43 400   30        123            28      56  492
 #&gt;                         geometry
-#&gt; 1 LINESTRING (-1.539 53.83497...
-#&gt; 2 LINESTRING (-1.584902 53.81...
-#&gt; 3 LINESTRING (-1.575325 53.80...
-#&gt; 4 LINESTRING (-1.593286 53.83...
-#&gt; 5 LINESTRING (-1.581737 53.82...
-#&gt; 6 LINESTRING (-1.576043 53.81...</div><div class='input'>(<span class='no'>lines_to_points</span> <span class='kw'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='no'>x</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
+#&gt; 1 LINESTRING (-1.544345 53.83...
+#&gt; 2 LINESTRING (-1.577737 53.82...
+#&gt; 3 LINESTRING (-1.575492 53.80...
+#&gt; 4 LINESTRING (-1.593406 53.83...
+#&gt; 5 LINESTRING (-1.586082 53.84...
+#&gt; 6 LINESTRING (-1.574195 53.81...</div><div class='input'>(<span class='no'>lines_to_points</span> <span class='kw'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='no'>x</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316

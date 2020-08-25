@@ -120,9 +120,25 @@
     <p>Convert OD data into geographic 'desire line' objects</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_to_sf</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sfheaders"</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)
+    <pre class="usage"><span class='fu'>od_to_sf</span>(
+  <span class='no'>x</span>,
+  <span class='no'>z</span>,
+  <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sfheaders"</span>,
+  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>
+)
 
-<span class='fu'>od_to_sfc</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sfheaders"</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
+<span class='fu'>od_to_sfc</span>(
+  <span class='no'>x</span>,
+  <span class='no'>z</span>,
+  <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sfheaders"</span>,
+  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>,
+  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,8 +157,12 @@ representing points/zones of origin and destination</p></td>
       <td><p>Zones representing destinations</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>Print messages providing progress updates? FALSE by default</p></td>
+      <th>silent</th>
+      <td><p>Hide messages? <code>FALSE</code> by default.</p></td>
+    </tr>
+    <tr>
+      <th>filter</th>
+      <td><p>Remove rows with no matches in <code>z</code>? <code>TRUE</code> by default</p></td>
     </tr>
     <tr>
       <th>package</th>
@@ -159,12 +179,20 @@ representing points/zones of origin and destination</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
 <span class='no'>z</span> <span class='kw'>=</span> <span class='no'>od_data_zones</span>
-<span class='no'>desire_lines</span> <span class='kw'>=</span> <span class='fu'>od_to_sfc</span>(<span class='no'>x</span>, <span class='no'>z</span>)
-<span class='no'>desire_lines</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt; Geometry set for 3 features 
+<span class='no'>desire_lines</span> <span class='kw'>=</span> <span class='fu'>od_to_sf</span>(<span class='no'>x</span>, <span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='no'>desire_lines</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt; Simple feature collection with 6 features and 3 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.582003 ymin: 53.79587 xmax: -1.534793 ymax: 53.82864
-#&gt; geographic CRS: WGS 84</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div></pre>
+#&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316
+#&gt; z_range:        zmin: NA zmax: NA
+#&gt; m_range:        mmin: NA mmax: NA
+#&gt; geographic CRS: WGS 84
+#&gt;   geo_code1 geo_code2  all                       geometry
+#&gt; 1 E02002363 E02006875  922 LINESTRING (-1.534793 53.82...
+#&gt; 2 E02002373 E02006875 1037 LINESTRING (-1.581617 53.81...
+#&gt; 3 E02002385 E02006875  958 LINESTRING (-1.582003 53.80...
+#&gt; 4 E02006852 E02002392  437 LINESTRING (-1.586482 53.83...
+#&gt; 5 E02006852 E02006875 1221 LINESTRING (-1.586482 53.83...
+#&gt; 6 E02006861 E02006875 1177 LINESTRING (-1.564756 53.81...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
