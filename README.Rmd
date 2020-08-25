@@ -18,9 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-<!-- [![codecov](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od) -->
-[![Codecov test coverage](https://codecov.io/gh/robinlovelace/od/branch/master/graph/badge.svg)](https://codecov.io/gh/robinlovelace/od?branch=master)
-[![R build status](https://github.com/robinlovelace/od/workflows/R-CMD-check/badge.svg)](https://github.com/robinlovelace/od/actions)
+[![Codecov test coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
+[![R build status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with origin-destination (OD) datasets.

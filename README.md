@@ -5,15 +5,14 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://img.shields.io/travis/itsleeds/od/master?logo=travis&style=flat-square&label=Linux)](https://travis-ci.org/itsleeds/od)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![R CMD Check via
-{tic}](https://github.com/robinlovelace/od/workflows/R%20CMD%20Check%20via%20%7Btic%7D/badge.svg?branch=master)](https://github.com/robinlovelace/od/actions)
-<!-- [![codecov](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od) -->
+[![Codecov test
+coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
+[![R build
+status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 <!-- badges: end -->
 
 The goal of od is to provide tools and example datasets for working with
@@ -131,6 +130,9 @@ objects. You can can also specify `sf` outputs as follows:
 
 ``` r
 desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
+#> 0 origins with no match in zone ids
+#> 0 destinations with no match in zone ids
+#>  points not in od data removed.
 ```
 
 ## Performance
@@ -152,10 +154,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      4.64ms      5ms      196.   596.5KB     11.4
-#> 2 od           2.32ms   2.46ms      386.    78.2KB     11.9
-#> 3 od_sf1       2.61ms    2.8ms      339.      74KB     10.5
-#> 4 od_sf2        2.6ms   2.73ms      344.      87KB     14.3
+#> 1 stplanr      5.62ms   5.88ms      169.   600.5KB     14.3
+#> 2 od           2.72ms   2.86ms      348.    78.2KB     14.5
+#> 3 od_sf1       3.77ms   4.15ms      242.    77.8KB     12.7
+#> 4 od_sf2       3.89ms   4.01ms      248.    90.8KB     15.8
 ```
 
 ## Related open source projects
@@ -174,3 +176,9 @@ bench::mark(check = FALSE, max_iterations = 100,
     package for visualising OD data
   - [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript
     project for working with OD data
+
+## Code of Conduct
+
+Please note that the od project is released with a [Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
