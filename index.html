@@ -13,13 +13,14 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Manipulate Origin-Destination Data">
 <meta property="og:description" content="The aim of od is to provide tools and example datasets for working with
-  origin-destination (OD) datasets of the type described by
-  Nguyen et al. (1988) &lt;doi:10.1016/0191-2615(88)90002-1&gt;.
-  The package builds on functions for working with OD data in the package stplanr
-  with the aims of improved computational efficiency, greater functionality and
-  updated example data. With few dependencies the package also aims to make
-  developing new functions for working with od data straighforward, with od datasets
-  based on the data.frame class.">
+  origin-destination (OD) datasets of the type used to describe aggregate
+  urban mobility patterns (Carey et al. 1981) &lt;doi:10.1287/trsc.15.1.32&gt;.
+  The package builds on functions for working with OD data in the package stplanr,
+  with a focus on computational efficiency, support for the sf class system
+  developed by Pebesma (2018) and ease-of-use.
+  With few dependencies, the package should make working with od data and
+  developing new functionality straightforward, with od datasets
+  based on data frames.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -81,7 +82,7 @@
 <a href="#od" class="anchor"></a>od</h1></div>
 <!-- badges: start -->
 
-<p>The goal of od is to provide tools and example datasets for working with origin-destination (OD) datasets.</p>
+<p>The goal of od is to provide functions and example datasets for working with origin-destination (OD) datasets. OD datasets represent “the volume of travel between zones or locations” (Carey et al. <a href="https://doi.org/10.1287/trsc.15.1.32">1981</a>) and are central to modelling city to global scale transport systems (Simini et al. <a href="https://doi.org/10.1038/nature10856">2012</a>).</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -182,10 +183,10 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="co">#&gt; # A tibble: 4 x 6</span>
 <span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 stplanr      5.62ms   5.88ms      169.   600.5KB     14.3</span>
-<span class="co">#&gt; 2 od           2.72ms   2.86ms      348.    78.2KB     14.5</span>
-<span class="co">#&gt; 3 od_sf1       3.77ms   4.15ms      242.    77.8KB     12.7</span>
-<span class="co">#&gt; 4 od_sf2       3.89ms   4.01ms      248.    90.8KB     15.8</span></pre></div>
+<span class="co">#&gt; 1 stplanr      5.28ms   5.52ms      180.   600.5KB     14.2</span>
+<span class="co">#&gt; 2 od           2.61ms   2.75ms      357.    78.2KB     14.9</span>
+<span class="co">#&gt; 3 od_sf1       3.76ms   3.91ms      254.    77.8KB     16.2</span>
+<span class="co">#&gt; 4 od_sf2       3.71ms   3.86ms      258.    90.8KB     13.6</span></pre></div>
 </div>
 </div>
 <div id="related-open-source-projects" class="section level2">
@@ -195,14 +196,14 @@ And the development version from [GitHub](https://github.com/) with:
 <li>
 <a href="https://github.com/ropensci/stplanr/">stplanr</a> is an R package package designed to support transport planning, with a focus on geographic transport datasets and many functions for working with OD data in the <a href="https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data">od function family</a>.</li>
 <li>
-<a href="http://riatelab.github.io/cartography">cartography</a> is an R package with functions for working with OD data, including <a href="http://riatelab.github.io/cartography/docs/reference/getLinkLayer.html"><code>getLinkLayer()</code></a>
+<a href="https://riatelab.github.io/cartography">cartography</a> is an R package with functions for working with OD data, including <a href="https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html"><code>getLinkLayer()</code></a>
 </li>
 <li>
 <a href="https://pacha.dev/gravity/">gravity</a> is an R package for developing ‘gravity models’ to estimate flow between zones</li>
 <li>
 <a href="https://github.com/teralytics/flowmap.gl">flowmap.gl</a>, a JavaScript package for visualising OD data</li>
 <li>
-<a href="http://arabesque.ifsttar.fr/">Arabesque</a> is another JavaScript project for working with OD data</li>
+<a href="https://arabesque.ifsttar.fr/">Arabesque</a> is another JavaScript project for working with OD data</li>
 </ul>
 </div>
 <div id="code-of-conduct" class="section level2">
