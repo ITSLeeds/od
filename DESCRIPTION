@@ -1,16 +1,17 @@
 Package: od
-Title: Tools for Origin-Destination Data
-Version: 0.0.0.9000
+Title: Manipulate Origin-Destination Data
+Version: 0.0.1
 Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-5679-6536")),
     person("David", "Cooley", role = c("ctb"))
     )
 Description: The aim of od is to provide tools and example datasets for working with
-  origin-destination (OD) datasets. The package originated as a set of functions in
-  the package stplanr for working with origin-destination data but has since 
-  evolved to improve computational efficiency, provide new functions
-  and updated example data. With minimal dependencies the package also aims to make
+  origin-destination (OD) datasets of the type described by
+  Nguyen et al. (1988) <doi:10.1016/0191-2615(88)90002-1>.
+  The package builds on functions for working with OD data in the package stplanr
+  with the aims of improved computational efficiency, greater functionality and
+  updated example data. With few dependencies the package also aims to make
   developing new functions for working with od data straighforward, with od datasets
   based on the data.frame class.
 License: GPL-3
