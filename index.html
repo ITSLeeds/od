@@ -158,7 +158,10 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">desire_lines_stplanr</span>$<span class="no">geometry</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="50%"><img src="reference/figures/README-unnamed-chunk-5-2.png" width="50%"></p>
 <p>By default the package uses the <code>sfheaders</code> package to create sf objects. You can can also specify <code>sf</code> outputs as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">desire_lines_od_sf1</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_centroids</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="no">desire_lines_od_sf1</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_centroids</span>)
+<span class="co">#&gt; 0 origins with no match in zone ids</span>
+<span class="co">#&gt; 0 destinations with no match in zone ids</span>
+<span class="co">#&gt;  points not in od data removed.</span></pre></div>
 </div>
 <div id="performance" class="section level2">
 <h2 class="hasAnchor">
@@ -178,10 +181,10 @@ And the development version from [GitHub](https://github.com/) with:
 <span class="co">#&gt; # A tibble: 4 x 6</span>
 <span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 stplanr      4.64ms      5ms      196.   596.5KB     11.4</span>
-<span class="co">#&gt; 2 od           2.32ms   2.46ms      386.    78.2KB     11.9</span>
-<span class="co">#&gt; 3 od_sf1       2.61ms    2.8ms      339.      74KB     10.5</span>
-<span class="co">#&gt; 4 od_sf2        2.6ms   2.73ms      344.      87KB     14.3</span></pre></div>
+<span class="co">#&gt; 1 stplanr      5.62ms   5.88ms      169.   600.5KB     14.3</span>
+<span class="co">#&gt; 2 od           2.72ms   2.86ms      348.    78.2KB     14.5</span>
+<span class="co">#&gt; 3 od_sf1       3.77ms   4.15ms      242.    77.8KB     12.7</span>
+<span class="co">#&gt; 4 od_sf2       3.89ms   4.01ms      248.    90.8KB     15.8</span></pre></div>
 </div>
 </div>
 <div id="related-open-source-projects" class="section level2">
@@ -200,6 +203,11 @@ And the development version from [GitHub](https://github.com/) with:
 <li>
 <a href="http://arabesque.ifsttar.fr/">Arabesque</a> is another JavaScript project for working with OD data</li>
 </ul>
+</div>
+<div id="code-of-conduct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<p>Please note that the od project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
@@ -239,10 +247,10 @@ And the development version from [GitHub](https://github.com/) with:
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/itsleeds/od"><img src="https://img.shields.io/travis/itsleeds/od/master?logo=travis&amp;style=flat-square&amp;label=Linux" alt="Travis build status"></a></li>
 <li><a href="https://cran.r-project.org/package=tic"><img src="https://www.r-pkg.org/badges/version/tic" alt="CRAN status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-red.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/robinlovelace/od/actions"><img src="https://github.com/robinlovelace/od/workflows/R%20CMD%20Check%20via%20%7Btic%7D/badge.svg?branch=master" alt="R CMD Check via {tic}"></a></li>
+<li><a href="https://codecov.io/gh/itsleeds/od?branch=master"><img src="https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/itsleeds/od/actions"><img src="https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 </div>
