@@ -10,3 +10,4 @@
 ^\.ccache$
 ^\.github$
 ^clang-.*
+^codecov\.yml$

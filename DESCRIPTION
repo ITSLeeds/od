@@ -26,7 +26,8 @@ Suggests:
     sf,
     knitr,
     rmarkdown,
-    tinytest
+    tinytest,
+    covr
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
