@@ -75,7 +75,19 @@ od_to_sfc = function(x,
 od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
   o_code = x[[1]]
   d_code = x[[2]]
+  if(methods::is(o_code, "factor")) {
+    message("Converting origin ID from factor to character")
+    o_code = as.character(o_code)
+  }
+  if(methods::is(d_code, "factor")) {
+    message("Converting destination ID from factor to character")
+    d_code = as.character(d_code)
+  }
   p_code_original = p[[1]]
+  if(methods::is(p_code_original, "factor")) {
+    message("Converting geometry ID from factor to character")
+    p_code_original = as.character(p_code_original)
+  }
   od_code = unique(c(o_code, d_code))
   sel_p_in_x = p_code_original %in% od_code
   geometry_contains_polygons = geometry_contains_polygons(p)
