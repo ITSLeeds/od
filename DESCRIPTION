@@ -19,14 +19,14 @@ BugReports: https://github.com/itsleeds/od/issues
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.4.0)
-Suggests: 
-    sf,
-    bench,
-    knitr,
-    rmarkdown, tinytest
 Imports: 
     sfheaders,
     methods
+Suggests: 
+    sf,
+    knitr,
+    rmarkdown,
+    tinytest
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
