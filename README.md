@@ -15,8 +15,12 @@ coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](http
 status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 <!-- badges: end -->
 
-The goal of od is to provide tools and example datasets for working with
-origin-destination (OD) datasets.
+The goal of od is to provide functions and example datasets for working
+with origin-destination (OD) datasets. OD datasets represent “the volume
+of travel between zones or locations” (Carey et
+al. [1981](https://doi.org/10.1287/trsc.15.1.32)) and are central to
+modelling city to global scale transport systems (Simini et
+al. [2012](https://doi.org/10.1038/nature10856)).
 
 ## Installation
 
@@ -154,10 +158,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.62ms   5.88ms      169.   600.5KB     14.3
-#> 2 od           2.72ms   2.86ms      348.    78.2KB     14.5
-#> 3 od_sf1       3.77ms   4.15ms      242.    77.8KB     12.7
-#> 4 od_sf2       3.89ms   4.01ms      248.    90.8KB     15.8
+#> 1 stplanr      5.28ms   5.52ms      180.   600.5KB     14.2
+#> 2 od           2.61ms   2.75ms      357.    78.2KB     14.9
+#> 3 od_sf1       3.76ms   3.91ms      254.    77.8KB     16.2
+#> 4 od_sf2       3.71ms   3.86ms      258.    90.8KB     13.6
 ```
 
 ## Related open source projects
@@ -167,14 +171,14 @@ bench::mark(check = FALSE, max_iterations = 100,
     geographic transport datasets and many functions for working with OD
     data in the [od function
     family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
-  - [cartography](http://riatelab.github.io/cartography) is an R package
+  - [cartography](https://riatelab.github.io/cartography) is an R package
     with functions for working with OD data, including
-    [`getLinkLayer()`](http://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
+    [`getLinkLayer()`](https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
   - [gravity](https://pacha.dev/gravity/) is an R package for developing
     ‘gravity models’ to estimate flow between zones
   - [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript
     package for visualising OD data
-  - [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript
+  - [Arabesque](https://arabesque.ifsttar.fr/) is another JavaScript
     project for working with OD data
 
 ## Code of Conduct

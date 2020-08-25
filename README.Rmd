@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
 [![R build status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 <!-- badges: end -->
 
-The goal of od is to provide tools and example datasets for working with origin-destination (OD) datasets.
+The goal of od is to provide functions and example datasets for working with origin-destination (OD) datasets.
+OD datasets represent "the volume of travel between zones or locations" (Carey et al. [1981](https://doi.org/10.1287/trsc.15.1.32)) and are central to modelling city to global scale transport systems (Simini et al. [2012](https://doi.org/10.1038/nature10856)).
 
 ## Installation
 
@@ -110,10 +111,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 ## Related open source projects
 
 - [stplanr](https://github.com/ropensci/stplanr/) is an R package package designed to support transport planning, with a focus on geographic transport datasets and many functions for working with OD data in the [od function family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
-- [cartography](http://riatelab.github.io/cartography) is an R package with functions for working with OD data, including [`getLinkLayer()`](http://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
+- [cartography](https://riatelab.github.io/cartography) is an R package with functions for working with OD data, including [`getLinkLayer()`](https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
 - [gravity](https://pacha.dev/gravity/) is an R package for developing 'gravity models' to estimate flow between zones
 - [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript package for visualising OD data
-- [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript project for working with OD data
+- [Arabesque](https://arabesque.ifsttar.fr/) is another JavaScript project for working with OD data
 
 ## Code of Conduct
 
