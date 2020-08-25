@@ -169,7 +169,7 @@ And the development version from [GitHub](https://github.com/) with:
 <a href="#benchmark-on-a-small-dataset" class="anchor"></a>Benchmark on a small dataset:</h3>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">od_data_df</span>)
 <span class="co">#&gt; [1] 6</span>
-<span class="kw pkg">bench</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">check</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">max_iterations</span> <span class="kw">=</span> <span class="fl">100</span>,
+<span class="kw pkg">bench</span><span class="kw ns">::</span><span class="fu">mark</span>(<span class="kw">check</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">max_iterations</span> <span class="kw">=</span> <span class="fl">100</span>,
   <span class="kw">stplanr</span> <span class="kw">=</span> <span class="kw pkg">stplanr</span><span class="kw ns">::</span><span class="fu">od2line</span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
   <span class="kw">od</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sfc</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
   <span class="kw">od_sf1</span> <span class="kw">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span>(<span class="no">od_data_df</span>, <span class="no">od_data_zones</span>),
