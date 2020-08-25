@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
+status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test
@@ -158,10 +158,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.28ms   5.52ms      180.   600.5KB     14.2
-#> 2 od           2.61ms   2.75ms      357.    78.2KB     14.9
-#> 3 od_sf1       3.76ms   3.91ms      254.    77.8KB     16.2
-#> 4 od_sf2       3.71ms   3.86ms      258.    90.8KB     13.6
+#> 1 stplanr      5.12ms   5.32ms      187.   600.5KB     14.1
+#> 2 od           2.54ms    2.6ms      380.    78.2KB     15.8
+#> 3 od_sf1        3.6ms   3.73ms      267.    77.8KB     17.0
+#> 4 od_sf2       3.56ms   3.69ms      270.    90.8KB     14.2
 ```
 
 ## Related open source projects
@@ -171,8 +171,8 @@ bench::mark(check = FALSE, max_iterations = 100,
     geographic transport datasets and many functions for working with OD
     data in the [od function
     family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
-  - [cartography](https://riatelab.github.io/cartography) is an R package
-    with functions for working with OD data, including
+  - [cartography](https://riatelab.github.io/cartography) is an R
+    package with functions for working with OD data, including
     [`getLinkLayer()`](https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
   - [gravity](https://pacha.dev/gravity/) is an R package for developing
     ‘gravity models’ to estimate flow between zones

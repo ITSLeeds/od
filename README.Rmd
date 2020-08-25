@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # od
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/tic)](https://cran.r-project.org/package=tic)
+[![CRAN status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
 [![R build status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)

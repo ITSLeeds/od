@@ -11,3 +11,4 @@
 ^\.github$
 ^clang-.*
 ^codecov\.yml$
+^cran-comments\.md$
