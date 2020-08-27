@@ -158,10 +158,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.12ms   5.32ms      187.   600.5KB     14.1
-#> 2 od           2.54ms    2.6ms      380.    78.2KB     15.8
-#> 3 od_sf1        3.6ms   3.73ms      267.    77.8KB     17.0
-#> 4 od_sf2       3.56ms   3.69ms      270.    90.8KB     14.2
+#> 1 stplanr      6.17ms   6.82ms      146.   600.5KB     11.8
+#> 2 od              3ms   3.27ms      296.    78.2KB     12.3
+#> 3 od_sf1       4.31ms   4.63ms      209.    77.8KB     11.0
+#> 4 od_sf2       4.25ms   4.58ms      213.    90.8KB     11.2
 ```
 
 ## Related open source projects
@@ -171,7 +171,7 @@ bench::mark(check = FALSE, max_iterations = 100,
     geographic transport datasets and many functions for working with OD
     data in the [od function
     family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
-  - [cartography](https://riatelab.github.io/cartography) is an R
+  - [cartography](https://riatelab.github.io/cartography/) is an R
     package with functions for working with OD data, including
     [`getLinkLayer()`](https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
   - [gravity](https://pacha.dev/gravity/) is an R package for developing
