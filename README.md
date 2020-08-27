@@ -158,10 +158,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      6.17ms   6.82ms      146.   600.5KB     11.8
-#> 2 od              3ms   3.27ms      296.    78.2KB     12.3
-#> 3 od_sf1       4.31ms   4.63ms      209.    77.8KB     11.0
-#> 4 od_sf2       4.25ms   4.58ms      213.    90.8KB     11.2
+#> 1 stplanr      6.15ms   6.62ms      148.   600.5KB     11.9
+#> 2 od           3.02ms   3.26ms      297.    78.2KB     12.4
+#> 3 od_sf1       4.32ms   4.59ms      213.    77.8KB     11.2
+#> 4 od_sf2       4.26ms   4.58ms      210.    90.8KB     11.1
 ```
 
 ## Related open source projects
@@ -178,7 +178,7 @@ bench::mark(check = FALSE, max_iterations = 100,
     ‘gravity models’ to estimate flow between zones
   - [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript
     package for visualising OD data
-  - [Arabesque](https://arabesque.ifsttar.fr/) is another JavaScript
+  - [Arabesque](https://github.com/gflowiz) is another JavaScript
     project for working with OD data
 
 ## Code of Conduct
