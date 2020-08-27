@@ -1,5 +1,5 @@
 Package: od
-Title: Manipulate Origin-Destination Data
+Title: Manipulate and Map Origin-Destination Data
 Version: 0.0.1
 Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
