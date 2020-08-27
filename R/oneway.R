@@ -1,4 +1,4 @@
-#' Aggregate od pairs they become non-directional
+#' Aggregate OD pairs they become non-directional
 #'
 #' For example, sum total travel in both directions.
 #' @param x A data frame or SpatialLinesDataFrame, representing an OD matrix

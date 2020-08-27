@@ -5,7 +5,7 @@
 \alias{od_data_zones}
 \alias{od_data_csa_zones}
 \alias{od_data_zones_min}
-\title{Example od data}
+\title{Example OD data}
 \description{
 Zone datasets for packages examples
 }

@@ -1,4 +1,4 @@
-#' Example od data
+#' Example OD data
 #'
 #' Zone datasets for packages examples
 #'

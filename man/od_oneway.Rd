@@ -2,7 +2,7 @@
 % Please edit documentation in R/oneway.R
 \name{od_oneway}
 \alias{od_oneway}
-\title{Aggregate od pairs they become non-directional}
+\title{Aggregate OD pairs they become non-directional}
 \usage{
 od_oneway(
   x,

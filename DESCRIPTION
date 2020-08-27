@@ -7,13 +7,13 @@ Authors@R: c(
     person("David", "Cooley", role = c("ctb"))
     )
 Description: The aim of od is to provide tools and example datasets for working with
-  origin-destination (OD) datasets of the type used to describe aggregate
+  origin-destination ('OD') datasets of the type used to describe aggregate
   urban mobility patterns (Carey et al. 1981) <doi:10.1287/trsc.15.1.32>.
-  The package builds on functions for working with OD data in the package stplanr,
+  The package builds on functions for working with 'OD' data in the package 'stplanr',
   with a focus on computational efficiency, support for the sf class system
   developed by Pebesma (2018) and ease-of-use.
-  With few dependencies, the package should make working with od data and
-  developing new functionality straightforward, with od datasets
+  With few dependencies, the package should make working with 'OD' data and
+  developing new functionality straightforward, with 'OD' datasets
   based on data frames.
 License: GPL-3
 URL: https://github.com/itsleeds/od, https://itsleeds.github.io/od/
