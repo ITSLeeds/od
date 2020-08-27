@@ -1,8 +1,5 @@
 Update DESCRIPTION with non English words single quoted after initial submission.
 
-In the second almost identical submission a URL was fixed, apologies for missing that.
-
-
 ## Test environments
 * local R installation, R 4.0.2
 * ubuntu 16.04 (on gh-actions), R 3.5.0 to 4.0.2
