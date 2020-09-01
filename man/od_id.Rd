@@ -48,6 +48,7 @@ od_id_max_min(d[[1]], d[[2]])
 od_oneway
 
 Other od: 
+\code{\link{od_to_odmatrix}()},
 \code{\link{odmatrix_to_od}()}
 }
 \concept{od}

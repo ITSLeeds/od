@@ -22,13 +22,15 @@ The function returns a data frame with rows ordered by origin and then destinati
 zone code values and with names \code{orig}, \code{dest} and \code{flow}.
 }
 \examples{
-# odmatrix <- od_to_odmatrix(flow)
-# odmatrix_to_od(odmatrix)
-# flow[1:9, 1:3]
-# odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
+x = od_data_df
+x[1:3]
+odmatrix = od_to_odmatrix(od_data_df)
+odmatrix
+odmatrix_to_od(odmatrix)
 }
 \seealso{
 Other od: 
-\code{\link{od_id}}
+\code{\link{od_id}},
+\code{\link{od_to_odmatrix}()}
 }
 \concept{od}

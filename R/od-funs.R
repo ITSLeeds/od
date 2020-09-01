@@ -62,16 +62,6 @@ od_to_sfc = function(x,
 #' od_coordinates(x, p)[1:2, ]
 #' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 #' od_coordinates(x, p, silent = FALSE)[1:2, ]
-#' # x[[1]][1] =  "404"
-#' # Next line will error:
-#' # od_coordinates(x, p, silent = FALSE)[1:2, ]
-#' # From original stplanr function:
-#' # od_coords(from = c(0, 52), to = c(1, 53)) # lon/lat coordinates
-#' # od_coords(from = cents[1, ], to = cents[2, ]) # Spatial points
-#' # od_coords(cents_sf[1:3, ], cents_sf[2:4, ]) # sf points
-#' # # od_coords("Hereford", "Leeds") # geocode locations
-#' # od_coords(flowlines[1:3, ])
-#' # od_coords(flowlines_sf[1:3, ])
 od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
   o_code = x[[1]]
   d_code = x[[2]]
@@ -164,8 +154,34 @@ od_coordinates_ids = function(odc) {
 }
 
 
-od_to_odmatrix <- function(flow, attrib = 3, name_orig = 1, name_dest = 2) {
-  # todo: add this function from stplanr
+#' Convert origin-destination data from long to wide format
+#'
+#' This function takes a data frame representing travel between origins
+#' (with origin codes in `name_orig`, typically the 1st column)
+#' and destinations
+#' (with destination codes in `name_dest`, typically the second column) and returns a matrix
+#' with cell values (from `attrib`, the third column by default) representing travel between
+#' origins and destinations.
+#'
+#' @param x A data frame representing flows between origin and destinations
+#' @param attrib A number or character string representing the column containing the attribute data
+#' of interest from the `flow` data frame
+#' @param name_orig A number or character string representing the zone of origin
+#' @param name_dest A number or character string representing the zone of destination
+#' @family od
+#' @export
+#' @examples
+#' x = od_data_df[1:4, ]
+#' od_to_odmatrix(x)
+#' od_to_odmatrix(x, attrib = "bicycle")
+od_to_odmatrix = function(x, attrib = 3, name_orig = 1, name_dest = 2) {
+  out = matrix(
+    nrow = length(unique(x[[name_orig]])),
+    ncol = length(unique(x[[name_dest]])),
+    dimnames = list(unique(x[[name_orig]]), unique(x[[name_dest]]))
+  )
+  out[cbind(x[[name_orig]], x[[name_dest]])] = x[[attrib]]
+  out
 }
 
 #' Convert origin-destination data from wide to long format
@@ -184,14 +200,15 @@ od_to_odmatrix <- function(flow, attrib = 3, name_orig = 1, name_dest = 2) {
 #' @family od
 #' @export
 #' @examples
-#' # odmatrix <- od_to_odmatrix(flow)
-#' # odmatrix_to_od(odmatrix)
-#' # flow[1:9, 1:3]
-#' # odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
-odmatrix_to_od <- function(odmatrix) {
-  od <- as.data.frame(as.table(odmatrix))
-  names(od) <- c("orig", "dest", "flow")
-  od <- stats::na.omit(od)
+#' x = od_data_df
+#' x[1:3]
+#' odmatrix = od_to_odmatrix(od_data_df)
+#' odmatrix
+#' odmatrix_to_od(odmatrix)
+odmatrix_to_od = function(odmatrix) {
+  od = as.data.frame(as.table(odmatrix))
+  names(od) = c("orig", "dest", "flow")
+  od = stats::na.omit(od)
   od[order(paste0(od$orig, od$dest)), ]
 }
 
@@ -216,16 +233,6 @@ geometry_contains_polygons = function(z) {
 #' network = od_data_network
 #' (lines_to_points_on_network = od_to_sf_network(x, z, network = network))
 #' (lines_to_points = od_to_sf(x, z))
-#' # to put in vignette...
-#' # library(tmap)
-#' # tmap_mode("view")
-#' # tm_shape(lines_to_points_on_network) + tm_lines(lwd = 5) +
-#' #  tm_shape(lines_to_points) + tm_lines(col = "grey", lwd = 5) +
-#' #  tm_shape(od_data_zones_min) + tm_borders() +
-#' #  qtm(od_data_network, lines.col = "yellow")
-#' plot(sf::st_geometry(lines_to_points_on_network))
-#' plot(lines_to_points, col = "grey", add = TRUE)
-#' plot(sf::st_geometry(z), add = TRUE)
 od_to_sf_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs = 4326,
                     network = NULL) {
   # browser() # todo: remove and optimise
