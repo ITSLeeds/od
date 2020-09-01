@@ -66,6 +66,7 @@ points_to_odl = function(p, interzone_only = FALSE, ids_only = FALSE, crs = 4326
 #' of points.
 #'
 #' @inheritParams points_to_od
+#' @return A data frame object with O and D codes and origin and destination coordinates.
 #' @export
 #' @examples
 #' p = sf::st_coordinates(od_data_centroids[1:3, ])

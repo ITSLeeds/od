@@ -2,7 +2,7 @@
 % Please edit documentation in R/od-funs.R
 \name{od_filter}
 \alias{od_filter}
-\title{Convert OD data into geographic 'desire line' objects}
+\title{Filter OD datasets}
 \usage{
 od_filter(x, codes, silent = FALSE)
 }
@@ -14,8 +14,13 @@ representing points/zones of origin and destination}
 
 \item{silent}{Hide messages? \code{FALSE} by default.}
 }
+\value{
+A data frame
+}
 \description{
-Convert OD data into geographic 'desire line' objects
+This function takes and OD dataset and a character vector of codes
+and returns an OD dataset with rows matching origin and destinations
+zones present in the codes.
 }
 \examples{
 x = od_data_df

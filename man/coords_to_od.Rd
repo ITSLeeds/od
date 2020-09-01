@@ -17,6 +17,9 @@ the ID of the origin is different from the ID of the destination zone?
 be returned? The default is \code{FALSE}, meaning the result should also contain the
 coordinates of the start and end points of each OD pair.}
 }
+\value{
+A data frame object with O and D codes and origin and destination coordinates.
+}
 \description{
 Takes geographic coordinates and converts them into a data frame
 representing the potential flows, or 'spatial interaction', between every combination

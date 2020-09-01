@@ -16,14 +16,19 @@ representing points/zones of origin and destination}
 
 \item{sfnames}{Should output column names be compatible with the sf package?}
 }
+\value{
+A data frame with origin and destination coordinates
+}
 \description{
 This function takes a wide range of input data types (spatial lines, points or text strings)
-and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
+and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 }
 \examples{
 x = od_data_df
 p = od_data_centroids
-od_coordinates(x, p)[1:2, ]
+res = od_coordinates(x, p)[1:2, ]
+class(res)
+res
 od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 od_coordinates(x, p, silent = FALSE)[1:2, ]
 }

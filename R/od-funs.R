@@ -51,15 +51,18 @@ od_to_sfc = function(x,
 #' Create matrices representing origin-destination coordinates
 #'
 #' This function takes a wide range of input data types (spatial lines, points or text strings)
-#' and returns a matrix of coordinates representing origin (ox, oy) and destination (dx, dy) points.
+#' and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 #' @param p Points representing origins and destinations
 #' @param sfnames Should output column names be compatible with the sf package?
+#' @return A data frame with origin and destination coordinates
 #' @inheritParams od_to_sfc
 #' @export
 #' @examples
 #' x = od_data_df
 #' p = od_data_centroids
-#' od_coordinates(x, p)[1:2, ]
+#' res = od_coordinates(x, p)[1:2, ]
+#' class(res)
+#' res
 #' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 #' od_coordinates(x, p, silent = FALSE)[1:2, ]
 od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
@@ -289,9 +292,15 @@ od_to_sf_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs 
   sf::st_sf(x, geometry = od_sfc)
 }
 
-#' Convert OD data into geographic 'desire line' objects
+#' Filter OD datasets
+#'
+#' This function takes and OD dataset and a character vector of codes
+#' and returns an OD dataset with rows matching origin and destinations
+#' zones present in the codes.
+#'
 #' @param codes The zone codes that must be in origins and destination
 #' @inheritParams od_to_sf
+#' @return A data frame
 #' @export
 #' @examples
 #' x = od_data_df
