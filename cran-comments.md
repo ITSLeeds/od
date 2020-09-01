@@ -1,4 +1,6 @@
-Update DESCRIPTION with non English words single quoted after initial submission.
+All additional non English words single quoted, including 'od'.
+
+All examples that were commented out have been removed or uncommented.
 
 ## Test environments
 * local R installation, R 4.0.2
