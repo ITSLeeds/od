@@ -2,6 +2,8 @@ All additional non English words single quoted, including 'od'.
 
 All examples that were commented out have been removed or uncommented.
 
+Value tags have been added to the documentation as requested.
+
 ## Test environments
 * local R installation, R 4.0.2
 * ubuntu 16.04 (on gh-actions), R 3.5.0 to 4.0.2
