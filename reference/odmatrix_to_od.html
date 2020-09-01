@@ -147,14 +147,30 @@ zone code values and with names <code>orig</code>, <code>dest</code> and <code>f
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other od: 
-<code><a href='od_id.html'>od_id</a></code></p></div>
+<code><a href='od_id.html'>od_id</a></code>,
+<code><a href='od_to_odmatrix.html'>od_to_odmatrix</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># odmatrix &lt;- od_to_odmatrix(flow)
-# odmatrix_to_od(odmatrix)
-# flow[1:9, 1:3]
-# odmatrix_to_od(od_to_odmatrix(flow[1:9, 1:3]))
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
+<span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt;   geo_code1 geo_code2  all
+#&gt; 1 E02002363 E02006875  922
+#&gt; 2 E02002373 E02006875 1037
+#&gt; 3 E02002385 E02006875  958
+#&gt; 4 E02006852 E02002392  437
+#&gt; 5 E02006852 E02006875 1221
+#&gt; 6 E02006861 E02006875 1177</div><div class='input'><span class='no'>odmatrix</span> <span class='kw'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span>(<span class='no'>od_data_df</span>)
+<span class='no'>odmatrix</span></div><div class='output co'>#&gt;           E02006875 E02002392
+#&gt; E02002363       922        NA
+#&gt; E02002373      1037        NA
+#&gt; E02002385       958        NA
+#&gt; E02006852      1221       437
+#&gt; E02006861      1177        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span>(<span class='no'>odmatrix</span>)</div><div class='output co'>#&gt;        orig      dest flow
+#&gt; 1 E02002363 E02006875  922
+#&gt; 2 E02002373 E02006875 1037
+#&gt; 3 E02002385 E02006875  958
+#&gt; 9 E02006852 E02002392  437
+#&gt; 4 E02006852 E02006875 1221
+#&gt; 5 E02006861 E02006875 1177</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
