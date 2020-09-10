@@ -7,12 +7,15 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/)
+[![rstudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/od)](https://github.com/r-hub/cranlogs.app)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test
 coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
 [![R build
 status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
+[![Dependencies](https://tinyverse.netlify.com/badge/od)](https://cran.r-project.org/package=od)
 <!-- badges: end -->
 
 The goal of od is to provide functions and example datasets for working
@@ -154,10 +157,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      6.22ms   6.62ms      146.   600.5KB     11.8
-#> 2 od           3.09ms   3.26ms      298.    78.2KB     12.4
-#> 3 od_sf1        4.4ms   4.68ms      206.    77.8KB     10.9
-#> 4 od_sf2       4.33ms   4.56ms      214.    90.8KB     11.3
+#> 1 stplanr       5.5ms   6.36ms      146.   600.5KB     11.8
+#> 2 od            2.7ms   3.13ms      286.    78.2KB     11.9
+#> 3 od_sf1        3.8ms   4.25ms      216.    77.8KB     13.8
+#> 4 od_sf2       3.78ms   4.08ms      233.    90.8KB     12.2
 ```
 
 ## Related open source projects
