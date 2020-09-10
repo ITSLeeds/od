@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/od)](https://github.com/r-hub/cranlogs.app)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Codecov test
 coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
 [![R build
@@ -157,10 +157,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr       5.5ms   6.36ms      146.   600.5KB     11.8
-#> 2 od            2.7ms   3.13ms      286.    78.2KB     11.9
-#> 3 od_sf1        3.8ms   4.25ms      216.    77.8KB     13.8
-#> 4 od_sf2       3.78ms   4.08ms      233.    90.8KB     12.2
+#> 1 stplanr      5.46ms   6.12ms      153.   600.5KB     11.6
+#> 2 od           2.69ms   3.16ms      286.    78.2KB     11.9
+#> 3 od_sf1       3.78ms    4.5ms      199.    77.8KB     13.4
+#> 4 od_sf2       3.75ms   4.16ms      228.    90.8KB     12.0
 ```
 
 ## Related open source projects
