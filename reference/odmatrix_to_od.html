@@ -128,7 +128,7 @@ and destinations
 and returns a data frame representing origin-destination pairs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>odmatrix_to_od</span>(<span class='no'>odmatrix</span>)</pre>
+    <pre class="usage"><span class='fu'>odmatrix_to_od</span>(<span class='kw'>odmatrix</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,20 +151,23 @@ zone code values and with names <code>orig</code>, <code>dest</code> and <code>f
 <code><a href='od_to_odmatrix.html'>od_to_odmatrix</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
-<span class='no'>x</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]</div><div class='output co'>#&gt;   geo_code1 geo_code2  all
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>
+<span class='kw'>x</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>]
+</div><div class='output co'>#&gt;   geo_code1 geo_code2  all
 #&gt; 1 E02002363 E02006875  922
 #&gt; 2 E02002373 E02006875 1037
 #&gt; 3 E02002385 E02006875  958
 #&gt; 4 E02006852 E02002392  437
 #&gt; 5 E02006852 E02006875 1221
-#&gt; 6 E02006861 E02006875 1177</div><div class='input'><span class='no'>odmatrix</span> <span class='kw'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span>(<span class='no'>od_data_df</span>)
-<span class='no'>odmatrix</span></div><div class='output co'>#&gt;           E02006875 E02002392
+#&gt; 6 E02006861 E02006875 1177</div><div class='input'><span class='kw'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span>(<span class='kw'>od_data_df</span>)
+<span class='kw'>odmatrix</span>
+</div><div class='output co'>#&gt;           E02006875 E02002392
 #&gt; E02002363       922        NA
 #&gt; E02002373      1037        NA
 #&gt; E02002385       958        NA
 #&gt; E02006852      1221       437
-#&gt; E02006861      1177        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span>(<span class='no'>odmatrix</span>)</div><div class='output co'>#&gt;        orig      dest flow
+#&gt; E02006861      1177        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span>(<span class='kw'>odmatrix</span>)
+</div><div class='output co'>#&gt;        orig      dest flow
 #&gt; 1 E02002363 E02006875  922
 #&gt; 2 E02002373 E02006875 1037
 #&gt; 3 E02002385 E02006875  958
@@ -186,7 +189,7 @@ zone code values and with names <code>orig</code>, <code>dest</code> and <code>f
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

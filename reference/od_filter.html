@@ -124,7 +124,7 @@ and returns an OD dataset with rows matching origin and destinations
 zones present in the codes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_filter</span>(<span class='no'>x</span>, <span class='no'>codes</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>od_filter</span>(<span class='kw'>x</span>, <span class='kw'>codes</span>, silent = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,14 +149,19 @@ representing points/zones of origin and destination</p></td>
     <p>A data frame</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
-<span class='no'>z</span> <span class='kw'>=</span> <span class='no'>od_data_zones</span>
-<span class='no'>codes</span> <span class='kw'>=</span> <span class='no'>z</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>z_in_x_o</span> <span class='kw'>=</span> <span class='no'>codes</span> <span class='kw'>%in%</span> <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>z_in_x_d</span> <span class='kw'>=</span> <span class='no'>codes</span> <span class='kw'>%in%</span> <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>2</span>]]
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>z_in_x_d</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>z_in_x_o</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='no'>z</span>[<span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>z_in_x_o</span> <span class='kw'>|</span> <span class='no'>z_in_x_d</span>)[-<span class='fl'>1</span>], ]
-<span class='no'>z</span><span class='kw'>[[</span><span class='fl'>1</span>]]</div><div class='output co'>#&gt; [1] "E02002373" "E02002385" "E02002392" "E02006852" "E02006861" "E02006875"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>2</span>]]))</div><div class='output co'>#&gt; [1] "E02002363" "E02002373" "E02002385" "E02006852" "E02006861" "E02006875"
-#&gt; [7] "E02002392"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='no'>x</span>, <span class='no'>z</span>)) <span class='co'># fails</span></div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>
+<span class='kw'>z</span> <span class='op'>=</span> <span class='kw'>od_data_zones</span>
+<span class='kw'>codes</span> <span class='op'>=</span> <span class='kw'>z</span>[[<span class='fl'>1</span>]]
+<span class='kw'>z_in_x_o</span> <span class='op'>=</span> <span class='kw'>codes</span> <span class='op'>%in%</span> <span class='kw'>x</span>[[<span class='fl'>1</span>]]
+<span class='kw'>z_in_x_d</span> <span class='op'>=</span> <span class='kw'>codes</span> <span class='op'>%in%</span> <span class='kw'>x</span>[[<span class='fl'>2</span>]]
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>z_in_x_d</span>)
+</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>z_in_x_o</span>)
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='kw'>z</span> <span class='op'>=</span> <span class='kw'>z</span>[<span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='kw'>z_in_x_o</span> <span class='op'>|</span> <span class='kw'>z_in_x_d</span>)[<span class='op'>-</span><span class='fl'>1</span>], ]
+<span class='kw'>z</span>[[<span class='fl'>1</span>]]
+</div><div class='output co'>#&gt; [1] "E02002373" "E02002385" "E02002392" "E02006852" "E02006861" "E02006875"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>x</span>[[<span class='fl'>1</span>]], <span class='kw'>x</span>[[<span class='fl'>2</span>]]))
+</div><div class='output co'>#&gt; [1] "E02002363" "E02002373" "E02002385" "E02006852" "E02006861" "E02006875"
+#&gt; [7] "E02002392"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='kw'>x</span>, <span class='kw'>z</span>)) <span class='co'># fails</span>
+</div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
@@ -174,7 +179,11 @@ representing points/zones of origin and destination</p></td>
 #&gt; 2 LINESTRING (-1.582003 53.80...
 #&gt; 3 LINESTRING (-1.586482 53.83...
 #&gt; 4 LINESTRING (-1.586482 53.83...
-#&gt; 5 LINESTRING (-1.564756 53.81...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>od_filter</span>(<span class='no'>x</span>, <span class='no'>z</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='no'>x</span>, <span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
+#&gt; 5 LINESTRING (-1.564756 53.81...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='fu'>od_filter</span>(<span class='kw'>x</span>, <span class='kw'>z</span>[[<span class='fl'>1</span>]])
+</div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='kw'>x</span>, <span class='kw'>z</span>)
+</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
@@ -208,7 +217,7 @@ representing points/zones of origin and destination</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

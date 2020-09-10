@@ -121,13 +121,13 @@
     </div>
 
     <pre class="usage"><span class='fu'>od_to_sf_network</span>(
-  <span class='no'>x</span>,
-  <span class='no'>z</span>,
-  <span class='kw'>zd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
-  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>,
-  <span class='kw'>network</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>x</span>,
+  <span class='kw'>z</span>,
+  zd = <span class='kw'>NULL</span>,
+  silent = <span class='fl'>TRUE</span>,
+  package = <span class='st'>"sf"</span>,
+  crs = <span class='fl'>4326</span>,
+  network = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -167,10 +167,11 @@ representing points/zones of origin and destination</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
-<span class='no'>z</span> <span class='kw'>=</span> <span class='no'>od_data_zones_min</span>
-<span class='no'>network</span> <span class='kw'>=</span> <span class='no'>od_data_network</span>
-(<span class='no'>lines_to_points_on_network</span> <span class='kw'>=</span> <span class='fu'>od_to_sf_network</span>(<span class='no'>x</span>, <span class='no'>z</span>, <span class='kw'>network</span> <span class='kw'>=</span> <span class='no'>network</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>
+<span class='kw'>z</span> <span class='op'>=</span> <span class='kw'>od_data_zones_min</span>
+<span class='kw'>network</span> <span class='op'>=</span> <span class='kw'>od_data_network</span>
+(<span class='kw'>lines_to_points_on_network</span> <span class='op'>=</span> <span class='fu'>od_to_sf_network</span>(<span class='kw'>x</span>, <span class='kw'>z</span>, network = <span class='kw'>network</span>))
+</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.593406 ymin: 53.78785 xmax: -1.528137 ymax: 53.84003
@@ -188,7 +189,8 @@ representing points/zones of origin and destination</p></td>
 #&gt; 3 LINESTRING (-1.575492 53.80...
 #&gt; 4 LINESTRING (-1.593406 53.83...
 #&gt; 5 LINESTRING (-1.586082 53.84...
-#&gt; 6 LINESTRING (-1.574195 53.81...</div><div class='input'>(<span class='no'>lines_to_points</span> <span class='kw'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='no'>x</span>, <span class='no'>z</span>))</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
+#&gt; 6 LINESTRING (-1.574195 53.81...</div><div class='input'>(<span class='kw'>lines_to_points</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='kw'>x</span>, <span class='kw'>z</span>))
+</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316
@@ -224,7 +226,7 @@ representing points/zones of origin and destination</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

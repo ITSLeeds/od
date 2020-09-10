@@ -122,7 +122,7 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
 and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, p = <span class='kw'>NULL</span>, silent = <span class='fl'>TRUE</span>, sfnames = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,14 +151,18 @@ representing points/zones of origin and destination</p></td>
     <p>A data frame with origin and destination coordinates</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>
-<span class='no'>p</span> <span class='kw'>=</span> <span class='no'>od_data_centroids</span>
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>res</span>)</div><div class='output co'>#&gt; [1] "data.frame"</div><div class='input'><span class='no'>res</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>
+<span class='kw'>p</span> <span class='op'>=</span> <span class='kw'>od_data_centroids</span>
+<span class='kw'>res</span> <span class='op'>=</span> <span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='kw'>res</span>)
+</div><div class='output co'>#&gt; [1] "data.frame"</div><div class='input'><span class='kw'>res</span>
+</div><div class='output co'>#&gt;          ox       oy        dx       dy
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]</div><div class='output co'>#&gt;           x        y         x        y
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>, sfnames = <span class='fl'>TRUE</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
+</div><div class='output co'>#&gt;           x        y         x        y
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='no'>x</span>, <span class='no'>p</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>, ]</div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>, silent = <span class='fl'>FALSE</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
+</div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
 #&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div></pre>
   </div>
@@ -176,7 +180,7 @@ representing points/zones of origin and destination</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

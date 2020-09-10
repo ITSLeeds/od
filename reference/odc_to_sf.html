@@ -120,7 +120,7 @@
     <p>Convert origin-destination coordinates into geographic desire lines</p>
     </div>
 
-    <pre class="usage"><span class='fu'>odc_to_sf</span>(<span class='no'>odc</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
+    <pre class="usage"><span class='fu'>odc_to_sf</span>(<span class='kw'>odc</span>, d = <span class='kw'>NULL</span>, crs = <span class='fl'>4326</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,13 +142,15 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>odc</span> <span class='kw'>=</span> <span class='fu'><a href='od_coordinates.html'>od_coordinates</a></span>(<span class='no'>od_data_df</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='no'>od_data_zones</span>, <span class='kw'>sfnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;             x        y         x        y
+    <pre class="examples"><div class='input'>(<span class='kw'>odc</span> <span class='op'>=</span> <span class='fu'><a href='od_coordinates.html'>od_coordinates</a></span>(<span class='kw'>od_data_df</span>, p = <span class='kw'>od_data_zones</span>, sfnames = <span class='fl'>TRUE</span>))
+</div><div class='output co'>#&gt;             x        y         x        y
 #&gt; 1   -1.534793 53.82864 -1.546024 53.79587
 #&gt; 2   -1.581617 53.81838 -1.546024 53.79587
 #&gt; 3   -1.582003 53.80796 -1.546024 53.79587
 #&gt; 5   -1.586482 53.83316 -1.561391 53.80498
 #&gt; 5.1 -1.586482 53.83316 -1.546024 53.79587
-#&gt; 6   -1.564756 53.81763 -1.546024 53.79587</div><div class='input'>(<span class='no'>l</span> <span class='kw'>=</span> <span class='fu'>odc_to_sf</span>(<span class='no'>odc</span>))</div><div class='output co'>#&gt; Simple feature collection with 6 features and 0 fields
+#&gt; 6   -1.564756 53.81763 -1.546024 53.79587</div><div class='input'>(<span class='kw'>l</span> <span class='op'>=</span> <span class='fu'>odc_to_sf</span>(<span class='kw'>odc</span>))
+</div><div class='output co'>#&gt; Simple feature collection with 6 features and 0 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316
@@ -161,7 +163,9 @@
 #&gt; 3 LINESTRING (-1.582003 53.80...
 #&gt; 4 LINESTRING (-1.586482 53.83...
 #&gt; 5 LINESTRING (-1.586482 53.83...
-#&gt; 6 LINESTRING (-1.564756 53.81...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>l</span>)</div><div class='img'><img src='odc_to_sf-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>lsfc</span> <span class='kw'>=</span> <span class='fu'><a href='odc_to_sfc.html'>odc_to_sfc</a></span>(<span class='no'>odc</span>)</div></pre>
+#&gt; 6 LINESTRING (-1.564756 53.81...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>l</span>)
+</div><div class='img'><img src='odc_to_sf-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>lsfc</span> <span class='op'>=</span> <span class='fu'><a href='odc_to_sfc.html'>odc_to_sfc</a></span>(<span class='kw'>odc</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -177,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

@@ -130,7 +130,7 @@ with cell values (from <code>attrib</code>, the third column by default) represe
 origins and destinations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_to_odmatrix</span>(<span class='no'>x</span>, <span class='kw'>attrib</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>name_orig</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>name_dest</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre class="usage"><span class='fu'>od_to_odmatrix</span>(<span class='kw'>x</span>, attrib = <span class='fl'>3</span>, name_orig = <span class='fl'>1</span>, name_dest = <span class='fl'>2</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,12 +161,14 @@ of interest from the <code>flow</code> data frame</p></td>
 <code><a href='odmatrix_to_od.html'>odmatrix_to_od</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>od_data_df</span>[<span class='fl'>1</span>:<span class='fl'>4</span>, ]
-<span class='fu'>od_to_odmatrix</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;           E02006875 E02002392
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, ]
+<span class='fu'>od_to_odmatrix</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt;           E02006875 E02002392
 #&gt; E02002363       922        NA
 #&gt; E02002373      1037        NA
 #&gt; E02002385       958        NA
-#&gt; E02006852        NA       437</div><div class='input'><span class='fu'>od_to_odmatrix</span>(<span class='no'>x</span>, <span class='kw'>attrib</span> <span class='kw'>=</span> <span class='st'>"bicycle"</span>)</div><div class='output co'>#&gt;           E02006875 E02002392
+#&gt; E02006852        NA       437</div><div class='input'><span class='fu'>od_to_odmatrix</span>(<span class='kw'>x</span>, attrib = <span class='st'>"bicycle"</span>)
+</div><div class='output co'>#&gt;           E02006875 E02002392
 #&gt; E02002363        43        NA
 #&gt; E02002373        73        NA
 #&gt; E02002385        52        NA
@@ -186,7 +188,7 @@ of interest from the <code>flow</code> data frame</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

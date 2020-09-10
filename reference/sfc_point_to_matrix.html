@@ -122,7 +122,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates." />
 and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sfc_point_to_matrix</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>sfc_point_to_matrix</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,9 +136,13 @@ and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>See https://github.com/dcooley/sfheaders/issues/52 for details</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dave Cooley</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sfc_point_to_matrix</span>(<span class='no'>od_data_centroids</span>$<span class='no'>geometry</span>[<span class='fl'>1</span>:<span class='fl'>6</span>])</div><div class='output co'>#&gt;        [,1]     [,2]
+    <pre class="examples"><div class='input'><span class='fu'>sfc_point_to_matrix</span>(<span class='kw'>od_data_centroids</span><span class='op'>$</span><span class='kw'>geometry</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>])
+</div><div class='output co'>#&gt;        [,1]     [,2]
 #&gt; 1 -1.609934 53.79079
 #&gt; 2 -1.624630 53.88605
 #&gt; 3 -1.518058 53.84066
@@ -160,7 +164,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
