@@ -24,15 +24,14 @@ al. [2012](https://doi.org/10.1038/nature10856)).
 
 ## Installation
 
-<!-- You can install the released version of od from [CRAN](https://CRAN.R-project.org) with: 
+You can install the released version of od from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("od")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
-
--->
+Install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -119,7 +118,7 @@ desire_lines_stplanr$geometry[1:2]
 ```
 
 These are ‘desire lines’ representing the shortest (straight line) path
-between two centoids and can plotted using geographic data and mapping
+between two centroids and can plotted using geographic data and mapping
 packages such as `sf`, `mapview`, `tmap` and `mapdeck`, e.g.:
 
 ``` r
@@ -129,8 +128,8 @@ plot(desire_lines_stplanr$geometry)
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="50%" /><img src="man/figures/README-unnamed-chunk-5-2.png" width="50%" />
 
-By default the package uses the `sfheaders` package to create sf
-objects. You can can also specify `sf` outputs as follows:
+By default the package uses the `sfheaders` package to create `sf`
+objects for speed. You can can also specify `sf` outputs as follows:
 
 ``` r
 desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
@@ -140,9 +139,6 @@ desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
 ```
 
 ## Performance
-
-The package is designed to be fast, with centroids only created when
-needed and the use of `sfheaders`.
 
 ### Benchmark on a small dataset:
 
@@ -158,10 +154,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.23ms   5.62ms      177.   600.5KB     14.2
-#> 2 od            2.6ms   2.66ms      371.    78.2KB     15.4
-#> 3 od_sf1       3.67ms   3.81ms      259.    77.8KB     13.6
-#> 4 od_sf2       3.65ms   3.86ms      256.    90.8KB     16.3
+#> 1 stplanr      6.22ms   6.62ms      146.   600.5KB     11.8
+#> 2 od           3.09ms   3.26ms      298.    78.2KB     12.4
+#> 3 od_sf1        4.4ms   4.68ms      206.    77.8KB     10.9
+#> 4 od_sf2       4.33ms   4.56ms      214.    90.8KB     11.3
 ```
 
 ## Related open source projects

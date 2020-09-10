@@ -27,15 +27,13 @@ OD datasets represent "the volume of travel between zones or locations" (Carey e
 
 ## Installation
 
-<!-- You can install the released version of od from [CRAN](https://CRAN.R-project.org) with: 
+You can install the released version of od from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("od")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
-
--->
+Install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -77,14 +75,14 @@ desire_lines_od[1:2]
 desire_lines_stplanr$geometry[1:2]
 ```
 
-These are 'desire lines' representing the shortest (straight line) path between two centoids and can plotted using geographic data and mapping packages such as `sf`, `mapview`, `tmap` and `mapdeck`, e.g.:
+These are 'desire lines' representing the shortest (straight line) path between two centroids and can plotted using geographic data and mapping packages such as `sf`, `mapview`, `tmap` and `mapdeck`, e.g.:
 
 ```{r, out.width="50%", fig.show='hold'}
 plot(desire_lines_od)
 plot(desire_lines_stplanr$geometry)
 ```
 
-By default the package uses the `sfheaders` package to create sf objects.
+By default the package uses the `sfheaders` package to create `sf` objects for speed.
 You can can also specify `sf` outputs as follows:
 
 ```{r}
@@ -93,8 +91,6 @@ desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
 
 
 ## Performance
-
-The package is designed to be fast, with centroids only created when needed and the use of `sfheaders`.
 
 ### Benchmark on a small dataset:
 
