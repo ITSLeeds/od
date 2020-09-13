@@ -20,6 +20,9 @@ od_to_sf = function(x, z, zd = NULL, silent = FALSE, filter = TRUE,
   if (filter && is.null(zd)) {
     x = od_filter(x, codes = z[[1]], silent = silent)
   }
+  if(filter && !is.null(zd)) {
+    x = od_filter(x, codes = c(z[[1]], zd[[1]]))
+  }
   od_sfc = od_to_sfc(x, z, zd, silent, package, crs, filter)
   sf::st_sf(x, geometry = od_sfc)
 }
@@ -35,11 +38,13 @@ od_to_sfc = function(x,
   if(package == "sfheaders") {
     odc = od_coordinates(x, z, silent = silent) # todo: add support for p
     od_sfc = odc_to_sfc(odc)
-    if(requireNamespace("sf")) {
+    if(requireNamespace("sf", quietly = TRUE)) {
       if(!is.na(sf::st_crs(z))) {
         crs = sf::st_crs(z)
       }
       sf::st_crs(od_sfc) = sf::st_crs(crs)
+    } else {
+      message("sf package not installed (install it to work with CRSs")
     }
   } else {
     odc = od_coordinates(x, z, silent = silent, sfnames = TRUE) # todo: add support for p
@@ -65,7 +70,12 @@ od_to_sfc = function(x,
 #' res
 #' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 #' od_coordinates(x, p, silent = FALSE)[1:2, ]
-od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
+#' od_coordinates(x, p, pd)[1:2, ]
+#' x = od_data_df2
+#' p = od_data_centroids2
+#' pd = od_data_destinations
+#' od_coordinates(x, p, pd)
+od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE) {
   o_code = x[[1]]
   d_code = x[[2]]
   if(methods::is(o_code, "factor")) {
@@ -98,14 +108,24 @@ od_coordinates = function(x, p = NULL, silent = TRUE, sfnames = FALSE) {
   if(!silent) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
   p_code = p_code_original[sel_p_in_x]
   stopifnot(all(o_code %in% p_code)) # todo: add error message
-  stopifnot(all(d_code %in% p_code)) # todo: add error message
+  if(is.null(pd)) {
+    stopifnot(all(d_code %in% p_code)) # todo: add error message
+  } else {
+    stopifnot(all(d_code %in% pd[[1]])) # todo: add error message
+  }
   o_matching_p = match(o_code, p_code)
-  d_matching_p = match(d_code, p_code)
+  if(!is.null(pd)) {
+    d_matching_p = match(d_code, p_code)
+  } else {
+    pcode_d = pd[[1]]
+    d_matching_p = match(d_code, pcode_d)
+    pd_coordinates = sfheaders::sfc_to_df(pd$geometry)[c("x", "y")]
+  }
 
-  # p_coordinates = sf::st_coordinates(p_in_x)
+  p_coordinates = sf::st_coordinates(p_in_x)
   p_coordinates = sfheaders::sfc_to_df(p_in_x)[c("x", "y")]
   o_coords = p_coordinates[o_matching_p, ]
-  d_coords = p_coordinates[d_matching_p, ]
+  d_coords = pd_coordinates[d_matching_p, ]
   odc = cbind(o_coords, d_coords)
   if(sfnames) return(as.matrix(odc)) # return without updating column names
   colnames(odc) = c("ox", "oy", "dx", "dy")
