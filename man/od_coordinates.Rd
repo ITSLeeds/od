@@ -12,6 +12,8 @@ representing points/zones of origin and destination}
 
 \item{p}{Points representing origins and destinations}
 
+\item{pd}{Points representing destinations, if different from origin points}
+
 \item{silent}{Hide messages? \code{FALSE} by default.}
 
 \item{sfnames}{Should output column names be compatible with the sf package?}
@@ -31,8 +33,9 @@ class(res)
 res
 od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 od_coordinates(x, p, silent = FALSE)[1:2, ]
-od_coordinates(x, p, pd)[1:2, ]
-x = od_data_df2
+od_coordinates(x, p)
+x = od_data_df2[1:3, ]
 p = od_data_centroids2
 pd = od_data_destinations
+od_coordinates(x, p, pd)
 }

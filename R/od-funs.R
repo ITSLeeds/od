@@ -15,6 +15,21 @@
 #' z = od_data_zones
 #' desire_lines = od_to_sf(x, z)
 #' desire_lines[1:3]
+#' plot(desire_lines)
+#' desire_lines_d = od_to_sf(od_data_df2, od_data_centroids2, od_data_destinations)
+#' o1 = od_data_centroids2[od_data_centroids2[[1]] == od_data_df2[[1]][1], ]
+#' d1 = od_data_destinations[od_data_destinations[[1]] == od_data_df2[[2]][1], ]
+#' plot(desire_lines_d$geometry)
+#' plot(o1, add = TRUE)
+#' plot(d1, add = TRUE)
+#' plot(desire_lines_d$geometry[1], lwd = 3, add = TRUE)
+#' n = 7
+#' on = od_data_centroids2[od_data_centroids2[[1]] == od_data_df2[[1]][n], ]
+#' dn = od_data_destinations[od_data_destinations[[1]] == od_data_df2[[2]][n], ]
+#' plot(desire_lines_d$geometry)
+#' plot(on, add = TRUE)
+#' plot(dn, add = TRUE)
+#' plot(desire_lines_d$geometry[n], lwd = 3, add = TRUE)
 od_to_sf = function(x, z, zd = NULL, silent = FALSE, filter = TRUE,
                     package = "sfheaders", crs = 4326) {
   if (filter && is.null(zd)) {
@@ -36,7 +51,7 @@ od_to_sfc = function(x,
                      crs = 4326,
                      filter = TRUE) {
   if(package == "sfheaders") {
-    odc = od_coordinates(x, z, silent = silent) # todo: add support for p
+    odc = od_coordinates(x, z, zd, silent = silent) # todo: add support for p
     od_sfc = odc_to_sfc(odc)
     if(requireNamespace("sf", quietly = TRUE)) {
       if(!is.na(sf::st_crs(z))) {
@@ -47,7 +62,7 @@ od_to_sfc = function(x,
       message("sf package not installed (install it to work with CRSs")
     }
   } else {
-    odc = od_coordinates(x, z, silent = silent, sfnames = TRUE) # todo: add support for p
+    odc = od_coordinates(x, z, zd, silent = silent, sfnames = TRUE) # todo: add support for p
     od_sfc = odc_to_sfc_sf(odc, crs = crs)
   }
   od_sfc
@@ -58,6 +73,7 @@ od_to_sfc = function(x,
 #' This function takes a wide range of input data types (spatial lines, points or text strings)
 #' and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.
 #' @param p Points representing origins and destinations
+#' @param pd Points representing destinations, if different from origin points
 #' @param sfnames Should output column names be compatible with the sf package?
 #' @return A data frame with origin and destination coordinates
 #' @inheritParams od_to_sfc
@@ -70,8 +86,8 @@ od_to_sfc = function(x,
 #' res
 #' od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 #' od_coordinates(x, p, silent = FALSE)[1:2, ]
-#' od_coordinates(x, p, pd)[1:2, ]
-#' x = od_data_df2
+#' od_coordinates(x, p)
+#' x = od_data_df2[1:3, ]
 #' p = od_data_centroids2
 #' pd = od_data_destinations
 #' od_coordinates(x, p, pd)
@@ -114,18 +130,19 @@ od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE
     stopifnot(all(d_code %in% pd[[1]])) # todo: add error message
   }
   o_matching_p = match(o_code, p_code)
-  if(!is.null(pd)) {
+  if(is.null(pd)) {
     d_matching_p = match(d_code, p_code)
   } else {
     pcode_d = pd[[1]]
     d_matching_p = match(d_code, pcode_d)
     pd_coordinates = sfheaders::sfc_to_df(pd$geometry)[c("x", "y")]
+    d_coords = pd_coordinates[d_matching_p, ]
   }
-
-  p_coordinates = sf::st_coordinates(p_in_x)
   p_coordinates = sfheaders::sfc_to_df(p_in_x)[c("x", "y")]
   o_coords = p_coordinates[o_matching_p, ]
-  d_coords = pd_coordinates[d_matching_p, ]
+  if(is.null(pd)) {
+    d_coords = p_coordinates[d_matching_p, ]
+  }
   odc = cbind(o_coords, d_coords)
   if(sfnames) return(as.matrix(odc)) # return without updating column names
   colnames(odc) = c("ox", "oy", "dx", "dy")

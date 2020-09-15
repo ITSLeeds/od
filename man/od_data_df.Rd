@@ -19,4 +19,7 @@ The other columns record the number of people who travel by different modes, inc
 The schema data can be (re-)generated using code in the
 \code{data-raw} directory.
 }
+\examples{
+od_data_df
+}
 \keyword{datasets}
