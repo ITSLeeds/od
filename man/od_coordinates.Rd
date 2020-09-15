@@ -4,13 +4,15 @@
 \alias{od_coordinates}
 \title{Create matrices representing origin-destination coordinates}
 \usage{
-od_coordinates(x, p = NULL, silent = TRUE, sfnames = FALSE)
+od_coordinates(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE)
 }
 \arguments{
 \item{x}{A data frame in which the first two columns are codes
 representing points/zones of origin and destination}
 
 \item{p}{Points representing origins and destinations}
+
+\item{pd}{Points representing destinations, if different from origin points}
 
 \item{silent}{Hide messages? \code{FALSE} by default.}
 
@@ -31,4 +33,9 @@ class(res)
 res
 od_coordinates(x, p, sfnames = TRUE)[1:2, ]
 od_coordinates(x, p, silent = FALSE)[1:2, ]
+od_coordinates(x, p)
+x = od_data_df2[1:3, ]
+p = od_data_centroids2
+pd = od_data_destinations
+od_coordinates(x, p, pd)
 }

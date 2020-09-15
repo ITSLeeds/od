@@ -27,6 +27,8 @@ NULL
 #' @keywords datasets
 #' @name od_data_df
 #' @aliases od_data_df_medium
+#' @examples
+#' od_data_df
 NULL
 
 #' Datasets reporesenting zone centroids
@@ -42,7 +44,6 @@ NULL
 #' @name od_data_centroids
 #' @aliases od_data_coordinates
 #' @examples
-#' od_data_centroids
 #' head(od_data_coordinates)
 NULL
 
@@ -55,6 +56,68 @@ NULL
 #' @keywords datasets
 #' @name od_data_network
 #' @examples
-#' od_data_network
 #' head(od_data_network)
+NULL
+
+#' Origin-destination data with destinations in a different layer than origins
+#'
+#' This dataset represents commuter flows between Output Areas
+#' and Workplace Zones, the most detailed open OD data in the UK.
+#' See https://wicid.ukdataservice.ac.uk/ and the script
+#' `data-raw/od_wpz.R` in the `od` package's GitHub repo.
+#'
+#' The dataset reports (in the 3rd column) the number of people travelling
+#' between origins and destinations.
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_df2
+#' @examples
+#' head(od_data_df2)
+NULL
+
+#' Output area centroids
+#'
+#' This dataset represents geographic centroids of Output Areas in Leeds, UK.
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_centroids2
+#' @examples
+#' head(od_data_centroids2)
+NULL
+
+#' Residential (origin) 'Output Area' centroids
+#'
+#' This dataset represents geographic centroids of Output Areas in Leeds, UK.
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_centroids2
+#' @examples
+#' head(od_data_centroids2)
+NULL
+
+#' Workplace zone (destination) centroids
+#'
+#' This dataset represents geographic centroids of Output Areas in Leeds, UK.
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_destinations
+#' @examples
+#' nrow(od_data_destinations)
+#' head(od_data_destinations)
 NULL
