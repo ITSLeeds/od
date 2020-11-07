@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Getting help with od • od</title>
+<title>Workplace zone (destination) centroids — od_data_destinations • od</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Getting help with od" />
+<meta property="og:title" content="Workplace zone (destination) centroids — od_data_destinations" />
+<meta property="og:description" content="This dataset represents geographic centroids of Output Areas in Leeds, UK." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,7 +71,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">od</a>
+        <a class="navbar-link" href="../index.html">od</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
@@ -78,16 +79,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/od.html">Get started</a>
+  <a href="../articles/od.html">Get started</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -108,47 +109,48 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Getting help with od</h1>
+    <h1>Workplace zone (destination) centroids</h1>
+    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>od_data_destinations.Rd</code></div>
     </div>
 
-<div id="getting-help-with-od" class="section level1">
+    <div class="ref-description">
+    <p>This dataset represents geographic centroids of Output Areas in Leeds, UK.</p>
+    </div>
 
-<p>Thanks for using od! Before filing an issue, there are a few places to explore and pieces to put together to make the process as smooth as possible.</p>
-<div id="make-a-reprex" class="section level2">
-<h2 class="hasAnchor">
-<a href="#make-a-reprex" class="anchor"></a>Make a reprex</h2>
-<p>Start by making a minimal <strong>repr</strong>oducible <strong>ex</strong>ample using the <a href="https://reprex.tidyverse.org/">reprex</a> package. If you haven’t heard of or used reprex before, you’re in for a treat! Seriously, reprex will make all of your R-question-asking endeavors easier (which is a pretty insane ROI for the five to ten minutes it’ll take you to learn what it’s all about). For additional reprex pointers, check out the <a href="https://www.tidyverse.org/help/">Get help!</a> section of the tidyverse site.</p>
-</div>
-<div id="where-to-ask" class="section level2">
-<h2 class="hasAnchor">
-<a href="#where-to-ask" class="anchor"></a>Where to ask?</h2>
-<p>Armed with your reprex, the next step is to figure out <a href="https://www.tidyverse.org/help/#where-to-ask">where to ask</a>.</p>
-<ul>
-<li><p>If it’s a question: start with <a href="https://community.rstudio.com/">community.rstudio.com</a>, and/or StackOverflow. There are more people there to answer questions.</p></li>
-<li><p>If it’s a bug: you’re in the right place, <a href="https://github.com/robinlovelace/od/issues/new">file an issue</a>.</p></li>
-<li><p>If you’re not sure: let the community help you figure it out! If your problem <em>is</em> a bug or a feature request, you can easily return here and report it.</p></li>
-</ul>
-<p>Before opening a new issue, be sure to <a href="https://github.com/robinlovelace/od/issues">search issues and pull requests</a> to make sure the bug hasn’t been reported and/or already fixed in the development version. By default, the search will be pre-populated with <code>is:issue is:open</code>. You can <a href="https://help.github.com/articles/searching-issues-and-pull-requests/">edit the qualifiers</a> (e.g. <code>is:pr</code>, <code>is:closed</code>) as needed. For example, you’d simply remove <code>is:open</code> to search <em>all</em> issues in the repo, open or closed.</p>
-</div>
-<div id="what-happens-next" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-happens-next" class="anchor"></a>What happens next?</h2>
-<p>To be as efficient as possible, development of tidyverse packages tends to be very bursty, so you shouldn’t worry if you don’t get an immediate response. Typically we don’t look at a repo until a sufficient quantity of issues accumulates, then there’s a burst of intense activity as we focus our efforts. That makes development more efficient because it avoids expensive context switching between problems, at the cost of taking longer to get back to you. This process makes a good reprex particularly important because it might be multiple months between your initial report and when we start working on it. If we can’t reproduce the bug, we can’t fix it!</p>
-</div>
-</div>
 
+
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>The schema data can be (re-)generated using code in the
+<code>data-raw</code> directory.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_data_destinations</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_destinations</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Simple feature collection with 6 features and 1 field
+#&gt; geometry type:  POINT
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: -1.602164 ymin: 53.74579 xmax: -1.508841 ymax: 53.83775
+#&gt; geographic CRS: WGS 84
+#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
+#&gt;   wz11cd                geometry
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;POINT [°]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> E33012372 (-1.508841 53.80662)
+#&gt; </span><span style='color: #555555;'>2</span><span> E33012219  (-1.53719 53.83775)
+#&gt; </span><span style='color: #555555;'>3</span><span> E33012368 (-1.526095 53.80214)
+#&gt; </span><span style='color: #555555;'>4</span><span> E33009617 (-1.602164 53.74579)
+#&gt; </span><span style='color: #555555;'>5</span><span> E33010415 (-1.548989 53.79823)
+#&gt; </span><span style='color: #555555;'>6</span><span> E33012474 (-1.553237 53.76622)</div></span></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>

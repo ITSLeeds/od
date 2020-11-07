@@ -73,7 +73,7 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
 and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, p = <span class='kw'>NULL</span>, silent = <span class='fl'>TRUE</span>, sfnames = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, p <span class='op'>=</span> <span class='cn'>NULL</span>, pd <span class='op'>=</span> <span class='cn'>NULL</span>, silent <span class='op'>=</span> <span class='cn'>TRUE</span>, sfnames <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,6 +135,10 @@ representing points/zones of origin and destination</p></td>
     <tr>
       <th>p</th>
       <td><p>Points representing origins and destinations</p></td>
+    </tr>
+    <tr>
+      <th>pd</th>
+      <td><p>Points representing destinations, if different from origin points</p></td>
     </tr>
     <tr>
       <th>silent</th>
@@ -151,20 +155,34 @@ representing points/zones of origin and destination</p></td>
     <p>A data frame with origin and destination coordinates</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>=</span> <span class='kw'>od_data_df</span>
-<span class='kw'>p</span> <span class='op'>=</span> <span class='kw'>od_data_centroids</span>
-<span class='kw'>res</span> <span class='op'>=</span> <span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='kw'>res</span>)
-</div><div class='output co'>#&gt; [1] "data.frame"</div><div class='input'><span class='kw'>res</span>
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
+<span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span>
+<span class='va'>res</span> <span class='op'>=</span> <span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "data.frame"</div><div class='input'><span class='va'>res</span>
 </div><div class='output co'>#&gt;          ox       oy        dx       dy
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>, sfnames = <span class='fl'>TRUE</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span>, sfnames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='op'>]</span>
 </div><div class='output co'>#&gt;           x        y         x        y
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span>(<span class='kw'>x</span>, <span class='kw'>p</span>, silent = <span class='fl'>FALSE</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, ]
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span>, silent <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='op'>]</span>
 </div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt;          ox       oy        dx       dy
 #&gt; 6 -1.534957 53.82859 -1.545708 53.79593
-#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div></pre>
+#&gt; 7 -1.581773 53.81860 -1.545708 53.79593</div><div class='input'><span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            ox       oy        dx       dy
+#&gt; 6   -1.534957 53.82859 -1.545708 53.79593
+#&gt; 7   -1.581773 53.81860 -1.545708 53.79593
+#&gt; 4   -1.582412 53.80816 -1.545708 53.79593
+#&gt; 2   -1.586323 53.83280 -1.561249 53.80470
+#&gt; 2.1 -1.586323 53.83280 -1.545708 53.79593
+#&gt; 5   -1.564659 53.81767 -1.545708 53.79593</div><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span>
+<span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids2</span>
+<span class='va'>pd</span> <span class='op'>=</span> <span class='va'>od_data_destinations</span>
+<span class='fu'>od_coordinates</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span>, <span class='va'>pd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          ox       oy        dx       dy
+#&gt; 3 -1.679672 53.86497 -1.664912 53.87430
+#&gt; 1 -1.376812 53.76545 -1.508841 53.80662
+#&gt; 2 -1.331076 53.79493 -1.342522 53.83669</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -180,7 +198,7 @@ representing points/zones of origin and destination</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

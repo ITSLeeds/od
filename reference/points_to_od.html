@@ -74,7 +74,7 @@ of points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -124,9 +124,9 @@ representing the potential flows, or 'spatial interaction', between every combin
 of points.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>points_to_od</span>(<span class='kw'>p</span>, interzone_only = <span class='fl'>FALSE</span>, ids_only = <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>FALSE</span>, ids_only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>points_to_odl</span>(<span class='kw'>p</span>, interzone_only = <span class='fl'>FALSE</span>, ids_only = <span class='fl'>FALSE</span>, crs = <span class='fl'>4326</span>)</pre>
+<span class='fu'>points_to_odl</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>FALSE</span>, ids_only <span class='op'>=</span> <span class='cn'>FALSE</span>, crs <span class='op'>=</span> <span class='fl'>4326</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,9 +160,9 @@ coordinates of the start and end points of each OD pair.</p></td>
 a geographic object representing desire lines in the class <code>sf</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://r-spatial.github.io/sf'>sf</a></span>)
-</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.8.1, GDAL 3.1.1, PROJ 6.3.1</span></div><div class='input'><span class='kw'>p</span> <span class='op'>=</span> <span class='kw'>od_data_centroids</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, ]
-<span class='fu'>points_to_od</span>(<span class='kw'>p</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.8.1, GDAL 3.1.1, PROJ 6.3.1</span></div><div class='input'><span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span>
+<span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             O         D        ox       oy        dx       dy
 #&gt; 1   E02002407 E02002407 -1.609934 53.79079 -1.609934 53.79079
 #&gt; 1.1 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
@@ -172,7 +172,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt; 2.2 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066
 #&gt; 3   E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079
 #&gt; 3.1 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605
-#&gt; 3.2 E02002353 E02002353 -1.518058 53.84066 -1.518058 53.84066</div><div class='input'><span class='fu'>points_to_od</span>(<span class='kw'>p</span>, ids_only = <span class='fl'>TRUE</span>)
+#&gt; 3.2 E02002353 E02002353 -1.518058 53.84066 -1.518058 53.84066</div><div class='input'><span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, ids_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           O         D
 #&gt; 1 E02002407 E02002407
 #&gt; 2 E02002407 E02002336
@@ -182,7 +182,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt; 6 E02002336 E02002353
 #&gt; 7 E02002353 E02002407
 #&gt; 8 E02002353 E02002336
-#&gt; 9 E02002353 E02002353</div><div class='input'>(<span class='kw'>l</span> <span class='op'>=</span> <span class='fu'>points_to_odl</span>(<span class='kw'>p</span>, interzone_only = <span class='fl'>TRUE</span>))
+#&gt; 9 E02002353 E02002353</div><div class='input'><span class='op'>(</span><span class='va'>l</span> <span class='op'>=</span> <span class='fu'>points_to_odl</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 2 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
@@ -196,17 +196,17 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt; 3 E02002336 E02002407 LINESTRING (-1.62463 53.886...
 #&gt; 4 E02002336 E02002353 LINESTRING (-1.62463 53.886...
 #&gt; 5 E02002353 E02002407 LINESTRING (-1.518058 53.84...
-#&gt; 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='kw'>l</span>)
-</div><div class='img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></div><div class='input'>(<span class='kw'>od</span> <span class='op'>=</span> <span class='fu'>points_to_od</span>(<span class='kw'>p</span>, interzone_only = <span class='fl'>TRUE</span>))
+#&gt; 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+</div><div class='img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='op'>(</span><span class='va'>od</span> <span class='op'>=</span> <span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           O         D        ox       oy        dx       dy
 #&gt; 2 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
 #&gt; 3 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066
 #&gt; 4 E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079
 #&gt; 6 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066
 #&gt; 7 E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079
-#&gt; 8 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605</div><div class='input'><span class='kw'>l2</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span>(<span class='kw'>od</span>, <span class='kw'>od_data_centroids</span>)
-</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='kw'>l2</span><span class='op'>$</span><span class='kw'>v</span> <span class='op'>=</span> <span class='fl'>1</span>
-(<span class='kw'>l2_oneway</span> <span class='op'>=</span> <span class='fu'><a href='od_oneway.html'>od_oneway</a></span>(<span class='kw'>l2</span>))
+#&gt; 8 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605</div><div class='input'><span class='va'>l2</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>od_data_centroids</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='va'>l2</span><span class='op'>$</span><span class='va'>v</span> <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>(</span><span class='va'>l2_oneway</span> <span class='op'>=</span> <span class='fu'><a href='od_oneway.html'>od_oneway</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 3 features and 7 fields
 #&gt; Attribute-geometry relationship: 0 constant, 5 aggregate, 2 identity
 #&gt; geometry type:  LINESTRING
@@ -220,7 +220,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt;                         geometry
 #&gt; 1 LINESTRING (-1.62463 53.886...
 #&gt; 2 LINESTRING (-1.609934 53.79...
-#&gt; 3 LINESTRING (-1.609934 53.79...</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='kw'>l2</span>)
+#&gt; 3 LINESTRING (-1.609934 53.79...</div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span>
 </div><div class='img'><img src='points_to_od-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -237,7 +237,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

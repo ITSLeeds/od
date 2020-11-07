@@ -73,7 +73,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates." />
 and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sfc_point_to_matrix</span>(<span class='kw'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>sfc_point_to_matrix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,7 +141,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
     <p>Dave Cooley</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sfc_point_to_matrix</span>(<span class='kw'>od_data_centroids</span><span class='op'>$</span><span class='kw'>geometry</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>])
+    <pre class="examples"><div class='input'><span class='fu'>sfc_point_to_matrix</span><span class='op'>(</span><span class='va'>od_data_centroids</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;        [,1]     [,2]
 #&gt; 1 -1.609934 53.79079
 #&gt; 2 -1.624630 53.88605
@@ -164,7 +164,7 @@ and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
