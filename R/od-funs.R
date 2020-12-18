@@ -9,6 +9,7 @@
 #' @param package Which package to use to create the sf object? `sfheaders` is the default.
 #' @param crs The coordinate reference system of the output, if not known in `z`.
 #' 4326 by default.
+#' @inheritParams odc_to_sf
 #' @export
 #' @examples
 #' x = od_data_df
@@ -30,8 +31,12 @@
 #' plot(on, add = TRUE)
 #' plot(dn, add = TRUE)
 #' plot(desire_lines_d$geometry[n], lwd = 3, add = TRUE)
-od_to_sf = function(x, z, zd = NULL, silent = FALSE, filter = TRUE,
+od_to_sf = function(x, z, zd = NULL, odc = NULL, silent = FALSE, filter = TRUE,
                     package = "sfheaders", crs = 4326) {
+
+  if(!is.null(odc)) {
+    return(odc_to_sf(odc = odc, crs = crs))
+  }
   if (filter && is.null(zd)) {
     x = od_filter(x, codes = z[[1]], silent = silent)
   }

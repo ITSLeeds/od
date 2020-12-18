@@ -9,6 +9,7 @@ od_to_sf(
   x,
   z,
   zd = NULL,
+  odc = NULL,
   silent = FALSE,
   filter = TRUE,
   package = "sfheaders",
@@ -32,6 +33,8 @@ representing points/zones of origin and destination}
 \item{z}{Zones representing origins and destinations}
 
 \item{zd}{Zones representing destinations}
+
+\item{odc}{A matrix containing coordinates representing line start and end points}
 
 \item{silent}{Hide messages? \code{FALSE} by default.}
 
