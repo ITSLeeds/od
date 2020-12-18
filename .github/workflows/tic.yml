@@ -83,6 +83,14 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt install libcurl4-openssl-dev libgit2-dev
 
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
       - name: "[Stage] [macOS] Install libgit2"
         if: runner.os == 'macOS'
         run: brew install libgit2
