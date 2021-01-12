@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert OD data into lines with start and end points sampled on a network — od_to_sf_network • od</title>
+<title>Convert OD data into lines with start and end points sampled on a network — od_to_network • od</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Convert OD data into lines with start and end points sampled on a network — od_to_sf_network" />
+<meta property="og:title" content="Convert OD data into lines with start and end points sampled on a network — od_to_network" />
 <meta property="og:description" content="Convert OD data into lines with start and end points sampled on a network" />
 
 
@@ -113,14 +113,14 @@
     <div class="page-header">
     <h1>Convert OD data into lines with start and end points sampled on a network</h1>
     <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/od-funs.R'><code>R/od-funs.R</code></a></small>
-    <div class="hidden name"><code>od_to_sf_network.Rd</code></div>
+    <div class="hidden name"><code>od_to_network.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Convert OD data into lines with start and end points sampled on a network</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_to_sf_network</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>od_to_network</span><span class='op'>(</span>
   <span class='va'>x</span>,
   <span class='va'>z</span>,
   zd <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -170,7 +170,7 @@ representing points/zones of origin and destination</p></td>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
 <span class='va'>z</span> <span class='op'>=</span> <span class='va'>od_data_zones_min</span>
 <span class='va'>network</span> <span class='op'>=</span> <span class='va'>od_data_network</span>
-<span class='op'>(</span><span class='va'>lines_to_points_on_network</span> <span class='op'>=</span> <span class='fu'>od_to_sf_network</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span>, network <span class='op'>=</span> <span class='va'>network</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>lines_to_points_on_network</span> <span class='op'>=</span> <span class='fu'>od_to_network</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span>, network <span class='op'>=</span> <span class='va'>network</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
