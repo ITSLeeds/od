@@ -276,9 +276,9 @@ geometry_contains_polygons = function(z) {
 #' x = od_data_df
 #' z = od_data_zones_min
 #' network = od_data_network
-#' (lines_to_points_on_network = od_to_sf_network(x, z, network = network))
+#' (lines_to_points_on_network = od_to_network(x, z, network = network))
 #' (lines_to_points = od_to_sf(x, z))
-od_to_sf_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs = 4326,
+od_to_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs = 4326,
                     network = NULL) {
   # browser() # todo: remove and optimise
   # odc = od_coordinates(x, z, silent = silent) # we want the data in this format
@@ -305,7 +305,7 @@ od_to_sf_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs 
   #          g = s_origin[[i]]
   #          g[sample(nrow(g), size = uoid[i]), ]
   #        })
-  i = 1
+  # i = 1
   l_origin = lapply(seq(nrow(x)),
          function(i) {
            g = net_o[net_o[[z_nm]] == x[[1]][i], ]
