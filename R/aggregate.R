@@ -1,0 +1,66 @@
+#' Split-up each OD pair into multiple OD pairs based on subpoints/subzones
+#'
+#' This function is for splitting-up OD pairs, it's roughly and OD data equivalent
+#' of the `tidyr::pivot_longer()` function.
+#'
+#' @inheritParams od_to_sf
+#' @param od An origin-destination data frame
+#' @param subpoints Points within the zones defining the OD data
+#' @param subzones Sub-zones within the zones defining the OD data
+#' @param code_append The name of the column containing aggregate zone names
+#'
+#' @export
+#' @examples
+#' od = od::od_data_df
+#' zones = od::od_data_zones_min
+#' subzones = od_data_zones_small
+#' od_disag = od_disaggregate(od, zones, subzones)
+#' ncol(od_disag) -1 == ncol(od) # same number of columns (except disag data gained geometry)
+#' sum(od_disag[[3]]) == sum(od[[3]])
+#' sum(od_disag[[4]]) == sum(od[[4]])
+#' od_sf = od_to_sf(od, zones)
+#' plot(od_data_zones_small$geometry)
+#' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
+#' plot(od_sf["all"], add = TRUE)
+#' plot(od_disag["all"], add = TRUE)
+od_disaggregate = function(od, z, subpoints = NULL, subzones = NULL, code_append = "_ag") {
+
+  if(is.null(subpoints)) {
+    subpoints = sf::st_centroid(subzones)
+  }
+  azn = paste0(names(zones)[1], code_append)
+  names(zones)[1] = azn
+  subpoints_joined = sf::st_join(subpoints, zones[1])
+
+  # todo: convert to lapply
+  # i = 1
+  i_seq = seq(nrow(od))
+  # for(i in i_seq) {
+  #   o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
+  #   d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
+  #   od_new = expand.grid(o_new, d_new)
+  #   names(od_new) = c("o", "d")
+  #   od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+  #   od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), ]
+  #   od_new = cbind(od_new, od_new_attributes)
+  #   # colSums(od_new[-c(1, 2)]) == colSums(od[i, -c(1, 2)]) # totals add up!
+  #   od_new_sf = od_to_sf(od_new, subpoints)
+  #   # mapview::mapview(od_new_sf) + mapview::mapview(od_to_sf(od, zones)[1, ])
+  # }
+  list_new = lapply(X = i_seq, FUN = function(i) {
+    o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
+    d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
+    od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
+    names(od_new) = c("o", "d")
+    od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+    od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), ]
+    od_new = cbind(od_new, od_new_attributes)
+    od_new_sf = od_to_sf(od_new, subpoints, silent = TRUE)
+  })
+
+  # todo: could be sped-up
+  od_new_sf = do.call(rbind, list_new)
+
+  # output od data with same number of columns but more rows
+  od_new_sf
+}
