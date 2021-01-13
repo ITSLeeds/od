@@ -121,3 +121,21 @@ NULL
 #' nrow(od_data_destinations)
 #' head(od_data_destinations)
 NULL
+
+#' Small zones dataset
+#'
+#' This dataset represents geographic zones of Lower Super Output Areas in Leeds, UK.
+#' They fit completely within the `od_data_zones_min` dataset.
+#'
+#' @note The schema data can be (re-)generated using code in the
+#' `data-raw` directory.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_zones_small
+#' @examples
+#' nrow(od_data_zones_small)
+#' head(od_data_zones_small)
+#' plot(od_data_zones_small$geometry)
+#' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
+NULL

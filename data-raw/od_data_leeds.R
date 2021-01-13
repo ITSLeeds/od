@@ -121,4 +121,14 @@ usethis::use_data(od_data_zones_min)
 
 # get od_aggregate working ------------------------------------------------
 
-
+zones_lsoa_leeds = pct::get_pct_zones(region = "west-yorkshire")
+centroids_lsoa_leeds = pct::get_pct_centroids(region = "west-yorkshire")
+nrow(zones_lsoa_leeds)
+nrow(centroids_lsoa_leeds)
+centroids_in_zones_min = centroids_lsoa_leeds[od::od_data_zones_min, ]
+mapview::mapview(centroids_in_zones_min)
+od_data_zones_small = zones_lsoa_leeds %>%
+  filter(geo_code %in% centroids_in_zones_min$geo_code) %>%
+  select(geo_code, all, foot, bicycle)
+mapview::mapview(od_data_zones_small)
+usethis::use_data(od_data_zones_small)
