@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @examples
-#' od = od::od_data_df
+#' od = od_data_df[1, ]
 #' zones = od::od_data_zones_min
 #' subzones = od_data_zones_small
 #' od_disag = od_disaggregate(od, zones, subzones)
@@ -23,14 +23,22 @@
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 #' plot(od_sf["all"], add = TRUE)
 #' plot(od_disag["all"], add = TRUE)
-od_disaggregate = function(od, z, subpoints = NULL, subzones = NULL, code_append = "_ag") {
+od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag") {
 
   if(is.null(subpoints)) {
-    subpoints = sf::st_centroid(subzones)
+    suppressWarnings({
+      subpoints = sf::st_centroid(subzones)
+    })
   }
-  azn = paste0(names(zones)[1], code_append)
-  names(zones)[1] = azn
-  subpoints_joined = sf::st_join(subpoints, zones[1])
+
+  azn = paste0(names(z)[1], code_append)
+  names(z)[1] = azn
+  # subpoints_joined = sf::st_join(subpoints, z[1], largest = TRUE) # for zones
+  subpoints_joined = sf::st_join(subpoints, z[1])
+
+  plot(z$geometry)
+  plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code1, ], add = TRUE)
+  plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code2, ], add = TRUE)
 
   # todo: convert to lapply
   # i = 1
@@ -45,7 +53,7 @@ od_disaggregate = function(od, z, subpoints = NULL, subzones = NULL, code_append
   #   od_new = cbind(od_new, od_new_attributes)
   #   # colSums(od_new[-c(1, 2)]) == colSums(od[i, -c(1, 2)]) # totals add up!
   #   od_new_sf = od_to_sf(od_new, subpoints)
-  #   # mapview::mapview(od_new_sf) + mapview::mapview(od_to_sf(od, zones)[1, ])
+  #   # mapview::mapview(od_new_sf) + mapview::mapview(od_to_sf(od, z)[1, ])
   # }
   list_new = lapply(X = i_seq, FUN = function(i) {
     o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]

@@ -4,16 +4,16 @@
 \alias{od_disaggregate}
 \title{Split-up each OD pair into multiple OD pairs based on subpoints/subzones}
 \usage{
-od_disaggregate(od, z, subpoints = NULL, subzones = NULL, code_append = "_ag")
+od_disaggregate(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag")
 }
 \arguments{
 \item{od}{An origin-destination data frame}
 
 \item{z}{Zones representing origins and destinations}
 
-\item{subpoints}{Points within the zones defining the OD data}
-
 \item{subzones}{Sub-zones within the zones defining the OD data}
+
+\item{subpoints}{Points within the zones defining the OD data}
 
 \item{code_append}{The name of the column containing aggregate zone names}
 }
@@ -22,7 +22,7 @@ This function is for splitting-up OD pairs, it's roughly and OD data equivalent
 of the \code{tidyr::pivot_longer()} function.
 }
 \examples{
-od = od::od_data_df
+od = od_data_df[1, ]
 zones = od::od_data_zones_min
 subzones = od_data_zones_small
 od_disag = od_disaggregate(od, zones, subzones)
