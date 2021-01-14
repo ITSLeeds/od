@@ -1,7 +1,7 @@
 #' Split-up each OD pair into multiple OD pairs based on subpoints/subzones
 #'
-#' This function is for splitting-up OD pairs, it's roughly and OD data equivalent
-#' of the `tidyr::pivot_longer()` function.
+#' This function is for splitting-up OD pairs, it's roughly equivalent
+#' to the [tidyr::pivot_longer()] function.
 #'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
@@ -23,7 +23,12 @@
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 #' plot(od_sf["all"], add = TRUE)
 #' plot(od_disag["all"], add = TRUE)
-od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag") {
+#'
+#' # with buildings data
+#' od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
+#' summary(od_disag_buildings)
+#' plot(od_disag_buildings)
+od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag", population_column = 3, population_per_od = 5) {
 
   if(is.null(subpoints)) {
     suppressWarnings({
@@ -42,7 +47,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   # plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code2, ], add = TRUE)
 
   # todo: convert to lapply
-  # i = 1
+  i = 1
   i_seq = seq(nrow(od))
   # for(i in i_seq) {
   #   o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
@@ -61,8 +66,14 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
     d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
     od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
     names(od_new) = c("o", "d")
+    max_n_od = od[[3]][i] / population_per_od
+    if(nrow(od_new) > max_n_od) {
+      od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+    }
     od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
     od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), ]
+    od_new_attributes[] = lapply(od_new_attributes, function(x) x + runif(nrow(od_new), -0.4, 0.4))
+    od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x) )
     od_new = cbind(od_new, od_new_attributes)
     od_new_sf = od_to_sf(od_new, subpoints, silent = TRUE)
   })
@@ -74,3 +85,9 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   od_new_sf
 }
 
+smart.round <- function(x) {
+  y <- floor(x)
+  indices <- tail(order(x-y), round(sum(x)) - sum(y))
+  y[indices] <- y[indices] + 1
+  y
+}

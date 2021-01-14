@@ -156,7 +156,10 @@ zones_of_interest = od_data_zones_min[od_data_zones_min$geo_code %in% c(od_data_
 mapview::mapview(zones_of_interest)
 buildings_in_zones = leeds_osm_buildigs[zones_of_interest, , op = sf::st_within]
 mapview::mapview(buildings_in_zones)
+buildings_in_zones = buildings_in_zones %>%
+  filter(!is.na(osm_way_id)) %>%
+  select(osm_way_id, building)
 od_data_buildings = buildings_in_zones
-usethis::use_data(od_data_buildings)
+usethis::use_data(od_data_buildings, overwrite = TRUE)
 file.size("data/od_data_buildings.rda") / 1000
-# 40 kB...
+# 40 to 26 kB...

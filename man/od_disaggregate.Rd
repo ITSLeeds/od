@@ -4,7 +4,15 @@
 \alias{od_disaggregate}
 \title{Split-up each OD pair into multiple OD pairs based on subpoints/subzones}
 \usage{
-od_disaggregate(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag")
+od_disaggregate(
+  od,
+  z,
+  subzones = NULL,
+  subpoints = NULL,
+  code_append = "_ag",
+  population_column = 3,
+  population_per_od = 5
+)
 }
 \arguments{
 \item{od}{An origin-destination data frame}
@@ -18,8 +26,8 @@ od_disaggregate(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag")
 \item{code_append}{The name of the column containing aggregate zone names}
 }
 \description{
-This function is for splitting-up OD pairs, it's roughly and OD data equivalent
-of the \code{tidyr::pivot_longer()} function.
+This function is for splitting-up OD pairs, it's roughly equivalent
+to the \code{\link[tidyr:pivot_longer]{tidyr::pivot_longer()}} function.
 }
 \examples{
 od = od_data_df[1:2, ]
@@ -34,4 +42,9 @@ plot(od_data_zones_small$geometry)
 plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 plot(od_sf["all"], add = TRUE)
 plot(od_disag["all"], add = TRUE)
+
+# with buildings data
+od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
+summary(od_disag_buildings)
+plot(od_disag_buildings)
 }
