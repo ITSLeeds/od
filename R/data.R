@@ -139,3 +139,17 @@ NULL
 #' plot(od_data_zones_small$geometry)
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 NULL
+
+#' Simple buildings dataset
+#'
+#' Building data from OSM for testing od_disaggregate.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_data_buildings
+#' @examples
+#' nrow(od_data_buildings)
+#' head(od_data_buildings)
+#' plot(od_data_buildings$geometry)
+#' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
+NULL

@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @examples
-#' od = od_data_df[1, ]
+#' od = od_data_df[1:2, ]
 #' zones = od::od_data_zones_min
 #' subzones = od_data_zones_small
 #' od_disag = od_disaggregate(od, zones, subzones)
