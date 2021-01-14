@@ -151,7 +151,7 @@ of the <code>tidyr::pivot_longer()</code> function.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>od</span> <span class='op'>=</span> <span class='va'>od_data_df</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='va'>od</span> <span class='op'>=</span> <span class='va'>od_data_df</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='op'>]</span>
 <span class='va'>zones</span> <span class='op'>=</span> <span class='fu'>od</span><span class='fu'>::</span><span class='va'><a href='od_data_zones.html'>od_data_zones_min</a></span>
 <span class='va'>subzones</span> <span class='op'>=</span> <span class='va'>od_data_zones_small</span>
 <span class='va'>od_disag</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>subzones</span><span class='op'>)</span>
