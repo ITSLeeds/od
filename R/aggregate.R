@@ -1,7 +1,10 @@
 #' Split-up each OD pair into multiple OD pairs based on subpoints/subzones
 #'
-#' This function is for splitting-up OD pairs, it's roughly equivalent
-#' to the [tidyr::pivot_longer()] function.
+#' This function is for splitting-up OD pairs.
+#' It increases the number of rows in an OD dataset, while aiming
+#' to keep the amount of travel represented in the data the same.
+#' To take an analogy from another package, it's roughly equivalent
+#' to [`tidyr::pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html).
 #'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
@@ -61,7 +64,9 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   #   od_new_sf = od_to_sf(od_new, subpoints)
   #   # mapview::mapview(od_new_sf) + mapview::mapview(od_to_sf(od, z)[1, ])
   # }
+
   list_new = lapply(X = i_seq, FUN = function(i) {
+    browser()
     o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
     d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
     od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
@@ -75,7 +80,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
     od_new_attributes[] = lapply(od_new_attributes, function(x) x + runif(nrow(od_new), -0.4, 0.4))
     od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x) )
     od_new = cbind(od_new, od_new_attributes)
-    od_new_sf = od_to_sf(od_new, subpoints, silent = TRUE)
+    od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
   })
 
   # todo: could be sped-up

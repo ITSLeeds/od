@@ -26,8 +26,11 @@ od_disaggregate(
 \item{code_append}{The name of the column containing aggregate zone names}
 }
 \description{
-This function is for splitting-up OD pairs, it's roughly equivalent
-to the \code{\link[tidyr:pivot_longer]{tidyr::pivot_longer()}} function.
+This function is for splitting-up OD pairs.
+It increases the number of rows in an OD dataset, while aiming
+to keep the amount of travel represented in the data the same.
+To take an analogy from another package, it's roughly equivalent
+to \href{https://tidyr.tidyverse.org/reference/pivot_longer.html}{\code{tidyr::pivot_longer()}}.
 }
 \examples{
 od = od_data_df[1:2, ]
