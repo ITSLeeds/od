@@ -40,8 +40,11 @@
 
 
 <meta property="og:title" content="Split-up each OD pair into multiple OD pairs based on subpoints/subzones — od_disaggregate" />
-<meta property="og:description" content="This function is for splitting-up OD pairs, it's roughly and OD data equivalent
-of the tidyr::pivot_longer() function." />
+<meta property="og:description" content="This function is for splitting-up OD pairs.
+It increases the number of rows in an OD dataset, while aiming
+to keep the amount of travel represented in the data the same.
+To take an analogy from another package, it's roughly equivalent
+to tidyr::pivot_longer()." />
 
 
 
@@ -73,7 +76,7 @@ of the tidyr::pivot_longer() function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9001</span>
       </span>
     </div>
 
@@ -90,6 +93,9 @@ of the tidyr::pivot_longer() function." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -118,11 +124,22 @@ of the tidyr::pivot_longer() function." />
     </div>
 
     <div class="ref-description">
-    <p>This function is for splitting-up OD pairs, it's roughly and OD data equivalent
-of the <code>tidyr::pivot_longer()</code> function.</p>
+    <p>This function is for splitting-up OD pairs.
+It increases the number of rows in an OD dataset, while aiming
+to keep the amount of travel represented in the data the same.
+To take an analogy from another package, it's roughly equivalent
+to <a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'><code>tidyr::pivot_longer()</code></a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span>, subzones <span class='op'>=</span> <span class='cn'>NULL</span>, subpoints <span class='op'>=</span> <span class='cn'>NULL</span>, code_append <span class='op'>=</span> <span class='st'>"_ag"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>od_disaggregate</span><span class='op'>(</span>
+  <span class='va'>od</span>,
+  <span class='va'>z</span>,
+  subzones <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subpoints <span class='op'>=</span> <span class='cn'>NULL</span>,
+  code_append <span class='op'>=</span> <span class='st'>"_ag"</span>,
+  population_column <span class='op'>=</span> <span class='fl'>3</span>,
+  population_per_od <span class='op'>=</span> <span class='fl'>5</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +164,14 @@ of the <code>tidyr::pivot_longer()</code> function.</p>
       <th>code_append</th>
       <td><p>The name of the column containing aggregate zone names</p></td>
     </tr>
+    <tr>
+      <th>population_column</th>
+      <td><p>The column containing the total population (if it exists)</p></td>
+    </tr>
+    <tr>
+      <th>population_per_od</th>
+      <td><p>Minimum number to assign per OD pair</p></td>
+    </tr>
     </table>
 
 
@@ -155,15 +180,108 @@ of the <code>tidyr::pivot_longer()</code> function.</p>
 <span class='va'>zones</span> <span class='op'>=</span> <span class='fu'>od</span><span class='fu'>::</span><span class='va'><a href='od_data_zones.html'>od_data_zones_min</a></span>
 <span class='va'>subzones</span> <span class='op'>=</span> <span class='va'>od_data_zones_small</span>
 <span class='va'>od_disag</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>subzones</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span> <span class='op'>-</span><span class='fl'>1</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>)</span> <span class='co'># same number of columns (except disag data gained geometry)</span>
+</div><div class='output co'>#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: o_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[1]][i]]
+#&gt; debug: d_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[2]][i]]
+#&gt; debug: od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
+#&gt; debug: names(od_new) = c("o", "d")
+#&gt; debug: max_n_od = od[[3]][i]/population_per_od
+#&gt; debug: if (nrow(od_new) &gt; max_n_od) {
+#&gt;     od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; }
+#&gt; debug: od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+#&gt; debug: od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, 
+#&gt;     nrow(od_new)), ]
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) x + 
+#&gt;     stats::runif(nrow(od_new), -0.4, 0.4))
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x))
+#&gt; debug: od_new = cbind(od_new, od_new_attributes)
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
+#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: o_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[1]][i]]
+#&gt; debug: d_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[2]][i]]
+#&gt; debug: od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
+#&gt; debug: names(od_new) = c("o", "d")
+#&gt; debug: max_n_od = od[[3]][i]/population_per_od
+#&gt; debug: if (nrow(od_new) &gt; max_n_od) {
+#&gt;     od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; }
+#&gt; debug: od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+#&gt; debug: od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, 
+#&gt;     nrow(od_new)), ]
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) x + 
+#&gt;     stats::runif(nrow(od_new), -0.4, 0.4))
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x))
+#&gt; debug: od_new = cbind(od_new, od_new_attributes)
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span> <span class='op'>-</span><span class='fl'>1</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>)</span> <span class='co'># same number of columns (except disag data gained geometry)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>od_sf</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>od_sf</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_small</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: 'x' is NULL so the result will be NULL</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_sf</span><span class='op'>[</span><span class='st'>"all"</span><span class='op'>]</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[</span><span class='st'>"all"</span><span class='op'>]</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='od_disaggregate-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='od_disaggregate-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># with buildings data</span>
+<span class='va'>od_disag_buildings</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>od_data_buildings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: o_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[1]][i]]
+#&gt; debug: d_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[2]][i]]
+#&gt; debug: od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
+#&gt; debug: names(od_new) = c("o", "d")
+#&gt; debug: max_n_od = od[[3]][i]/population_per_od
+#&gt; debug: if (nrow(od_new) &gt; max_n_od) {
+#&gt;     od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; }
+#&gt; debug: od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; debug: od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+#&gt; debug: od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, 
+#&gt;     nrow(od_new)), ]
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) x + 
+#&gt;     stats::runif(nrow(od_new), -0.4, 0.4))
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x))
+#&gt; debug: od_new = cbind(od_new, od_new_attributes)
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
+#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: o_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[1]][i]]
+#&gt; debug: d_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[2]][i]]
+#&gt; debug: od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
+#&gt; debug: names(od_new) = c("o", "d")
+#&gt; debug: max_n_od = od[[3]][i]/population_per_od
+#&gt; debug: if (nrow(od_new) &gt; max_n_od) {
+#&gt;     od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; }
+#&gt; debug: od_new = od_new[sample(nrow(od_new), size = max_n_od), ]
+#&gt; debug: od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
+#&gt; debug: od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, 
+#&gt;     nrow(od_new)), ]
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) x + 
+#&gt;     stats::runif(nrow(od_new), -0.4, 0.4))
+#&gt; debug: od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x))
+#&gt; debug: od_new = cbind(od_new, od_new_attributes)
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>od_disag_buildings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       o                  d                  all            train       
+#&gt;  Length:391         Length:391         Min.   :4.000   Min.   :0.0000  
+#&gt;  Class :character   Class :character   1st Qu.:5.000   1st Qu.:0.0000  
+#&gt;  Mode  :character   Mode  :character   Median :5.000   Median :0.0000  
+#&gt;                                        Mean   :5.003   Mean   :0.2839  
+#&gt;                                        3rd Qu.:5.000   3rd Qu.:1.0000  
+#&gt;                                        Max.   :6.000   Max.   :1.0000  
+#&gt;       bus             taxi           car_driver    car_passenger   
+#&gt;  Min.   :1.000   Min.   :0.00000   Min.   :0.000   Min.   :0.0000  
+#&gt;  1st Qu.:2.000   1st Qu.:0.00000   1st Qu.:1.000   1st Qu.:0.0000  
+#&gt;  Median :2.000   Median :0.00000   Median :1.000   Median :0.0000  
+#&gt;  Mean   :2.015   Mean   :0.05627   Mean   :1.355   Mean   :0.2762  
+#&gt;  3rd Qu.:2.000   3rd Qu.:0.00000   3rd Qu.:2.000   3rd Qu.:1.0000  
+#&gt;  Max.   :3.000   Max.   :1.00000   Max.   :3.000   Max.   :1.0000  
+#&gt;     bicycle            foot              geometry  
+#&gt;  Min.   :0.0000   Min.   :0.0000   LINESTRING:391  
+#&gt;  1st Qu.:0.0000   1st Qu.:0.0000   epsg:NA   :  0  
+#&gt;  Median :0.0000   Median :1.0000             :  0  
+#&gt;  Mean   :0.3043   Mean   :0.6726                   
+#&gt;  3rd Qu.:1.0000   3rd Qu.:1.0000                   
+#&gt;  Max.   :1.0000   Max.   :2.0000                   </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_disag_buildings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_disaggregate-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

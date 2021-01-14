@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9001</span>
       </span>
     </div>
 
@@ -89,6 +89,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -125,47 +128,19 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 206</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 6 features and 25 fields
+</div><div class='output co'>#&gt; [1] 199</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Simple feature collection with 6 features and 2 fields
 #&gt; geometry type:  MULTIPOLYGON
 #&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.546336 ymin: 53.79183 xmax: -1.539944 ymax: 53.79915
+#&gt; bbox:           xmin: -1.5565 ymin: 53.79338 xmax: -1.537664 ymax: 53.80027
 #&gt; CRS:            WGS 84
-#&gt;    osm_id osm_way_id             name         type aeroway amenity admin_level
-#&gt; 3 2743794       &lt;NA&gt;       Asda House multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt; 4 2758676       &lt;NA&gt;    Trinity Leeds multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt; 5 2758860       &lt;NA&gt;             &lt;NA&gt; multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt; 6 2762523       &lt;NA&gt;             &lt;NA&gt; multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt; 7 2762649       &lt;NA&gt;             &lt;NA&gt; multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt; 8 2762650       &lt;NA&gt; Victoria Quarter multipolygon    &lt;NA&gt;    &lt;NA&gt;        &lt;NA&gt;
-#&gt;   barrier boundary   building craft geological historic land_area landuse
-#&gt; 3    &lt;NA&gt;     &lt;NA&gt;     office  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt; 4    &lt;NA&gt;     &lt;NA&gt; commercial  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt; 5    &lt;NA&gt;     &lt;NA&gt;     retail  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt; 6    &lt;NA&gt;     &lt;NA&gt;     retail  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt; 7    &lt;NA&gt;     &lt;NA&gt;     retail  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt; 8    &lt;NA&gt;     &lt;NA&gt; commercial  &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;
-#&gt;   leisure man_made military natural office place shop sport tourism
-#&gt; 3    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt; 4    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt; 5    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt; 6    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt; 7    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt; 8    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
-#&gt;                                                                                                                           other_tags
-#&gt; 3                         "addr:city"=&gt;"Leeds","addr:postcode"=&gt;"LS11 5AD","addr:street"=&gt;"Great Wilson Street","fhrs:id"=&gt;"1086973"
-#&gt; 4 "operator"=&gt;"Land Securities Group","website"=&gt;"https://trinityleeds.com/","wikidata"=&gt;"Q12071482","wikipedia"=&gt;"en:Trinity Leeds"
-#&gt; 5                                                                                                                       "layer"=&gt;"6"
-#&gt; 6                                                                                                                               &lt;NA&gt;
-#&gt; 7                                                                                                                               &lt;NA&gt;
-#&gt; 8                                                                                                                               &lt;NA&gt;
-#&gt;                         geometry
-#&gt; 3 MULTIPOLYGON (((-1.546301 5...
-#&gt; 4 MULTIPOLYGON (((-1.546283 5...
-#&gt; 5 MULTIPOLYGON (((-1.54341 53...
-#&gt; 6 MULTIPOLYGON (((-1.541313 5...
-#&gt; 7 MULTIPOLYGON (((-1.543174 5...
-#&gt; 8 MULTIPOLYGON (((-1.541859 5...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
+#&gt;   osm_way_id   building                       geometry
+#&gt; 1   23150505     retail MULTIPOLYGON (((-1.540118 5...
+#&gt; 2   23162531 commercial MULTIPOLYGON (((-1.546567 5...
+#&gt; 3   27767021 commercial MULTIPOLYGON (((-1.5565 53....
+#&gt; 4   28516780     office MULTIPOLYGON (((-1.553886 5...
+#&gt; 5   28516878 commercial MULTIPOLYGON (((-1.550857 5...
+#&gt; 6   28516879 commercial MULTIPOLYGON (((-1.552283 5...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: 'x' is NULL so the result will be NULL</span></div><div class='img'><img src='od_data_buildings-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

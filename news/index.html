@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert origin-destination data from wide to long format — odmatrix_to_od • od</title>
+<title>Changelog • od</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,7 @@
 
 
 
-<meta property="og:title" content="Convert origin-destination data from wide to long format — odmatrix_to_od" />
-<meta property="og:description" content="This function takes a matrix representing travel between origins
-(with origin codes in the rownames of the matrix)
-and destinations
-(with destination codes in the colnames of the matrix)
-and returns a data frame representing origin-destination pairs." />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -63,7 +58,7 @@ and returns a data frame representing origin-destination pairs." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,71 +113,38 @@ and returns a data frame representing origin-destination pairs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert origin-destination data from wide to long format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/od-funs.R'><code>R/od-funs.R</code></a></small>
-    <div class="hidden name"><code>odmatrix_to_od.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/itsleeds/od/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>This function takes a matrix representing travel between origins
-(with origin codes in the <code>rownames</code> of the matrix)
-and destinations
-(with destination codes in the <code>colnames</code> of the matrix)
-and returns a data frame representing origin-destination pairs.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>odmatrix</th>
-      <td><p>A matrix with row and columns representing origin and destination zone codes
-and cells representing the flow between these zones.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The function returns a data frame with rows ordered by origin and then destination
-zone code values and with names <code>orig</code>, <code>dest</code> and <code>flow</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other od: 
-<code><a href='od_id.html'>od_id</a></code>,
-<code><a href='od_to_odmatrix.html'>od_to_odmatrix</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
-<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;   geo_code1 geo_code2  all
-#&gt; 1 E02002363 E02006875  922
-#&gt; 2 E02002373 E02006875 1037
-#&gt; 3 E02002385 E02006875  958
-#&gt; 4 E02006852 E02002392  437
-#&gt; 5 E02006852 E02006875 1221
-#&gt; 6 E02006861 E02006875 1177</div><div class='input'><span class='va'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span><span class='op'>(</span><span class='va'>od_data_df</span><span class='op'>)</span>
-<span class='va'>odmatrix</span>
-</div><div class='output co'>#&gt;           E02006875 E02002392
-#&gt; E02002363       922        NA
-#&gt; E02002373      1037        NA
-#&gt; E02002385       958        NA
-#&gt; E02006852      1221       437
-#&gt; E02006861      1177        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        orig      dest flow
-#&gt; 1 E02002363 E02006875  922
-#&gt; 2 E02002373 E02006875 1037
-#&gt; 3 E02002385 E02006875  958
-#&gt; 9 E02006852 E02002392  437
-#&gt; 4 E02006852 E02006875 1221
-#&gt; 5 E02006861 E02006875 1177</div></pre>
+    <div id="od-0019000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.9000">
+<a href="#od-0019000" class="anchor"></a>od 0.0.1.9000<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>Lots of changes have been made since the package was first release on CRAN
+<ul>
+<li>See <a href="https://github.com/ITSLeeds/od/compare/0.0.1" class="uri">https://github.com/ITSLeeds/od/compare/0.0.1</a>…master for details</li>
+</ul>
+</li>
+<li>Key changes include:
+<ul>
+<li>Lots of new functionality, includine <code><a href="../reference/od_disaggregate.html">od_disaggregate()</a></code>
+</li>
+<li>Much of the functionality from <code>stplanr</code> had been ported</li>
+</ul>
+</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
