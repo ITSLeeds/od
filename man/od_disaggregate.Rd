@@ -24,6 +24,10 @@ od_disaggregate(
 \item{subpoints}{Points within the zones defining the OD data}
 
 \item{code_append}{The name of the column containing aggregate zone names}
+
+\item{population_column}{The column containing the total population (if it exists)}
+
+\item{population_per_od}{Minimum number to assign per OD pair}
 }
 \description{
 This function is for splitting-up OD pairs.

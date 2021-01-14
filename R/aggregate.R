@@ -11,6 +11,8 @@
 #' @param subpoints Points within the zones defining the OD data
 #' @param subzones Sub-zones within the zones defining the OD data
 #' @param code_append The name of the column containing aggregate zone names
+#' @param population_column The column containing the total population (if it exists)
+#' @param population_per_od Minimum number to assign per OD pair
 #'
 #' @export
 #' @examples
@@ -77,7 +79,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
     }
     od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
     od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), ]
-    od_new_attributes[] = lapply(od_new_attributes, function(x) x + runif(nrow(od_new), -0.4, 0.4))
+    od_new_attributes[] = lapply(od_new_attributes, function(x) x + stats::runif(nrow(od_new), -0.4, 0.4))
     od_new_attributes[] = lapply(od_new_attributes, function(x) smart.round(x) )
     od_new = cbind(od_new, od_new_attributes)
     od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
@@ -92,7 +94,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
 
 smart.round <- function(x) {
   y <- floor(x)
-  indices <- tail(order(x-y), round(sum(x)) - sum(y))
+  indices <- utils::tail(order(x-y), round(sum(x)) - sum(y))
   y[indices] <- y[indices] + 1
   y
 }
