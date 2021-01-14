@@ -36,9 +36,10 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   # subpoints_joined = sf::st_join(subpoints, z[1], largest = TRUE) # for zones
   subpoints_joined = sf::st_join(subpoints, z[1])
 
-  plot(z$geometry)
-  plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code1, ], add = TRUE)
-  plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code2, ], add = TRUE)
+  # test which points are in there:
+  # plot(z$geometry)
+  # plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code1, ], add = TRUE)
+  # plot(subpoints_joined[ subpoints_joined$geo_code_ag == od$geo_code2, ], add = TRUE)
 
   # todo: convert to lapply
   # i = 1
@@ -72,3 +73,4 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   # output od data with same number of columns but more rows
   od_new_sf
 }
+
