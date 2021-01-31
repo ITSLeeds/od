@@ -217,7 +217,8 @@ od_coordinates_ids = function(odc) {
 #' @export
 #' @examples
 #' x = od_data_df[1:4, ]
-#' od_to_odmatrix(x)
+#' x_matrix = od_to_odmatrix(x)
+#' class(x_matrix)
 #' od_to_odmatrix(x, attrib = "bicycle")
 od_to_odmatrix = function(x, attrib = 3, name_orig = 1, name_dest = 2) {
   out = matrix(
