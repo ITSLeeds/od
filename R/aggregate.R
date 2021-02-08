@@ -68,7 +68,6 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   # }
 
   list_new = lapply(X = i_seq, FUN = function(i) {
-    browser()
     o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
     d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
     od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
