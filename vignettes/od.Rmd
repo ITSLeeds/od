@@ -37,7 +37,7 @@ Additional disaggregations of overall counts may include trip counts at differen
 Many OD datasets omit information.
 If there is only one time period, then this resides in the metadata for the whole data set.
 There is rarely any information about the path taken between the start and end points.
-It is typically the job of the analyst to use a routing service (such as [OSRM](https://github.com/rCarto/osrm), [Google Directions API](https://symbolixau.github.io/googleway/articles/googleway-vignette.html#google-directions-api), [CycleStreets.net](https://github.com/Robinlovelace/cyclestreets/) or [OpenRouteService](https://github.com/GIScience/openrouteservice-r/)) or an assignment model (such as those contained in proprietary software such as [SATURN](https://saturnsoftware2.co.uk/) and [Visum](https://www.ptvgroup.com/en/solutions/products/ptv-visum/)) to identify likely routes with reference to shortest path algorithms or generalised cost minimisation algorithms (which account for monetary plus time and quality 'costs').
+It is typically the job of the analyst to use a routing service (such as [OSRM](https://github.com/riatelab/osrm), [Google Directions API](https://symbolixau.github.io/googleway/articles/googleway-vignette.html#google-directions-api), [CycleStreets.net](https://github.com/Robinlovelace/cyclestreets/) or [OpenRouteService](https://github.com/GIScience/openrouteservice-r/)) or an assignment model (such as those contained in proprietary software such as [SATURN](https://saturnsoftware2.co.uk/) and [Visum](https://www.ptvgroup.com/en/solutions/products/ptv-visum/)) to identify likely routes with reference to shortest path algorithms or generalised cost minimisation algorithms (which account for monetary plus time and quality 'costs').
 
 # The importance of OD data
 
@@ -46,7 +46,7 @@ Historically, these models, and the OD datasets that drove them, were used to pl
 Now that there is growing evidence of the negative impacts car domination, however, there is a strong argument for transport models being repurposed.
 Origin-destination data can be part of the solution.
 
-From a health perspective transport planning, supported by OD data and analysed primarily using proprietary software and opaque methods, has failed: roads are now the largest cause of death of young people worldwide, killing more than [1 million](https://www.who.int/violence_injury_prevention/road_safety_status/2018/en/) people each year [@world_health_organization_global_2018].
+From a health perspective transport planning, supported by OD data and analysed primarily using proprietary software and opaque methods, has failed: roads are now the largest cause of death of young people worldwide, killing more than [1 million](https://www.who.int/publications/i/item/9789241565684) people each year [@world_health_organization_global_2018].
 Even ignoring problems such as air pollution, obesity and climate change, it is clear that current transport systems are unsustainable.
 There are other reasons why transport data analysis and software are important [@lovelace_stplanr_2018].
 
