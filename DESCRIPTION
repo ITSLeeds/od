@@ -1,6 +1,6 @@
 Package: od
 Title: Manipulate and Map Origin-Destination Data
-Version: 0.0.1.9001
+Version: 0.1.0
 Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-5679-6536")),
