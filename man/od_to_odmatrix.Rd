@@ -26,7 +26,8 @@ origins and destinations.
 }
 \examples{
 x = od_data_df[1:4, ]
-od_to_odmatrix(x)
+x_matrix = od_to_odmatrix(x)
+class(x_matrix)
 od_to_odmatrix(x, attrib = "bicycle")
 }
 \seealso{
