@@ -4,18 +4,18 @@
 # od
 
 <!-- badges: start -->
+<!-- [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/od)](https://github.com/r-hub/cranlogs.app)
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Codecov test
 coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
 [![R build
 status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 [![Dependencies](https://tinyverse.netlify.com/badge/od)](https://cran.r-project.org/package=od)
+[![R-CMD-check](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 <!-- badges: end -->
 
 The goal of od is to provide functions and example datasets for working
@@ -81,12 +81,12 @@ It works great, and is plenty fast enough for most applications, but
 there are some issues with `stplanr::od2line()` (which also affect the
 other `od_*()` functions in `stplanr`):
 
-  - The function is a commonly needed and low-level function, buried in
+-   The function is a commonly needed and low-level function, buried in
     a large package, reducing ‘findability’
-  - To get the function you must install `stplanr` plus its numerous
+-   To get the function you must install `stplanr` plus its numerous
     dependencies
-  - The function has not been optimised
-  - It has no class definition of ‘od’ data
+-   The function has not been optimised
+-   It has no class definition of ‘od’ data
 
 The `od` package, as it currently stands, addresses the first three of
 these issues (it may at some point define a class for `od` objects but
@@ -157,27 +157,27 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.46ms   6.12ms      153.   600.5KB     11.6
-#> 2 od           2.69ms   3.16ms      286.    78.2KB     11.9
-#> 3 od_sf1       3.78ms    4.5ms      199.    77.8KB     13.4
-#> 4 od_sf2       3.75ms   4.16ms      228.    90.8KB     12.0
+#> 1 stplanr      5.13ms   5.61ms      177.   619.8KB     14.1
+#> 2 od           2.62ms   2.76ms      361.    78.4KB     15.0
+#> 3 od_sf1       3.62ms   4.03ms      250.    78.1KB     13.2
+#> 4 od_sf2       3.59ms   3.94ms      254.    90.8KB     13.4
 ```
 
 ## Related open source projects
 
-  - [stplanr](https://github.com/ropensci/stplanr/) is an R package
+-   [stplanr](https://github.com/ropensci/stplanr/) is an R package
     package designed to support transport planning, with a focus on
     geographic transport datasets and many functions for working with OD
     data in the [od function
     family](https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data).
-  - [cartography](https://riatelab.github.io/cartography/) is an R
+-   [cartography](https://riatelab.github.io/cartography/) is an R
     package with functions for working with OD data, including
     [`getLinkLayer()`](https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html)
-  - [gravity](https://pacha.dev/gravity/) is an R package for developing
+-   [gravity](https://pacha.dev/gravity/) is an R package for developing
     ‘gravity models’ to estimate flow between zones
-  - [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript
+-   [flowmap.gl](https://github.com/teralytics/flowmap.gl), a JavaScript
     package for visualising OD data
-  - [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript
+-   [Arabesque](http://arabesque.ifsttar.fr/) is another JavaScript
     project for working with OD data
 
 ## Code of Conduct
