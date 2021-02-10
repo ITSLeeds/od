@@ -74,7 +74,7 @@ of points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.7.1, GDAL 2.2.3, PROJ 4.9.3</span></div><div class='input'><span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span>
+</div><div class='output co'>#&gt; <span class='message'>Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</span></div><div class='input'><span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span>
 <span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             O         D        ox       oy        dx       dy
 #&gt; 1   E02002407 E02002407 -1.609934 53.79079 -1.609934 53.79079
@@ -190,7 +190,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605
-#&gt; CRS:            EPSG:4326
+#&gt; geographic CRS: WGS 84
 #&gt;           O         D                       geometry
 #&gt; 1 E02002407 E02002336 LINESTRING (-1.609934 53.79...
 #&gt; 2 E02002407 E02002353 LINESTRING (-1.609934 53.79...
@@ -213,7 +213,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 #&gt; geometry type:  LINESTRING
 #&gt; dimension:      XY
 #&gt; bbox:           xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605
-#&gt; CRS:            EPSG:4326
+#&gt; geographic CRS: WGS 84
 #&gt;           o         d        ox       oy        dx       dy v
 #&gt; 1 E02002336 E02002353 -3.142688 107.7267 -3.142688 107.7267 2
 #&gt; 2 E02002336 E02002407 -3.234564 107.6768 -3.234564 107.6768 2

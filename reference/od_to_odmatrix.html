@@ -77,7 +77,7 @@ origins and destinations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -165,12 +165,9 @@ of interest from the <code>flow</code> data frame</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='op'>]</span>
-<span class='fu'>od_to_odmatrix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           E02006875 E02002392
-#&gt; E02002363       922        NA
-#&gt; E02002373      1037        NA
-#&gt; E02002385       958        NA
-#&gt; E02006852        NA       437</div><div class='input'><span class='fu'>od_to_odmatrix</span><span class='op'>(</span><span class='va'>x</span>, attrib <span class='op'>=</span> <span class='st'>"bicycle"</span><span class='op'>)</span>
+<span class='va'>x_matrix</span> <span class='op'>=</span> <span class='fu'>od_to_odmatrix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>x_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "matrix" "array" </div><div class='input'><span class='fu'>od_to_odmatrix</span><span class='op'>(</span><span class='va'>x</span>, attrib <span class='op'>=</span> <span class='st'>"bicycle"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           E02006875 E02002392
 #&gt; E02002363        43        NA
 #&gt; E02002373        73        NA
