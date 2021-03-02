@@ -182,8 +182,8 @@ to <a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'><code>tidyr
 <span class='va'>od_disag</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>subzones</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span> <span class='op'>-</span><span class='fl'>1</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>)</span> <span class='co'># same number of columns (except disag data gained geometry)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>od_sf</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>od_sf</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_small</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: 'x' is NULL so the result will be NULL</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_sf</span><span class='op'>[</span><span class='st'>"all"</span><span class='op'>]</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -196,21 +196,21 @@ to <a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'><code>tidyr
 #&gt;  Length:393         Length:393         Min.   :4.000   Min.   :0.0000  
 #&gt;  Class :character   Class :character   1st Qu.:5.000   1st Qu.:0.0000  
 #&gt;  Mode  :character   Mode  :character   Median :5.000   Median :0.0000  
-#&gt;                                        Mean   :4.975   Mean   :0.2875  
+#&gt;                                        Mean   :4.985   Mean   :0.2952  
 #&gt;                                        3rd Qu.:5.000   3rd Qu.:1.0000  
 #&gt;                                        Max.   :5.000   Max.   :1.0000  
-#&gt;       bus             taxi           car_driver    car_passenger   
-#&gt;  Min.   :1.000   Min.   :0.00000   Min.   :0.000   Min.   :0.0000  
-#&gt;  1st Qu.:2.000   1st Qu.:0.00000   1st Qu.:1.000   1st Qu.:0.0000  
-#&gt;  Median :2.000   Median :0.00000   Median :1.000   Median :0.0000  
-#&gt;  Mean   :2.005   Mean   :0.05598   Mean   :1.351   Mean   :0.2646  
-#&gt;  3rd Qu.:2.000   3rd Qu.:0.00000   3rd Qu.:2.000   3rd Qu.:1.0000  
-#&gt;  Max.   :3.000   Max.   :1.00000   Max.   :3.000   Max.   :1.0000  
+#&gt;       bus             taxi          car_driver    car_passenger   
+#&gt;  Min.   :1.000   Min.   :0.0000   Min.   :0.000   Min.   :0.0000  
+#&gt;  1st Qu.:2.000   1st Qu.:0.0000   1st Qu.:1.000   1st Qu.:0.0000  
+#&gt;  Median :2.000   Median :0.0000   Median :1.000   Median :0.0000  
+#&gt;  Mean   :1.985   Mean   :0.0687   Mean   :1.349   Mean   :0.2697  
+#&gt;  3rd Qu.:2.000   3rd Qu.:0.0000   3rd Qu.:2.000   3rd Qu.:1.0000  
+#&gt;  Max.   :3.000   Max.   :1.0000   Max.   :3.000   Max.   :1.0000  
 #&gt;     bicycle            foot                 geometry  
 #&gt;  Min.   :0.0000   Min.   :0.0000   LINESTRING   :393  
 #&gt;  1st Qu.:0.0000   1st Qu.:0.0000   epsg:4326    :  0  
 #&gt;  Median :0.0000   Median :1.0000   +proj=long...:  0  
-#&gt;  Mean   :0.3079   Mean   :0.6641                      
+#&gt;  Mean   :0.2952   Mean   :0.6794                      
 #&gt;  3rd Qu.:1.0000   3rd Qu.:1.0000                      
 #&gt;  Max.   :1.0000   Max.   :2.0000                      </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_disag_buildings</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span></div><div class='img'><img src='od_disaggregate-2.png' alt='' width='700' height='433' /></div></pre>
