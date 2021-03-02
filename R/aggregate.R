@@ -73,7 +73,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
     }
     od_new_attribute_list = lapply(od[i, -c(1, 2)], function(x) x/nrow(od_new))
     od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), , drop = FALSE]
-    od_new_attributes[] = apply(od_new_attributes, 2, function(x) x + stats::runif(nrow(od_new), -0.4, 0.4))
+    # od_new_attributes[] = apply(od_new_attributes, 2, function(x) x + stats::runif(nrow(od_new), -0.4, 0.4))
     od_new_attributes[] = apply(od_new_attributes, 2, function(x) smart.round(x) )
     od_new = cbind(od_new, od_new_attributes)
     od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
