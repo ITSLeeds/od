@@ -35,6 +35,8 @@
 #' plot(od_disag_buildings)
 od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append = "_ag", population_column = 3, population_per_od = 5) {
 
+  # browser()
+
   if(is.null(subpoints)) {
     suppressWarnings({
       subpoints = sf::st_centroid(subzones)
@@ -50,6 +52,11 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   azn = paste0(names(z)[1], code_append)
   names(z)[1] = azn
   # subpoints_joined = sf::st_join(subpoints, z[1], largest = TRUE) # for zones
+  n_subpoints = nrow(subpoints)
+  subpoints = subpoints[z, ]
+  if(nrow(subpoints) < n_subpoints) {
+    message(n_subpoints - nrow(subpoints), " locations outside zones removed")
+  }
   subpoints_joined = sf::st_join(subpoints, z[1])
 
   # # test which points are in there:
@@ -62,7 +69,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
   i_seq = seq(nrow(od))
 
   list_new = lapply(X = i_seq, FUN = function(i) {
-    # print(i)
+    print(i)
     o_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[1]][i] ]
     d_new = subpoints_joined[[1]][ subpoints_joined[[azn]] == od[[2]][i] ]
     od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
@@ -76,7 +83,7 @@ od_disaggregate = function(od, z, subzones = NULL, subpoints = NULL, code_append
     # od_new_attributes[] = apply(od_new_attributes, 2, function(x) x + stats::runif(nrow(od_new), -0.4, 0.4))
     od_new_attributes[] = apply(od_new_attributes, 2, function(x) smart.round(x) )
     od_new = cbind(od_new, od_new_attributes)
-    od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
+    od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)
   })
 
   # todo: could be sped-up
