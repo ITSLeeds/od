@@ -11,7 +11,8 @@ od_disaggregate(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  population_per_od = 5
+  population_per_od = 5,
+  keep_ids = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,10 @@ od_disaggregate(
 \item{population_column}{The column containing the total population (if it exists)}
 
 \item{population_per_od}{Minimum number to assign per OD pair}
+
+\item{keep_ids}{Should the origin and destination ids be kept?
+\code{TRUE} by default, meaning 2 extra columns are appended, with the
+names \code{o_agg} and \code{d_agg} containing IDs from the original OD data.}
 }
 \description{
 This function is for splitting-up OD pairs.
