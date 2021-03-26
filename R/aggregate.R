@@ -46,7 +46,6 @@ od_disaggregate = function(od,
                            population_column = 3,
                            population_per_od = 5,
                            keep_ids = TRUE) {
-  # browser()
 
   if (is.null(subpoints)) {
     suppressWarnings({
@@ -63,7 +62,6 @@ od_disaggregate = function(od,
 
   azn = paste0(names(z)[1], code_append)
   names(z)[1] = azn
-  # subpoints_joined = sf::st_join(subpoints, z[1], largest = TRUE) # for zones
   n_subpoints = nrow(subpoints)
   subpoints = subpoints[z,]
   if (nrow(subpoints) < n_subpoints) {
@@ -72,15 +70,7 @@ od_disaggregate = function(od,
   }
   subpoints_joined = sf::st_join(subpoints, z[1])
 
-  # # test which points are in there:
-  # plot(z$geometry)
-# plot(subpoints_joined[subpoints_joined[[azn]]%in%od$geo_code1, ], add = TRUE)
-# plot(subpoints_joined[subpoints_joined[[azn]]%in%od$geo_code2, ], add = TRUE)
-
-  # todo: convert to lapply
-  i = 1
   i_seq = seq(nrow(od))
-
   list_new = lapply(
     X = i_seq,
     FUN = function(i) {
@@ -96,7 +86,6 @@ od_disaggregate = function(od,
       od_new_attribute_list = lapply(od[i,-c(1, 2)], function(x)
         x / nrow(od_new))
       od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), , drop = FALSE]
-      # od_new_attributes[] = apply(od_new_attributes, 2, function(x) x + stats::runif(nrow(od_new), -0.4, 0.4))
       od_new_attributes[] = apply(od_new_attributes, 2, function(x)
         smart.round(x))
       od_new = cbind(od_new, od_new_attributes)
