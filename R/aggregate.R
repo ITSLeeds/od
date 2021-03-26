@@ -6,6 +6,8 @@
 #' To take an analogy from another package, it's roughly equivalent
 #' to [`tidyr::pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html).
 #'
+#' An alias for the function is `od_split()`.
+#'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
 #' @param subpoints Points within the zones defining the OD data
@@ -114,9 +116,13 @@ od_disaggregate = function(od,
   od_new_sf
 }
 
-smart.round <- function(x) {
-  y <- floor(x)
-  indices <- utils::tail(order(x-y), round(sum(x)) - sum(y))
-  y[indices] <- y[indices] + 1
+#' @export
+#' @rdname od_disaggregate
+od_split = od_disaggregate
+
+smart.round = function(x) {
+  y = floor(x)
+  indices = utils::tail(order(x-y), round(sum(x)) - sum(y))
+  y[indices] = y[indices] + 1
   y
 }
