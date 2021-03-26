@@ -74,7 +74,7 @@ zones present in the codes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -165,10 +165,10 @@ representing points/zones of origin and destination</p></td>
 </div><div class='output co'>#&gt; [1] "E02002363" "E02002373" "E02002385" "E02006852" "E02006861" "E02006875"
 #&gt; [7] "E02002392"</div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># fails</span>
 </div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
-#&gt; geometry type:  LINESTRING
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
-#&gt; geographic CRS: WGS 84
+#&gt; Geometry type: LINESTRING
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
+#&gt; Geodetic CRS:  WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
 #&gt; 1 E02002373 E02006875 1037   111 424   20        155            30      73  214
 #&gt; 2 E02002385 E02006875  958   121 334   19        118            25      52  283
@@ -185,10 +185,10 @@ representing points/zones of origin and destination</p></td>
 </div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
-#&gt; geometry type:  LINESTRING
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
-#&gt; geographic CRS: WGS 84
+#&gt; Geometry type: LINESTRING
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
+#&gt; Geodetic CRS:  WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
 #&gt; 1 E02002373 E02006875 1037   111 424   20        155            30      73  214
 #&gt; 2 E02002385 E02006875  958   121 334   19        118            25      52  283
