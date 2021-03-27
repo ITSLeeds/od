@@ -2,6 +2,8 @@
 
 * New `od_split()` function, a copy of `od_disaggregate()`
 * New `od_aggregate()` and `od_group()` functions (#24)
+* Updated datasets for improved documentation and examples (#28)
+* Updated introductory vignette building on the stplanr `od` vignette (#16)
 
 # od 0.1.0
 
