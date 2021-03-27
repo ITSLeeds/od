@@ -28,6 +28,8 @@ An alias for the function is \code{od_group()}.
 od_aggregated = od_data_df[1:2, ]
 aggzones = od::od_data_zones_min
 subzones = od_data_zones_small
+plot(aggzones$geometry)
+plot(subzones$geometry, add = TRUE)
 od = od_disaggregate(od_aggregated, aggzones, subzones)
 od_agg = od_aggregate(od, aggzones)
 names(od_agg)[1:(ncol(od_agg) - 1)] = names(od_aggregated)

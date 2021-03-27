@@ -6,28 +6,47 @@ library(stplanr)
 
 od = pct::get_od()
 centroids_ew_all = pct::get_centroids_ew() # todo: add centroids dataset based on this
+zones_leeds = ukboundaries::msoa2011_lds
+centroids_leeds = centroids_ew_all %>%
+  filter(msoa11cd %in% zones_leeds$geo_code)
 
 od_data_df_medium = od %>%
-  filter(geo_code1 %in% od_data_zones$msoa11cd) %>%
-  filter(geo_code2 %in% od_data_zones$msoa11cd) %>%
-  filter(geo_code1 != geo_code2) %>%
+  filter(geo_code1 %in% centroids_leeds$msoa11cd) %>%
+  filter(geo_code2 %in% centroids_leeds$msoa11cd) %>%
+  # filter(geo_code1 != geo_code2) %>%
   select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot)
 
 od_data_df_medium
 class(od_data_df_medium)
-class(od_data_df_medium) = "data.frame"
+od_data_df_medium = as.data.frame(od_data_df_medium)
 class(od_data_df_medium)
 
-usethis::use_data(od_data_df_medium)
+file.size("data/od_data_df_medium.rda") / 1e6
+usethis::use_data(od_data_df_medium, overwrite = TRUE)
+file.size("data/od_data_df_medium.rda") / 1e6
 
 od_data_df = od_data_df_medium %>%
   select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot) %>%
-  top_n(n = 6, bicycle) %>%
+  top_n(n = 4, foot) %>%
   as.data.frame(stringsAsFactors = FALSE)
 
+
+od_data_df2 = od_data_df_medium %>%
+  filter(geo_code2 != "E02006875") %>%
+  filter(geo_code2 != geo_code1) %>%
+  select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot) %>%
+  top_n(n = 2, foot) %>%
+  as.data.frame(stringsAsFactors = FALSE)
+
+od_data_df3 = od_data_df_medium %>%
+  filter(geo_code1 == "E02002392" & geo_code2 == "E02006875") %>%
+  select(geo_code1, geo_code2, all, train, bus, taxi, car_driver, car_passenger, bicycle, foot) %>%
+  as.data.frame(stringsAsFactors = FALSE)
+
+od_data_df = rbind(od_data_df, od_data_df2, od_data_df3)
 od_data_df
 
-usethis::use_data(od_data_df)
+usethis::use_data(od_data_df, overwrite = TRUE)
 
 zones_leeds = ukboundaries::msoa2011_lds
 class(zones_leeds)
@@ -99,16 +118,17 @@ plot(od_agg)
 # get network for leeds ---------------------------------------------------
 
 library(geofabrik)
-route_network_west_yorkshire = get_geofabrik("west yorkshire")
+route_network_west_yorkshire = osmextract::oe_get("west yorkshire")
 route_network_leeds = route_network_west_yorkshire[od_data_zones, ]
 summary(as.factor(route_network_leeds$highway))
 
 # could save this at some point:
 od_data_zones_min = od_data_zones %>%
   filter(geo_code %in% c(od_data_df$geo_code1, od_data_df$geo_code2))
+mapview::mapview(od_data_zones_min)
 
-od_data_region_1km = stplanr::geo_buffer(od_data_zones_min, dist = 500)
-route_network_min = route_network_west_yorkshire[od_data_region_1km, ]
+od_data_region_buffer = stplanr::geo_buffer(od_data_zones_min, dist = 100)
+route_network_min = route_network_west_yorkshire[od_data_region_buffer, , op = sf::st_within]
 mapview::mapview(route_network_min)
 od_data_network = route_network_min %>%
   filter(str_detect(highway, "cycleway|primary|second|tert|trunk"))
@@ -116,8 +136,8 @@ od_data_network = route_network_min %>%
 mapview::mapview(od_data_network) +
   mapview::mapview(od_data_zones_min)
 
-usethis::use_data(od_data_network)
-usethis::use_data(od_data_zones_min)
+usethis::use_data(od_data_network, overwrite = TRUE)
+usethis::use_data(od_data_zones_min, overwrite = TRUE)
 
 # get od_aggregate working ------------------------------------------------
 
@@ -131,8 +151,7 @@ od_data_zones_small = zones_lsoa_leeds %>%
   filter(geo_code %in% centroids_in_zones_min$geo_code) %>%
   select(geo_code, all, foot, bicycle)
 mapview::mapview(od_data_zones_small)
-usethis::use_data(od_data_zones_small)
-
+usethis::use_data(od_data_zones_small, overwrite = TRUE)
 
 # get buildings for Leeds -------------------------------------------------
 
