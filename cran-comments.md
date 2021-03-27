@@ -1,13 +1,9 @@
-All additional non English words single quoted, including 'od'.
-
-All examples that were commented out have been removed or uncommented.
-
-Value tags have been added to the documentation as requested.
+Minor update with new function and much improved documentation.
 
 ## Test environments
-* local R installation, R 4.0.2
+* local R installation, R 4.0.4
 * ubuntu 16.04 (on gh-actions), R 3.5.0 to 4.0.2
-* win-builder (devel): https://win-builder.r-project.org/fm0fns5r5DAf/00check.log
+* win-builder (devel)
 
 ## R CMD check results
 
