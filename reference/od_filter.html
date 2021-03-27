@@ -159,48 +159,51 @@ representing points/zones of origin and destination</p></td>
 <span class='va'>z_in_x_d</span> <span class='op'>=</span> <span class='va'>codes</span> <span class='op'>%in%</span> <span class='va'>x</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>z_in_x_d</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>z_in_x_o</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='va'>z</span> <span class='op'>=</span> <span class='va'>z</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>z_in_x_o</span> <span class='op'>|</span> <span class='va'>z_in_x_d</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='op'>]</span>
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='va'>z</span> <span class='op'>=</span> <span class='va'>z</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>z_in_x_o</span> <span class='op'>|</span> <span class='va'>z_in_x_d</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='op'>]</span>
 <span class='va'>z</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; [1] "E02002373" "E02002385" "E02002392" "E02006852" "E02006861" "E02006875"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>x</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "E02002363" "E02002373" "E02002385" "E02006852" "E02006861" "E02006875"
-#&gt; [7] "E02002392"</div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># fails</span>
-</div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
+</div><div class='output co'>#&gt; [1] "E02002392" "E02002404" "E02006861" "E02006875" "E02006876"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>x</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "E02002384" "E02002404" "E02006875" "E02006876" "E02006861" "E02002392"</div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># fails</span>
+</div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; Geometry type: LINESTRING
 #&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
+#&gt; Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517699 ymax: 53.81763
 #&gt; Geodetic CRS:  WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
-#&gt; 1 E02002373 E02006875 1037   111 424   20        155            30      73  214
-#&gt; 2 E02002385 E02006875  958   121 334   19        118            25      52  283
-#&gt; 3 E02006852 E02002392  437     1  96    3        142            26      61  108
-#&gt; 4 E02006852 E02006875 1221    14 509   13        401            50      99  118
-#&gt; 5 E02006861 E02006875 1177    43 400   30        123            28      56  492
+#&gt; 1 E02002404 E02006875 1145     6 174   17         96            38      10  798
+#&gt; 2 E02006875 E02006875 1791    21  38    5         69             7       8 1637
+#&gt; 3 E02006876 E02006875 1035    11 132    6         97            24      10  749
+#&gt; 4 E02006861 E02002392  453     1  51    0         51             6      26  317
+#&gt; 5 E02006875 E02002392  286     2  15    5         16             2      10  235
+#&gt; 6 E02002392 E02006875  753    10  91   21         33             7      19  571
 #&gt;                         geometry
-#&gt; 1 LINESTRING (-1.581617 53.81...
-#&gt; 2 LINESTRING (-1.582003 53.80...
-#&gt; 3 LINESTRING (-1.586482 53.83...
-#&gt; 4 LINESTRING (-1.586482 53.83...
-#&gt; 5 LINESTRING (-1.564756 53.81...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'>od_filter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+#&gt; 1 LINESTRING (-1.518711 53.79...
+#&gt; 2 LINESTRING (-1.546024 53.79...
+#&gt; 3 LINESTRING (-1.517699 53.77...
+#&gt; 4 LINESTRING (-1.564756 53.81...
+#&gt; 5 LINESTRING (-1.546024 53.79...
+#&gt; 6 LINESTRING (-1.561391 53.80...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 7</div><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'>od_filter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>1 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 5 features and 10 fields
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; Geometry type: LINESTRING
 #&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.546024 ymax: 53.83316
+#&gt; Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517699 ymax: 53.81763
 #&gt; Geodetic CRS:  WGS 84
 #&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
-#&gt; 1 E02002373 E02006875 1037   111 424   20        155            30      73  214
-#&gt; 2 E02002385 E02006875  958   121 334   19        118            25      52  283
-#&gt; 3 E02006852 E02002392  437     1  96    3        142            26      61  108
-#&gt; 4 E02006852 E02006875 1221    14 509   13        401            50      99  118
-#&gt; 5 E02006861 E02006875 1177    43 400   30        123            28      56  492
+#&gt; 1 E02002404 E02006875 1145     6 174   17         96            38      10  798
+#&gt; 2 E02006875 E02006875 1791    21  38    5         69             7       8 1637
+#&gt; 3 E02006876 E02006875 1035    11 132    6         97            24      10  749
+#&gt; 4 E02006861 E02002392  453     1  51    0         51             6      26  317
+#&gt; 5 E02006875 E02002392  286     2  15    5         16             2      10  235
+#&gt; 6 E02002392 E02006875  753    10  91   21         33             7      19  571
 #&gt;                         geometry
-#&gt; 1 LINESTRING (-1.581617 53.81...
-#&gt; 2 LINESTRING (-1.582003 53.80...
-#&gt; 3 LINESTRING (-1.586482 53.83...
-#&gt; 4 LINESTRING (-1.586482 53.83...
-#&gt; 5 LINESTRING (-1.564756 53.81...</div></pre>
+#&gt; 1 LINESTRING (-1.518711 53.79...
+#&gt; 2 LINESTRING (-1.546024 53.79...
+#&gt; 3 LINESTRING (-1.517699 53.77...
+#&gt; 4 LINESTRING (-1.564756 53.81...
+#&gt; 5 LINESTRING (-1.546024 53.79...
+#&gt; 6 LINESTRING (-1.561391 53.80...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

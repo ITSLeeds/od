@@ -138,18 +138,19 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='op'>(</span><span class='va'>odc</span> <span class='op'>=</span> <span class='fu'><a href='od_coordinates.html'>od_coordinates</a></span><span class='op'>(</span><span class='va'>od_data_df</span>, p <span class='op'>=</span> <span class='fu'>od</span><span class='fu'>::</span><span class='va'><a href='od_data_zones.html'>od_data_zones</a></span>, sfnames <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             x        y         x        y
-#&gt; 1   -1.534793 53.82864 -1.546024 53.79587
-#&gt; 2   -1.581617 53.81838 -1.546024 53.79587
-#&gt; 3   -1.582003 53.80796 -1.546024 53.79587
-#&gt; 5   -1.586482 53.83316 -1.561391 53.80498
-#&gt; 5.1 -1.586482 53.83316 -1.546024 53.79587
-#&gt; 6   -1.564756 53.81763 -1.546024 53.79587</div><div class='input'><span class='op'>(</span><span class='va'>l</span> <span class='op'>=</span> <span class='fu'>odc_to_sfc</span><span class='op'>(</span><span class='va'>odc</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Geometry set for 6 features 
+#&gt; 1   -1.544730 53.80928 -1.546024 53.79587
+#&gt; 3   -1.518711 53.79223 -1.546024 53.79587
+#&gt; 5   -1.546024 53.79587 -1.546024 53.79587
+#&gt; 6   -1.517699 53.77475 -1.546024 53.79587
+#&gt; 4   -1.564756 53.81763 -1.561391 53.80498
+#&gt; 5.1 -1.546024 53.79587 -1.561391 53.80498
+#&gt; 2   -1.561391 53.80498 -1.546024 53.79587</div><div class='input'><span class='op'>(</span><span class='va'>l</span> <span class='op'>=</span> <span class='fu'>odc_to_sfc</span><span class='op'>(</span><span class='va'>odc</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Geometry set for 7 features 
 #&gt; Geometry type: LINESTRING
 #&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316
+#&gt; Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517699 ymax: 53.81763
 #&gt; CRS:           NA
-#&gt; First 5 geometries:</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.534793 53.82864, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.581617 53.81838, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.582003 53.80796, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.586482 53.83316, -1.561391 53.80...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.586482 53.83316, -1.546024 53.79...</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+#&gt; First 5 geometries:</div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.54473 53.80928, -1.546024 53.79587)</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.518711 53.79223, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.546024 53.79587, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.517699 53.77475, -1.546024 53.79...</span></div><div class='output co'>#&gt; <span class='message'>LINESTRING (-1.564756 53.81763, -1.561391 53.80...</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
 </div><div class='img'><img src='odc_to_sfc-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

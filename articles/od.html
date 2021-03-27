@@ -201,12 +201,13 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">od</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214</span>
-<span class="co">#&gt; 3 E02002385 E02006875  958   121 334   19        118            25      52  283</span>
-<span class="co">#&gt; 4 E02006852 E02002392  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 5 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 6 E02006861 E02006875 1177    43 400   30        123            28      56  492</span></code></pre></div>
+<span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class="co">#&gt; 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637</span>
+<span class="co">#&gt; 4 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class="co">#&gt; 5 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 6 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class="co">#&gt; 7 E02002392 E02006875  753    10  91   21         33             7      19  571</span></code></pre></div>
 <p>OD data can be represented in a number of ways, as outlined in the next sections.</p>
 </div>
 <div id="origin-destination-pairs-long-form" class="section level2">
@@ -216,12 +217,13 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">od</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037</span>
-<span class="co">#&gt; 3 E02002385 E02006875  958</span>
-<span class="co">#&gt; 4 E02006852 E02002392  437</span>
-<span class="co">#&gt; 5 E02006852 E02006875 1221</span>
-<span class="co">#&gt; 6 E02006861 E02006875 1177</span></code></pre></div>
+<span class="co">#&gt; 1 E02002384 E02006875  966</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145</span>
+<span class="co">#&gt; 3 E02006875 E02006875 1791</span>
+<span class="co">#&gt; 4 E02006876 E02006875 1035</span>
+<span class="co">#&gt; 5 E02006861 E02002392  453</span>
+<span class="co">#&gt; 6 E02006875 E02002392  286</span>
+<span class="co">#&gt; 7 E02002392 E02006875  753</span></code></pre></div>
 <p><code>geo_code1</code> refers to the origin, <code>geo_code2</code> refers to the destination.</p>
 <p>Additional columns can represent addition attributes, such as number of trips by time, mode of travel, type of person, or trip purpose. The <code>od</code> dataset contains column names representing mode of travel (train, bus, bicycle etc), as can be seen with <code><a href="https://rdrr.io/r/base/names.html">names(od[-(1:2)])</a></code>. These ‘mode’ columns contain integers in the example data, but contain characters, dates and other data types, taking advantage of the flexibility of data frames.</p>
 </div>
@@ -235,40 +237,44 @@
 <span class="co">#&gt; [1] "matrix" "array"</span>
 <span class="va">od_matrix</span>
 <span class="co">#&gt;           E02006875 E02002392</span>
-<span class="co">#&gt; E02002363       922        NA</span>
-<span class="co">#&gt; E02002373      1037        NA</span>
-<span class="co">#&gt; E02002385       958        NA</span>
-<span class="co">#&gt; E02006852      1221       437</span>
-<span class="co">#&gt; E02006861      1177        NA</span></code></pre></div>
+<span class="co">#&gt; E02002384       966        NA</span>
+<span class="co">#&gt; E02002404      1145        NA</span>
+<span class="co">#&gt; E02006875      1791       286</span>
+<span class="co">#&gt; E02006876      1035        NA</span>
+<span class="co">#&gt; E02006861        NA       453</span>
+<span class="co">#&gt; E02002392       753        NA</span></code></pre></div>
 <p>Note that row and column names are now zone codes. The cell in row 1 and column 2 (<code>od_matrix[1, 2]</code>), for example, reports that there are 94 trips from zone <code>E02002361</code> to zone <code>E02002393</code>. In the case above, no people travel between the majority of the OD pair combinations, as represented by the <code>NA</code>s. OD matrices are a relatively rudimentary data structure that pre-date R’s <code>data.frame</code> class. Typically, they only contained integer counts, providing small and simple datasets that could be used in 20<sup>th</sup> Century transport modelling software running on limited 20<sup>th</sup> Century hardware.</p>
 <p>Although ‘OD matrix’ is still sometimes used informally to refer to any OD datadset, the long OD pair representation is recommended: OD matrices become unwieldy for large OD datasets, which are likely to be sparse, with many empty cells represented by NAs. Furthermore, to represent many attributes in matix format, multiple lists of OD matrices or ‘OD arrays’ must be created. This is demonstrated in the code chunk below, which represents travel between OD pairs by all modes and by bike:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"bicycle"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/od_to_odmatrix.html">od_to_odmatrix</a></span><span class="op">(</span><span class="va">od</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span>, <span class="st">"geo_code2"</span>, <span class="va">x</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;           E02006875 E02002392</span>
-<span class="co">#&gt; E02002363       922        NA</span>
-<span class="co">#&gt; E02002373      1037        NA</span>
-<span class="co">#&gt; E02002385       958        NA</span>
-<span class="co">#&gt; E02006852      1221       437</span>
-<span class="co">#&gt; E02006861      1177        NA</span>
+<span class="co">#&gt; E02002384       966        NA</span>
+<span class="co">#&gt; E02002404      1145        NA</span>
+<span class="co">#&gt; E02006875      1791       286</span>
+<span class="co">#&gt; E02006876      1035        NA</span>
+<span class="co">#&gt; E02006861        NA       453</span>
+<span class="co">#&gt; E02002392       753        NA</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt;           E02006875 E02002392</span>
-<span class="co">#&gt; E02002363        43        NA</span>
-<span class="co">#&gt; E02002373        73        NA</span>
-<span class="co">#&gt; E02002385        52        NA</span>
-<span class="co">#&gt; E02006852        99        61</span>
-<span class="co">#&gt; E02006861        56        NA</span></code></pre></div>
+<span class="co">#&gt; E02002384        13        NA</span>
+<span class="co">#&gt; E02002404        10        NA</span>
+<span class="co">#&gt; E02006875         8        10</span>
+<span class="co">#&gt; E02006876        10        NA</span>
+<span class="co">#&gt; E02006861        NA        26</span>
+<span class="co">#&gt; E02002392        19        NA</span></code></pre></div>
 <p>The function <code><a href="../reference/odmatrix_to_od.html">odmatrix_to_od()</a></code> can convert OD matrices back into the more convenient long form:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/odmatrix_to_od.html">odmatrix_to_od</a></span><span class="op">(</span><span class="va">od_matrix</span><span class="op">)</span>
-<span class="co">#&gt;        orig      dest flow</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037</span>
-<span class="co">#&gt; 3 E02002385 E02006875  958</span>
-<span class="co">#&gt; 9 E02006852 E02002392  437</span>
-<span class="co">#&gt; 4 E02006852 E02006875 1221</span>
-<span class="co">#&gt; 5 E02006861 E02006875 1177</span></code></pre></div>
+<span class="co">#&gt;         orig      dest flow</span>
+<span class="co">#&gt; 1  E02002384 E02006875  966</span>
+<span class="co">#&gt; 6  E02002392 E02006875  753</span>
+<span class="co">#&gt; 2  E02002404 E02006875 1145</span>
+<span class="co">#&gt; 11 E02006861 E02002392  453</span>
+<span class="co">#&gt; 9  E02006875 E02002392  286</span>
+<span class="co">#&gt; 3  E02006875 E02006875 1791</span>
+<span class="co">#&gt; 4  E02006876 E02006875 1035</span></code></pre></div>
 </div>
 <div id="inter-and-intra-zonal-flows" class="section level2">
 <h2 class="hasAnchor">
@@ -277,16 +283,15 @@
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">od_inter</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_interzone.html">od_interzone</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214</span>
-<span class="co">#&gt; 3 E02002385 E02006875  958   121 334   19        118            25      52  283</span>
-<span class="co">#&gt; 4 E02006852 E02002392  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 5 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 6 E02006861 E02006875 1177    43 400   30        123            28      56  492</span>
+<span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class="co">#&gt; 4 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class="co">#&gt; 5 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 6 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class="co">#&gt; 7 E02002392 E02006875  753    10  91   21         33             7      19  571</span>
 <span class="op">(</span><span class="va">od_intra</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_interzone.html">od_intrazone</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;  [1] geo_code1     geo_code2     all           train         bus          </span>
-<span class="co">#&gt;  [6] taxi          car_driver    car_passenger bicycle       foot         </span>
-<span class="co">#&gt; &lt;0 rows&gt; (or 0-length row.names)</span></code></pre></div>
+<span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
+<span class="co">#&gt; 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637</span></code></pre></div>
 <p>Intra-zonal OD pairs represent short trips (up to the size of the zone within which the trips take place) so are sometimes ignored in OD data analyis. However, intra-zonal flows can be valuable, for example in measuring the amount of localised transport activity and as a sign of local economic activity.</p>
 </div>
 <div id="bidirectional-aggregation" class="section level2">
@@ -295,15 +300,14 @@
 <p>Another subtly with some (<a href="https://icaci.org/files/documents/ICC_proceedings/ICC2013/_extendedAbstract/393_proceeding.pdf">symetric</a>, where origins and destinations can be the same points) OD data is that oneway flows can hide the extent of bidirectional flows in plots and other types of analysis. This is illustrated below for a sample of the <code>od</code> dataset:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">od_min</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">od</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 4 E02006852 E02002392  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 5 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 6 E02006861 E02006875 1177    43 400   30        123            28      56  492</span>
+<span class="co">#&gt;   geo_code1 geo_code2 all train bus taxi car_driver car_passenger bicycle foot</span>
+<span class="co">#&gt; 5 E02006861 E02002392 453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 6 E02006875 E02002392 286     2  15    5         16             2      10  235</span>
+<span class="co">#&gt; 7 E02002392 E02006875 753    10  91   21         33             7      19  571</span>
 <span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_oneway.html">od_oneway</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;           o         d  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 1 E02002392 E02006852  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 2 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 3 E02006861 E02006875 1177    43 400   30        123            28      56  492</span></code></pre></div>
+<span class="co">#&gt; 1 E02002392 E02006861  453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 2 E02002392 E02006875 1039    12 106   26         49             9      29  806</span></code></pre></div>
 <p>Note that in the second dataset there are only 2 rows instead of 3. The function <code><a href="../reference/od_oneway.html">od_oneway()</a></code> aggregates oneway lines to produce bidirectional flows. By default, it returns the sum of each numeric column for each bidirectional origin-destination pair.</p>
 </div>
 <div id="desire-lines" class="section level2">
@@ -324,7 +328,7 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sf"         "data.frame"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0</span>
+<span class="co">#&gt; [1] 1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1</span></code></pre></div>
 <p>The new column is the geometry column, which can be plotted as follows:</p>
@@ -351,23 +355,25 @@
 <span class="co">#&gt; 0 origins with no match in zone ids</span>
 <span class="co">#&gt; 1 destinations with no match in zone ids</span>
 <span class="co">#&gt;  points not in od data removed.</span>
-<span class="co">#&gt; Simple feature collection with 5 features and 10 fields</span>
+<span class="co">#&gt; Simple feature collection with 6 features and 10 fields</span>
 <span class="co">#&gt; Geometry type: LINESTRING</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -1.586482 ymin: 53.79587 xmax: -1.534793 ymax: 53.83316</span>
+<span class="co">#&gt; Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517699 ymax: 53.81763</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214</span>
-<span class="co">#&gt; 3 E02006852 E02002392  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 4 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 5 E02006861 E02006875 1177    43 400   30        123            28      56  492</span>
+<span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class="co">#&gt; 3 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class="co">#&gt; 4 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 5 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class="co">#&gt; 6 E02002392 E02006875  753    10  91   21         33             7      19  571</span>
 <span class="co">#&gt;                         geometry</span>
-<span class="co">#&gt; 1 LINESTRING (-1.534793 53.82...</span>
-<span class="co">#&gt; 2 LINESTRING (-1.581617 53.81...</span>
-<span class="co">#&gt; 3 LINESTRING (-1.586482 53.83...</span>
-<span class="co">#&gt; 4 LINESTRING (-1.586482 53.83...</span>
-<span class="co">#&gt; 5 LINESTRING (-1.564756 53.81...</span></code></pre></div>
+<span class="co">#&gt; 1 LINESTRING (-1.54473 53.809...</span>
+<span class="co">#&gt; 2 LINESTRING (-1.518711 53.79...</span>
+<span class="co">#&gt; 3 LINESTRING (-1.517699 53.77...</span>
+<span class="co">#&gt; 4 LINESTRING (-1.564756 53.81...</span>
+<span class="co">#&gt; 5 LINESTRING (-1.546024 53.79...</span>
+<span class="co">#&gt; 6 LINESTRING (-1.561391 53.80...</span></code></pre></div>
 <p>Note the message saying that the non-matching row was removed (the equivalent code from the <code>stplanr</code> package generated an error message). It’s worth checking/cleaning your OD data and ensure all ids in the first two columns match the ids in the first column of the zone data before running <code><a href="../reference/od_to_sf.html">od_to_sf()</a></code>.</p>
 <!-- # Worked example -->
 <!-- Todo: add this from the stplanr od vignette. -->

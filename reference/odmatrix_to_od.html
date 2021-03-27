@@ -157,26 +157,29 @@ zone code values and with names <code>orig</code>, <code>dest</code> and <code>f
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
 <span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
 </div><div class='output co'>#&gt;   geo_code1 geo_code2  all
-#&gt; 1 E02002363 E02006875  922
-#&gt; 2 E02002373 E02006875 1037
-#&gt; 3 E02002385 E02006875  958
-#&gt; 4 E02006852 E02002392  437
-#&gt; 5 E02006852 E02006875 1221
-#&gt; 6 E02006861 E02006875 1177</div><div class='input'><span class='va'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span><span class='op'>(</span><span class='va'>od_data_df</span><span class='op'>)</span>
+#&gt; 1 E02002384 E02006875  966
+#&gt; 2 E02002404 E02006875 1145
+#&gt; 3 E02006875 E02006875 1791
+#&gt; 4 E02006876 E02006875 1035
+#&gt; 5 E02006861 E02002392  453
+#&gt; 6 E02006875 E02002392  286
+#&gt; 7 E02002392 E02006875  753</div><div class='input'><span class='va'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span><span class='op'>(</span><span class='va'>od_data_df</span><span class='op'>)</span>
 <span class='va'>odmatrix</span>
 </div><div class='output co'>#&gt;           E02006875 E02002392
-#&gt; E02002363       922        NA
-#&gt; E02002373      1037        NA
-#&gt; E02002385       958        NA
-#&gt; E02006852      1221       437
-#&gt; E02006861      1177        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        orig      dest flow
-#&gt; 1 E02002363 E02006875  922
-#&gt; 2 E02002373 E02006875 1037
-#&gt; 3 E02002385 E02006875  958
-#&gt; 9 E02006852 E02002392  437
-#&gt; 4 E02006852 E02006875 1221
-#&gt; 5 E02006861 E02006875 1177</div></pre>
+#&gt; E02002384       966        NA
+#&gt; E02002404      1145        NA
+#&gt; E02006875      1791       286
+#&gt; E02006876      1035        NA
+#&gt; E02006861        NA       453
+#&gt; E02002392       753        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         orig      dest flow
+#&gt; 1  E02002384 E02006875  966
+#&gt; 6  E02002392 E02006875  753
+#&gt; 2  E02002404 E02006875 1145
+#&gt; 11 E02006861 E02002392  453
+#&gt; 9  E02006875 E02002392  286
+#&gt; 3  E02006875 E02006875 1791
+#&gt; 4  E02006876 E02006875 1035</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

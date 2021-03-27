@@ -132,25 +132,39 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_network</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 6 features and 27 fields
+</div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
 #&gt; Geometry type: LINESTRING
 #&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.581808 ymin: 53.78572 xmax: -1.532446 ymax: 53.8213
+#&gt; Bounding box:  xmin: -1.55754 ymin: 53.76156 xmax: -1.506878 ymax: 53.80107
 #&gt; Geodetic CRS:  WGS 84
-#&gt; <span style='color: #949494;'># A tibble: 6 x 28</span><span>
-#&gt;   osm_id  name      highway  waterway aerialway barrier man_made maxspeed oneway
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 1709456 Hanover … tertiary </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2390554 Armley G… trunk    </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2447535 Ingram D… trunk    </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       40 mph   yes   
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2526748 Hunslet … primary… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   yes   
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 4002495 Cardigan… tertiary </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 4004379 North La… seconda… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #BB0000;'>NA</span><span>       30 mph   </span><span style='color: #BB0000;'>NA</span><span>    
-#&gt; </span><span style='color: #949494;'># … with 19 more variables: building &lt;chr&gt;, surface &lt;chr&gt;, landuse &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   natural &lt;chr&gt;, start_date &lt;chr&gt;, wall &lt;chr&gt;, service &lt;chr&gt;, lanes &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   layer &lt;chr&gt;, tracktype &lt;chr&gt;, bridge &lt;chr&gt;, foot &lt;chr&gt;, bicycle &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   lit &lt;chr&gt;, railway &lt;chr&gt;, footway &lt;chr&gt;, z_order &lt;int&gt;, other_tags &lt;chr&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   _ogr_geometry_ &lt;LINESTRING [°]&gt;</span><span></div></span></pre>
+#&gt;    osm_id           name      highway waterway aerialway barrier man_made
+#&gt; 1 1709456    Hanover Way     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt; 2 2526748   Hunslet Road primary_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt; 3 2526750           &lt;NA&gt;   trunk_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt; 4 3999930 Wakefield Road      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt; 5 3999931           &lt;NA&gt;      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt; 6 3999934   Queen Street     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
+#&gt;   incline z_order
+#&gt; 1    &lt;NA&gt;       4
+#&gt; 2    &lt;NA&gt;       7
+#&gt; 3    &lt;NA&gt;       8
+#&gt; 4    &lt;NA&gt;       7
+#&gt; 5    &lt;NA&gt;       7
+#&gt; 6    &lt;NA&gt;       4
+#&gt;                                                                                   other_tags
+#&gt; 1                                                          "lit"=&gt;"yes","maxspeed"=&gt;"30 mph"
+#&gt; 2 "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"30 mph","oneway"=&gt;"yes","turn:lanes"=&gt;"right|right"
+#&gt; 3                                                                            "oneway"=&gt;"yes"
+#&gt; 4       "junction"=&gt;"roundabout","lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","ref"=&gt;"A61"
+#&gt; 5                "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","oneway"=&gt;"yes","ref"=&gt;"A61"
+#&gt; 6                                                                               "lanes"=&gt;"2"
+#&gt;                         geometry
+#&gt; 1 LINESTRING (-1.55754 53.799...
+#&gt; 2 LINESTRING (-1.532446 53.78...
+#&gt; 3 LINESTRING (-1.525161 53.78...
+#&gt; 4 LINESTRING (-1.506881 53.76...
+#&gt; 5 LINESTRING (-1.507634 53.76...
+#&gt; 6 LINESTRING (-1.516503 53.77...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
