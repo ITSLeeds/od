@@ -1,4 +1,7 @@
-# od 0.1.1
+# od 0.2.0
+
+* New `od_split()` function, a copy of `od_disaggregate()`
+* New `od_aggregate()` and `od_group()` functions (#24)
 
 # od 0.1.0
 

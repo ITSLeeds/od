@@ -74,7 +74,6 @@ od_disaggregate = function(od,
   list_new = lapply(
     X = i_seq,
     FUN = function(i) {
-      print(i)
       o_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[1]][i]]
       d_new = subpoints_joined[[1]][subpoints_joined[[azn]] == od[[2]][i]]
       od_new = expand.grid(o_new, d_new, stringsAsFactors = FALSE)
@@ -104,6 +103,53 @@ od_disaggregate = function(od,
   # output od data with same number of columns but more rows
   od_new_sf
 }
+
+#' Aggregate od pairs based on aggregating zones
+#'
+#' This function is for aggregating OD pairs.
+#' It generally decreases the number of rows in an OD dataset, while aiming
+#' to keep the amount of travel represented in the data the same.
+#'
+#' An alias for the function is `od_group()`.
+#'
+#' @param od An origin-destination data frame
+#' @param aggzones Points within the zones defining the OD data
+#' @param FUN The aggregating function to use
+#'
+#' @export
+#' @examples
+#' od_aggregated = od_data_df[1:2, ]
+#' aggzones = od::od_data_zones_min
+#' subzones = od_data_zones_small
+#' od = od_disaggregate(od_aggregated, aggzones, subzones)
+#' od_agg = od_aggregate(od, aggzones)
+#' names(od_agg)[1:(ncol(od_agg) - 1)] = names(od_aggregated)
+#' attr(od_aggregated, "spec") = NULL
+#' identical(sf::st_drop_geometry(od_agg), od_aggregated)
+od_aggregate = function(od,
+                        aggzones = NULL,
+                        FUN = sum) {
+  requireNamespace("lwgeom", quietly = TRUE)
+
+  o = sf::st_sf(geometry = lwgeom::st_startpoint(od))
+  d = sf::st_sf(geometry = lwgeom::st_endpoint(od))
+  odf = sf::st_drop_geometry(od)
+  odf$o_disagg = od[[1]]
+  odf$d_disagg = od[[2]]
+  odf[[1]] = sf::st_join(o, aggzones[1])[[1]]
+  odf[[2]] = sf::st_join(d, aggzones[1])[[1]]
+
+  numeric_columns = sapply(odf, is.numeric)
+
+  oda = stats::aggregate(odf[numeric_columns], list(odf[[1]], odf[[2]]), FUN)
+
+  od_new_sf = od_to_sf(oda, z = aggzones)
+}
+
+#' @export
+#' @rdname od_aggregate
+od_group = od_aggregate
+
 
 #' @export
 #' @rdname od_disaggregate
