@@ -99,22 +99,27 @@
 <p>Install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"itsleeds/od"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"itsleeds/od"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>The examples below provide a gentle introduction to the package. For a more detailed introduction to the package and OD data in general, see the <a href="https://itsleeds.github.io/od/articles/od.html"><code>od</code> vignette online at itsleeds.github.io/od</a> or by executing the following command after installing the package:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"od"</span><span class="op">)</span></code></pre></div>
+<p>You can find descriptions of each of the package’s functions with reproducible examples on the package’s web page: <a href="https://itsleeds.github.io/od/reference/index.html" class="uri">https://itsleeds.github.io/od/reference/index.html</a></p>
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#motivation" class="anchor"></a>Motivation</h2>
 <p>The package originated as a set of functions in the package <code>stplanr</code> for working with origin-destination data. The <code>od2line()</code> function, for example, takes a data frame and a spatial object as inputs and outputs geographic lines representing movement between origins and destinations:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/itsleeds/od">od</a></span><span class="op">)</span> <span class="co"># load example datasets</span>
 <span class="va">od_data_df</span> <span class="co"># OD data as data frame</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43   53</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73  214</span>
-<span class="co">#&gt; 3 E02002385 E02006875  958   121 334   19        118            25      52  283</span>
-<span class="co">#&gt; 4 E02006852 E02002392  437     1  96    3        142            26      61  108</span>
-<span class="co">#&gt; 5 E02006852 E02006875 1221    14 509   13        401            50      99  118</span>
-<span class="co">#&gt; 6 E02006861 E02006875 1177    43 400   30        123            28      56  492</span>
+<span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class="co">#&gt; 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637</span>
+<span class="co">#&gt; 4 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class="co">#&gt; 5 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class="co">#&gt; 6 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class="co">#&gt; 7 E02002392 E02006875  753    10  91   21         33             7      19  571</span>
 <span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>
 <span class="co">#&gt;    geo_code             geometry</span>
 <span class="co">#&gt; 1 E02002407 -1.609934, 53.790790</span>
@@ -122,16 +127,16 @@
 <span class="va">desire_lines_stplanr</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu">od2line</span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_centroids</span><span class="op">)</span>
 <span class="va">desire_lines_stplanr</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span>
 <span class="co">#&gt; Simple feature collection with 2 features and 9 fields</span>
-<span class="co">#&gt; geometry type:  LINESTRING</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859</span>
-<span class="co">#&gt; geographic CRS: WGS 84</span>
+<span class="co">#&gt; Geometry type: LINESTRING</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle</span>
-<span class="co">#&gt; 1 E02002363 E02006875  922     5 356    7        375            76      43</span>
-<span class="co">#&gt; 2 E02002373 E02006875 1037   111 424   20        155            30      73</span>
+<span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13</span>
+<span class="co">#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10</span>
 <span class="co">#&gt;                         geometry</span>
-<span class="co">#&gt; 1 LINESTRING (-1.534957 53.82...</span>
-<span class="co">#&gt; 2 LINESTRING (-1.581773 53.81...</span></code></pre></div>
+<span class="co">#&gt; 1 LINESTRING (-1.545094 53.80...</span>
+<span class="co">#&gt; 2 LINESTRING (-1.518911 53.79...</span></code></pre></div>
 <p>It works great, and is plenty fast enough for most applications, but there are some issues with <code>stplanr::od2line()</code> (which also affect the other <code>od_*()</code> functions in <code>stplanr</code>):</p>
 <ul>
 <li>The function is a commonly needed and low-level function, buried in a large package, reducing ‘findability’</li>
@@ -139,35 +144,38 @@
 <li>The function has not been optimised</li>
 <li>It has no class definition of ‘od’ data</li>
 </ul>
-<p>The <code>od</code> package, as it currently stands, addresses the first three of these issues (it may at some point define a class for <code>od</code> objects but there are no immediate plans to do so).</p>
+<p>The <code>od</code> package addresses the first three of these issues (it may at some point define a class for <code>od</code> objects but there are no immediate plans to do so).</p>
 <p>The equivalent code in the <code>od</code> package is as follows:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">desire_lines_od</span> <span class="op">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sfc</a></span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_centroids</span><span class="op">)</span></code></pre></div>
-<p>The result is an <code>sfc</code> object that has the same geometry as the output from <code>od2line</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">desire_lines_od</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
+<code class="sourceCode R"><span class="va">desire_lines_od</span> <span class="op">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_centroids</span><span class="op">)</span>
+<span class="co">#&gt; 0 origins with no match in zone ids</span>
+<span class="co">#&gt; 0 destinations with no match in zone ids</span>
+<span class="co">#&gt;  points not in od data removed.</span></code></pre></div>
+<p>The result is an <code>sfc</code> object that has the same geometry as the output from <code>od2line</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">desire_lines_od</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; Geometry set for 2 features </span>
-<span class="co">#&gt; geometry type:  LINESTRING</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859</span>
-<span class="co">#&gt; geographic CRS: WGS 84</span>
-<span class="co">#&gt; LINESTRING (-1.534957 53.82859, -1.545708 53.79...</span>
-<span class="co">#&gt; LINESTRING (-1.581773 53.8186, -1.545708 53.79593)</span>
+<span class="co">#&gt; Geometry type: LINESTRING</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
+<span class="co">#&gt; LINESTRING (-1.545094 53.80925, -1.545708 53.79...</span>
+<span class="co">#&gt; LINESTRING (-1.518911 53.7923, -1.545708 53.79593)</span>
 <span class="va">desire_lines_stplanr</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
 <span class="co">#&gt; Geometry set for 2 features </span>
-<span class="co">#&gt; geometry type:  LINESTRING</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859</span>
-<span class="co">#&gt; geographic CRS: WGS 84</span>
-<span class="co">#&gt; LINESTRING (-1.534957 53.82859, -1.545708 53.79...</span>
-<span class="co">#&gt; LINESTRING (-1.581773 53.8186, -1.545708 53.79593)</span></code></pre></div>
+<span class="co">#&gt; Geometry type: LINESTRING</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
+<span class="co">#&gt; LINESTRING (-1.545094 53.80925, -1.545708 53.79...</span>
+<span class="co">#&gt; LINESTRING (-1.518911 53.7923, -1.545708 53.79593)</span></code></pre></div>
 <p>These are ‘desire lines’ representing the shortest (straight line) path between two centroids and can plotted using geographic data and mapping packages such as <code>sf</code>, <code>mapview</code>, <code>tmap</code> and <code>mapdeck</code>, e.g.:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">desire_lines_od</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">desire_lines_stplanr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="50%"><img src="reference/figures/README-unnamed-chunk-5-2.png" width="50%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="50%"><img src="reference/figures/README-unnamed-chunk-6-2.png" width="50%"></p>
 <p>By default the package uses the <code>sfheaders</code> package to create <code>sf</code> objects for speed. You can can also specify <code>sf</code> outputs as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">desire_lines_od_sf1</span> <span class="op">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_centroids</span><span class="op">)</span>
 <span class="co">#&gt; 0 origins with no match in zone ids</span>
 <span class="co">#&gt; 0 destinations with no match in zone ids</span>
@@ -179,9 +187,9 @@
 <div id="benchmark-on-a-small-dataset" class="section level3">
 <h3 class="hasAnchor">
 <a href="#benchmark-on-a-small-dataset" class="anchor"></a>Benchmark on a small dataset:</h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">od_data_df</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6</span>
+<span class="co">#&gt; [1] 7</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>check <span class="op">=</span> <span class="cn">FALSE</span>, max_iterations <span class="op">=</span> <span class="fl">100</span>,
   stplanr <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu">od2line</span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_zones</span><span class="op">)</span>,
   od <span class="op">=</span> <span class="fu"><a href="reference/od_to_sf.html">od_to_sfc</a></span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_zones</span><span class="op">)</span>,
@@ -191,10 +199,10 @@
 <span class="co">#&gt; # A tibble: 4 x 6</span>
 <span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt; &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 stplanr      5.13ms   5.61ms      177.   619.8KB     14.1</span>
-<span class="co">#&gt; 2 od           2.62ms   2.76ms      361.    78.4KB     15.0</span>
-<span class="co">#&gt; 3 od_sf1       3.62ms   4.03ms      250.    78.1KB     13.2</span>
-<span class="co">#&gt; 4 od_sf2       3.59ms   3.94ms      254.    90.8KB     13.4</span></code></pre></div>
+<span class="co">#&gt; 1 stplanr      5.12ms   5.84ms      171.   607.1KB     4.16</span>
+<span class="co">#&gt; 2 od           2.49ms   2.73ms      358.    78.1KB     3.62</span>
+<span class="co">#&gt; 3 od_sf1       3.62ms   4.07ms      241.    77.8KB     4.92</span>
+<span class="co">#&gt; 4 od_sf2       3.53ms   4.02ms      246.    90.5KB     5.01</span></code></pre></div>
 </div>
 </div>
 <div id="related-open-source-projects" class="section level2">
