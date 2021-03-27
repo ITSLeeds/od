@@ -15,7 +15,7 @@ bibliography:
 remotes::install_github("paleolimbot/rbbt")
 # run once to get citations
 library(rbbt)
-bbt_write_bib("vignettes/od.json", rbbt:::bbt_detect_citations("vignettes/od.Rmd"), overwrite = TRUE)
+bbt_write_bib("vignettes/od.json", bbt_detect_citations("vignettes/od.Rmd"), overwrite = TRUE)
 
 # Previous attempts (all failed):
 # system.time({
