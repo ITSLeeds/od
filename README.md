@@ -38,8 +38,22 @@ Install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("itsleeds/od")
+devtools::install_github("itsleeds/od", build_vignettes = TRUE)
 ```
+
+The examples below provide a gentle introduction to the package. For a
+more detailed introduction to the package and OD data in general, see
+the [`od` vignette online at
+itsleeds.github.io/od](https://itsleeds.github.io/od/articles/od.html)
+or by executing the following command after installing the package:
+
+``` r
+vignette("od")
+```
+
+You can find descriptions of each of the package’s functions with
+reproducible examples on the package’s web page:
+<https://itsleeds.github.io/od/reference/index.html>
 
 ## Motivation
 
@@ -52,12 +66,13 @@ geographic lines representing movement between origins and destinations:
 library(od) # load example datasets
 od_data_df # OD data as data frame
 #>   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
-#> 1 E02002363 E02006875  922     5 356    7        375            76      43   53
-#> 2 E02002373 E02006875 1037   111 424   20        155            30      73  214
-#> 3 E02002385 E02006875  958   121 334   19        118            25      52  283
-#> 4 E02006852 E02002392  437     1  96    3        142            26      61  108
-#> 5 E02006852 E02006875 1221    14 509   13        401            50      99  118
-#> 6 E02006861 E02006875 1177    43 400   30        123            28      56  492
+#> 1 E02002384 E02006875  966    14 153   14         69            18      13  679
+#> 2 E02002404 E02006875 1145     6 174   17         96            38      10  798
+#> 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637
+#> 4 E02006876 E02006875 1035    11 132    6         97            24      10  749
+#> 5 E02006861 E02002392  453     1  51    0         51             6      26  317
+#> 6 E02006875 E02002392  286     2  15    5         16             2      10  235
+#> 7 E02002392 E02006875  753    10  91   21         33             7      19  571
 od_data_centroids[1:2, ]
 #>    geo_code             geometry
 #> 1 E02002407 -1.609934, 53.790790
@@ -65,16 +80,16 @@ od_data_centroids[1:2, ]
 desire_lines_stplanr = stplanr::od2line(od_data_df, od_data_centroids)
 desire_lines_stplanr[1:2, 1:9]
 #> Simple feature collection with 2 features and 9 fields
-#> geometry type:  LINESTRING
-#> dimension:      XY
-#> bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859
-#> geographic CRS: WGS 84
+#> Geometry type: LINESTRING
+#> Dimension:     XY
+#> Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925
+#> Geodetic CRS:  WGS 84
 #>   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle
-#> 1 E02002363 E02006875  922     5 356    7        375            76      43
-#> 2 E02002373 E02006875 1037   111 424   20        155            30      73
+#> 1 E02002384 E02006875  966    14 153   14         69            18      13
+#> 2 E02002404 E02006875 1145     6 174   17         96            38      10
 #>                         geometry
-#> 1 LINESTRING (-1.534957 53.82...
-#> 2 LINESTRING (-1.581773 53.81...
+#> 1 LINESTRING (-1.545094 53.80...
+#> 2 LINESTRING (-1.518911 53.79...
 ```
 
 It works great, and is plenty fast enough for most applications, but
@@ -88,36 +103,39 @@ other `od_*()` functions in `stplanr`):
 -   The function has not been optimised
 -   It has no class definition of ‘od’ data
 
-The `od` package, as it currently stands, addresses the first three of
-these issues (it may at some point define a class for `od` objects but
-there are no immediate plans to do so).
+The `od` package addresses the first three of these issues (it may at
+some point define a class for `od` objects but there are no immediate
+plans to do so).
 
 The equivalent code in the `od` package is as follows:
 
 ``` r
-desire_lines_od = od_to_sfc(od_data_df, od_data_centroids)
+desire_lines_od = od_to_sf(od_data_df, od_data_centroids)
+#> 0 origins with no match in zone ids
+#> 0 destinations with no match in zone ids
+#>  points not in od data removed.
 ```
 
 The result is an `sfc` object that has the same geometry as the output
 from `od2line`:
 
 ``` r
-desire_lines_od[1:2]
+desire_lines_od$geometry[1:2]
 #> Geometry set for 2 features 
-#> geometry type:  LINESTRING
-#> dimension:      XY
-#> bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859
-#> geographic CRS: WGS 84
-#> LINESTRING (-1.534957 53.82859, -1.545708 53.79...
-#> LINESTRING (-1.581773 53.8186, -1.545708 53.79593)
+#> Geometry type: LINESTRING
+#> Dimension:     XY
+#> Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925
+#> Geodetic CRS:  WGS 84
+#> LINESTRING (-1.545094 53.80925, -1.545708 53.79...
+#> LINESTRING (-1.518911 53.7923, -1.545708 53.79593)
 desire_lines_stplanr$geometry[1:2]
 #> Geometry set for 2 features 
-#> geometry type:  LINESTRING
-#> dimension:      XY
-#> bbox:           xmin: -1.581773 ymin: 53.79593 xmax: -1.534957 ymax: 53.82859
-#> geographic CRS: WGS 84
-#> LINESTRING (-1.534957 53.82859, -1.545708 53.79...
-#> LINESTRING (-1.581773 53.8186, -1.545708 53.79593)
+#> Geometry type: LINESTRING
+#> Dimension:     XY
+#> Bounding box:  xmin: -1.545708 ymin: 53.7923 xmax: -1.518911 ymax: 53.80925
+#> Geodetic CRS:  WGS 84
+#> LINESTRING (-1.545094 53.80925, -1.545708 53.79...
+#> LINESTRING (-1.518911 53.7923, -1.545708 53.79593)
 ```
 
 These are ‘desire lines’ representing the shortest (straight line) path
@@ -129,7 +147,7 @@ plot(desire_lines_od)
 plot(desire_lines_stplanr$geometry)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="50%" /><img src="man/figures/README-unnamed-chunk-5-2.png" width="50%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="50%" /><img src="man/figures/README-unnamed-chunk-6-2.png" width="50%" />
 
 By default the package uses the `sfheaders` package to create `sf`
 objects for speed. You can can also specify `sf` outputs as follows:
@@ -147,7 +165,7 @@ desire_lines_od_sf1 = od_to_sf(od_data_df, od_data_centroids)
 
 ``` r
 nrow(od_data_df)
-#> [1] 6
+#> [1] 7
 bench::mark(check = FALSE, max_iterations = 100,
   stplanr = stplanr::od2line(od_data_df, od_data_zones),
   od = od_to_sfc(od_data_df, od_data_zones),
@@ -157,10 +175,10 @@ bench::mark(check = FALSE, max_iterations = 100,
 #> # A tibble: 4 x 6
 #>   expression      min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 stplanr      5.13ms   5.61ms      177.   619.8KB     14.1
-#> 2 od           2.62ms   2.76ms      361.    78.4KB     15.0
-#> 3 od_sf1       3.62ms   4.03ms      250.    78.1KB     13.2
-#> 4 od_sf2       3.59ms   3.94ms      254.    90.8KB     13.4
+#> 1 stplanr      5.12ms   5.84ms      171.   607.1KB     4.16
+#> 2 od           2.49ms   2.73ms      358.    78.1KB     3.62
+#> 3 od_sf1       3.62ms   4.07ms      241.    77.8KB     4.92
+#> 4 od_sf2       3.53ms   4.02ms      246.    90.5KB     5.01
 ```
 
 ## Related open source projects
