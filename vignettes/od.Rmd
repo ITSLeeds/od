@@ -16,20 +16,15 @@ remotes::install_github("paleolimbot/rbbt")
 # run once to get citations
 library(rbbt)
 bbt_write_bib("vignettes/od.json", rbbt:::bbt_detect_citations("vignettes/od.Rmd"), overwrite = TRUE)
-system.time({
-  citr::tidy_bib_file(rmd_file = "vignettes/od.Rmd", messy_bibliography = "~/robinlovelace/static/bibs/allrefs.bib", file = "vignettes/od-references.bib")
-})
+
+# Previous attempts (all failed):
+# system.time({
+#   citr::tidy_bib_file(rmd_file = "vignettes/od.Rmd", messy_bibliography = "~/robinlovelace/static/bibs/allrefs.bib", file = "vignettes/od-references.bib")
+# })
 # in bash
-sudo pip3 install -U extract_bib
+# sudo pip3 install -U extract_bib
 # extract_bib --bibtex-file ~/robinlovelace/static/bibs/allrefs.bib vignettes/od.Rmd vignettes/od.bib
 # pandoc --filter pandoc-citeproc vignettes/od.Rmd -s -o vignettes/od.bib
-# pandoc --citeproc vignettes/od.Rmd -o vignettes/od.md --bibliography=vignettes/od.bib
-# pandoc --citeproc vignettes/od.Rmd -s -t csljson -o vignettes/od.json
-pandoc --filter citeproc -f markdown vignettes/od.Rmd 
-pandoc --citeproc vignettes/od.Rmd -s -f markdown -t csljson
-# pandoc -t markdown_strict --filter=pandoc-citeproc --standalone mybib.md -o mybib-out.md
-man bibtool
-bibtool -i 
 ```
 
 
@@ -37,7 +32,7 @@ bibtool -i
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  eval = TRUE
 )
 options(stringsAsFactors = FALSE)
 ```
@@ -79,6 +74,19 @@ The aim is to enable you to use OD data to inform more sustainable transport pla
 
 The `od` package was developed to provide a unified set of functions for representing, transforming and working OD data.
 Like the `stats19` and `cyclestreets` packages, `od` started life as functions in the `stplanr` package, which provides methods for working with a range of transport datasets, focussed on geographic representations and sustainable modes [@lovelace_stplanr_2018].
+
+Install and load the package as follows:
+
+```{r, eval=FALSE}
+install.packages("od")
+# remotes::install_github("itsleeds/od") # for the dev version
+```
+
+```{r}
+library(od)
+```
+
+
 
 # Representing origin-destination data
 
@@ -168,12 +176,12 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/78998
 ## OD data representing travel to work
 
 This next example uses a small dataset that comes pre-loaded with the package, called `od_data_df`.
-We will copy it into an object called `x` to be concise, and to highlight the fact that these operations can be generalised to many OD datasets.
+We will copy it into an object called `od` to be concise, and to highlight the fact that these operations can be generalised to many OD datasets.
 
 ```{r od-sf}
 # example data from the od package:
-x = od::od_data_df
-class(x)
+od = od::od_data_df
+class(od)
 ```
 
 ```{r setup, eval=FALSE, echo=FALSE}
@@ -184,10 +192,12 @@ od = stplanr::od_data_sample %>%
   top_n(n = 14, wt = all)
 class(od)
 od
+od_all = od::od_data_df_medium
+od = od_all[od_all$all > 700, ]
 ```
 
 
-Like all data, the object `x`, created in the preceding code chunk, comes from a specific context, the 2011 [UK Census](https://census.ukdataservice.ac.uk/media/50966/2011_england_household.pdf) questions:
+Like all data, the object `od`, created in the preceding code chunk, comes from a specific context, the 2011 [UK Census](https://census.ukdataservice.ac.uk/media/50966/2011_england_household.pdf) questions:
 
 - In your main job, what is the address of your workplace?
 - How do you usually travel to work (for the longest part, by distance, of your usual journey to work)?
@@ -196,12 +206,12 @@ Like all data, the object `x`, created in the preceding code chunk, comes from a
   - Train
   - ...
   
-`x` is an origin-destination dataset represented as a data frame containing aggregated answers to these questions (see `?pct::get_od()` for details).
+`od` is an origin-destination dataset represented as a data frame containing aggregated answers to these questions (see `?pct::get_od()` for details).
 It is *implicitly geographic*: the first two columns refer to geographic entities but do not contain coordinates themselves (OD coordinates are covered below).
-Other columns contain attributes associated with each OD pair, typically counting how many people travel by mode of transport, as shown by printing the contents of `x`:
+Other columns contain attributes associated with each OD pair, typically counting how many people travel by mode of transport, as shown by printing the contents of `od`:
 
 ```{r}
-x
+od
 ```
 
 OD data can be represented in a number of ways, as outlined in the next sections.
@@ -230,7 +240,7 @@ Instead of rows representing OD pairs, rows represent all travel from each origi
 The **stplanr** function `od_to_odmatrix()` converts between the 'long' to the 'matrix' form on a per column basis, as illustrated below:
 
 ```{r}
-od_matrix <- od_to_odmatrix(od[1:3])
+od_matrix = od_to_odmatrix(od[1:3])
 class(od_matrix)
 od_matrix
 ```
@@ -250,7 +260,7 @@ This is demonstrated in the code chunk below, which represents travel between OD
 lapply(c("all", "bicycle"), function(x) od_to_odmatrix(od[c("geo_code1", "geo_code2", x)]))
 ```
 
-The function `odmatrix_to_od()` can converts OD matrices back into the more convenient long form:
+The function `odmatrix_to_od()` can convert OD matrices back into the more convenient long form:
 
 ```{r}
 odmatrix_to_od(od_matrix)
@@ -264,12 +274,12 @@ The proportion of travel that is intra-zonal depends largely on the size of the 
 It is often useful to separate intra-zonal and inter-zonal flows at the outset, as demonstrated below:
 
 ```{r}
-(od_inter <- od %>% filter(geo_code1 != geo_code2))
-(od_intra <- od %>% filter(geo_code1 == geo_code2))
+(od_inter = od_interzone(od))
+(od_intra = od_intrazone(od))
 ```
 
 Intra-zonal OD pairs represent short trips (up to the size of the zone within which the trips take place) so are sometimes ignored in OD data analyis.
-However, intra-zonal flows can be valuable, for example in measuring the amount of localised transport activity and as a sign of local economies.
+However, intra-zonal flows can be valuable, for example in measuring the amount of localised transport activity and as a sign of local economic activity.
 
 ## Bidirectional aggregation
 
@@ -277,8 +287,8 @@ Another subtly with some ([symetric](https://icaci.org/files/documents/ICC_proce
 This is illustrated below for a sample of the `od` dataset:
 
 ```{r}
-(od_min <- od_data_sample[c(1, 2, 9), 1:6])
-(od_oneway <- od_oneway(od_min))
+(od_min = tail(od, 3))
+(od_oneway = od_oneway(od_min))
 ```
 
 Note that in the second dataset there are only 2 rows instead of 3.
@@ -292,43 +302,42 @@ This is problematic, meaning that multiple objects or files are required to full
 Desire line representations overcome this issue.
 They are geographic lines between origin and destination, with the same attributes as in the 'long' representation.
 
-`od2line()` can convert long form OD data to desire lines.
+`od_to_sf()` can convert long form OD data to desire lines.
 The second argument is a zone or a centroid dataset that contains 'zone IDs' that match the IDs in the first and second columns of the OD data, as illustrated below:
 
 ```{r}
-z <- zones_sf
+z = od::od_data_zones
 class(z)
-l <- od2line(flow = od_inter, zones = z)
+desire_lines = od_to_sf(od_inter, z)
 ```
 
-The preceding code chunk created a zones object called `z`, the coordinates of which were used to convert the object `od` into `l`, which are geographic desire lines.
+The preceding code chunk created a zones object called `z`, the coordinates of which were used to convert the object `od` into `desire_lines`, which are geographic desire lines.
 The desire line object is stored in as a geographic simple features object, which has the same number of rows as does the object `od` and one more column:
 
 ```{r}
-class(l)
-nrow(od) - nrow(l)
-ncol(l) - ncol(od)
+class(desire_lines)
+nrow(od) - nrow(desire_lines)
+ncol(desire_lines) - ncol(od)
 ```
 
 The new column is the geometry column, which can be plotted as follows:
 
 ```{r}
-plot(l$geometry)
+plot(desire_lines$geometry)
 ```
 
-By default, plotting `l` shows the attributes for each line:
+By default, plotting `desire_lines` shows the attributes for each line:
 
 ```{r}
-plot(l)
+plot(desire_lines)
 ```
 
-Because these lines have a coordinate reference system (CRS) inherited from the zones data, they can also be plotted on an interactive map, as follows:
+Because these lines have a coordinate reference system (CRS) inherited from the zones data, they can also be plotted on an interactive map, as follows (result not shown, requires the `tmap` package):
 
-```{r}
-library(leaflet)
-leaflet() %>%
-  addTiles() %>%
-  addPolygons(data = l)
+```{r, eval=FALSE}
+library(tmap)
+tmap_mode("view")
+qtm(desire_lines)
 ```
 
 ## Non-matching IDs
@@ -336,208 +345,17 @@ leaflet() %>%
 Note that in some OD datasets there may be IDs that match no zone.
 We can simulate this situation by setting the third origin ID of `od` to `nomatch`, a string that is not in the zones ID:
 
-```{r, error=TRUE}
-od$geo_code2[3] <- "nomatch"
-od2line(od, z)
+```{r}
+od$geo_code2[3] = "nomatch"
+od_to_sf(od, z)
 ```
 
-You should clean your OD data and ensure all ids in the first two columns match the ids in the first column of the zone data before running `od2line()`.
+Note the message saying that the non-matching row was removed (the equivalent code from the `stplanr` package generated an error message).
+It's worth checking/cleaning your OD data and ensure all ids in the first two columns match the ids in the first column of the zone data before running `od_to_sf()`.
 
+<!-- # Worked example -->
+<!-- Todo: add this from the stplanr od vignette. -->
 
-# Worked example
-
-The minimal example dataset we've been using so far is fine for demonstrating the key concepts of OD data.
-But for more advanced topic, and to get an idea of what is possible with OD data at a city level, it helps to have a larger dataset.
-
-We will use an example dataset representing commuting in London, accessed as follows (note: these code chunks are not evaluated in the vignette because it starts by downloading 2.4 million rows and could take a few minutes to run).
-First, we can use the `pct` package to download official data from the UK (note the addition of the % active column):
-
-```{r, eval=FALSE}
-library(dplyr)
-# get nationwide OD data
-od_all <- pct::get_od()
-nrow(od_all)
-# > 2402201
-od_all$Active <- (od_all$bicycle + od_all$foot) /
-  od_all$all * 100
-centroids_all <- pct::get_centroids_ew() %>% sf::st_transform(4326)
-nrow(centroids_all)
-# > 7201
-london <- pct::pct_regions %>% filter(region_name == "london")
-centroids_london <- centroids_all[london, ]
-od_london <- od_all %>%
-  filter(geo_code1 %in% centroids_london$msoa11cd) %>%
-  filter(geo_code2 %in% centroids_london$msoa11cd)
-od_london <- od_all[
-  od_all$geo_code1 %in% centroids_london$msoa11cd &
-    od_all$geo_code2 %in% centroids_london$msoa11cd,
-]
-```
-
-```{r, eval=FALSE, echo=FALSE}
-# aim: create a reproducible OD dataset
-od_lnd <- od_london %>%
-  select(-matches("rail|name|moto|car|tax|home")) %>%
-  filter(geo_code2 == "E02000001") %>%
-  top_n(4, wt = all)
-z_lnd <- centroids_london %>%
-  filter(msoa11cd %in% c(od$geo_code1, od$geo_code2))
-```
-
-
-Now that we have the input OD data (in `od_london`) and zones (population-weighted centroids in `cents_london` in this case), can can convert them to desire lines:
-
-```{r, eval=FALSE}
-desire_lines_london <- od2line(od_london, centroids_london)
-nrow(desire_lines_london)
-# > 352654
-```
-
-Even after filering flows to keep only those with origins *and* destinations in London, there are still more than 300k flows. That is a lot to plot.
-So we'll further subset them, first so they only contain inter-zonal flows (which are actually lines, intra-zonal flows are lines with length 0, which are essentially points) and second to contain only flows containing above a threshold level of flows:
-
-```{r, eval=FALSE}
-min_trips_threshold <- 20
-desire_lines_inter <- desire_lines_london %>% filter(geo_code1 != geo_code2)
-desire_lines_intra <- desire_lines_london %>% filter(geo_code1 == geo_code2)
-desire_lines_top <- desire_lines_inter %>% filter(all >= min_trips_threshold)
-nrow(desire_lines_top)
-# > 28879
-```
-
-If we do any analysis on this dataset, it's important to know how representative it is of all flows.
-A crude way to do this is to calculate the proportion of lines and trips that are covered in the dataset:
-
-```{r, eval=FALSE}
-nrow(desire_lines_top) / nrow(desire_lines_london)
-# > 0.08189046
-sum(desire_lines_top$all) / sum(desire_lines_london$all)
-# > 0.557343
-```
-
-This shows that only 8% of the lines contain more than half (55%) of the total number of trips.
-
-## Visualisation techniques
-
-Once you have an OD dataset of a size that can be plotted (20,000 desire lines is quick to plot on most computers) a logical next stage is to plot it, e.g. with `sf`'s `plot()` method:
-
-```{r, eval=FALSE}
-plot(desire_lines_top["all"])
-```
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/61058906-030a5c80-a3f0-11e9-90b5-d216964e9681.png")
-```
-
-You may be disapointed by the result, which is more of a 'hay stack' plot than an intuitive illustration of flows across the city.
-To overcome this issue, you can set the aesthetics to emphasize with important flows, e.g. by line width in `sf`'s plotting system:
-
-```{r, eval=FALSE}
-lwd <- desire_lines_top$all / mean(desire_lines_top$all) / 10
-desire_lines_top$percent_dont_drive <- 100 - desire_lines_top$car_driver / desire_lines_top$all * 100
-plot(desire_lines_top["percent_dont_drive"], lwd = lwd, breaks = c(0, 50, 70, 80, 90, 95, 100))
-```
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/62073083-e5ceee00-b237-11e9-9cc7-8bf62d0e9b3f.png")
-```
-
-This is better, but is still not ideal: the code was not intuitive to write, and the result is still not publication quality.
-Instead, it makes sense to make a dedicated mapping package such **tmap**, as outlined in the [visualisation chapter](https://geocompr.robinlovelace.net/adv-map.html) of the open source book *Geocomputation with R* [@lovelace_geocomputation_2019].
-As shown in the transport chapter of that book, OD flows can be visualised with the following code:
-
-```{r, eval=FALSE}
-library(tmap)
-desire_lines_top <- desire_lines_top %>%
-  arrange(Active)
-tm_shape(london) + tm_borders() +
-  tm_shape(desire_lines_top) +
-  tm_lines(
-    palette = "plasma", breaks = c(0, 5, 10, 20, 40, 100),
-    lwd = "all",
-    scale = 9,
-    title.lwd = "Number of trips",
-    alpha = 0.5,
-    col = "Active",
-    title = "Active travel (%)",
-    legend.lwd.show = FALSE
-  ) +
-  tm_scale_bar() +
-  tm_layout(
-    legend.bg.alpha = 0.5,
-    legend.bg.color = "white"
-  )
-```
-
-```{r, echo=FALSE}
-# tmap_save(.Last.value, "tmap-london.png")
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/61066243-12dc6d80-a3fd-11e9-8805-826a47c553f6.png")
-```
-
-The above plot contains much information, providing a visual overview of the transport pattern in the city, telling us that:
-
-- It is a monocentric city, with most flows going to the centre.
-- Active transport is geographically dependent, dominating in the central north of the city and with limited uptake on the outskirts of the city.
-- Although the city centre dominates, there are many small clusters of flows in the outer region, for example near Heathrow airport, which is located in the far west of the map.
-
-Plotting OD data in this way can tell us much about cities, each of which has a different travel pattern.
-The below figure, for example, shows the same plotting code applied to Bristol, a more polycentric city with a lower average percentage of travel by walking and cycling.
-See Section [12.4](https://geocompr.robinlovelace.net/transport.html#desire-lines) of *Geocomputation with R* for details.
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://geocompr.robinlovelace.net/figures/desire-1.png")
-```
-
-```{r, eval=FALSE, echo=FALSE}
-saveRDS(od_all, "od_all.Rds")
-piggyback::pb_upload("od_all.Rds")
-```
-
-## Summaries by origin and destination
-
-It is possible to group OD data by origin and destination to gain information at the zone level.
-The code and resulting plot below, for example, summarises the number of people departing from each zone by mode:
-
-```{r, eval=FALSE}
-zones_london <- pct::get_pct_zones("london") %>%
-  select("geo_code")
-origin_attributes <- desire_lines_top %>%
-  sf::st_drop_geometry() %>%
-  group_by(geo_code1) %>%
-  summarize_if(is.numeric, sum) %>%
-  dplyr::rename(geo_code = geo_code1)
-# origin_attributes <-
-zones_origins <- left_join(zones_london, origin_attributes, by = "geo_code")
-plot(zones_origins, border = NA)
-```
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/61067619-e7a74d80-a3ff-11e9-8c15-7467717b36ec.png")
-```
-
-We can observe a number of features, including that:
-
-- Rail is much more common in the south, reflecting the greater density of the local rail network, with short distances between stops, in the South of the city.
-- Cars dominat in the outer fringes, especiall in the West.
-- Taxi and motorbike use have intriguing clusters in the West (perhaps around the wealthy Kensington area for taxis).
-
-The pattern is quite different when we calculate the destinations:
-
-```{r, eval=FALSE}
-destination_attributes <- desire_lines_top %>%
-  sf::st_drop_geometry() %>%
-  group_by(geo_code2) %>%
-  summarize_if(is.numeric, sum) %>%
-  dplyr::rename(geo_code = geo_code2) %>%
-  mutate_at(vars(-matches("geo_|all")), funs(. / all)) %>%
-  left_join(zones_london, ., by = "geo_code")
-plot(destination_attributes, border = NA)
-```
-
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/61069409-27703400-a404-11e9-9c83-1cd5f2397260.png")
-```
 
 # Further reading
 
