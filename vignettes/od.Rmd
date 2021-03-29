@@ -306,7 +306,7 @@ They are geographic lines between origin and destination, with the same attribut
 The second argument is a zone or a centroid dataset that contains 'zone IDs' that match the IDs in the first and second columns of the OD data, as illustrated below:
 
 ```{r}
-z = od::od_data_zones
+z = od::od_data_zones_min
 class(z)
 desire_lines = od_to_sf(od_inter, z)
 ```
@@ -346,12 +346,73 @@ Note that in some OD datasets there may be IDs that match no zone.
 We can simulate this situation by setting the third origin ID of `od` to `nomatch`, a string that is not in the zones ID:
 
 ```{r}
+od_geo_code2_3 = od$geo_code2[3]
 od$geo_code2[3] = "nomatch"
 od_to_sf(od, z)
 ```
 
 Note the message saying that the non-matching row was removed (the equivalent code from the `stplanr` package generated an error message).
 It's worth checking/cleaning your OD data and ensure all ids in the first two columns match the ids in the first column of the zone data before running `od_to_sf()`.
+
+```{r}
+od$geo_code2[3] = od_geo_code2_3
+```
+
+
+## Aggregating and disaggregating OD data
+
+The data shown in the previous examples is quite low resolution.
+Imagine you want to split each desire line into multiple lines, e.g. for some kind of simulation.
+You can do this by assigning origins and destinations to specific subzones with `od_disaggregate()` (also called `od_split()`):
+
+```{r}
+subzones = od_data_zones_small
+od_disaggregated = od_disaggregate(od = od, z = z, subzones = subzones)
+plot(od_data_zones_min$geometry, lwd = 3)
+plot(od_data_zones_small$geometry, lwd = 1, add = TRUE)
+plot(desire_lines$geometry, lwd = 5, col = "red", add = TRUE)
+plot(od_disaggregated$geometry, lwd = 0.4, col = "blue", add = TRUE)
+# plot(od_disaggregated$geometry[1:5])
+```
+
+This preserves column totals:
+
+```{r}
+sapply(3:10, function(i) sum(od[[i]]))
+sapply(3:10, function(i) sum(od_disaggregated[[i]]))
+```
+
+This also allows the simulation of building-to-building travel.
+
+```{r}
+od_disaggregated2 = od_disaggregate(od = od_data_df[1:2, ], z, od_data_buildings)
+plot(od_data_buildings$geometry)
+plot(od_disaggregated2$geometry, add = TRUE, lwd = 0.1)
+```
+
+You can re-aggregate the data with the function `od_aggregate()`.
+
+Note: this functionality is work in progress.
+
+```{r, echo=FALSE, eval=FALSE}
+# various attempts highlighting possible issues with od_disaggregate
+buildings = od_data_buildings
+od_minimal = od_data_df[1:2]
+od_disaggregated2 = od_disaggregate(od = od_minimal, z = z, subzones = buildings)
+sub_points = sf::st_sample(x = z, size = rep(50, nrow(z)))
+sub_points_sf = sf::st_as_sf(sub_points)
+sub_zones_sf = sf::st_as_sf(sf::st_buffer(sub_points, dist = 0.001))
+plot(z$geometry)
+plot(sub_zones_sf, add = TRUE)
+# currently only assigns to 1st point in each zone it seems:
+# od_disaggregated2 = od_disaggregate(od, z, subpoints = sub_points_sf)
+od_disaggregated2 = od_disaggregate(od, z, sub_zones_sf)
+plot(od_disaggregated2$geometry, add = TRUE)
+plot(od_disaggregated2[1:50, ])
+# od_disaggregated2 = od_disaggregate(od = od, z = z, subzones = buildings) # error
+```
+
+
 
 <!-- # Worked example -->
 <!-- Todo: add this from the stplanr od vignette. -->
