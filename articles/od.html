@@ -316,7 +316,7 @@
 <p>The previous representations of OD data are all implicitly geographic: their coordinates are not contained in the data, but associated with another object that <em>is</em> geographic, typically a zone or a zone centroid. This is problematic, meaning that multiple objects or files are required to fully represent the same data. Desire line representations overcome this issue. They are geographic lines between origin and destination, with the same attributes as in the ‘long’ representation.</p>
 <p><code><a href="../reference/od_to_sf.html">od_to_sf()</a></code> can convert long form OD data to desire lines. The second argument is a zone or a centroid dataset that contains ‘zone IDs’ that match the IDs in the first and second columns of the OD data, as illustrated below:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="../reference/od_data_zones.html">od_data_zones</a></span>
+<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="../reference/od_data_zones.html">od_data_zones_min</a></span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sf"         "data.frame"</span>
 <span class="va">desire_lines</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od_inter</span>, <span class="va">z</span><span class="op">)</span>
@@ -350,7 +350,8 @@
 <a href="#non-matching-ids" class="anchor"></a>Non-matching IDs</h2>
 <p>Note that in some OD datasets there may be IDs that match no zone. We can simulate this situation by setting the third origin ID of <code>od</code> to <code>nomatch</code>, a string that is not in the zones ID:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">od</span><span class="op">$</span><span class="va">geo_code2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="st">"nomatch"</span>
+<code class="sourceCode R"><span class="va">od_geo_code2_3</span> <span class="op">=</span> <span class="va">od</span><span class="op">$</span><span class="va">geo_code2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
+<span class="va">od</span><span class="op">$</span><span class="va">geo_code2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="st">"nomatch"</span>
 <span class="fu"><a href="../reference/od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span><span class="op">)</span>
 <span class="co">#&gt; 0 origins with no match in zone ids</span>
 <span class="co">#&gt; 1 destinations with no match in zone ids</span>
@@ -375,6 +376,45 @@
 <span class="co">#&gt; 5 LINESTRING (-1.546024 53.79...</span>
 <span class="co">#&gt; 6 LINESTRING (-1.561391 53.80...</span></code></pre></div>
 <p>Note the message saying that the non-matching row was removed (the equivalent code from the <code>stplanr</code> package generated an error message). It’s worth checking/cleaning your OD data and ensure all ids in the first two columns match the ids in the first column of the zone data before running <code><a href="../reference/od_to_sf.html">od_to_sf()</a></code>.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">od</span><span class="op">$</span><span class="va">geo_code2</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="va">od_geo_code2_3</span></code></pre></div>
+</div>
+<div id="aggregating-and-disaggregating-od-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#aggregating-and-disaggregating-od-data" class="anchor"></a>Aggregating and disaggregating OD data</h2>
+<p>The data shown in the previous examples is quite low resolution. Imagine you want to split each desire line into multiple lines, e.g. for some kind of simulation. You can do this by assigning origins and destinations to specific subzones with <code><a href="../reference/od_disaggregate.html">od_disaggregate()</a></code> (also called <code><a href="../reference/od_disaggregate.html">od_split()</a></code>):</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span>
+<span class="va">od_disaggregated</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od</span>, z <span class="op">=</span> <span class="va">z</span>, subzones <span class="op">=</span> <span class="va">subzones</span><span class="op">)</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">od_data_zones_min</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">od_data_zones_small</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">5</span>, col <span class="op">=</span> <span class="st">"red"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">od_disaggregated</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">0.4</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="od_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot(od_disaggregated$geometry[1:5])</span></code></pre></div>
+<p>This preserves column totals:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 6429   65  654   68  431  102   96 4986</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">od_disaggregated</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 6429   65  654   68  431  102   96 4986</span></code></pre></div>
+<p>This also allows the simulation of building-to-building travel.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">od_disaggregated2</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">z</span>, <span class="va">od_data_buildings</span><span class="op">)</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">od_data_buildings</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">od_disaggregated2</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<p><img src="od_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
+<p>You can re-aggregate the data with the function <code><a href="../reference/od_aggregate.html">od_aggregate()</a></code>.</p>
+<p>Note: this functionality is work in progress.</p>
 <!-- # Worked example -->
 <!-- Todo: add this from the stplanr od vignette. -->
 </div>
