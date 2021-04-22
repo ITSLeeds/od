@@ -48,9 +48,28 @@ od_disaggregate = function(od,
                            keep_ids = TRUE) {
 
   if (is.null(subpoints)) {
+    message("Converting subzones to centroids")
     suppressWarnings({
       subpoints = sf::st_centroid(subzones)
     })
+  }
+
+  # is the input data an sf object? tell the user and convert to df if so
+  if(is(object = od, class2 = "sf")) {
+    message("Input object is sf, attempting to convert to a data frame")
+    od = sf::st_drop_geometry(od)
+  }
+
+  # detect and deal with non numeric inputs
+  column_classes = sapply(X = od, FUN = function(x) class(x)[1])
+  column_classes_data = column_classes[3:length(column_classes)]
+  col_is_numeric = column_classes_data == "numeric"
+  all_numeric = all(col_is_numeric)
+  if(!all_numeric) {
+    names_od = names(od)[3:length(column_classes)]
+    names_readable = paste0(names_od[!col_is_numeric], collapse = ", ")
+    message("Attempting to remove non-numeric columns: ", names_readable)
+    od = od[setdiff(names(od), names_readable)]
   }
 
   o_in_zones = od[[1]] %in% z[[1]]
