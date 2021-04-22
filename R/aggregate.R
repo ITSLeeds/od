@@ -55,7 +55,7 @@ od_disaggregate = function(od,
   }
 
   # is the input data an sf object? tell the user and convert to df if so
-  if(is(object = od, class2 = "sf")) {
+  if(methods::is(object = od, class2 = "sf")) {
     message("Input object is sf, attempting to convert to a data frame")
     od = sf::st_drop_geometry(od)
   }
