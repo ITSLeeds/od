@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -386,6 +386,7 @@
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span>
 <span class="va">od_disaggregated</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od</span>, z <span class="op">=</span> <span class="va">z</span>, subzones <span class="op">=</span> <span class="va">subzones</span><span class="op">)</span>
+<span class="co">#&gt; Converting subzones to centroids</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
@@ -406,6 +407,7 @@
 <p>This also allows the simulation of building-to-building travel.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">od_disaggregated2</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">z</span>, <span class="va">od_data_buildings</span><span class="op">)</span>
+<span class="co">#&gt; Converting subzones to centroids</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
 <span class="co">#&gt; although coordinates are longitude/latitude, st_intersects assumes that they are planar</span>
