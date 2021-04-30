@@ -18,6 +18,9 @@
 #' @param keep_ids Should the origin and destination ids be kept?
 #'   `TRUE` by default, meaning 2 extra columns are appended, with the
 #'   names `o_agg` and `d_agg` containing IDs from the original OD data.
+#' @param integer_outputs Should integer outputs be returned? `FALSE` by default.
+#'   Note: there is a known issue when integer results are generated. See
+#'   https://github.com/ITSLeeds/od/issues/31 for details.
 #'
 #' @export
 #' @examples
@@ -25,9 +28,13 @@
 #' zones = od::od_data_zones_min
 #' subzones = od_data_zones_small
 #' od_disag = od_disaggregate(od, zones, subzones)
-#' ncol(od_disag) -1 == ncol(od) # same number of columns (except disag data gained geometry)
+#' ncol(od_disag) -3 == ncol(od) # same number of columns
+#' # (except disag data gained geometry and new agg ids)
 #' sum(od_disag[[3]]) == sum(od[[3]])
 #' sum(od_disag[[4]]) == sum(od[[4]])
+#' # integer results
+#' od_disag_integer = od_disaggregate(od, zones, subzones)
+#' plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
 #' od_sf = od_to_sf(od, zones)
 #' plot(od_data_zones_small$geometry)
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
@@ -45,7 +52,9 @@ od_disaggregate = function(od,
                            code_append = "_ag",
                            population_column = 3,
                            population_per_od = 5,
-                           keep_ids = TRUE) {
+                           keep_ids = TRUE,
+                           integer_outputs = FALSE
+                           ) {
 
   if (is.null(subpoints)) {
     message("Converting subzones to centroids")
@@ -89,6 +98,7 @@ od_disaggregate = function(od,
   }
   subpoints_joined = sf::st_join(subpoints, z[1])
 
+  # i = 1 # for debugging
   i_seq = seq(nrow(od))
   list_new = lapply(
     X = i_seq,
@@ -104,8 +114,9 @@ od_disaggregate = function(od,
       od_new_attribute_list = lapply(od[i,-c(1, 2)], function(x)
         x / nrow(od_new))
       od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), , drop = FALSE]
-      od_new_attributes[] = apply(od_new_attributes, 2, function(x)
-        smart.round(x))
+      if(integer_outputs) {
+        od_new_attributes[] = apply(od_new_attributes, 2, function(x) smart.round(x))
+      }
       od_new = cbind(od_new, od_new_attributes)
       if(keep_ids) {
         od_new$o_agg = od[[1]][i]

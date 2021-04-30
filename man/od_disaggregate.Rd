@@ -13,7 +13,8 @@ od_disaggregate(
   code_append = "_ag",
   population_column = 3,
   population_per_od = 5,
-  keep_ids = TRUE
+  keep_ids = TRUE,
+  integer_outputs = FALSE
 )
 
 od_split(
@@ -24,7 +25,8 @@ od_split(
   code_append = "_ag",
   population_column = 3,
   population_per_od = 5,
-  keep_ids = TRUE
+  keep_ids = TRUE,
+  integer_outputs = FALSE
 )
 }
 \arguments{
@@ -45,6 +47,10 @@ od_split(
 \item{keep_ids}{Should the origin and destination ids be kept?
 \code{TRUE} by default, meaning 2 extra columns are appended, with the
 names \code{o_agg} and \code{d_agg} containing IDs from the original OD data.}
+
+\item{integer_outputs}{Should integer outputs be returned? \code{FALSE} by default.
+Note: there is a known issue when integer results are generated. See
+https://github.com/ITSLeeds/od/issues/31 for details.}
 }
 \description{
 This function is for splitting-up OD pairs.
@@ -61,9 +67,13 @@ od = od_data_df[1:2, ]
 zones = od::od_data_zones_min
 subzones = od_data_zones_small
 od_disag = od_disaggregate(od, zones, subzones)
-ncol(od_disag) -1 == ncol(od) # same number of columns (except disag data gained geometry)
+ncol(od_disag) -3 == ncol(od) # same number of columns
+# (except disag data gained geometry and new agg ids)
 sum(od_disag[[3]]) == sum(od[[3]])
 sum(od_disag[[4]]) == sum(od[[4]])
+# integer results
+od_disag_integer = od_disaggregate(od, zones, subzones)
+plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
 od_sf = od_to_sf(od, zones)
 plot(od_data_zones_small$geometry)
 plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
