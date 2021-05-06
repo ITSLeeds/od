@@ -209,13 +209,59 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></td>
 <span class='va'>zones</span> <span class='op'>=</span> <span class='fu'>od</span><span class='fu'>::</span><span class='va'><a href='od_data_zones.html'>od_data_zones_min</a></span>
 <span class='va'>subzones</span> <span class='op'>=</span> <span class='va'>od_data_zones_small</span>
 <span class='va'>od_disag</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>subzones</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span> <span class='op'>-</span><span class='fl'>3</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>)</span> <span class='co'># same number of columns</span>
+</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)
+#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span> <span class='op'>-</span><span class='fl'>3</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>)</span> <span class='co'># same number of columns</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># (except disag data gained geometry and new agg ids)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># integer results</span>
 <span class='va'>od_disag_integer</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>subzones</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_geometry.html'>st_drop_geometry</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span>, <span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)
+#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_geometry.html'>st_drop_geometry</a></span><span class='op'>(</span><span class='va'>od_disag</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span>, <span class='va'>od_disag</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='img'><img src='od_disaggregate-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>od_sf</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_small</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -224,7 +270,30 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></td>
 </div><div class='img'><img src='od_disaggregate-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># with buildings data</span>
 <span class='va'>od_disag_buildings</span> <span class='op'>=</span> <span class='fu'>od_disaggregate</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>zones</span>, <span class='va'>od_data_buildings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>od_disag_buildings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Converting subzones to centroids</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)
+#&gt; Called from: FUN(X[[i]], ...)
+#&gt; debug: if (integer_outputs) {
+#&gt;     odns[] = apply(odns, 2, function(x) smart.round(x))
+#&gt; }
+#&gt; debug: od_new = cbind(od_new, odns)
+#&gt; debug: if (keep_ids) {
+#&gt;     od_new$o_agg = od[[1]][i]
+#&gt;     od_new$d_agg = od[[2]][i]
+#&gt; }
+#&gt; debug: od_new$o_agg = od[[1]][i]
+#&gt; debug: od_new$d_agg = od[[2]][i]
+#&gt; debug: od_new_sf = od::od_to_sf(od_new, subpoints_joined, silent = TRUE)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>od_disag_buildings</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       o                  d                  all            train        
 #&gt;  Length:423         Length:423         Min.   :4.979   Min.   :0.02620  
 #&gt;  Class :character   Class :character   1st Qu.:4.979   1st Qu.:0.02620  
