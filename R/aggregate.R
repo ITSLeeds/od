@@ -14,7 +14,7 @@
 #' @param subzones Sub-zones within the zones defining the OD data
 #' @param code_append The name of the column containing aggregate zone names
 #' @param population_column The column containing the total population (if it exists)
-#' @param population_per_od Minimum number to assign per OD pair
+#' @param population_per_od Maximum flow in the population_column to assign per OD pair. This only comes into effect if there are enough subpoints to choose from.
 #' @param keep_ids Should the origin and destination ids be kept?
 #'   `TRUE` by default, meaning 2 extra columns are appended, with the
 #'   names `o_agg` and `d_agg` containing IDs from the original OD data.

@@ -42,7 +42,7 @@ od_split(
 
 \item{population_column}{The column containing the total population (if it exists)}
 
-\item{population_per_od}{Minimum number to assign per OD pair}
+\item{population_per_od}{Maximum flow in the population_column to assign per OD pair. This only comes into effect if there are enough subpoints to choose from.}
 
 \item{keep_ids}{Should the origin and destination ids be kept?
 \code{TRUE} by default, meaning 2 extra columns are appended, with the
