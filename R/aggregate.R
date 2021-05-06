@@ -111,13 +111,15 @@ od_disaggregate = function(od,
       if (nrow(od_new) > max_n_od) {
         od_new = od_new[sample(nrow(od_new), size = max_n_od),]
       }
-      od_new_attribute_list = lapply(od[i,-c(1, 2)], function(x)
+      # new attributes
+      odn_list = lapply(od[i, -c(1, 2)], function(x)
         x / nrow(od_new))
-      od_new_attributes = as.data.frame(od_new_attribute_list)[rep(1, nrow(od_new)), , drop = FALSE]
+      odns = as.data.frame(odn_list)[rep(1, nrow(od_new)), , drop = FALSE]
+      browser()
       if(integer_outputs) {
-        od_new_attributes[] = apply(od_new_attributes, 2, function(x) smart.round(x))
+        odns[] = apply(odns, 2, function(x) smart.round(x))
       }
-      od_new = cbind(od_new, od_new_attributes)
+      od_new = cbind(od_new, odns)
       if(keep_ids) {
         od_new$o_agg = od[[1]][i]
         od_new$d_agg = od[[2]][i]
