@@ -11,6 +11,21 @@
 #' @export
 #'
 #' @examples
+#' od = od_data_df
+#' z = od_data_zones_min
+#' desire_lines = od_to_sf(od, z)
 od_rand = function(od, z, subpoints = NULL) {
+  z_geo = sf::st_geometry(z)
+  if(is.null(subpoints)) {
+    suppressMessages({
+      subpoints = sf::st_sample(z, size = rep(1, length(z)))
+    })
+  }
+  if(identical(class(subpoints), c("sfc_POINT", "sfc"))) {
+    subpoints = sf::st_sf(geometry = subpoints)
+  }
+  suppressMessages({
+    subpoints_joined = sf::st_join(subpoints, z)
+  })
 
 }
