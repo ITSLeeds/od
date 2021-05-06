@@ -36,7 +36,7 @@ od_split(
 
 \item{subzones}{Sub-zones within the zones defining the OD data}
 
-\item{subpoints}{Points within the zones defining the OD data}
+\item{subpoints}{Points within the zones defining the OD data start/end points}
 
 \item{code_append}{The name of the column containing aggregate zone names}
 
