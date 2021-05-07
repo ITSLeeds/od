@@ -10,7 +10,7 @@
 #'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
-#' @param subpoints Points within the zones defining the OD data
+#' @param subpoints Points within the zones defining the OD data start/end points
 #' @param subzones Sub-zones within the zones defining the OD data
 #' @param code_append The name of the column containing aggregate zone names
 #' @param population_column The column containing the total population (if it exists)
