@@ -115,7 +115,6 @@ od_disaggregate = function(od,
       odn_list = lapply(od[i, -c(1, 2)], function(x)
         x / nrow(od_new))
       odns = as.data.frame(odn_list)[rep(1, nrow(od_new)), , drop = FALSE]
-      browser()
       if(integer_outputs) {
         odns[] = apply(odns, 2, function(x) smart.round(x))
       }
