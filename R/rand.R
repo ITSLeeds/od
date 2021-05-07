@@ -52,7 +52,6 @@ od_rand = function(od, z, subpoints = NULL) {
   # # coordinates_o = sf::st_coordinates(sj$geometry[id_o])
 
   # generate origin indices
-  # browser()
   sj_id = sj$id
   sj_geo = sj[[2]]
   x = od[[1]][1]
@@ -83,7 +82,6 @@ od_rand = function(od, z, subpoints = NULL) {
     sj_geo = sj_geo[-i_remove]
     id_d = c(id_d, id_d_new)
   }
-  browser()
 
   coordinates_o = sf::st_coordinates(sj$geometry[id_o])
   coordinates_d = sf::st_coordinates(sj$geometry[id_d])
