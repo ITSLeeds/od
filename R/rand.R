@@ -73,7 +73,7 @@ od_rand = function(od, z, subpoints = NULL) {
     n_origins = sum(od[[1]] == i)
     if(n_origins == 0) next()
     sel_sj = which(sj_df$geo_code == i)
-    sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
+    sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins, replace = TRUE)]
     odc_new[od[[1]] == i, "ox"] = sj_df$x[sel_sj_o]
     odc_new[od[[1]] == i, "oy"] = sj_df$y[sel_sj_o]
     # remove those random points from the list of options
@@ -84,7 +84,7 @@ od_rand = function(od, z, subpoints = NULL) {
     n_destinations = sum(od[[2]] == i)
     if(n_destinations == 0) next()
     sel_sj = which(sj_df$geo_code == i)
-    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
+    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
     odc_new[od[[2]] == i, "dx"] = sj_df$x[sel_sj_d]
     odc_new[od[[2]] == i, "dy"] = sj_df$y[sel_sj_d]
     # remove those random points from the list of options
