@@ -157,14 +157,24 @@ See <a href='https://github.com/ITSLeeds/od/issues/11'>issue #11</a> for details
 <span class='va'>z</span> <span class='op'>=</span> <span class='va'>od_data_zones_min</span>
 <span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='va'>desire_lines_rand</span> <span class='op'>=</span> <span class='fu'>od_rand</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Called from: od_rand(od, z)
+#&gt; debug: coordinates_o = sf::st_coordinates(sj$geometry[id_o])
+#&gt; debug: coordinates_d = sf::st_coordinates(sj$geometry[id_d])
+#&gt; debug: odc = cbind(coordinates_o, coordinates_d)
+#&gt; debug: d = sf::st_sf(od, geometry = odc_to_sfc_sf(as.matrix(odc), crs = sf::st_crs(z)))
+#&gt; debug: d</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines_rand</span><span class='op'>$</span><span class='va'>geometry</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring all but the first attribute</span></div><div class='img'><img src='od_rand-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># # Test interactively with</span>
 <span class='co'># mapview::mapview(desire_lines) + desire_lines_rand + z</span>
 <span class='va'>subpoints</span> <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_sample.html'>st_sample</a></span><span class='op'>(</span><span class='va'>z</span>, <span class='fl'>100</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='output co'>#&gt; <span class='message'>although coordinates are longitude/latitude, st_intersects assumes that they are planar</span></div><div class='input'><span class='va'>desire_lines_rand2</span> <span class='op'>=</span> <span class='fu'>od_rand</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span>, <span class='va'>subpoints</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span>, reset <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Called from: od_rand(od, z, subpoints)
+#&gt; debug: coordinates_o = sf::st_coordinates(sj$geometry[id_o])
+#&gt; debug: coordinates_d = sf::st_coordinates(sj$geometry[id_d])
+#&gt; debug: odc = cbind(coordinates_o, coordinates_d)
+#&gt; debug: d = sf::st_sf(od, geometry = odc_to_sfc_sf(as.matrix(odc), crs = sf::st_crs(z)))
+#&gt; debug: d</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span>, reset <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>subpoints</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines_rand2</span><span class='op'>$</span><span class='va'>geometry</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='od_rand-2.png' alt='' width='700' height='433' /></div></pre>
