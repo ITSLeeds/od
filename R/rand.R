@@ -14,26 +14,39 @@
 #' od = od_data_df
 #' z = od_data_zones_min
 #' desire_lines = od_to_sf(od, z)
-#' desire_lines_rand = od_rand(od, z)
+#' desire_lines_rand = od_rand(desire_lines, z)
 #' plot(z$geometry)
 #' plot(desire_lines_rand$geometry, add = TRUE)
 #' plot(desire_lines, add = TRUE)
 #' # # Test interactively with
 #' # mapview::mapview(desire_lines) + desire_lines_rand + z
 #' subpoints = sf::st_sample(z, 100)
-#' desire_lines_rand2 = od_rand(od, z, subpoints)
+#' desire_lines_rand2 = od_rand(desire_lines, z, subpoints)
 #' plot(z, reset = FALSE)
 #' plot(subpoints, add = TRUE)
 #' plot(desire_lines_rand2$geometry, add = TRUE)
+#' # # larger example with only subset of matching zones
+#' # od = od_data_df_medium
+#' # od_sf = od_to_sf(od, od_data_zones)
+#' # desire_lines_rand3 = od_rand(od_sf, z)
+#' # plot(od_sf$geometry[od$all > 200])
+#' # plot(desire_lines_rand3$geometry[od$all > 200])
 od_rand = function(od, z, subpoints = NULL) {
   if(methods::is(od, "sf")) {
+    # the data structure to reproduce for matching OD pairs
+    odc_new = odc_original = od::od_coordinates(od)
     od = sf::st_drop_geometry(od)
+    odc_df = data.frame(o = od[[1]], d = od[[2]], odc_original)
+  } else {
+    # todo: add functionality for odc when non-geo data provided
+    # odc_original = od_coordinates(od, z)
   }
   z_geo = sf::st_geometry(z)
   id = c(od[[1]], od[[2]])
   points_per_zone = data.frame(table(id))
   names(points_per_zone)[1] = names(z)[1]
   points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
+  # unique_zone_codes = points_per_zone_joined[[1]]
   z = z[z[[1]] %in% points_per_zone[[1]], ]
   if(is.null(subpoints)) {
     suppressMessages({
@@ -47,52 +60,38 @@ od_rand = function(od, z, subpoints = NULL) {
     # subpoints joined
     sj = sf::st_join(subpoints, z)
   })
-  # id_o = sapply(od[[1]], function(x) sample(sj$id[sj[[2]] == x], size = 1))
-  # id_d = sapply(od[[2]], function(x) sample(sj$id[sj[[2]] == x], size = 1))
-  # # coordinates_o = sf::st_coordinates(sj$geometry[id_o])
+  sj_coords = sf::st_coordinates(sj)
+  sj_df = data.frame(geo_code = sj[[2]], x = sj_coords[, 1], y = sj_coords[, 2])
 
-  # generate origin indices
-  sj_id = sj$id
-  sj_geo = sj[[2]]
-  x = od[[1]][1]
-  id_o = sample_one(sj_id[sj_geo == x], size = 1)
-  sj_id = sj_id[-id_o]
-  sj_geo = sj_geo[-id_o]
-  for(i in 2:nrow(od)) {
-    x = od[[1]][i]
-    i_remove = which(sj_geo == x)[1]
-    id_o_new = sample_one(sj_id[i_remove], size = 1)
-    sj_id = sj_id[-i_remove]
-    sj_geo = sj_geo[-i_remove]
-    id_o = c(id_o, id_o_new)
+  # unique_zones = z[[1]] # same as:
+  unique_zones = points_per_zone_joined[[1]]
+  i = unique_zones[1]
+  # browser()
+  for(i in unique_zones) {
+    # total number of origins and destinations
+    # n = points_per_zone_joined$Freq[points_per_zone_joined[[1]] == i]
+    n_origins = sum(od[[1]] == i)
+    if(n_origins == 0) next()
+    sel_sj = which(sj_df$geo_code == i)
+    sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
+    odc_new[od[[1]] == i, "ox"] = sj_df$x[sel_sj_o]
+    odc_new[od[[1]] == i, "oy"] = sj_df$y[sel_sj_o]
+    # remove those random points from the list of options
+    sj_df = sj_df[-sel_sj_o, ]
   }
 
-  # sj_id = sj$id
-  # sj_geo = sj[[2]]
-  x = od[[2]][1]
-  i_remove = which(sj_geo == x)[1]
-  id_d = sample_one(sj_id[i_remove], size = 1)
-  sj_id = sj_id[-i_remove]
-  sj_geo = sj_geo[-i_remove]
-  for(i in 2:nrow(od)) {
-    x = od[[2]][i]
-    i_remove = which(sj_geo == x)[1]
-    id_d_new = sample_one(sj_id[i_remove], size = 1)
-    sj_id = sj_id[-i_remove]
-    sj_geo = sj_geo[-i_remove]
-    id_d = c(id_d, id_d_new)
+  for(i in unique_zones) {
+    n_destinations = sum(od[[2]] == i)
+    if(n_destinations == 0) next()
+    sel_sj = which(sj_df$geo_code == i)
+    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
+    odc_new[od[[2]] == i, "dx"] = sj_df$x[sel_sj_d]
+    odc_new[od[[2]] == i, "dy"] = sj_df$y[sel_sj_d]
+    # remove those random points from the list of options
+    sj_df = sj_df[-sel_sj_d, ]
   }
 
-  coordinates_o = sf::st_coordinates(sj$geometry[id_o])
-  coordinates_d = sf::st_coordinates(sj$geometry[id_d])
-  odc = cbind(coordinates_o, coordinates_d)
-
-  # # Disabled sfheaders for now as unreliable
-  # coordinates_o = sfheaders::sfc_to_df(sj$geometry[id_o])
-  # coordinates_d = sfheaders::sfc_to_df(sj$geometry[id_d])
-  # odc = cbind(coordinates_o[c("x", "y")], coordinates_d[c("x", "y")])
-  d = sf::st_sf(od, geometry = odc_to_sfc_sf(as.matrix(odc), crs = sf::st_crs(z)))
-  d
+  sf::st_sf(od, geometry = odc_to_sfc_sf(odc_new, crs = sf::st_crs(z)))
 }
 
 # https://stackoverflow.com/questions/48505961

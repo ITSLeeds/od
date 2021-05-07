@@ -97,6 +97,9 @@ od_to_sfc = function(x,
 #' pd = od_data_destinations
 #' od_coordinates(x, p, pd)
 od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE) {
+  if(methods::is(x, "sf")) {
+    return(od_coordinates_sf(x))
+  }
   o_code = x[[1]]
   d_code = x[[2]]
   if(methods::is(o_code, "factor")) {
@@ -150,6 +153,13 @@ od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE
   }
   odc = cbind(o_coords, d_coords)
   if(sfnames) return(as.matrix(odc)) # return without updating column names
+  colnames(odc) = c("ox", "oy", "dx", "dy")
+  odc
+}
+od_coordinates_sf = function(x) {
+  coords_o = sf::st_coordinates(lwgeom::st_startpoint(x))
+  coords_d = sf::st_coordinates(lwgeom::st_endpoint(x))
+  odc = cbind(coords_o, coords_d)
   colnames(odc) = c("ox", "oy", "dx", "dy")
   odc
 }
