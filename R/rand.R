@@ -83,13 +83,16 @@ od_rand = function(od, z, subpoints = NULL) {
     sj_geo = sj_geo[-i_remove]
     id_d = c(id_d, id_d_new)
   }
-  # browser()
+  browser()
 
-  # coordinates_o = sf::st_coordinates(sj$geometry[id_o])
+  coordinates_o = sf::st_coordinates(sj$geometry[id_o])
+  coordinates_d = sf::st_coordinates(sj$geometry[id_d])
+  odc = cbind(coordinates_o, coordinates_d)
+
+  # # Disabled sfheaders for now as unreliable
+  # coordinates_o = sfheaders::sfc_to_df(sj$geometry[id_o])
   # coordinates_d = sfheaders::sfc_to_df(sj$geometry[id_d])
-  coordinates_o = sfheaders::sfc_to_df(sj$geometry[id_o])
-  coordinates_d = sfheaders::sfc_to_df(sj$geometry[id_d])
-  odc = cbind(coordinates_o[c("x", "y")], coordinates_d[c("x", "y")])
+  # odc = cbind(coordinates_o[c("x", "y")], coordinates_d[c("x", "y")])
   d = sf::st_sf(od, geometry = odc_to_sfc_sf(as.matrix(odc), crs = sf::st_crs(z)))
   d
 }
