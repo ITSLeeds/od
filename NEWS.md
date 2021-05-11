@@ -1,6 +1,6 @@
 # od (development version)
 
-* New function `od_rand()` allows offsetting of origin and destination points of desire lines (#11)
+* New function `od_jitter()` allows offsetting of origin and destination points of desire lines (#11)
 * Add new argument to `od_disaggregate()` to all non-integer outputs
 
 # od 0.2.1

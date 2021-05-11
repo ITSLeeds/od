@@ -14,24 +14,24 @@
 #' od = od_data_df
 #' z = od_data_zones_min
 #' desire_lines = od_to_sf(od, z)
-#' desire_lines_rand = od_rand(desire_lines, z)
+#' desire_lines_rand = od_jitter(desire_lines, z)
 #' plot(z$geometry)
 #' plot(desire_lines_rand$geometry, add = TRUE)
 #' plot(desire_lines, add = TRUE)
 #' # # Test interactively with
 #' # mapview::mapview(desire_lines) + desire_lines_rand + z
 #' subpoints = sf::st_sample(z, 100)
-#' desire_lines_rand2 = od_rand(desire_lines, z, subpoints)
+#' desire_lines_rand2 = od_jitter(desire_lines, z, subpoints)
 #' plot(z, reset = FALSE)
 #' plot(subpoints, add = TRUE)
 #' plot(desire_lines_rand2$geometry, add = TRUE)
 #' # # larger example with only subset of matching zones
 #' # od = od_data_df_medium
 #' # od_sf = od_to_sf(od, od_data_zones)
-#' # desire_lines_rand3 = od_rand(od_sf, z)
+#' # desire_lines_rand3 = od_jitter(od_sf, z)
 #' # plot(od_sf$geometry[od$all > 200])
 #' # plot(desire_lines_rand3$geometry[od$all > 200])
-od_rand = function(od, z, subpoints = NULL) {
+od_jitter = function(od, z, subpoints = NULL) {
   if(methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
     odc_new = odc_original = od::od_coordinates(od)
