@@ -13,8 +13,8 @@
 #' @examples
 #' od = od_data_df
 #' z = od_data_zones_min
+#' desire_lines_rand = od_jitter(od, z)
 #' desire_lines = od_to_sf(od, z)
-#' desire_lines_rand = od_jitter(desire_lines, z)
 #' plot(z$geometry)
 #' plot(desire_lines_rand$geometry, add = TRUE)
 #' plot(desire_lines, add = TRUE)
@@ -32,15 +32,14 @@
 #' # plot(od_sf$geometry[od$all > 200])
 #' # plot(desire_lines_rand3$geometry[od$all > 200])
 od_jitter = function(od, z, subpoints = NULL) {
-  if(methods::is(od, "sf")) {
+  if(!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
-    odc_new = odc_original = od::od_coordinates(od)
-    od = sf::st_drop_geometry(od)
-    odc_df = data.frame(o = od[[1]], d = od[[2]], odc_original)
-  } else {
-    # todo: add functionality for odc when non-geo data provided
-    # odc_original = od_coordinates(od, z)
+  od = od::od_to_sf(od, z = z)
   }
+  odc_new = odc_original = od::od_coordinates(od)
+  od = sf::st_drop_geometry(od)
+  odc_df = data.frame(o = od[[1]], d = od[[2]], odc_original)
+
   z_geo = sf::st_geometry(z)
   id = c(od[[1]], od[[2]])
   points_per_zone = data.frame(table(id))

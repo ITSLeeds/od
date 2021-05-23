@@ -25,8 +25,8 @@ See \href{https://github.com/ITSLeeds/od/issues/11}{issue #11} for details.
 \examples{
 od = od_data_df
 z = od_data_zones_min
+desire_lines_rand = od_jitter(od, z)
 desire_lines = od_to_sf(od, z)
-desire_lines_rand = od_jitter(desire_lines, z)
 plot(z$geometry)
 plot(desire_lines_rand$geometry, add = TRUE)
 plot(desire_lines, add = TRUE)
