@@ -12,7 +12,7 @@ od_disaggregate(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  population_per_od = 5,
+  population_per_od = 50,
   keep_ids = TRUE,
   integer_outputs = FALSE
 )
@@ -24,7 +24,7 @@ od_split(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  population_per_od = 5,
+  population_per_od = 50,
   keep_ids = TRUE,
   integer_outputs = FALSE
 )
@@ -42,7 +42,8 @@ od_split(
 
 \item{population_column}{The column containing the total population (if it exists)}
 
-\item{population_per_od}{Maximum flow in the population_column to assign per OD pair. This only comes into effect if there are enough subpoints to choose from.}
+\item{population_per_od}{Maximum flow in the population_column to assign per OD pair.
+This only comes into effect if there are enough subpoints to choose from.}
 
 \item{keep_ids}{Should the origin and destination ids be kept?
 \code{TRUE} by default, meaning 2 extra columns are appended, with the
@@ -64,7 +65,16 @@ An alias for the function is \code{od_split()}.
 }
 \examples{
 od = od_data_df[1:2, ]
+od
 zones = od::od_data_zones_min
+od_sf = od_to_sf(od, zones)
+od_disag = od_disaggregate(od, zones)
+od_disag2 = od_disaggregate(od, zones, population_per_od = 200)
+plot(zones$geometry)
+plot(od_sf$geometry, lwd = 9, add = TRUE)
+plot(od_disag$geometry, col = "grey", lwd = 1, add = TRUE)
+plot(od_disag2$geometry, lwd = 1, add = TRUE)
+table(od_disag$o_agg, od_disag$d_agg)
 subzones = od_data_zones_small
 od_disag = od_disaggregate(od, zones, subzones)
 ncol(od_disag) -3 == ncol(od) # same number of columns
@@ -74,7 +84,6 @@ sum(od_disag[[4]]) == sum(od[[4]])
 # integer results
 od_disag_integer = od_disaggregate(od, zones, subzones)
 plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
-od_sf = od_to_sf(od, zones)
 plot(od_data_zones_small$geometry)
 plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 plot(od_sf["all"], add = TRUE)

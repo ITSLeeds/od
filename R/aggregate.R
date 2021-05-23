@@ -14,7 +14,8 @@
 #' @param subzones Sub-zones within the zones defining the OD data
 #' @param code_append The name of the column containing aggregate zone names
 #' @param population_column The column containing the total population (if it exists)
-#' @param population_per_od Maximum flow in the population_column to assign per OD pair. This only comes into effect if there are enough subpoints to choose from.
+#' @param population_per_od Maximum flow in the population_column to assign per OD pair.
+#'   This only comes into effect if there are enough subpoints to choose from.
 #' @param keep_ids Should the origin and destination ids be kept?
 #'   `TRUE` by default, meaning 2 extra columns are appended, with the
 #'   names `o_agg` and `d_agg` containing IDs from the original OD data.
@@ -25,7 +26,16 @@
 #' @export
 #' @examples
 #' od = od_data_df[1:2, ]
+#' od
 #' zones = od::od_data_zones_min
+#' od_sf = od_to_sf(od, zones)
+#' od_disag = od_disaggregate(od, zones)
+#' od_disag2 = od_disaggregate(od, zones, population_per_od = 200)
+#' plot(zones$geometry)
+#' plot(od_sf$geometry, lwd = 9, add = TRUE)
+#' plot(od_disag$geometry, col = "grey", lwd = 1, add = TRUE)
+#' plot(od_disag2$geometry, lwd = 1, add = TRUE)
+#' table(od_disag$o_agg, od_disag$d_agg)
 #' subzones = od_data_zones_small
 #' od_disag = od_disaggregate(od, zones, subzones)
 #' ncol(od_disag) -3 == ncol(od) # same number of columns
@@ -35,7 +45,6 @@
 #' # integer results
 #' od_disag_integer = od_disaggregate(od, zones, subzones)
 #' plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
-#' od_sf = od_to_sf(od, zones)
 #' plot(od_data_zones_small$geometry)
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 #' plot(od_sf["all"], add = TRUE)
@@ -51,12 +60,35 @@ od_disaggregate = function(od,
                            subpoints = NULL,
                            code_append = "_ag",
                            population_column = 3,
-                           population_per_od = 5,
+                           population_per_od = 50,
                            keep_ids = TRUE,
                            integer_outputs = FALSE
                            ) {
 
-  if (is.null(subpoints)) {
+
+  if (is.null(subpoints) && is.null(subzones)) {
+    message("Creating randomly sampled origin and destination points.")
+    # from jitter.R
+    # todo: consider splitting this out into new function
+    nrow_od_disag = ceiling(od[[population_column]] / population_per_od)
+    nrow_out = sum(nrow_od_disag)
+    od_disag_indices = rep(x = seq(nrow(od)), nrow_od_disag)
+    od_disag_ids = od[od_disag_indices, c(1:2)]
+    id = c(od_disag_ids[[1]], od_disag_ids[[2]])
+    points_per_zone = data.frame(table(id))
+    names(points_per_zone)[1] = names(z)[1]
+    points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
+    # unique_zone_codes = points_per_zone_joined[[1]]
+    z = z[z[[1]] %in% points_per_zone[[1]], ]
+    suppressMessages({
+      subpoints = sf::st_sf(
+        id = as.character(seq(nrow_out * 2)),
+        geometry = sf::st_sample(z, size = points_per_zone_joined$Freq)
+        )
+    })
+  }
+
+  if (is.null(subpoints) && !is.null(subzones)) {
     message("Converting subzones to centroids")
     suppressWarnings({
       subpoints = sf::st_centroid(subzones)
@@ -91,15 +123,20 @@ od_disaggregate = function(od,
   azn = paste0(names(z)[1], code_append)
   names(z)[1] = azn
   n_subpoints = nrow(subpoints)
-  subpoints = subpoints[z,]
+  suppressMessages({
+    subpoints = subpoints[z,]
+  })
   if (nrow(subpoints) < n_subpoints) {
     message(n_subpoints - nrow(subpoints),
             " locations outside zones removed")
   }
-  subpoints_joined = sf::st_join(subpoints, z[1])
+  suppressMessages({
+    subpoints_joined = sf::st_join(subpoints, z[1])
+  })
 
   # i = 1 # for debugging
   i_seq = seq(nrow(od))
+  # i = 1 # for testing
   list_new = lapply(
     X = i_seq,
     FUN = function(i) {
