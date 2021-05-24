@@ -4,14 +4,18 @@
 \alias{od_jitter}
 \title{Move desire line end points within zone to avoid all trips going to a single centroid}
 \usage{
-od_jitter(od, z, subpoints = NULL)
+od_jitter(od, z, zd, subpoints = NULL, subpoints_d = NULL)
 }
 \arguments{
 \item{od}{An origin-destination data frame}
 
 \item{z}{Zones representing origins and destinations}
 
+\item{zd}{Zones with ids matching the destination codes in input OD data}
+
 \item{subpoints}{Points within the zones defining the OD data start/end points}
+
+\item{subpoints_d}{Points withing destination zones representing possible destinations}
 }
 \value{
 An \code{sf} data frame
@@ -30,6 +34,16 @@ desire_lines = od_to_sf(od, z)
 plot(z$geometry)
 plot(desire_lines_rand$geometry, add = TRUE)
 plot(desire_lines, add = TRUE)
+
+subpoints = sf::st_sample(z, 200)
+subpoints_d = sf::st_sample(z, 100)
+desire_lines_rand_d = od_jitter(od, z, subpoints = subpoints, subpoints_d = subpoints_d)
+plot(z$geometry)
+plot(desire_lines_rand_d$geometry, add = TRUE)
+plot(subpoints, add = TRUE)
+plot(subpoints_d, col = "red", add = TRUE)
+plot(desire_lines, add = TRUE)
+
 # # Test interactively with
 # mapview::mapview(desire_lines) + desire_lines_rand + z
 subpoints = sf::st_sample(z, 100)

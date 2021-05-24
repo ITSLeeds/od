@@ -5,6 +5,8 @@
 #' This function produces desire lines that can start and end anywhere (or at predefined points) within each zone.
 #' See [issue #11](https://github.com/ITSLeeds/od/issues/11) for details.
 #'
+#' @param zd Zones with ids matching the destination codes in input OD data
+#' @param subpoints_d Points withing destination zones representing possible destinations
 #' @inheritParams od_disaggregate
 #'
 #' @return An `sf` data frame
@@ -18,6 +20,16 @@
 #' plot(z$geometry)
 #' plot(desire_lines_rand$geometry, add = TRUE)
 #' plot(desire_lines, add = TRUE)
+#'
+#' subpoints = sf::st_sample(z, 200)
+#' subpoints_d = sf::st_sample(z, 100)
+#' desire_lines_rand_d = od_jitter(od, z, subpoints = subpoints, subpoints_d = subpoints_d)
+#' plot(z$geometry)
+#' plot(desire_lines_rand_d$geometry, add = TRUE)
+#' plot(subpoints, add = TRUE)
+#' plot(subpoints_d, col = "red", add = TRUE)
+#' plot(desire_lines, add = TRUE)
+#'
 #' # # Test interactively with
 #' # mapview::mapview(desire_lines) + desire_lines_rand + z
 #' subpoints = sf::st_sample(z, 100)
@@ -31,10 +43,10 @@
 #' # desire_lines_rand3 = od_jitter(od_sf, z)
 #' # plot(od_sf$geometry[od$all > 200])
 #' # plot(desire_lines_rand3$geometry[od$all > 200])
-od_jitter = function(od, z, subpoints = NULL) {
+od_jitter = function(od, z, zd, subpoints = NULL, subpoints_d = NULL) {
   if(!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
-  od = od::od_to_sf(od, z = z)
+    od = od::od_to_sf(od, z = z)
   }
   odc_new = odc_original = od::od_coordinates(od)
   od = sf::st_drop_geometry(od)
@@ -79,9 +91,25 @@ od_jitter = function(od, z, subpoints = NULL) {
     sj_df = sj_df[-sel_sj_o, ]
   }
 
+  if(!is.null(subpoints_d)) {
+    subpoints = sf::st_sf(geometry = sf::st_geometry(subpoints_d))
+    subpoints$id = seq(nrow(subpoints))
+    suppressMessages({
+      # subpoints joined
+      sj = sf::st_join(subpoints, z)
+    })
+    sj_coords = sf::st_coordinates(sj)
+    sj_df = data.frame(geo_code = sj[[2]], x = sj_coords[, 1], y = sj_coords[, 2])
+  }
+
   for(i in unique_zones) {
     n_destinations = sum(od[[2]] == i)
     if(n_destinations == 0) next()
+    sel_sj = which(sj_df$geo_code == i)
+    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
+    odc_new[od[[2]] == i, "dx"] = sj_df$x[sel_sj_d]
+    odc_new[od[[2]] == i, "dy"] = sj_df$y[sel_sj_d]
+    # when there are subpoints
     sel_sj = which(sj_df$geo_code == i)
     sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
     odc_new[od[[2]] == i, "dx"] = sj_df$x[sel_sj_d]
