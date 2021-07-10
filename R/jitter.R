@@ -20,8 +20,8 @@
 #' desire_lines_rand = od_jitter(od, z)
 #' desire_lines = od_to_sf(od, z)
 #' plot(z$geometry)
-#' plot(desire_lines_rand, add = TRUE)
-#' plot(desire_lines, add = TRUE)
+#' plot(desire_lines_rand, add = TRUE, lwd = 3)
+#' plot(desire_lines, add = TRUE, lwd = 5)
 #'
 #' # Example showing use of subpoints
 #' subpoints = sf::st_sample(z, 200)
@@ -60,106 +60,89 @@
 #' # plot(od_sf$geometry[od$all > 200])
 #' # plot(desire_lines_rand3$geometry[od$all > 200])
 #' # mapview::mapview(od_sf$geometry[od$all > 200])
-od_jitter = function(od, z, zd = NULL, subpoints = NULL, subpoints_d = NULL) {
-  if(!methods::is(od, "sf")) {
+od_jitter = function(od,
+                     z,
+                     zd = NULL,
+                     subpoints = NULL,
+                     subpoints_d = NULL) {
+  if (!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
     od = od::od_to_sf(od, z = z, zd = zd)
   }
   odc_new = odc_original = od::od_coordinates(od)
   od = sf::st_drop_geometry(od)
   odc_df = data.frame(o = od[[1]], d = od[[2]], odc_original)
-  # browser()
-
   z_geo = sf::st_geometry(z)
-  id = c(od[[1]], od[[2]])
-  points_per_zone = data.frame(table(id))
+  # browser()
+  id_origins = od[[1]]
+  points_per_zone = data.frame(table(id_origins))
   names(points_per_zone)[1] = names(z)[1]
   points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
   # unique_zone_codes = points_per_zone_joined[[1]]
-  z = z[z[[1]] %in% points_per_zone[[1]], ]
-  if(is.null(subpoints)) {
-    suppressMessages({
+  z = z[z[[1]] %in% points_per_zone[[1]],]
+  if (is.null(subpoints)) {
       subpoints = sf::st_sample(z, size = points_per_zone_joined$Freq)
-    })
   }
   # Remove data from subpoints and convert to an sf object
   subpoints = sf::st_sf(geometry = sf::st_geometry(subpoints))
   subpoints$id = seq(nrow(subpoints))
   suppressMessages({
-    # subpoints joined
-    sj = sf::st_join(subpoints, z)
+    sj = sf::st_join(subpoints, z) # subpoints joined
   })
-  sj_coords = sf::st_coordinates(sj)
-  sj_df = data.frame(geo_code = sj[[2]], x = sj_coords[, 1], y = sj_coords[, 2])
+  sjc = sf::st_coordinates(sj) # subpoint coordinates
+  sj_df = data.frame(geo_code = sj[[2]], x = sjc[, 1], y = sjc[, 2])
 
   unique_zones = points_per_zone_joined[[1]]
   i = unique_zones[1]
-  for(i in unique_zones) {
+  for (i in unique_zones) {
     # total number of origins and destinations
-    # n = points_per_zone_joined$Freq[points_per_zone_joined[[1]] == i]
     n_origins = sum(od[[1]] == i)
-    if(n_origins == 0) next()
+    if (n_origins == 0)
+      next()
     sel_sj = which(sj_df$geo_code == i)
     sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
     odc_new[od[[1]] == i, "ox"] = sj_df$x[sel_sj_o]
     odc_new[od[[1]] == i, "oy"] = sj_df$y[sel_sj_o]
     # remove those random points from the list of options
-    sj_df = sj_df[-sel_sj_o, ]
+    sj_df = sj_df[-sel_sj_o,]
   }
 
-  if(is.null(subpoints_d) && !is.null(zd)) {
+  if (is.null(zd)) {
+    zd = z[z[[1]] %in% od[[2]], ]
+  } else {
+    zd = zd[zd[[1]] %in% od[[2]], ]
+  }
+
+  id_destinations = od[[2]]
+  points_per_zone = data.frame(table(id_destinations))
+  if (is.null(subpoints_d)) {
     names(points_per_zone)[1] = names(zd)[1]
     points_per_zone_joined_d = merge(sf::st_drop_geometry(zd), points_per_zone)
-    suppressMessages({
-      subpoints_d = sf::st_sample(zd, size = points_per_zone_joined_d$Freq)
-    })
-  } else if (is.null(subpoints_d) && !is.null(subpoints)) {
-    subpoints_d = subpoints
+    subpoints_d = sf::st_sample(zd, size = points_per_zone_joined_d$Freq)
   }
 
-  if(!is.null(subpoints_d)) {
-    if(is.null(zd)) {
-      zd = z
-      points_per_zone_joined_d = merge(sf::st_drop_geometry(zd), points_per_zone)
-    }
-    subpoints_d = sf::st_sf(geometry = sf::st_geometry(subpoints_d))
-    subpoints_d$id = seq(nrow(subpoints_d))
-    suppressMessages({
-      # subpoints joined
-      sj_d = sf::st_join(subpoints_d, zd)
-    })
-    sj_coords_d = sf::st_coordinates(sj_d)
-    sj_df_d = data.frame(geo_code = sj_d[[2]], x = sj_coords_d[, 1], y = sj_coords_d[, 2])
-
-    unique_zones_d = points_per_zone_joined_d[[1]]
-    i = unique_zones_d[1]
-
-    for(i in unique_zones) {
-      n_destinations = sum(od[[2]] == i)
-      if(n_destinations == 0) next()
-      # when there are subpoints
-      sel_sj = which(sj_df_d$geo_code == i)
-      sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
-      odc_new[od[[2]] == i, "dx"] = sj_df_d$x[sel_sj_d]
-      odc_new[od[[2]] == i, "dy"] = sj_df_d$y[sel_sj_d]
-      # remove those random points from the list of options
-      sj_df = sj_df[-sel_sj_d, ]
-    }
-
-  } else {
-    for(i in unique_zones) {
-      n_destinations = sum(od[[2]] == i)
-      if(n_destinations == 0) next()
-      # when there are subpoints
-      sel_sj = which(sj_df$geo_code == i)
-      sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
-      odc_new[od[[2]] == i, "dx"] = sj_df$x[sel_sj_d]
-      odc_new[od[[2]] == i, "dy"] = sj_df$y[sel_sj_d]
-      # remove those random points from the list of options
-      sj_df = sj_df[-sel_sj_d, ]
-    }
+  points_per_zone_joined_d = merge(sf::st_drop_geometry(zd), points_per_zone)
+  subpoints_d = sf::st_sf(geometry = sf::st_geometry(subpoints_d))
+  subpoints_d$id = seq(nrow(subpoints_d))
+  # subpoints joined
+  sj_d = sf::st_join(subpoints_d, zd)
+  sjc_d = sf::st_coordinates(sj_d)
+  # browser()
+  sj_df_d = data.frame(geo_code = sj_d[[2]], x = sjc_d[, 1], y = sjc_d[, 2])
+  unique_zones_d = points_per_zone_joined_d[[1]]
+  i = unique_zones_d[1]
+  for (i in unique_zones_d) {
+    n_destinations = sum(od[[2]] == i)
+    if (n_destinations == 0)
+      next()
+    # when there are subpoints
+    sel_sj = which(sj_df_d$geo_code == i)
+    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
+    odc_new[od[[2]] == i, "dx"] = sj_df_d$x[sel_sj_d]
+    odc_new[od[[2]] == i, "dy"] = sj_df_d$y[sel_sj_d]
+    # remove those random points from the list of options
+    sj_df = sj_df[-sel_sj_d,]
   }
-
   sf::st_sf(od, geometry = odc_to_sfc_sf(odc_new, crs = sf::st_crs(z)))
 }
 
