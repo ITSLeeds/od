@@ -101,7 +101,11 @@ od_jitter = function(od,
     if (n_origins == 0)
       next()
     sel_sj = which(sj_df$geo_code == i)
-    sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
+    if(n_origins > length(sel_sj)) {
+      sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins, replace = TRUE)]
+    } else {
+      sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
+    }
     odc_new[od[[1]] == i, "ox"] = sj_df$x[sel_sj_o]
     odc_new[od[[1]] == i, "oy"] = sj_df$y[sel_sj_o]
     # remove those random points from the list of options
@@ -139,7 +143,11 @@ od_jitter = function(od,
       next()
     # when there are subpoints
     sel_sj = which(sj_df_d$geo_code == i)
-    sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
+    if(n_destinations > length(sel_sj)) {
+      sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
+    } else {
+      sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
+    }
     odc_new[od[[2]] == i, "dx"] = sj_df_d$x[sel_sj_d]
     odc_new[od[[2]] == i, "dy"] = sj_df_d$y[sel_sj_d]
     # remove those random points from the list of options
