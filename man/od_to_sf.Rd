@@ -58,6 +58,8 @@ desire_lines_d = od_to_sf(od_data_df2, od_data_centroids2, od_data_destinations)
 o1 = od_data_centroids2[od_data_centroids2[[1]] == od_data_df2[[1]][1], ]
 d1 = od_data_destinations[od_data_destinations[[1]] == od_data_df2[[2]][1], ]
 plot(desire_lines_d$geometry)
+plot(od_data_centroids2$geometry, add = TRUE, col = "green")
+plot(od_data_destinations$geometry, add = TRUE)
 plot(o1, add = TRUE)
 plot(d1, add = TRUE)
 plot(desire_lines_d$geometry[1], lwd = 3, add = TRUE)

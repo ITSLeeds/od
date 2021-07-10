@@ -4,7 +4,7 @@
 \alias{od_jitter}
 \title{Move desire line end points within zone to avoid all trips going to a single centroid}
 \usage{
-od_jitter(od, z, zd, subpoints = NULL, subpoints_d = NULL)
+od_jitter(od, z, zd = NULL, subpoints_o = NULL, subpoints_d = NULL)
 }
 \arguments{
 \item{od}{An origin-destination data frame}
@@ -13,9 +13,9 @@ od_jitter(od, z, zd, subpoints = NULL, subpoints_d = NULL)
 
 \item{zd}{Zones with ids matching the destination codes in input OD data}
 
-\item{subpoints}{Points within the zones defining the OD data start/end points}
+\item{subpoints_o}{Points within origin zones representing possible destinations}
 
-\item{subpoints_d}{Points withing destination zones representing possible destinations}
+\item{subpoints_d}{Points within destination zones representing possible destinations}
 }
 \value{
 An \code{sf} data frame
@@ -27,34 +27,52 @@ This function produces desire lines that can start and end anywhere (or at prede
 See \href{https://github.com/ITSLeeds/od/issues/11}{issue #11} for details.
 }
 \examples{
+
+# Basic example
 od = od_data_df
 z = od_data_zones_min
-desire_lines_rand = od_jitter(od, z)
+dlr = od_jitter(od, z) # desire_lines_random
 desire_lines = od_to_sf(od, z)
 plot(z$geometry)
-plot(desire_lines_rand$geometry, add = TRUE)
-plot(desire_lines, add = TRUE)
+plot(dlr, add = TRUE, lwd = 3)
+plot(desire_lines, add = TRUE, lwd = 5)
 
-subpoints = sf::st_sample(z, 200)
+# Example showing use of subpoints
+subpoints_o = sf::st_sample(z, 200)
 subpoints_d = sf::st_sample(z, 100)
-desire_lines_rand_d = od_jitter(od, z, subpoints = subpoints, subpoints_d = subpoints_d)
+dlr_d = od_jitter(od, z, subpoints_o = subpoints_o, subpoints_d = subpoints_d)
 plot(z$geometry)
-plot(desire_lines_rand_d$geometry, add = TRUE)
-plot(subpoints, add = TRUE)
+plot(dlr_d$geometry, add = TRUE)
+plot(subpoints_o, add = TRUE)
 plot(subpoints_d, col = "red", add = TRUE)
-plot(desire_lines, add = TRUE)
+plot(desire_lines, add = TRUE, lwd = 5)
+# mapview::mapview(desire_lines) + dlr + z # interactive map
+sp = sf::st_sample(z, 100)
+dlr2 = od_jitter(desire_lines, z, subpoints_o = sp, subpoints_d = sp)
+plot(z$geometry)
+plot(sp, add = TRUE)
+plot(dlr2, add = TRUE, lwd = 3)
+plot(desire_lines, add = TRUE, lwd = 5)
 
-# # Test interactively with
-# mapview::mapview(desire_lines) + desire_lines_rand + z
-subpoints = sf::st_sample(z, 100)
-desire_lines_rand2 = od_jitter(desire_lines, z, subpoints)
-plot(z, reset = FALSE)
-plot(subpoints, add = TRUE)
-plot(desire_lines_rand2$geometry, add = TRUE)
-# # larger example with only subset of matching zones
+# Example showing jittering with origin and destination zones
+od = od_data_df2
+z = sf::st_buffer(od_data_centroids2, dist = 1000)
+zd = sf::st_buffer(od_data_destinations, dist = 300)
+zd = zd[zd[[1]] \%in\% od[[2]], ]
+desire_lines = od_to_sf(od, od_data_centroids2, od_data_destinations)
+dlr = od_jitter(od, z, zd)
+plot(z$geometry)
+plot(od_data_centroids2$geometry, add = TRUE)
+plot(od_data_destinations$geometry, add = TRUE)
+plot(zd$geometry, add = TRUE)
+plot(dlr, add = TRUE, lwd = 3)
+plot(desire_lines, add = TRUE, lwd = 5)
+
+# Larger example with only subset of matching zones
 # od = od_data_df_medium
 # od_sf = od_to_sf(od, od_data_zones)
-# desire_lines_rand3 = od_jitter(od_sf, z)
-# plot(od_sf$geometry[od$all > 200])
-# plot(desire_lines_rand3$geometry[od$all > 200])
+# dlr3 = od_jitter(od_sf, od_data_zones)
+# plot(od_sf[od$all > 200, 1])
+# plot(dlr3[od$all > 200, 1])
+# mapview::mapview(od_sf$geometry[od$all > 200])
 }
