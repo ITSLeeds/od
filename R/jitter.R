@@ -6,7 +6,8 @@
 #' See [issue #11](https://github.com/ITSLeeds/od/issues/11) for details.
 #'
 #' @param zd Zones with ids matching the destination codes in input OD data
-#' @param subpoints_d Points withing destination zones representing possible destinations
+#' @param subpoints_o Points within origin zones representing possible destinations
+#' @param subpoints_d Points within destination zones representing possible destinations
 #' @inheritParams od_disaggregate
 #'
 #' @return An `sf` data frame
@@ -17,53 +18,54 @@
 #' # Basic example
 #' od = od_data_df
 #' z = od_data_zones_min
-#' desire_lines_rand = od_jitter(od, z)
+#' dlr = od_jitter(od, z) # desire_lines_random
 #' desire_lines = od_to_sf(od, z)
 #' plot(z$geometry)
-#' plot(desire_lines_rand, add = TRUE, lwd = 3)
+#' plot(dlr, add = TRUE, lwd = 3)
 #' plot(desire_lines, add = TRUE, lwd = 5)
 #'
 #' # Example showing use of subpoints
-#' subpoints = sf::st_sample(z, 200)
+#' subpoints_o = sf::st_sample(z, 200)
 #' subpoints_d = sf::st_sample(z, 100)
-#' desire_lines_rand_d = od_jitter(od, z, subpoints = subpoints, subpoints_d = subpoints_d)
+#' dlr_d = od_jitter(od, z, subpoints_o = subpoints_o, subpoints_d = subpoints_d)
 #' plot(z$geometry)
-#' plot(desire_lines_rand_d$geometry, add = TRUE)
-#' plot(subpoints, add = TRUE)
+#' plot(dlr_d$geometry, add = TRUE)
+#' plot(subpoints_o, add = TRUE)
 #' plot(subpoints_d, col = "red", add = TRUE)
-#' plot(desire_lines, add = TRUE)
-#' # mapview::mapview(desire_lines) + desire_lines_rand + z # interactive map
-#' subpoints = sf::st_sample(z, 100)
-#' desire_lines_rand2 = od_jitter(desire_lines, z, subpoints = subpoints)
-#' plot(z, reset = FALSE)
-#' plot(subpoints, add = TRUE)
-#' plot(desire_lines_rand2$geometry, add = TRUE)
+#' plot(desire_lines, add = TRUE, lwd = 5)
+#' # mapview::mapview(desire_lines) + dlr + z # interactive map
+#' sp = sf::st_sample(z, 100)
+#' dlr2 = od_jitter(desire_lines, z, subpoints_o = sp, subpoints_d = sp)
+#' plot(z$geometry)
+#' plot(sp, add = TRUE)
+#' plot(dlr2, add = TRUE, lwd = 3)
+#' plot(desire_lines, add = TRUE, lwd = 5)
 #'
-#' # Example showing jittering of origins and destinations
+#' # Example showing jittering with origin and destination zones
 #' od = od_data_df2
 #' z = sf::st_buffer(od_data_centroids2, dist = 1000)
 #' zd = sf::st_buffer(od_data_destinations, dist = 300)
 #' zd = zd[zd[[1]] %in% od[[2]], ]
 #' desire_lines = od_to_sf(od, od_data_centroids2, od_data_destinations)
-#' desire_lines_rand = od_jitter(od, z, zd)
+#' dlr = od_jitter(od, z, zd)
 #' plot(z$geometry)
 #' plot(od_data_centroids2$geometry, add = TRUE)
 #' plot(od_data_destinations$geometry, add = TRUE)
 #' plot(zd$geometry, add = TRUE)
-#' plot(desire_lines$geometry, add = TRUE)
-#' plot(desire_lines_rand$geometry, add = TRUE, col = "red")
+#' plot(dlr, add = TRUE, lwd = 3)
+#' plot(desire_lines, add = TRUE, lwd = 5)
 #'
 #' # Larger example with only subset of matching zones
 #' # od = od_data_df_medium
 #' # od_sf = od_to_sf(od, od_data_zones)
-#' # desire_lines_rand3 = od_jitter(od_sf, z)
-#' # plot(od_sf$geometry[od$all > 200])
-#' # plot(desire_lines_rand3$geometry[od$all > 200])
+#' # dlr3 = od_jitter(od_sf, od_data_zones)
+#' # plot(od_sf[od$all > 200, 1])
+#' # plot(dlr3[od$all > 200, 1])
 #' # mapview::mapview(od_sf$geometry[od$all > 200])
 od_jitter = function(od,
                      z,
                      zd = NULL,
-                     subpoints = NULL,
+                     subpoints_o = NULL,
                      subpoints_d = NULL) {
   if (!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
@@ -79,16 +81,15 @@ od_jitter = function(od,
   names(points_per_zone)[1] = names(z)[1]
   points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
   # unique_zone_codes = points_per_zone_joined[[1]]
-  z = z[z[[1]] %in% points_per_zone[[1]],]
-  if (is.null(subpoints)) {
-      subpoints = sf::st_sample(z, size = points_per_zone_joined$Freq)
+  zo = z[match(points_per_zone[[1]], z[[1]], nomatch = FALSE) ,]
+  # browser()
+  if (is.null(subpoints_o)) {
+    subpoints_o = sf::st_sample(zo, size = points_per_zone_joined$Freq)
   }
   # Remove data from subpoints and convert to an sf object
-  subpoints = sf::st_sf(geometry = sf::st_geometry(subpoints))
-  subpoints$id = seq(nrow(subpoints))
-  suppressMessages({
-    sj = sf::st_join(subpoints, z) # subpoints joined
-  })
+  subpoints_o = sf::st_sf(geometry = sf::st_geometry(subpoints_o))
+  subpoints_o$id = seq(nrow(subpoints_o))
+  sj = sf::st_join(subpoints_o, zo) # subpoints_o joined
   sjc = sf::st_coordinates(sj) # subpoint coordinates
   sj_df = data.frame(geo_code = sj[[2]], x = sjc[, 1], y = sjc[, 2])
 
@@ -115,6 +116,7 @@ od_jitter = function(od,
 
   id_destinations = od[[2]]
   points_per_zone = data.frame(table(id_destinations))
+  zd = zd[match(points_per_zone[[1]], zd[[1]], nomatch = FALSE) ,]
   if (is.null(subpoints_d)) {
     names(points_per_zone)[1] = names(zd)[1]
     points_per_zone_joined_d = merge(sf::st_drop_geometry(zd), points_per_zone)
