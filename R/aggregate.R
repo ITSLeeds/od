@@ -25,73 +25,84 @@
 #'
 #' @export
 #' @examples
-#' od = od_data_df[1:2, ]
+#' od = od_data_df[1:2, c(1, 2, 9)]
 #' od
 #' zones = od::od_data_zones_min
 #' od_sf = od_to_sf(od, zones)
+#' set.seed(2021) # for reproducibility
 #' od_disag = od_disaggregate(od, zones)
 #' od_disag2 = od_disaggregate(od, zones, population_per_od = 200)
 #' plot(zones$geometry)
 #' plot(od_sf$geometry, lwd = 9, add = TRUE)
 #' plot(od_disag$geometry, col = "grey", lwd = 1, add = TRUE)
-#' plot(od_disag2$geometry, lwd = 1, add = TRUE)
+#' plot(od_disag2$geometry, col = "green", lwd = 1, add = TRUE)
 #' table(od_disag$o_agg, od_disag$d_agg)
+#'
+#' # with subpoints
+#' subpoints = sf::st_sample(zones, 1000)
+#' od_disag_subpoints = od_disaggregate(od, zones, subpoints = subpoints)
+#'
 #' subzones = od_data_zones_small
 #' od_disag = od_disaggregate(od, zones, subzones)
-#' ncol(od_disag) -3 == ncol(od) # same number of columns
-#' # (except disag data gained geometry and new agg ids)
+#' ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
+#' # Except disag data gained geometry and new agg ids:
 #' sum(od_disag[[3]]) == sum(od[[3]])
 #' sum(od_disag[[4]]) == sum(od[[4]])
 #' # integer results
-#' od_disag_integer = od_disaggregate(od, zones, subzones)
-#' plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
-#' plot(od_data_zones_small$geometry)
-#' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
-#' plot(od_sf["all"], add = TRUE)
-#' plot(od_disag["all"], add = TRUE)
+#' od_disag_integer = od_disaggregate(od, zones, subzones, integer_outputs = TRUE)
 #'
 #' # with buildings data
 #' od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
 #' summary(od_disag_buildings)
 #' plot(od_disag_buildings)
+#' mapview::mapview(od_disag_buildings)
 od_disaggregate = function(od,
                            z,
                            subzones = NULL,
                            subpoints = NULL,
                            code_append = "_ag",
                            population_column = 3,
-                           population_per_od = 50,
+                           population_per_od = 5,
                            keep_ids = TRUE,
                            integer_outputs = FALSE
                            ) {
 
+  nrow_od_disag = ceiling(od[[population_column]] / population_per_od)
+  nr = sum(nrow_od_disag)
+  azn = paste0(names(z)[1], code_append)
+  # browser()
 
   if (is.null(subpoints) && is.null(subzones)) {
     message("Creating randomly sampled origin and destination points.")
     # from jitter.R
     # todo: consider splitting this out into new function
-    nrow_od_disag = ceiling(od[[population_column]] / population_per_od)
-    nrow_out = sum(nrow_od_disag)
     od_disag_indices = rep(x = seq(nrow(od)), nrow_od_disag)
     od_disag_ids = od[od_disag_indices, c(1:2)]
-    id = c(od_disag_ids[[1]], od_disag_ids[[2]])
-    points_per_zone = data.frame(table(id))
+    id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
+    points_per_zone = data.frame(table(id_zones))
     names(points_per_zone)[1] = names(z)[1]
     points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
     # unique_zone_codes = points_per_zone_joined[[1]]
     z = z[z[[1]] %in% points_per_zone[[1]], ]
-    suppressMessages({
-      subpoints = sf::st_sf(
-        id = as.character(seq(nrow_out * 2)),
-        geometry = sf::st_sample(z, size = points_per_zone_joined$Freq)
-        )
-    })
+    subpoints = sf::st_sample(z, size = points_per_zone_joined$Freq)
+    subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = id_zones)
+    names(subpoints_df)[2] = azn
+    subpoints = sf::st_sf(subpoints_df, geometry = subpoints)
   }
 
   if (is.null(subpoints) && !is.null(subzones)) {
     message("Converting subzones to centroids")
     suppressWarnings({
       subpoints = sf::st_centroid(subzones)
+    })
+  }
+
+  if (is(subpoints, "sfc")) {
+    suppressMessages({
+      subpoints = sf::st_sf(
+        id = as.character(seq(nr * 2)),
+        geometry = subpoints
+      )
     })
   }
 
@@ -120,23 +131,22 @@ od_disaggregate = function(od,
          which(!o_in_zones | !d_in_zones))
   }
 
-  azn = paste0(names(z)[1], code_append)
-  names(z)[1] = azn
-  n_subpoints = nrow(subpoints)
-  suppressMessages({
-    subpoints = subpoints[z,]
-  })
-  if (nrow(subpoints) < n_subpoints) {
-    message(n_subpoints - nrow(subpoints),
-            " locations outside zones removed")
+  if (names(z)[1] %in% names(subpoints)) {
+    names(z)[1] = azn
+    suppressMessages({
+      subpoints = subpoints[z,]
+    })
+    if (nrow(subpoints) < nrow(subpoints)) {
+      message(nrow(subpoints) - nrow(subpoints),
+              " locations outside zones removed")
+    }
+    suppressMessages({
+      subpoints_joined = sf::st_join(subpoints, z[1])
+    })
   }
-  suppressMessages({
-    subpoints_joined = sf::st_join(subpoints, z[1])
-  })
 
   # i = 1 # for debugging
   i_seq = seq(nrow(od))
-  # i = 1 # for testing
   list_new = lapply(
     X = i_seq,
     FUN = function(i) {
@@ -149,8 +159,7 @@ od_disaggregate = function(od,
         od_new = od_new[sample(nrow(od_new), size = max_n_od),]
       }
       # new attributes
-      odn_list = lapply(od[i, -c(1, 2)], function(x)
-        x / nrow(od_new))
+      odn_list = lapply(od[i, -c(1, 2)], function(x) x / nrow(od_new))
       odns = as.data.frame(odn_list)[rep(1, nrow(od_new)), , drop = FALSE]
       if(integer_outputs) {
         odns[] = apply(odns, 2, function(x) smart.round(x))
