@@ -154,32 +154,35 @@ zone code values and with names <code>orig</code>, <code>dest</code> and <code>f
 <code><a href='od_to_odmatrix.html'>od_to_odmatrix</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
-<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;   geo_code1 geo_code2  all
-#&gt; 1 E02002384 E02006875  966
-#&gt; 2 E02002404 E02006875 1145
-#&gt; 3 E02006875 E02006875 1791
-#&gt; 4 E02006876 E02006875 1035
-#&gt; 5 E02006861 E02002392  453
-#&gt; 6 E02006875 E02002392  286
-#&gt; 7 E02002392 E02006875  753</div><div class='input'><span class='va'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span><span class='op'>(</span><span class='va'>od_data_df</span><span class='op'>)</span>
-<span class='va'>odmatrix</span>
-</div><div class='output co'>#&gt;           E02006875 E02002392
-#&gt; E02002384       966        NA
-#&gt; E02002404      1145        NA
-#&gt; E02006875      1791       286
-#&gt; E02006876      1035        NA
-#&gt; E02006861        NA       453
-#&gt; E02002392       753        NA</div><div class='input'><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         orig      dest flow
-#&gt; 1  E02002384 E02006875  966
-#&gt; 6  E02002392 E02006875  753
-#&gt; 2  E02002404 E02006875 1145
-#&gt; 11 E02006861 E02002392  453
-#&gt; 9  E02006875 E02002392  286
-#&gt; 3  E02006875 E02006875 1791
-#&gt; 4  E02006876 E02006875 1035</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span></span>
+<span class='r-in'><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   geo_code1 geo_code2  all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875  966</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02006875 E02006875 1791</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02006876 E02006875 1035</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 E02006861 E02002392  453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02006875 E02002392  286</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 E02002392 E02006875  753</span>
+<span class='r-in'><span class='va'>odmatrix</span> <span class='op'>=</span> <span class='fu'><a href='od_to_odmatrix.html'>od_to_odmatrix</a></span><span class='op'>(</span><span class='va'>od_data_df</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>odmatrix</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           E02006875 E02002392</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02002384       966        NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02002404      1145        NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02006875      1791       286</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02006876      1035        NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02006861        NA       453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> E02002392       753        NA</span>
+<span class='r-in'><span class='fu'>odmatrix_to_od</span><span class='op'>(</span><span class='va'>odmatrix</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         orig      dest flow</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  E02002384 E02006875  966</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  E02002392 E02006875  753</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  E02002404 E02006875 1145</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 E02006861 E02002392  453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  E02006875 E02002392  286</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  E02006875 E02006875 1791</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  E02006876 E02006875 1035</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

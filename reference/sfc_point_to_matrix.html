@@ -144,14 +144,16 @@ and returns a matrix representing x and y (typically lon/lat) coordinates.</p>
     <p>Dave Cooley</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sfc_point_to_matrix</span><span class='op'>(</span><span class='va'>od_data_centroids</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        [,1]     [,2]
-#&gt; 1 -1.609934 53.79079
-#&gt; 2 -1.624630 53.88605
-#&gt; 3 -1.518058 53.84066
-#&gt; 4 -1.502589 53.78754
-#&gt; 5 -1.521520 53.75969
-#&gt; 6 -1.548730 53.72793</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>sfc_point_to_matrix</span><span class='op'>(</span><span class='va'>od_data_centroids</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        [,1]     [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 -1.624630 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 -1.518058 53.84066</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 -1.502589 53.78754</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 -1.521520 53.75969</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 -1.548730 53.72793</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -127,22 +127,26 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 303</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 6 features and 2 fields
-#&gt; Geometry type: MULTIPOLYGON
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.5565 ymin: 53.79338 xmax: -1.537664 ymax: 53.80027
-#&gt; Geodetic CRS:  WGS 84
-#&gt;   osm_way_id   building                       geometry
-#&gt; 1   23150505     retail MULTIPOLYGON (((-1.540118 5...
-#&gt; 2   23162531 commercial MULTIPOLYGON (((-1.546567 5...
-#&gt; 3   27767021 commercial MULTIPOLYGON (((-1.5565 53....
-#&gt; 4   28516780     office MULTIPOLYGON (((-1.553886 5...
-#&gt; 5   28516878 commercial MULTIPOLYGON (((-1.550857 5...
-#&gt; 6   28516879 commercial MULTIPOLYGON (((-1.552283 5...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 'x' is NULL so the result will be NULL</span></div><div class='img'><img src='od_data_buildings-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 303</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 2 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.5565 ymin: 53.79338 xmax: -1.537664 ymax: 53.80027</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   osm_way_id   building                       geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   23150505     retail MULTIPOLYGON (((-1.540118 5...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   23162531 commercial MULTIPOLYGON (((-1.546567 5...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   27767021 commercial MULTIPOLYGON (((-1.5565 53....</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   28516780     office MULTIPOLYGON (((-1.553886 5...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   28516878 commercial MULTIPOLYGON (((-1.550857 5...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   28516879 commercial MULTIPOLYGON (((-1.552283 5...</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_buildings</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>od_data_zones_min</span><span class='op'>$</span><span class='va'>geometry</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, col <span class='op'>=</span> <span class='cn'>NULL</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>'x' is NULL so the result will be NULL</span>
+<span class='r-plt img'><img src='od_data_buildings-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -163,66 +163,81 @@ coordinates of the start and end points of each OD pair.</p></td>
 a geographic object representing desire lines in the class <code>sf</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span>
-<span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             O         D        ox       oy        dx       dy
-#&gt; 1   E02002407 E02002407 -1.609934 53.79079 -1.609934 53.79079
-#&gt; 1.1 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
-#&gt; 1.2 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066
-#&gt; 2   E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079
-#&gt; 2.1 E02002336 E02002336 -1.624630 53.88605 -1.624630 53.88605
-#&gt; 2.2 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066
-#&gt; 3   E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079
-#&gt; 3.1 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605
-#&gt; 3.2 E02002353 E02002353 -1.518058 53.84066 -1.518058 53.84066</div><div class='input'><span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, ids_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           O         D
-#&gt; 1 E02002407 E02002407
-#&gt; 2 E02002407 E02002336
-#&gt; 3 E02002407 E02002353
-#&gt; 4 E02002336 E02002407
-#&gt; 5 E02002336 E02002336
-#&gt; 6 E02002336 E02002353
-#&gt; 7 E02002353 E02002407
-#&gt; 8 E02002353 E02002336
-#&gt; 9 E02002353 E02002353</div><div class='input'><span class='op'>(</span><span class='va'>l</span> <span class='op'>=</span> <span class='fu'>points_to_odl</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 6 features and 2 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605
-#&gt; Geodetic CRS:  WGS 84
-#&gt;           O         D                       geometry
-#&gt; 1 E02002407 E02002336 LINESTRING (-1.609934 53.79...
-#&gt; 2 E02002407 E02002353 LINESTRING (-1.609934 53.79...
-#&gt; 3 E02002336 E02002407 LINESTRING (-1.62463 53.886...
-#&gt; 4 E02002336 E02002353 LINESTRING (-1.62463 53.886...
-#&gt; 5 E02002353 E02002407 LINESTRING (-1.518058 53.84...
-#&gt; 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
-</div><div class='img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='op'>(</span><span class='va'>od</span> <span class='op'>=</span> <span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           O         D        ox       oy        dx       dy
-#&gt; 2 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605
-#&gt; 3 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066
-#&gt; 4 E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079
-#&gt; 6 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066
-#&gt; 7 E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079
-#&gt; 8 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605</div><div class='input'><span class='va'>l2</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>od_data_centroids</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='input'><span class='va'>l2</span><span class='op'>$</span><span class='va'>v</span> <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>(</span><span class='va'>l2_oneway</span> <span class='op'>=</span> <span class='fu'><a href='od_oneway.html'>od_oneway</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 3 features and 7 fields
-#&gt; Attribute-geometry relationship: 0 constant, 5 aggregate, 2 identity
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605
-#&gt; Geodetic CRS:  WGS 84
-#&gt;           o         d        ox       oy        dx       dy v
-#&gt; 1 E02002336 E02002353 -3.142688 107.7267 -3.142688 107.7267 2
-#&gt; 2 E02002336 E02002407 -3.234564 107.6768 -3.234564 107.6768 2
-#&gt; 3 E02002353 E02002407 -3.127992 107.6314 -3.127992 107.6314 2
-#&gt;                         geometry
-#&gt; 1 LINESTRING (-1.62463 53.886...
-#&gt; 2 LINESTRING (-1.609934 53.79...
-#&gt; 3 LINESTRING (-1.609934 53.79...</div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span>
-</div><div class='img'><img src='points_to_od-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>=</span> <span class='va'>od_data_centroids</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='op'>]</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-in'><span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             O         D        ox       oy        dx       dy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   E02002407 E02002407 -1.609934 53.79079 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.1 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.2 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.1 E02002336 E02002336 -1.624630 53.88605 -1.624630 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.2 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.1 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.2 E02002353 E02002353 -1.518058 53.84066 -1.518058 53.84066</span>
+<span class='r-in'><span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, ids_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           O         D</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002407 E02002407</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002407 E02002336</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02002407 E02002353</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02002336 E02002407</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 E02002336 E02002336</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02002336 E02002353</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 E02002353 E02002407</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8 E02002353 E02002336</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9 E02002353 E02002353</span>
+<span class='r-in'><span class='op'>(</span><span class='va'>l</span> <span class='op'>=</span> <span class='fu'>points_to_odl</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 2 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           O         D                       geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002407 E02002336 LINESTRING (-1.609934 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002407 E02002353 LINESTRING (-1.609934 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02002336 E02002407 LINESTRING (-1.62463 53.886...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02002336 E02002353 LINESTRING (-1.62463 53.886...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 E02002353 E02002407 LINESTRING (-1.518058 53.84...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</span>
+<span class='r-in'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='points_to_od-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>od</span> <span class='op'>=</span> <span class='fu'>points_to_od</span><span class='op'>(</span><span class='va'>p</span>, interzone_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           O         D        ox       oy        dx       dy</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02002336 E02002407 -1.624630 53.88605 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 E02002353 E02002407 -1.518058 53.84066 -1.609934 53.79079</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8 E02002353 E02002336 -1.518058 53.84066 -1.624630 53.88605</span>
+<span class='r-in'><span class='va'>l2</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>od_data_centroids</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 origins with no match in zone ids</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 destinations with no match in zone ids</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  points not in od data removed.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-in'><span class='va'>l2</span><span class='op'>$</span><span class='va'>v</span> <span class='op'>=</span> <span class='fl'>1</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>l2_oneway</span> <span class='op'>=</span> <span class='fu'><a href='od_oneway.html'>od_oneway</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 3 features and 7 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Attribute-geometry relationship: 0 constant, 5 aggregate, 2 identity</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.62463 ymin: 53.79079 xmax: -1.518058 ymax: 53.88605</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           o         d        ox       oy        dx       dy v</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002336 E02002353 -3.142688 107.7267 -3.142688 107.7267 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002336 E02002407 -3.234564 107.6768 -3.234564 107.6768 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02002353 E02002407 -3.127992 107.6314 -3.127992 107.6314 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 LINESTRING (-1.62463 53.886...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 LINESTRING (-1.609934 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 LINESTRING (-1.609934 53.79...</span>
+<span class='r-in'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l2</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='points_to_od-2.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

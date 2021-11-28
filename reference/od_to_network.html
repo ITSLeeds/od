@@ -170,52 +170,58 @@ representing points/zones of origin and destination</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span>
-<span class='va'>z</span> <span class='op'>=</span> <span class='va'>od_data_zones_min</span>
-<span class='va'>network</span> <span class='op'>=</span> <span class='va'>od_data_network</span>
-<span class='op'>(</span><span class='va'>lines_to_points_on_network</span> <span class='op'>=</span> <span class='fu'>od_to_network</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span>, network <span class='op'>=</span> <span class='va'>network</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: repeating attributes for all sub-geometries for which they may not be constant</span></div><div class='output co'>#&gt; Simple feature collection with 7 features and 10 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.564706 ymin: 53.77977 xmax: -1.524494 ymax: 53.81489
-#&gt; Geodetic CRS:  WGS 84
-#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
-#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679
-#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798
-#&gt; 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637
-#&gt; 4 E02006876 E02006875 1035    11 132    6         97            24      10  749
-#&gt; 5 E02006861 E02002392  453     1  51    0         51             6      26  317
-#&gt; 6 E02006875 E02002392  286     2  15    5         16             2      10  235
-#&gt; 7 E02002392 E02006875  753    10  91   21         33             7      19  571
-#&gt;                         geometry
-#&gt; 1 LINESTRING (-1.547604 53.81...
-#&gt; 2 LINESTRING (-1.52479 53.787...
-#&gt; 3 LINESTRING (-1.533666 53.79...
-#&gt; 4 LINESTRING (-1.524494 53.77...
-#&gt; 5 LINESTRING (-1.564706 53.81...
-#&gt; 6 LINESTRING (-1.542345 53.80...
-#&gt; 7 LINESTRING (-1.563386 53.80...</div><div class='input'><span class='op'>(</span><span class='va'>lines_to_points</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>0 origins with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'>0 destinations with no match in zone ids</span></div><div class='output co'>#&gt; <span class='message'> points not in od data removed.</span></div><div class='output co'>#&gt; Simple feature collection with 7 features and 10 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517695 ymax: 53.81763
-#&gt; Geodetic CRS:  WGS 84
-#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot
-#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679
-#&gt; 2 E02002404 E02006875 1145     6 174   17         96            38      10  798
-#&gt; 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637
-#&gt; 4 E02006876 E02006875 1035    11 132    6         97            24      10  749
-#&gt; 5 E02006861 E02002392  453     1  51    0         51             6      26  317
-#&gt; 6 E02006875 E02002392  286     2  15    5         16             2      10  235
-#&gt; 7 E02002392 E02006875  753    10  91   21         33             7      19  571
-#&gt;                         geometry
-#&gt; 1 LINESTRING (-1.54473 53.809...
-#&gt; 2 LINESTRING (-1.51871 53.792...
-#&gt; 3 LINESTRING (-1.546024 53.79...
-#&gt; 4 LINESTRING (-1.517695 53.77...
-#&gt; 5 LINESTRING (-1.564756 53.81...
-#&gt; 6 LINESTRING (-1.546024 53.79...
-#&gt; 7 LINESTRING (-1.561391 53.80...</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>od_data_df</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>=</span> <span class='va'>od_data_zones_min</span></span>
+<span class='r-in'><span class='va'>network</span> <span class='op'>=</span> <span class='va'>od_data_network</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>lines_to_points_on_network</span> <span class='op'>=</span> <span class='fu'>od_to_network</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span>, network <span class='op'>=</span> <span class='va'>network</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>repeating attributes for all sub-geometries for which they may not be constant</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 7 features and 10 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.564134 ymin: 53.77949 xmax: -1.523835 ymax: 53.81564</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 E02002392 E02006875  753    10  91   21         33             7      19  571</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 LINESTRING (-1.536816 53.81...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 LINESTRING (-1.531401 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 LINESTRING (-1.547521 53.80...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 LINESTRING (-1.523835 53.77...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 LINESTRING (-1.564134 53.81...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 LINESTRING (-1.546192 53.78...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 LINESTRING (-1.56121 53.807...</span>
+<span class='r-in'><span class='op'>(</span><span class='va'>lines_to_points</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 origins with no match in zone ids</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 destinations with no match in zone ids</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  points not in od data removed.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 7 features and 10 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.564756 ymin: 53.77475 xmax: -1.517695 ymax: 53.81763</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145     6 174   17         96            38      10  798</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 E02006875 E02006875 1791    21  38    5         69             7       8 1637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 E02006876 E02006875 1035    11 132    6         97            24      10  749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 E02006861 E02002392  453     1  51    0         51             6      26  317</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 E02006875 E02002392  286     2  15    5         16             2      10  235</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 E02002392 E02006875  753    10  91   21         33             7      19  571</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 LINESTRING (-1.54473 53.809...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 LINESTRING (-1.51871 53.792...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 LINESTRING (-1.546024 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 LINESTRING (-1.517695 53.77...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 LINESTRING (-1.564756 53.81...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 LINESTRING (-1.546024 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 LINESTRING (-1.561391 53.80...</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

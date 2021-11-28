@@ -131,40 +131,41 @@
 <code>data-raw</code> directory.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_network</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Simple feature collection with 6 features and 10 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.55754 ymin: 53.76156 xmax: -1.506878 ymax: 53.80107
-#&gt; Geodetic CRS:  WGS 84
-#&gt;    osm_id           name      highway waterway aerialway barrier man_made
-#&gt; 1 1709456    Hanover Way     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt; 2 2526748   Hunslet Road primary_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt; 3 2526750           &lt;NA&gt;   trunk_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt; 4 3999930 Wakefield Road      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt; 5 3999931           &lt;NA&gt;      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt; 6 3999934   Queen Street     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;
-#&gt;   incline z_order
-#&gt; 1    &lt;NA&gt;       4
-#&gt; 2    &lt;NA&gt;       7
-#&gt; 3    &lt;NA&gt;       8
-#&gt; 4    &lt;NA&gt;       7
-#&gt; 5    &lt;NA&gt;       7
-#&gt; 6    &lt;NA&gt;       4
-#&gt;                                                                                   other_tags
-#&gt; 1                                                          "lit"=&gt;"yes","maxspeed"=&gt;"30 mph"
-#&gt; 2 "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"30 mph","oneway"=&gt;"yes","turn:lanes"=&gt;"right|right"
-#&gt; 3                                                                            "oneway"=&gt;"yes"
-#&gt; 4       "junction"=&gt;"roundabout","lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","ref"=&gt;"A61"
-#&gt; 5                "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","oneway"=&gt;"yes","ref"=&gt;"A61"
-#&gt; 6                                                                               "lanes"=&gt;"2"
-#&gt;                         geometry
-#&gt; 1 LINESTRING (-1.55754 53.799...
-#&gt; 2 LINESTRING (-1.532446 53.78...
-#&gt; 3 LINESTRING (-1.525161 53.78...
-#&gt; 4 LINESTRING (-1.506881 53.76...
-#&gt; 5 LINESTRING (-1.507634 53.76...
-#&gt; 6 LINESTRING (-1.516503 53.77...</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_network</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 10 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.55754 ymin: 53.76156 xmax: -1.506878 ymax: 53.80107</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    osm_id           name      highway waterway aerialway barrier man_made</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1709456    Hanover Way     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 2526748   Hunslet Road primary_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2526750           &lt;NA&gt;   trunk_link     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 3999930 Wakefield Road      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 3999931           &lt;NA&gt;      primary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 3999934   Queen Street     tertiary     &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   incline z_order</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    &lt;NA&gt;       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    &lt;NA&gt;       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    &lt;NA&gt;       8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    &lt;NA&gt;       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    &lt;NA&gt;       7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    &lt;NA&gt;       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                   other_tags</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                                          "lit"=&gt;"yes","maxspeed"=&gt;"30 mph"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"30 mph","oneway"=&gt;"yes","turn:lanes"=&gt;"right|right"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                            "oneway"=&gt;"yes"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       "junction"=&gt;"roundabout","lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","ref"=&gt;"A61"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                "lanes"=&gt;"2","lit"=&gt;"yes","maxspeed"=&gt;"40 mph","oneway"=&gt;"yes","ref"=&gt;"A61"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                                                                               "lanes"=&gt;"2"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 LINESTRING (-1.55754 53.799...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 LINESTRING (-1.532446 53.78...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 LINESTRING (-1.525161 53.78...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 LINESTRING (-1.506881 53.76...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 LINESTRING (-1.507634 53.76...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 LINESTRING (-1.516503 53.77...</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

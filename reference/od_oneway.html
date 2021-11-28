@@ -189,28 +189,35 @@ identical geometries which can be confusing
 for users and are difficult to plot.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='op'>(</span><span class='va'>od_min</span> <span class='op'>=</span> <span class='va'>od_data_df</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     geo_code1 geo_code2  all train
-#&gt; 1   E02002384 E02006875  966    14
-#&gt; 2   E02002404 E02006875 1145     6
-#&gt; 1.1 E02002384 E02006875  966    14</div><div class='input'><span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-<span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span> <span class='op'>=</span> <span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span> <span class='op'>-</span> <span class='fl'>5</span>
-<span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           o         d  all train
-#&gt; 1 E02002384 E02006875 1927    23
-#&gt; 2 E02002404 E02006875 1145     6</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_oneway</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>)</span> <span class='co'># result has fewer rows</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>$</span><span class='va'>all</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_oneway</span><span class='op'>$</span><span class='va'>all</span><span class='op'>)</span> <span class='co'># but the same total flow</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, FUN <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           o         d    all train
-#&gt; 1 E02002384 E02006875  963.5  11.5
-#&gt; 2 E02002404 E02006875 1145.0   6.0</div><div class='input'><span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, attrib <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           o         d  all
-#&gt; 1 E02002384 E02006875 1927
-#&gt; 2 E02002404 E02006875 1145</div><div class='input'><span class='va'>od_min</span><span class='op'>$</span><span class='va'>all</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>=</span> <span class='cn'>NA</span>
-<span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, FUN <span class='op'>=</span> <span class='va'>mean</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           o         d  all train
-#&gt; 1 E02002384 E02006875  966  11.5
-#&gt; 2 E02002404 E02006875 1145   6.0</div></pre>
+    <pre class="examples"><span class='r-in'><span class='op'>(</span><span class='va'>od_min</span> <span class='op'>=</span> <span class='va'>od_data_df</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     geo_code1 geo_code2  all train</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   E02002384 E02006875  966    14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   E02002404 E02006875 1145     6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.1 E02002384 E02006875  966    14</span>
+<span class='r-in'><span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span> <span class='op'>=</span> <span class='va'>od_min</span><span class='op'>[</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span> <span class='op'>-</span> <span class='fl'>5</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           o         d  all train</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875 1927    23</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145     6</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_oneway</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>)</span> <span class='co'># result has fewer rows</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_min</span><span class='op'>$</span><span class='va'>all</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>od_oneway</span><span class='op'>$</span><span class='va'>all</span><span class='op'>)</span> <span class='co'># but the same total flow</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, FUN <span class='op'>=</span> <span class='va'>mean</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           o         d    all train</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875  963.5  11.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145.0   6.0</span>
+<span class='r-in'><span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, attrib <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           o         d  all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875 1927</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145</span>
+<span class='r-in'><span class='va'>od_min</span><span class='op'>$</span><span class='va'>all</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>=</span> <span class='cn'>NA</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>od_oneway</span> <span class='op'>=</span> <span class='fu'>od_oneway</span><span class='op'>(</span><span class='va'>od_min</span>, FUN <span class='op'>=</span> <span class='va'>mean</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           o         d  all train</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 E02002384 E02006875  966  11.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 E02002404 E02006875 1145   6.0</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
