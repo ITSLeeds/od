@@ -12,7 +12,7 @@ od_disaggregate(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  population_per_od = 50,
+  max_per_od = 5,
   keep_ids = TRUE,
   integer_outputs = FALSE
 )
@@ -24,7 +24,7 @@ od_split(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  population_per_od = 50,
+  max_per_od = 5,
   keep_ids = TRUE,
   integer_outputs = FALSE
 )
@@ -42,7 +42,7 @@ od_split(
 
 \item{population_column}{The column containing the total population (if it exists)}
 
-\item{population_per_od}{Maximum flow in the population_column to assign per OD pair.
+\item{max_per_od}{Maximum flow in the population_column to assign per OD pair.
 This only comes into effect if there are enough subpoints to choose from.}
 
 \item{keep_ids}{Should the origin and destination ids be kept?
@@ -64,33 +64,42 @@ to \href{https://tidyr.tidyverse.org/reference/pivot_longer.html}{\code{tidyr::p
 An alias for the function is \code{od_split()}.
 }
 \examples{
-od = od_data_df[1:2, ]
+od = od_data_df[1:2, c(1, 2, 9)]
 od
 zones = od::od_data_zones_min
 od_sf = od_to_sf(od, zones)
+set.seed(2021) # for reproducibility
 od_disag = od_disaggregate(od, zones)
-od_disag2 = od_disaggregate(od, zones, population_per_od = 200)
+od_disag2 = od_disaggregate(od, zones, max_per_od = 11)
 plot(zones$geometry)
 plot(od_sf$geometry, lwd = 9, add = TRUE)
 plot(od_disag$geometry, col = "grey", lwd = 1, add = TRUE)
-plot(od_disag2$geometry, lwd = 1, add = TRUE)
+plot(od_disag2$geometry, col = "green", lwd = 1, add = TRUE)
 table(od_disag$o_agg, od_disag$d_agg)
-subzones = od_data_zones_small
-od_disag = od_disaggregate(od, zones, subzones)
-ncol(od_disag) -3 == ncol(od) # same number of columns
-# (except disag data gained geometry and new agg ids)
-sum(od_disag[[3]]) == sum(od[[3]])
-sum(od_disag[[4]]) == sum(od[[4]])
 # integer results
-od_disag_integer = od_disaggregate(od, zones, subzones)
-plot(rowSums(sf::st_drop_geometry(od_disag)[4:10]), od_disag[[3]])
-plot(od_data_zones_small$geometry)
-plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
-plot(od_sf["all"], add = TRUE)
-plot(od_disag["all"], add = TRUE)
+od_disaggregate(od, zones, integer_outputs = TRUE)
+
+# with more trips per disaggregated OD pair:
+disag = od_disaggregate(od_data_df[1:2, ], z = zones, max_per_od = 50)
+plot(disag[0])
+
+# with subpoints
+subpoints = sf::st_sample(zones, 1000)
+od_disag_subpoints = od_disaggregate(od, zones, subpoints = subpoints)
 
 # with buildings data
 od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
 summary(od_disag_buildings)
 plot(od_disag_buildings)
+# mapview::mapview(od_disag_buildings)
+
+od = od_data_df[1:2, 1:4]
+subzones = od_data_zones_small
+try(od_disaggregate(od, zones, subzones))
+od_disag = od_disaggregate(od, zones, subzones, max_per_od = 500)
+ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
+# Except disag data gained geometry and new agg ids:
+sum(od_disag[[3]]) == sum(od[[3]])
+sum(od_disag[[4]]) == sum(od[[4]])
+plot(od_disag)
 }

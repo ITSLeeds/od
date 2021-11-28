@@ -366,8 +366,9 @@ Imagine you want to split each desire line into multiple lines, e.g. for some ki
 You can do this by assigning origins and destinations to specific subzones with `od_disaggregate()` (also called `od_split()`):
 
 ```{r}
+od = od_data_df[1:2, c(1, 2, 9, 4)]
 subzones = od_data_zones_small
-od_disaggregated = od_disaggregate(od = od, z = z, subzones = subzones)
+od_disaggregated = od_disaggregate(od, z, subzones = subzones)
 plot(od_data_zones_min$geometry, lwd = 3)
 plot(od_data_zones_small$geometry, lwd = 1, add = TRUE)
 plot(desire_lines$geometry, lwd = 5, col = "red", add = TRUE)
@@ -378,21 +379,21 @@ plot(od_disaggregated$geometry, lwd = 0.4, col = "blue", add = TRUE)
 This preserves column totals:
 
 ```{r}
-sapply(3:10, function(i) sum(od[[i]]))
-sapply(3:10, function(i) sum(od_disaggregated[[i]]))
+sapply(3:4, function(i) sum(od[[i]]))
+sapply(3:4, function(i) sum(od_disaggregated[[i]]))
 ```
 
 This also allows the simulation of building-to-building travel.
 
 ```{r}
-od_disaggregated2 = od_disaggregate(od = od_data_df[1:2, ], z, od_data_buildings)
+od_disaggregated2 = od_disaggregate(od, z, subzones = od_data_buildings)
 plot(od_data_buildings$geometry)
 plot(od_disaggregated2$geometry, add = TRUE, lwd = 0.1)
 ```
 
-You can re-aggregate the data with the function `od_aggregate()`.
+<!-- You can re-aggregate the data with the function `od_aggregate()`. -->
 
-Note: this functionality is work in progress.
+<!-- Note: this functionality is work in progress. -->
 
 ```{r, echo=FALSE, eval=FALSE}
 # various attempts highlighting possible issues with od_disaggregate
@@ -412,11 +413,8 @@ plot(od_disaggregated2[1:50, ])
 # od_disaggregated2 = od_disaggregate(od = od, z = z, subzones = buildings) # error
 ```
 
-
-
 <!-- # Worked example -->
 <!-- Todo: add this from the stplanr od vignette. -->
-
 
 # Further reading
 

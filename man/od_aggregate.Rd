@@ -25,7 +25,7 @@ to keep the amount of travel represented in the data the same.
 An alias for the function is \code{od_group()}.
 }
 \examples{
-od_aggregated = od_data_df[1:2, ]
+od_aggregated = od_data_df[1:2, c(1, 2, 9)]
 aggzones = od::od_data_zones_min
 subzones = od_data_zones_small
 plot(aggzones$geometry)
