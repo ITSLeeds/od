@@ -40,6 +40,10 @@
 #' # integer results
 #' od_disaggregate(od, zones, integer_outputs = TRUE)
 #'
+#' # with more trips per disaggregated OD pair:
+#' disag = od_disaggregate(od_data_df[1:2, ], z = zones, max_per_od = 50)
+#' plot(disag[0])
+#'
 #' # with subpoints
 #' subpoints = sf::st_sample(zones, 1000)
 #' od_disag_subpoints = od_disaggregate(od, zones, subpoints = subpoints)
@@ -53,7 +57,7 @@
 #' od = od_data_df[1:2, 1:4]
 #' subzones = od_data_zones_small
 #' try(od_disaggregate(od, zones, subzones))
-#' od_disag = od_disaggregate(od, zones, subzones, max_per_od = 400)
+#' od_disag = od_disaggregate(od, zones, subzones, max_per_od = 500)
 #' ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
 #' # Except disag data gained geometry and new agg ids:
 #' sum(od_disag[[3]]) == sum(od[[3]])
@@ -172,10 +176,11 @@ od_disaggregate = function(od,
         od_new$o_agg = od[[1]][i]
         od_new$d_agg = od[[2]][i]
       }
-      # browser()
       od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
       # Remove sampled points from 'universe' of available points
-      subpoints = subpoints[!subpoints[[1]] %in% c(o, d), ]
+      if(i < nrow(od)) {
+        subpoints <<- subpoints[!subpoints[[1]] %in% c(o, d), ]
+      }
       od_new_sf
     }
   )
