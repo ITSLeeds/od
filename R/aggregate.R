@@ -78,6 +78,12 @@ od_disaggregate = function(od,
   nr = sum(nrow_od_disag)
   azn = paste0(names(z)[1], code_append)
 
+  # is the input data an sf object? tell the user and convert to df if so
+  if(methods::is(object = od, class2 = "sf")) {
+    message("Input object is sf, attempting to convert to a data frame")
+    od = sf::st_drop_geometry(od)
+  }
+
   if (is.null(subpoints) && is.null(subzones)) {
     message("Creating randomly sampled origin and destination points.")
     # from jitter.R
@@ -86,12 +92,9 @@ od_disaggregate = function(od,
     od_disag_ids = od[od_disag_indices, c(1:2)]
     id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
     points_per_zone = data.frame(table(id_zones))
-    names(points_per_zone)[1] = names(z)[1]
-    points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
-    # unique_zone_codes = points_per_zone_joined[[1]]
     z = z[z[[1]] %in% points_per_zone[[1]], ]
-    freq = points_per_zone_joined$Freq
-    subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = id_zones)
+    freq = points_per_zone$Freq
+    subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = sort(id_zones))
     names(subpoints_df)[2] = azn
     subpoints = sf::st_sf(subpoints_df, geometry = sf::st_sample(z, freq))
   }
@@ -110,12 +113,6 @@ od_disaggregate = function(od,
         geometry = subpoints
       )
     })
-  }
-
-  # is the input data an sf object? tell the user and convert to df if so
-  if(methods::is(object = od, class2 = "sf")) {
-    message("Input object is sf, attempting to convert to a data frame")
-    od = sf::st_drop_geometry(od)
   }
 
   # detect and deal with non numeric inputs
