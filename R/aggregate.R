@@ -10,7 +10,7 @@
 #'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
-#' @param subpoints Points within the zones defining the OD data start/end points
+#' @param subpoints Points or linestrings within the zones defining the OD data start/end points
 #' @param subzones Sub-zones within the zones defining the OD data
 #' @param code_append The name of the column containing aggregate zone names
 #' @param population_column The column containing the total population (if it exists)
@@ -63,6 +63,14 @@
 #' sum(od_disag[[3]]) == sum(od[[3]])
 #' sum(od_disag[[4]]) == sum(od[[4]])
 #' plot(od_disag)
+#' # test with road network dataset (don't run as time consuming):
+#' \dontrun{
+#' od_disag_net = od_disaggregate(od, zones, od_road_network, max_per_od = 500)
+#' plot(zones$geometry)
+#' plot(od_road_network$geometry, add = TRUE, col = "green")
+#' plot(od_disag_net$geometry, add = TRUE)
+#' mapview::mapview(zones) + od_disag_net
+#' }
 od_disaggregate = function(od,
                            z,
                            subzones = NULL,
@@ -78,7 +86,7 @@ od_disaggregate = function(od,
   nr = sum(nrow_od_disag)
   azn = paste0(names(z)[1], code_append)
 
-  # is the input data an sf object? tell the user and convert to df if so
+  # is the input od data an sf object? tell the user and convert to df if so
   if(methods::is(object = od, class2 = "sf")) {
     message("Input object is sf, attempting to convert to a data frame")
     od = sf::st_drop_geometry(od)
@@ -100,19 +108,53 @@ od_disaggregate = function(od,
   }
 
   if (is.null(subpoints) && !is.null(subzones)) {
-    message("Converting subzones to centroids")
-    suppressWarnings({
-      subpoints = sf::st_centroid(subzones)
-    })
+    message("Converting subzones/lines to points")
+    geomtype = as.character(unique(sf::st_geometry_type(subzones)))
+    if (methods::is(subzones, "sf") && geomtype == "LINESTRING") {
+      subpoints = od_sample_vertices(subzones)
+      subzones = NULL
+    } else {
+      suppressWarnings({
+        subpoints = sf::st_centroid(subzones)
+      })
+    }
+  }
+
+  # if subpoints is an sf object with class linestring
+  geomtype = as.character(unique(sf::st_geometry_type(subpoints)))
+  if (methods::is(subpoints, "sf") && geomtype == "POINT") {
+    subpoints = od_sample_vertices(subpoints)
   }
 
   if (methods::is(subpoints, "sfc")) {
-    suppressMessages({
-      subpoints = sf::st_sf(
-        id = as.character(seq(nr * 2)),
-        geometry = subpoints
-      )
-    })
+    if(length(subpoints) > nr * 2) {
+      # from jitter.R
+      # todo: consider splitting this out into new function
+      od_disag_indices = rep(x = seq(nrow(od)), nrow_od_disag)
+      od_disag_ids = od[od_disag_indices, c(1:2)]
+      id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
+      points_per_zone = data.frame(table(id_zones))
+      z = z[z[[1]] %in% points_per_zone[[1]], ]
+      freq = points_per_zone$Freq
+      subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = sort(id_zones))
+      subpoints_joined = sf::st_join(sf::st_sf(subpoints), z[1])
+      sel_list = lapply(1:nrow(points_per_zone), function(i) {
+        sample(
+          which(subpoints_joined[[1]] == points_per_zone[[1]][i]),
+          size = points_per_zone[[2]][i]
+          )
+      })
+      sel = unlist(sel_list)
+      names(subpoints_df)[2] = azn
+      subpoints = sf::st_sf(subpoints_df, geometry = subpoints[sel])
+    } else {
+      suppressMessages({
+        subpoints = sf::st_sf(
+          id = as.character(seq(nr * 2)),
+          geometry = subpoints
+        )
+      })
+    }
   }
 
   # detect and deal with non numeric inputs
@@ -247,4 +289,29 @@ smart.round = function(x) {
   indices = utils::tail(order(x-y), round(sum(x)) - sum(y))
   y[indices] = y[indices] + 1
   y
+}
+
+#' Create a subsample of points from a route network for jittering
+#'
+#' Todo: export this at some point
+#'
+#' @param x An sf object representing a road network
+#' @param fraction What percent of the network to sample?
+#' @examples
+#' \dontrun{
+#' u = "https://github.com/ITSLeeds/od/releases/download/v0.3.1/road_network_min.Rds"
+#' f = basename(u)
+#' if(!file.exists(f)) download.file(u, f)
+#' road_network_min = readRDS(f)
+#' od_sample_vertices(road_network_min)
+#' }
+od_sample_vertices = function(x, fraction = 1) {
+  suppressWarnings({
+    x_point = sf::st_cast(x$geometry, "POINT")
+  })
+  if (fraction == 1) {
+    sel = sample(length(x_point), size = length(x_point) * fraction)
+    x_point = x_point[sel]
+  }
+  x_point
 }

@@ -153,3 +153,18 @@ NULL
 #' plot(od_data_buildings$geometry)
 #' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
 NULL
+
+#' Simple road network dataset
+#'
+#' Road network data from OSM for testing od_disaggregate.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name od_road_network
+#' @examples
+#' library(sf)
+#' nrow(od_road_network)
+#' head(od_road_network)
+#' plot(od_road_network$geometry)
+#' plot(od_data_zones_min$geometry, lwd = 3, col = NULL, add = TRUE)
+NULL

@@ -36,7 +36,7 @@ od_split(
 
 \item{subzones}{Sub-zones within the zones defining the OD data}
 
-\item{subpoints}{Points within the zones defining the OD data start/end points}
+\item{subpoints}{Points or linestrings within the zones defining the OD data start/end points}
 
 \item{code_append}{The name of the column containing aggregate zone names}
 
@@ -102,4 +102,12 @@ ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
 sum(od_disag[[3]]) == sum(od[[3]])
 sum(od_disag[[4]]) == sum(od[[4]])
 plot(od_disag)
+# test with road network dataset (don't run as time consuming):
+\dontrun{
+od_disag_net = od_disaggregate(od, zones, od_road_network, max_per_od = 500)
+plot(zones$geometry)
+plot(od_road_network$geometry, add = TRUE, col = "green")
+plot(od_disag_net$geometry, add = TRUE)
+mapview::mapview(zones) + od_disag_net
+}
 }
