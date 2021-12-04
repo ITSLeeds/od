@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Workplace zone (destination) centroids — od_data_destinations • od</title>
+<title>Create a subsample of points from a route network for jittering — od_sample_vertices • od</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Workplace zone (destination) centroids — od_data_destinations" />
-<meta property="og:description" content="This dataset represents geographic centroids of Output Areas in Leeds, UK." />
+<meta property="og:title" content="Create a subsample of points from a route network for jittering — od_sample_vertices" />
+<meta property="og:description" content="Todo: export this at some point" />
 
 
 
@@ -114,40 +114,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Workplace zone (destination) centroids</h1>
-    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>od_data_destinations.Rd</code></div>
+    <h1>Create a subsample of points from a route network for jittering</h1>
+    <small class="dont-index">Source: <a href='https://github.com/itsleeds/od/blob/master/R/aggregate.R'><code>R/aggregate.R</code></a></small>
+    <div class="hidden name"><code>od_sample_vertices.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This dataset represents geographic centroids of Output Areas in Leeds, UK.</p>
+    <p>Todo: export this at some point</p>
     </div>
 
+    <pre class="usage"><span class='fu'>od_sample_vertices</span><span class='op'>(</span><span class='va'>x</span>, fraction <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An sf object representing a road network</p></td>
+    </tr>
+    <tr>
+      <th>fraction</th>
+      <td><p>What percent of the network to sample?</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The schema data can be (re-)generated using code in the
-<code>data-raw</code> directory.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>od_data_destinations</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10</span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>od_data_destinations</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 1 field</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: POINT</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.602164 ymin: 53.74579 xmax: -1.508841 ymax: 53.83775</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 2</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   wz11cd                geometry</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;POINT [°]&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> E33012372 (-1.508841 53.80662)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> E33012219  (-1.53719 53.83775)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> E33012368 (-1.526095 53.80214)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> E33009617 (-1.602164 53.74579)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> E33010415 (-1.548989 53.79823)</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> E33012474 (-1.553237 53.76622)</span>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>u</span> <span class='op'>=</span> <span class='st'>"https://github.com/ITSLeeds/od/releases/download/v0.3.1/road_network_min.Rds"</span></span>
+<span class='r-in'><span class='va'>f</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>u</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.exists</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='va'>u</span>, <span class='va'>f</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>road_network_min</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>od_sample_vertices</span><span class='op'>(</span><span class='va'>road_network_min</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
