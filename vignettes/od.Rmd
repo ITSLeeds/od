@@ -368,7 +368,7 @@ You can do this by assigning origins and destinations to specific subzones with 
 ```{r}
 od = od_data_df[1:2, c(1, 2, 9, 4)]
 subzones = od_data_zones_small
-od_disaggregated = od_disaggregate(od, z, subpoints = subzones)
+od_disaggregated = od_disaggregate(od, z, subpoints = subzones, max_per_od = 5)
 plot(od_data_zones_min$geometry, lwd = 3)
 plot(od_data_zones_small$geometry, lwd = 1, add = TRUE)
 plot(desire_lines$geometry, lwd = 5, col = "red", add = TRUE)
