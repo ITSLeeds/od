@@ -4,7 +4,20 @@
 \alias{od_jitter}
 \title{Move desire line end points within zone to avoid all trips going to a single centroid}
 \usage{
-od_jitter(od, z, zd = NULL, subpoints_o = NULL, subpoints_d = NULL)
+od_jitter(
+  od,
+  z,
+  zd = NULL,
+  subpoints = NULL,
+  code_append = "_ag",
+  population_column = 3,
+  max_per_od = 1e+05,
+  keep_ids = TRUE,
+  integer_outputs = FALSE,
+  subpoints_o = NULL,
+  subpoints_d = NULL,
+  disag = TRUE
+)
 }
 \arguments{
 \item{od}{An origin-destination data frame}
@@ -13,9 +26,30 @@ od_jitter(od, z, zd = NULL, subpoints_o = NULL, subpoints_d = NULL)
 
 \item{zd}{Zones with ids matching the destination codes in input OD data}
 
+\item{subpoints}{Points, lines or polygons within the zones.
+These define the OD data start/end points.}
+
+\item{code_append}{The name of the column containing aggregate zone names}
+
+\item{population_column}{The column containing the total population (if it exists)}
+
+\item{max_per_od}{Maximum flow in the population_column to assign per OD pair.
+This only comes into effect if there are enough subpoints to choose from.}
+
+\item{keep_ids}{Should the origin and destination ids be kept?
+\code{TRUE} by default, meaning 2 extra columns are appended, with the
+names \code{o_agg} and \code{d_agg} containing IDs from the original OD data.}
+
+\item{integer_outputs}{Should integer outputs be returned? \code{FALSE} by default.
+Note: there is a known issue when integer results are generated. See
+https://github.com/ITSLeeds/od/issues/31 for details.}
+
 \item{subpoints_o}{Points within origin zones representing possible destinations}
 
 \item{subpoints_d}{Points within destination zones representing possible destinations}
+
+\item{disag}{Should the od_disaggregate function be used as a 'back end' where possible?
+TRUE by default. See https://github.com/ITSLeeds/od/issues/39.}
 }
 \value{
 An \code{sf} data frame
@@ -34,8 +68,10 @@ z = od_data_zones_min
 dlr = od_jitter(od, z) # desire_lines_random
 desire_lines = od_to_sf(od, z)
 plot(z$geometry)
-plot(dlr, add = TRUE, lwd = 3)
-plot(desire_lines, add = TRUE, lwd = 5)
+plot(dlr["all"], add = TRUE, lwd = 3)
+dlr$all
+desire_lines$all
+plot(desire_lines["all"], add = TRUE, lwd = 5)
 
 # Example showing use of subpoints
 subpoints_o = sf::st_sample(z, 200)

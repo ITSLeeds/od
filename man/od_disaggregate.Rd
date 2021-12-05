@@ -8,7 +8,6 @@
 od_disaggregate(
   od,
   z,
-  subzones = NULL,
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
@@ -20,7 +19,6 @@ od_disaggregate(
 od_split(
   od,
   z,
-  subzones = NULL,
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
@@ -34,9 +32,8 @@ od_split(
 
 \item{z}{Zones representing origins and destinations}
 
-\item{subzones}{Sub-zones within the zones defining the OD data}
-
-\item{subpoints}{Points or linestrings within the zones defining the OD data start/end points}
+\item{subpoints}{Points, lines or polygons within the zones.
+These define the OD data start/end points.}
 
 \item{code_append}{The name of the column containing aggregate zone names}
 
@@ -84,13 +81,16 @@ disag = od_disaggregate(od_data_df[1:2, ], z = zones, max_per_od = 50)
 plot(disag[0])
 
 # with subpoints
-subpoints = sf::st_sample(zones, 1000)
+subpoints = sf::st_sample(zones, 100)
 od_disag_subpoints = od_disaggregate(od, zones, subpoints = subpoints)
+plot(subpoints)
+plot(od_disag_subpoints$geometry, add = TRUE)
 
 # with buildings data
 od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
 summary(od_disag_buildings)
-plot(od_disag_buildings)
+plot(od_data_buildings$geometry)
+plot(od_disag_buildings[3], add = TRUE)
 # mapview::mapview(od_disag_buildings)
 
 od = od_data_df[1:2, 1:4]
@@ -108,6 +108,6 @@ od_disag_net = od_disaggregate(od, zones, od_road_network, max_per_od = 500)
 plot(zones$geometry)
 plot(od_road_network$geometry, add = TRUE, col = "green")
 plot(od_disag_net$geometry, add = TRUE)
-mapview::mapview(zones) + od_disag_net
+mapview::mapview(zones) + od_disag_net + od_road_network
 }
 }
