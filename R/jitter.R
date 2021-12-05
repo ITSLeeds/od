@@ -62,11 +62,20 @@
 #' # plot(od_sf[od$all > 200, 1])
 #' # plot(dlr3[od$all > 200, 1])
 #' # mapview::mapview(od_sf$geometry[od$all > 200])
-od_jitter = function(od,
-                     z,
-                     zd = NULL,
-                     subpoints_o = NULL,
-                     subpoints_d = NULL) {
+od_jitter = function(
+  od,
+  z,
+  zd = NULL,
+  subpoints = NULL,
+  code_append = "_ag",
+  population_column = 3,
+  max_per_od = 5,
+  keep_ids = TRUE,
+  integer_outputs = FALSE,
+  # od_jitter-specific arguments (and zd)
+  subpoints_o = NULL,
+  subpoints_d = NULL
+  ) {
   if (!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
     od = od::od_to_sf(od, z = z, zd = zd)
@@ -75,7 +84,6 @@ od_jitter = function(od,
   od = sf::st_drop_geometry(od)
   odc_df = data.frame(o = od[[1]], d = od[[2]], odc_original)
   z_geo = sf::st_geometry(z)
-  # browser()
   id_origins = od[[1]]
   points_per_zone = data.frame(table(id_origins))
   names(points_per_zone)[1] = names(z)[1]

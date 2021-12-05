@@ -4,7 +4,19 @@
 \alias{od_jitter}
 \title{Move desire line end points within zone to avoid all trips going to a single centroid}
 \usage{
-od_jitter(od, z, zd = NULL, subpoints_o = NULL, subpoints_d = NULL)
+od_jitter(
+  od,
+  z,
+  zd = NULL,
+  subpoints = NULL,
+  code_append = "_ag",
+  population_column = 3,
+  max_per_od = 5,
+  keep_ids = TRUE,
+  integer_outputs = FALSE,
+  subpoints_o = NULL,
+  subpoints_d = NULL
+)
 }
 \arguments{
 \item{od}{An origin-destination data frame}
@@ -12,6 +24,24 @@ od_jitter(od, z, zd = NULL, subpoints_o = NULL, subpoints_d = NULL)
 \item{z}{Zones representing origins and destinations}
 
 \item{zd}{Zones with ids matching the destination codes in input OD data}
+
+\item{subpoints}{Points, lines or polygons within the zones.
+These define the OD data start/end points.}
+
+\item{code_append}{The name of the column containing aggregate zone names}
+
+\item{population_column}{The column containing the total population (if it exists)}
+
+\item{max_per_od}{Maximum flow in the population_column to assign per OD pair.
+This only comes into effect if there are enough subpoints to choose from.}
+
+\item{keep_ids}{Should the origin and destination ids be kept?
+\code{TRUE} by default, meaning 2 extra columns are appended, with the
+names \code{o_agg} and \code{d_agg} containing IDs from the original OD data.}
+
+\item{integer_outputs}{Should integer outputs be returned? \code{FALSE} by default.
+Note: there is a known issue when integer results are generated. See
+https://github.com/ITSLeeds/od/issues/31 for details.}
 
 \item{subpoints_o}{Points within origin zones representing possible destinations}
 
