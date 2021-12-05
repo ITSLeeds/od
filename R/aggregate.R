@@ -82,8 +82,7 @@ od_disaggregate = function(od,
                            integer_outputs = FALSE
                            ) {
 
-  nrow_od_disag = od_nrows(od, population_column, max_per_od)
-  nr = sum(nrow_od_disag)
+  od$nrows = od_nrows(od, population_column, max_per_od)
   azn = paste0(names(z)[1], code_append)
 
   # is the input od data an sf object? tell the user and convert to df if so
@@ -96,13 +95,13 @@ od_disaggregate = function(od,
     message("Creating randomly sampled origin and destination points.")
     # from jitter.R
     # todo: consider splitting this out into new function
-    od_disag_indices = rep(x = seq(nrow(od)), nrow_od_disag)
+    od_disag_indices = rep(x = seq(nrow(od)), od$nrows)
     od_disag_ids = od[od_disag_indices, c(1:2)]
     id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
     points_per_zone = data.frame(table(id_zones))
     z = z[z[[1]] %in% points_per_zone[[1]], ]
     freq = points_per_zone$Freq
-    subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = sort(id_zones))
+    subpoints_df = data.frame(id = as.character(seq(sum(od$nrows) * 2)), azn = sort(id_zones))
     names(subpoints_df)[2] = azn
     subpoints = sf::st_sf(subpoints_df, geometry = sf::st_sample(z, freq))
   }
@@ -127,16 +126,16 @@ od_disaggregate = function(od,
   }
 
   if (methods::is(subpoints, "sfc")) {
-    if(length(subpoints) > nr * 2) {
+    if(length(subpoints) > sum(od$nrows) * 2) {
       # from jitter.R
       # todo: consider splitting this out into new function
-      od_disag_indices = rep(x = seq(nrow(od)), nrow_od_disag)
+      od_disag_indices = rep(x = seq(nrow(od)), od$nrows)
       od_disag_ids = od[od_disag_indices, c(1:2)]
       id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
       points_per_zone = data.frame(table(id_zones))
       z = z[z[[1]] %in% points_per_zone[[1]], ]
       freq = points_per_zone$Freq
-      subpoints_df = data.frame(id = as.character(seq(nr * 2)), azn = sort(id_zones))
+      subpoints_df = data.frame(id = as.character(seq(sum(od$nrows) * 2)), azn = sort(id_zones))
       subpoints_joined = sf::st_join(sf::st_sf(subpoints), z[1])
       sel_list = lapply(1:nrow(points_per_zone), function(i) {
         sample(
@@ -150,7 +149,7 @@ od_disaggregate = function(od,
     } else {
       suppressMessages({
         subpoints = sf::st_sf(
-          id = as.character(seq(nr * 2)),
+          id = as.character(seq(sum(od$nrows) * 2)),
           geometry = subpoints
         )
       })
