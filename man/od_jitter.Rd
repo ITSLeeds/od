@@ -7,13 +7,13 @@
 od_jitter(
   od,
   z,
-  zd = NULL,
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
   max_per_od = 1e+05,
   keep_ids = TRUE,
   integer_outputs = FALSE,
+  zd = NULL,
   subpoints_o = NULL,
   subpoints_d = NULL,
   disag = TRUE
@@ -23,8 +23,6 @@ od_jitter(
 \item{od}{An origin-destination data frame}
 
 \item{z}{Zones representing origins and destinations}
-
-\item{zd}{Zones with ids matching the destination codes in input OD data}
 
 \item{subpoints}{Points, lines or polygons within the zones.
 These define the OD data start/end points.}
@@ -43,6 +41,8 @@ names \code{o_agg} and \code{d_agg} containing IDs from the original OD data.}
 \item{integer_outputs}{Should integer outputs be returned? \code{FALSE} by default.
 Note: there is a known issue when integer results are generated. See
 https://github.com/ITSLeeds/od/issues/31 for details.}
+
+\item{zd}{Zones with ids matching the destination codes in input OD data}
 
 \item{subpoints_o}{Points within origin zones representing possible destinations}
 
@@ -95,8 +95,8 @@ od = od_data_df2
 z = sf::st_buffer(od_data_centroids2, dist = 1000)
 zd = sf::st_buffer(od_data_destinations, dist = 300)
 zd = zd[zd[[1]] \%in\% od[[2]], ]
-desire_lines = od_to_sf(od, od_data_centroids2, od_data_destinations)
-dlr = od_jitter(od, z, zd)
+desire_lines = od_to_sf(od, od_data_centroids2, zd = od_data_destinations)
+dlr = od_jitter(od, z, zd = zd)
 plot(z$geometry)
 plot(od_data_centroids2$geometry, add = TRUE)
 plot(od_data_destinations$geometry, add = TRUE)

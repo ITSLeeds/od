@@ -50,8 +50,8 @@
 #' z = sf::st_buffer(od_data_centroids2, dist = 1000)
 #' zd = sf::st_buffer(od_data_destinations, dist = 300)
 #' zd = zd[zd[[1]] %in% od[[2]], ]
-#' desire_lines = od_to_sf(od, od_data_centroids2, od_data_destinations)
-#' dlr = od_jitter(od, z, zd)
+#' desire_lines = od_to_sf(od, od_data_centroids2, zd = od_data_destinations)
+#' dlr = od_jitter(od, z, zd = zd)
 #' plot(z$geometry)
 #' plot(od_data_centroids2$geometry, add = TRUE)
 #' plot(od_data_destinations$geometry, add = TRUE)
@@ -69,7 +69,6 @@
 od_jitter = function(
   od,
   z,
-  zd = NULL,
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
@@ -77,6 +76,7 @@ od_jitter = function(
   keep_ids = TRUE,
   integer_outputs = FALSE,
   # od_jitter-specific arguments (and zd)
+  zd = NULL,
   subpoints_o = NULL,
   subpoints_d = NULL,
   disag = TRUE
