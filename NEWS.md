@@ -1,6 +1,7 @@
 # od 0.3.2 (2021-12)
 
 * `od_disaggregate()` can now take route networks as inputs
+* `od_disaggregate()` is now used as a 'back-end' for `od_jitter()` where possible by default
 
 # od 0.3.1 (2021-07)
 
