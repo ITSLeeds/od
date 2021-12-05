@@ -10,8 +10,8 @@
 #'
 #' @inheritParams od_to_sf
 #' @param od An origin-destination data frame
-#' @param subpoints Points or linestrings within the zones defining the OD data start/end points
-#' @param subzones Sub-zones within the zones defining the OD data
+#' @param subpoints Points, lines or polygons within the zones.
+#'   These define the OD data start/end points.
 #' @param code_append The name of the column containing aggregate zone names
 #' @param population_column The column containing the total population (if it exists)
 #' @param max_per_od Maximum flow in the population_column to assign per OD pair.
@@ -45,13 +45,16 @@
 #' plot(disag[0])
 #'
 #' # with subpoints
-#' subpoints = sf::st_sample(zones, 1000)
+#' subpoints = sf::st_sample(zones, 100)
 #' od_disag_subpoints = od_disaggregate(od, zones, subpoints = subpoints)
+#' plot(subpoints)
+#' plot(od_disag_subpoints$geometry, add = TRUE)
 #'
 #' # with buildings data
 #' od_disag_buildings = od_disaggregate(od, zones, od_data_buildings)
 #' summary(od_disag_buildings)
-#' plot(od_disag_buildings)
+#' plot(od_data_buildings$geometry)
+#' plot(od_disag_buildings[3], add = TRUE)
 #' # mapview::mapview(od_disag_buildings)
 #'
 #' od = od_data_df[1:2, 1:4]
@@ -69,11 +72,10 @@
 #' plot(zones$geometry)
 #' plot(od_road_network$geometry, add = TRUE, col = "green")
 #' plot(od_disag_net$geometry, add = TRUE)
-#' mapview::mapview(zones) + od_disag_net
+#' mapview::mapview(zones) + od_disag_net + od_road_network
 #' }
 od_disaggregate = function(od,
                            z,
-                           subzones = NULL,
                            subpoints = NULL,
                            code_append = "_ag",
                            population_column = 3,
@@ -81,79 +83,33 @@ od_disaggregate = function(od,
                            keep_ids = TRUE,
                            integer_outputs = FALSE
                            ) {
-
+  # browser()
   od$nrows = od_nrows(od, population_column, max_per_od)
   azn = paste0(names(z)[1], code_append)
-
   # is the input od data an sf object? tell the user and convert to df if so
   if(methods::is(object = od, class2 = "sf")) {
     message("Input object is sf, attempting to convert to a data frame")
     od = sf::st_drop_geometry(od)
   }
-
-  if (is.null(subpoints) && is.null(subzones)) {
-    message("Creating randomly sampled origin and destination points.")
-    # from jitter.R
-    # todo: consider splitting this out into new function
-    od_disag_indices = rep(x = seq(nrow(od)), od$nrows)
-    od_disag_ids = od[od_disag_indices, c(1:2)]
-    id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
-    points_per_zone = data.frame(table(id_zones))
-    z = z[z[[1]] %in% points_per_zone[[1]], ]
-    freq = points_per_zone$Freq
-    subpoints_df = data.frame(id = as.character(seq(sum(od$nrows) * 2)), azn = sort(id_zones))
-    names(subpoints_df)[2] = azn
-    subpoints = sf::st_sf(subpoints_df, geometry = sf::st_sample(z, freq))
-  }
-
-  if (is.null(subpoints) && !is.null(subzones)) {
-    message("Converting subzones/lines to points")
-    geomtype = as.character(unique(sf::st_geometry_type(subzones)))
-    if (methods::is(subzones, "sf") && geomtype == "LINESTRING") {
-      subpoints = od_sample_vertices(subzones)
-      subzones = NULL
-    } else {
-      suppressWarnings({
-        subpoints = sf::st_centroid(subzones)
-      })
+  if (is.null(subpoints)) {
+    message("Creating origin and destination points at random locations")
+    subpoints = od_subpoints_sample(od, nrows = od$nrows, z = z, azn = azn)
+  } else {
+    # if subpoints have not been created they need to be sampled
+    geomtype = as.character(unique(sf::st_geometry_type(subpoints)))
+    if (geomtype == "LINESTRING") {
+      message("Converting lines on network to points")
+      subpoints = od_sample_vertices(subpoints)
     }
-  }
-
-  # if subpoints is an sf object with class linestring
-  geomtype = as.character(unique(sf::st_geometry_type(subpoints)))
-  if (methods::is(subpoints, "sf") && geomtype == "POINT") {
-    subpoints = od_sample_vertices(subpoints)
-  }
-
-  if (methods::is(subpoints, "sfc")) {
-    if(length(subpoints) > sum(od$nrows) * 2) {
-      # from jitter.R
-      # todo: consider splitting this out into new function
-      od_disag_indices = rep(x = seq(nrow(od)), od$nrows)
-      od_disag_ids = od[od_disag_indices, c(1:2)]
-      id_zones = c(od_disag_ids[[1]], od_disag_ids[[2]])
-      points_per_zone = data.frame(table(id_zones))
-      z = z[z[[1]] %in% points_per_zone[[1]], ]
-      freq = points_per_zone$Freq
-      subpoints_df = data.frame(id = as.character(seq(sum(od$nrows) * 2)), azn = sort(id_zones))
-      subpoints_joined = sf::st_join(sf::st_sf(subpoints), z[1])
-      sel_list = lapply(1:nrow(points_per_zone), function(i) {
-        sample(
-          which(subpoints_joined[[1]] == points_per_zone[[1]][i]),
-          size = points_per_zone[[2]][i]
-          )
-      })
-      sel = unlist(sel_list)
-      names(subpoints_df)[2] = azn
-      subpoints = sf::st_sf(subpoints_df, geometry = subpoints[sel])
-    } else {
-      suppressMessages({
-        subpoints = sf::st_sf(
-          id = as.character(seq(sum(od$nrows) * 2)),
-          geometry = subpoints
-        )
-      })
+    if (geomtype == "POLYGON" | geomtype == "MULTIPOLYGON") {
+      message("Converting polygons to points")
+      subpoints = sf::st_centroid(subpoints)
     }
+
+    points_per_zone = od_zonepoints(od, od$nrows)
+    subpoints_df = od_subpoints_sample(od, od$nrows, z, azn, output_sf = FALSE)
+    subgeo = sf::st_geometry(subpoints)
+    subpoints = od_sample_points(subgeo, subpoints_df, z, points_per_zone)
   }
 
   # detect and deal with non numeric inputs
@@ -225,6 +181,7 @@ od_disaggregate = function(od,
 
   # todo: could be sped-up
   od_new_sf = do.call(rbind, list_new)
+  od_new_sf$nrows = NULL
 
   # output od data with same number of columns but more rows
   od_new_sf
@@ -317,4 +274,50 @@ od_sample_vertices = function(x, fraction = 1) {
 
 od_nrows = function(od, population_column, max_per_od) {
   ceiling(od[[population_column]] / max_per_od)
+}
+
+od_zoneids = function(od) {
+  c(od[[1]], od[[2]])
+}
+
+od_disag_ids = function(od, nrows) {
+  od_disag_indices = rep(x = seq(nrow(od)), nrows)
+  od[od_disag_indices, c(1:2)] # was od_disag_ids, od with only ids
+}
+
+od_zonepoints = function(od, nrows) {
+  disag_ids = od_disag_ids(od, nrows)
+  id_zones = od_zoneids(disag_ids)
+  data.frame(table(id_zones))
+}
+
+od_subpoints_sample = function(od, nrows, z, azn, output_sf = TRUE) {
+  disag_ids = od_disag_ids(od, od$nrows)
+  id_zones = od_zoneids(disag_ids)
+  points_per_zone = od_zonepoints(od, od$nrows)
+  z = z[z[[1]] %in% points_per_zone[[1]], ]
+  freq = points_per_zone$Freq
+  subpoints_df = data.frame(id = as.character(seq(sum(od$nrows) * 2)), azn = sort(id_zones))
+  names(subpoints_df)[2] = azn
+  if (output_sf) {
+    subpoints_df = sf::st_sf(subpoints_df, geometry = sf::st_sample(z, freq))
+  }
+  subpoints_df
+}
+
+od_sample_points = function(subpoints, subpoints_df, z, per_zone, azn = "azn") {
+  subpoints_joined = sf::st_join(sf::st_sf(subpoints), z[1])
+  sel_list = lapply(1:nrow(per_zone), function(i) {
+    which_points = which(subpoints_joined[[1]] == per_zone[[1]][i])
+    if(length(which_points) == 0) {
+      return(NULL)
+    }
+    sample(
+      which_points,
+      size = per_zone[[2]][i]
+    )
+  })
+  sel = unlist(sel_list)
+  names(subpoints_df)[2] = azn
+  sf::st_sf(subpoints_df, geometry = subpoints[sel])
 }
