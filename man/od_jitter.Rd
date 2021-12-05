@@ -11,11 +11,12 @@ od_jitter(
   subpoints = NULL,
   code_append = "_ag",
   population_column = 3,
-  max_per_od = 5,
+  max_per_od = 1e+05,
   keep_ids = TRUE,
   integer_outputs = FALSE,
   subpoints_o = NULL,
-  subpoints_d = NULL
+  subpoints_d = NULL,
+  disag = TRUE
 )
 }
 \arguments{
@@ -46,6 +47,9 @@ https://github.com/ITSLeeds/od/issues/31 for details.}
 \item{subpoints_o}{Points within origin zones representing possible destinations}
 
 \item{subpoints_d}{Points within destination zones representing possible destinations}
+
+\item{disag}{Should the od_disaggregate function be used as a 'back end' where possible?
+TRUE by default. See https://github.com/ITSLeeds/od/issues/39.}
 }
 \value{
 An \code{sf} data frame
@@ -64,8 +68,10 @@ z = od_data_zones_min
 dlr = od_jitter(od, z) # desire_lines_random
 desire_lines = od_to_sf(od, z)
 plot(z$geometry)
-plot(dlr, add = TRUE, lwd = 3)
-plot(desire_lines, add = TRUE, lwd = 5)
+plot(dlr["all"], add = TRUE, lwd = 3)
+dlr$all
+desire_lines$all
+plot(desire_lines["all"], add = TRUE, lwd = 5)
 
 # Example showing use of subpoints
 subpoints_o = sf::st_sample(z, 200)
