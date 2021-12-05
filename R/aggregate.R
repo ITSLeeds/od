@@ -82,7 +82,7 @@ od_disaggregate = function(od,
                            integer_outputs = FALSE
                            ) {
 
-  nrow_od_disag = ceiling(od[[population_column]] / max_per_od)
+  nrow_od_disag = od_nrows(od, population_column, max_per_od)
   nr = sum(nrow_od_disag)
   azn = paste0(names(z)[1], code_append)
 
@@ -314,4 +314,8 @@ od_sample_vertices = function(x, fraction = 1) {
     x_point = x_point[sel]
   }
   x_point
+}
+
+od_nrows = function(od, population_column, max_per_od) {
+  ceiling(od[[population_column]] / max_per_od)
 }
