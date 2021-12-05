@@ -129,7 +129,20 @@ This function produces desire lines that can start and end anywhere (or at prede
 See <a href='https://github.com/ITSLeeds/od/issues/11'>issue #11</a> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>od_jitter</span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span>, zd <span class='op'>=</span> <span class='cn'>NULL</span>, subpoints_o <span class='op'>=</span> <span class='cn'>NULL</span>, subpoints_d <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>od_jitter</span><span class='op'>(</span>
+  <span class='va'>od</span>,
+  <span class='va'>z</span>,
+  zd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subpoints <span class='op'>=</span> <span class='cn'>NULL</span>,
+  code_append <span class='op'>=</span> <span class='st'>"_ag"</span>,
+  population_column <span class='op'>=</span> <span class='fl'>3</span>,
+  max_per_od <span class='op'>=</span> <span class='fl'>1e+05</span>,
+  keep_ids <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  integer_outputs <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  subpoints_o <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subpoints_d <span class='op'>=</span> <span class='cn'>NULL</span>,
+  disag <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,12 +160,47 @@ See <a href='https://github.com/ITSLeeds/od/issues/11'>issue #11</a> for details
       <td><p>Zones with ids matching the destination codes in input OD data</p></td>
     </tr>
     <tr>
+      <th>subpoints</th>
+      <td><p>Points, lines or polygons within the zones.
+These define the OD data start/end points.</p></td>
+    </tr>
+    <tr>
+      <th>code_append</th>
+      <td><p>The name of the column containing aggregate zone names</p></td>
+    </tr>
+    <tr>
+      <th>population_column</th>
+      <td><p>The column containing the total population (if it exists)</p></td>
+    </tr>
+    <tr>
+      <th>max_per_od</th>
+      <td><p>Maximum flow in the population_column to assign per OD pair.
+This only comes into effect if there are enough subpoints to choose from.</p></td>
+    </tr>
+    <tr>
+      <th>keep_ids</th>
+      <td><p>Should the origin and destination ids be kept?
+<code>TRUE</code> by default, meaning 2 extra columns are appended, with the
+names <code>o_agg</code> and <code>d_agg</code> containing IDs from the original OD data.</p></td>
+    </tr>
+    <tr>
+      <th>integer_outputs</th>
+      <td><p>Should integer outputs be returned? <code>FALSE</code> by default.
+Note: there is a known issue when integer results are generated. See
+https://github.com/ITSLeeds/od/issues/31 for details.</p></td>
+    </tr>
+    <tr>
       <th>subpoints_o</th>
       <td><p>Points within origin zones representing possible destinations</p></td>
     </tr>
     <tr>
       <th>subpoints_d</th>
       <td><p>Points within destination zones representing possible destinations</p></td>
+    </tr>
+    <tr>
+      <th>disag</th>
+      <td><p>Should the od_disaggregate function be used as a 'back end' where possible?
+TRUE by default. See https://github.com/ITSLeeds/od/issues/39.</p></td>
     </tr>
     </table>
 
@@ -169,15 +217,20 @@ See <a href='https://github.com/ITSLeeds/od/issues/11'>issue #11</a> for details
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 origins with no match in zone ids</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span>  points not in od data removed.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using od_disaggregate</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Input object is sf, attempting to convert to a data frame</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Creating origin and destination points at random locations</span>
 <span class='r-in'><span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'><a href='od_to_sf.html'>od_to_sf</a></span><span class='op'>(</span><span class='va'>od</span>, <span class='va'>z</span><span class='op'>)</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 origins with no match in zone ids</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span>  points not in od data removed.</span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>z</span><span class='op'>$</span><span class='va'>geometry</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dlr</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, lwd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring all but the first attribute</span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, lwd <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring all but the first attribute</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dlr</span><span class='op'>[</span><span class='st'>"all"</span><span class='op'>]</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, lwd <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dlr</span><span class='op'>$</span><span class='va'>all</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  966 1145 1791 1035  453  286  753</span>
+<span class='r-in'><span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>all</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  966 1145 1791 1035  453  286  753</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>[</span><span class='st'>"all"</span><span class='op'>]</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span>, lwd <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></span>
 <span class='r-plt img'><img src='od_jitter-1.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># Example showing use of subpoints</span></span>
