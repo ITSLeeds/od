@@ -30,6 +30,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -42,18 +44,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/od.html">Get started</a>
 </li>
@@ -66,7 +62,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/itsleeds/od/">
+  <a href="https://github.com/itsleeds/od/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -83,34 +79,34 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="od" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#od" class="anchor"></a>od</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="od">od<a class="anchor" aria-label="anchor" href="#od"></a>
+</h1></div>
 <!-- badges: start -->
 <!-- [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) -->
 
-<p>The goal of od is to provide functions and example datasets for working with origin-destination (OD) datasets. OD datasets represent “the volume of travel between zones or locations” (Carey et al. <a href="https://doi.org/10.1287/trsc.15.1.32">1981</a>) and are central to modelling city to global scale transport systems (Simini et al. <a href="https://doi.org/10.1038/nature10856">2012</a>).</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of od from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<p>The goal of od is to provide functions and example datasets for working with origin-destination (OD) datasets. OD datasets represent “the volume of travel between zones or locations” (Carey et al. <a href="https://doi.org/10.1287/trsc.15.1.32" class="external-link">1981</a>) and are central to modelling city to global scale transport systems (Simini et al. <a href="https://doi.org/10.1038/nature10856" class="external-link">2012</a>).</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the released version of od from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"od"</span><span class="op">)</span></code></pre></div>
-<p>Install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"od"</span><span class="op">)</span></code></pre></div>
+<p>Install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"itsleeds/od"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>The examples below provide a gentle introduction to the package. For a more detailed introduction to the package and OD data in general, see the <a href="https://itsleeds.github.io/od/articles/od.html"><code>od</code> vignette online at itsleeds.github.io/od</a> or by executing the following command after installing the package:</p>
+<p>The examples below provide a gentle introduction to the package. For a more detailed introduction to the package and OD data in general, see the <a href="https://itsleeds.github.io/od/articles/od.html" class="external-link"><code>od</code> vignette online at itsleeds.github.io/od</a> or by executing the following command after installing the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"od"</span><span class="op">)</span></code></pre></div>
-<p>You can find descriptions of each of the package’s functions with reproducible examples on the package’s web page: <a href="https://itsleeds.github.io/od/reference/index.html" class="uri">https://itsleeds.github.io/od/reference/index.html</a></p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"od"</span><span class="op">)</span></code></pre></div>
+<p>You can find descriptions of each of the package’s functions with reproducible examples on the package’s web page: <a href="https://itsleeds.github.io/od/reference/index.html" class="external-link uri">https://itsleeds.github.io/od/reference/index.html</a></p>
 </div>
-<div id="motivation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h2>
+<div class="section level2">
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
 <p>The package originated as a set of functions in the package <code>stplanr</code> for working with origin-destination data. The <code>od2line()</code> function, for example, takes a data frame and a spatial object as inputs and outputs geographic lines representing movement between origins and destinations:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/itsleeds/od">od</a></span><span class="op">)</span> <span class="co"># load example datasets</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/itsleeds/od" class="external-link">od</a></span><span class="op">)</span> <span class="co"># load example datasets</span>
 <span class="va">od_data_df</span> <span class="co"># OD data as data frame</span>
 <span class="co">#&gt;   geo_code1 geo_code2  all train bus taxi car_driver car_passenger bicycle foot</span>
 <span class="co">#&gt; 1 E02002384 E02006875  966    14 153   14         69            18      13  679</span>
@@ -171,8 +167,8 @@
 <span class="co">#&gt; LINESTRING (-1.518911 53.7923, -1.545708 53.79593)</span></code></pre></div>
 <p>These are ‘desire lines’ representing the shortest (straight line) path between two centroids and can plotted using geographic data and mapping packages such as <code>sf</code>, <code>mapview</code>, <code>tmap</code> and <code>mapdeck</code>, e.g.:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">desire_lines_od</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">desire_lines_stplanr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_od</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_stplanr</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="50%"><img src="reference/figures/README-unnamed-chunk-6-2.png" width="50%"></p>
 <p>By default the package uses the <code>sfheaders</code> package to create <code>sf</code> objects for speed. You can can also specify <code>sf</code> outputs as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -181,14 +177,14 @@
 <span class="co">#&gt; 0 destinations with no match in zone ids</span>
 <span class="co">#&gt;  points not in od data removed.</span></code></pre></div>
 </div>
-<div id="performance" class="section level2">
-<h2 class="hasAnchor">
-<a href="#performance" class="anchor"></a>Performance</h2>
-<div id="benchmark-on-a-small-dataset" class="section level3">
-<h3 class="hasAnchor">
-<a href="#benchmark-on-a-small-dataset" class="anchor"></a>Benchmark on a small dataset:</h3>
+<div class="section level2">
+<h2 id="performance">Performance<a class="anchor" aria-label="anchor" href="#performance"></a>
+</h2>
+<div class="section level3">
+<h3 id="benchmark-on-a-small-dataset">Benchmark on a small dataset:<a class="anchor" aria-label="anchor" href="#benchmark-on-a-small-dataset"></a>
+</h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">od_data_df</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_data_df</span><span class="op">)</span>
 <span class="co">#&gt; [1] 7</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>check <span class="op">=</span> <span class="cn">FALSE</span>, max_iterations <span class="op">=</span> <span class="fl">100</span>,
   stplanr <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu">od2line</span><span class="op">(</span><span class="va">od_data_df</span>, <span class="va">od_data_zones</span><span class="op">)</span>,
@@ -205,86 +201,96 @@
 <span class="co">#&gt; 4 od_sf2       3.53ms   4.02ms      246.    90.5KB     5.01</span></code></pre></div>
 </div>
 </div>
-<div id="related-open-source-projects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-open-source-projects" class="anchor"></a>Related open source projects</h2>
+<div class="section level2">
+<h2 id="related-open-source-projects">Related open source projects<a class="anchor" aria-label="anchor" href="#related-open-source-projects"></a>
+</h2>
 <ul>
 <li>
-<a href="https://github.com/ropensci/stplanr/">stplanr</a> is an R package package designed to support transport planning, with a focus on geographic transport datasets and many functions for working with OD data in the <a href="https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data">od function family</a>.</li>
+<a href="https://github.com/ropensci/stplanr/" class="external-link">stplanr</a> is an R package package designed to support transport planning, with a focus on geographic transport datasets and many functions for working with OD data in the <a href="https://docs.ropensci.org/stplanr/reference/index.html#section-work-with-od-data" class="external-link">od function family</a>.</li>
 <li>
-<a href="https://riatelab.github.io/cartography/">cartography</a> is an R package with functions for working with OD data, including <a href="https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html"><code>getLinkLayer()</code></a>
+<a href="https://riatelab.github.io/cartography/" class="external-link">cartography</a> is an R package with functions for working with OD data, including <a href="https://riatelab.github.io/cartography/docs/reference/getLinkLayer.html" class="external-link"><code>getLinkLayer()</code></a>
 </li>
 <li>
-<a href="https://pacha.dev/gravity/">gravity</a> is an R package for developing ‘gravity models’ to estimate flow between zones</li>
+<a href="https://pacha.dev/gravity/" class="external-link">gravity</a> is an R package for developing ‘gravity models’ to estimate flow between zones</li>
 <li>
-<a href="https://github.com/teralytics/flowmap.gl">flowmap.gl</a>, a JavaScript package for visualising OD data</li>
+<a href="https://github.com/teralytics/flowmap.gl" class="external-link">flowmap.gl</a>, a JavaScript package for visualising OD data</li>
 <li>
-<a href="http://arabesque.ifsttar.fr/">Arabesque</a> is another JavaScript project for working with OD data</li>
+<a href="http://arabesque.ifsttar.fr/" class="external-link">Arabesque</a> is another JavaScript project for working with OD data</li>
 </ul>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the od project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the od project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=od">https://​cloud.r-project.org/​package=od</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/itsleeds/od/">https://​github.com/​itsleeds/​od/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/itsleeds/od/issues">https://​github.com/​itsleeds/​od/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=od" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/itsleeds/od/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/itsleeds/od/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Robin Lovelace <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5679-6536" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing od</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://itsleeds.github.io/od/"><img src="https://www.r-pkg.org/badges/version/od" alt="CRAN status"></a></li>
-<li><a href="https://github.com/r-hub/cranlogs.app"><img src="https://cranlogs.r-pkg.org/badges/od" alt="rstudio mirror downloads"></a></li>
-<li><a href="https://codecov.io/gh/itsleeds/od?branch=master"><img src="https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/itsleeds/od/actions"><img src="https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://cran.r-project.org/package=od"><img src="https://tinyverse.netlify.com/badge/od" alt="Dependencies"></a></li>
-<li><a href="https://github.com/itsleeds/od/actions"><img src="https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li>Robin Lovelace <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5679-6536" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://itsleeds.github.io/od/" class="external-link"><img src="https://www.r-pkg.org/badges/version/od" alt="CRAN status"></a></li>
+<li><a href="https://github.com/r-hub/cranlogs.app" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/od" alt="rstudio mirror downloads"></a></li>
+<li><a href="https://codecov.io/gh/itsleeds/od?branch=master" class="external-link"><img src="https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/itsleeds/od/actions" class="external-link"><img src="https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://cran.r-project.org/package=od" class="external-link"><img src="https://tinyverse.netlify.com/badge/od" alt="Dependencies"></a></li>
+<li><a href="https://github.com/itsleeds/od/actions" class="external-link"><img src="https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Robin Lovelace.</p>
+  <p></p>
+<p>Developed by Robin Lovelace.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -292,6 +298,8 @@
 
   
 
+
+  
 
   </body>
 </html>
