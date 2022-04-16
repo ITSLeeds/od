@@ -1,3 +1,5 @@
+# od 0.4.0
+
 # od 0.3.1
 
 * `od_jitter()` succeeds with wider range of input datasets, and can work with fewer subpoints than OD pairs thanks to the `replace = TRUE` setting in the base R function `sample()`
