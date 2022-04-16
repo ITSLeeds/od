@@ -84,8 +84,6 @@ coordinates of the start and end points of each OD pair.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">p</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class="r-in"><span class="va">od</span> <span class="op">=</span> <span class="fu"><a href="points_to_od.html">points_to_od</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">od</span> <span class="op">=</span> <span class="fu">coords_to_od</span><span class="op">(</span><span class="va">p</span>, interzone_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   O D        ox       oy        dx       dy</span>
