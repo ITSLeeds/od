@@ -1,7 +1,9 @@
-# od 0.3.2 (2021-12)
+# od 0.4.0 (2022-04)
 
 * `od_disaggregate()` can now take route networks as inputs
 * `od_disaggregate()` is now used as a 'back-end' for `od_jitter()` where possible by default
+* New `pd` argument in `points_to_od()` allows calculation of OD pairs associated
+  with destinations that have a different geometry than the origins (#41)
 
 # od 0.3.1 (2021-07)
 

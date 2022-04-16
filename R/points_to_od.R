@@ -8,6 +8,7 @@
 #' a geographic object representing desire lines in the class `sf`.
 #'
 #' @param p A spatial points object or a matrix of coordinates representing points
+#' @param pd Optional spatial points object or matrix objects representing destinations
 #' @param interzone_only Should the result only include interzonal OD pairs, in which
 #' the ID of the origin is different from the ID of the destination zone?
 #' `FALSE` by default
@@ -22,20 +23,25 @@
 #' points_to_od(p, ids_only = TRUE)
 #' (l = points_to_odl(p, interzone_only = TRUE))
 #' plot(l)
+#' points_to_od(od_data_centroids[1:2, ], od_data_centroids[3:4, ])
 #' (od = points_to_od(p, interzone_only = TRUE))
 #' l2 = od_to_sf(od, od_data_centroids)
 #' l2$v = 1
 #' (l2_oneway = od_oneway(l2))
 #' plot(l2)
-points_to_od = function(p, interzone_only = FALSE, ids_only = FALSE) {
+points_to_od = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE) {
   # to work with other classes at some point, possibly, it's a generic:
   UseMethod("points_to_od")
 }
 #' @export
-points_to_od.sf = function(p, interzone_only = FALSE, ids_only = FALSE) {
+points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE) {
+  single_geometry = is.null(pd)
+  if(single_geometry) {
+    pd = p
+  }
   odf = data.frame(
     stringsAsFactors = FALSE,
-    expand.grid(p[[1]], p[[1]], stringsAsFactors = FALSE)[2:1]
+    expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)[2:1]
   )
   names(odf) = c("O", "D")
   if(interzone_only) {
@@ -44,19 +50,23 @@ points_to_od.sf = function(p, interzone_only = FALSE, ids_only = FALSE) {
   if(ids_only) {
     return(odf)
   }
-  odc = od_coordinates(odf, p)
+  if(single_geometry) {
+    odc = od_coordinates(odf, p)
+  } else {
+    odc = od_coordinates(odf[2:1], p, pd = pd)
+  }
   cbind(odf, odc)
 }
 #' @export
-points_to_od.matrix =  function(p, interzone_only = FALSE, ids_only = FALSE) {
+points_to_od.matrix =  function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE) {
   coords_to_od(p, interzone_only = interzone_only, ids_only = ids_only)
 }
 #' @rdname points_to_od
 #' @inheritParams points_to_od
 #' @inheritParams odc_to_sf
 #' @export
-points_to_odl = function(p, interzone_only = FALSE, ids_only = FALSE, crs = 4326) {
-  odf = points_to_od(p, interzone_only, ids_only)
+points_to_odl = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE, crs = 4326) {
+  odf = points_to_od(p, pd, interzone_only, ids_only)
   odc_to_sf(odf[3:6], d = odf[1:2], crs = crs)
 }
 #' Convert coordinates into a data frame of origins and destinations

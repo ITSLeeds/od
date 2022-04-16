@@ -5,12 +5,20 @@
 \alias{points_to_odl}
 \title{Convert a series of points into a dataframe of origins and destinations}
 \usage{
-points_to_od(p, interzone_only = FALSE, ids_only = FALSE)
+points_to_od(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE)
 
-points_to_odl(p, interzone_only = FALSE, ids_only = FALSE, crs = 4326)
+points_to_odl(
+  p,
+  pd = NULL,
+  interzone_only = FALSE,
+  ids_only = FALSE,
+  crs = 4326
+)
 }
 \arguments{
 \item{p}{A spatial points object or a matrix of coordinates representing points}
+
+\item{pd}{Optional spatial points object or matrix objects representing destinations}
 
 \item{interzone_only}{Should the result only include interzonal OD pairs, in which
 the ID of the origin is different from the ID of the destination zone?
@@ -39,6 +47,7 @@ points_to_od(p)
 points_to_od(p, ids_only = TRUE)
 (l = points_to_odl(p, interzone_only = TRUE))
 plot(l)
+points_to_od(od_data_centroids[1:2, ], od_data_centroids[3:4, ])
 (od = points_to_od(p, interzone_only = TRUE))
 l2 = od_to_sf(od, od_data_centroids)
 l2$v = 1
