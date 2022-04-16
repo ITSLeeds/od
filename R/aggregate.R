@@ -68,7 +68,10 @@
 #' plot(od_disag)
 #' # test with road network dataset (don't run as time consuming):
 #' \dontrun{
+#' library(profvis)
+#' profvis({
 #' od_disag_net = od_disaggregate(od, zones, od_road_network, max_per_od = 500)
+#' })
 #' plot(zones$geometry)
 #' plot(od_road_network$geometry, add = TRUE, col = "green")
 #' plot(od_disag_net$geometry, add = TRUE)
@@ -116,7 +119,7 @@ od_disaggregate = function(od,
   col_classes_data = col_classes[3:length(col_classes)]
   numeric_col_names = names(col_classes_data)[col_classes_data == "numeric"]
   if (length(numeric_col_names) < ncol(od) - 2) {
-    message("Keeping only numeric columns: ", numeric_col_names)
+    message("Keeping only numeric columns:\n", paste(numeric_col_names, collapse = ", "))
     od = od[c(names(od)[1:2], numeric_col_names)]
   }
 
@@ -128,7 +131,7 @@ od_disaggregate = function(od,
 
   # i = 1 # uncomment for debugging
   i_seq = seq(nrow(od))
-  list_new = lapply(
+  list_new = pbapply::pblapply(
     X = i_seq,
     FUN = function(i) {
       max_n_od = ceiling(od[[population_column]][i] / max_per_od)
@@ -295,7 +298,15 @@ od_sample_points = function(subpoints, subdf, z, per_zone, azn = "azn") {
     if(length(which_points) == 0) {
       return(NULL)
     }
-    sample(which_points, size = per_zone[[2]][i])
+    if(per_zone[[2]][i] > length(which_points)) {
+      message("More origins and destinations in zone ", i, " than sample points")
+      message("Origins and destinations: " , per_zone[[2]][i])
+      message("Number of sample points: " , length(which_points))
+      message("Using replace = TRUE")
+      sample(which_points, size = per_zone[[2]][i], replace = TRUE)
+    } else {
+      sample(which_points, size = per_zone[[2]][i])
+    }
   })
   sel = unlist(sel_list)
   names(subdf)[2] = azn
