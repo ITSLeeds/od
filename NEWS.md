@@ -1,4 +1,7 @@
-# od 0.4.0
+# od 0.4.0 (2022-04)
+
+* New `pd` argument in `points_to_od()` allows calculation of OD pairs associated
+  with destinations that have a different geometry than the origins (#41)
 
 # od 0.3.1
 
