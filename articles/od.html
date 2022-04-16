@@ -380,9 +380,12 @@
 </h3>
 <p>The data shown in the previous examples is quite low resolution. Imagine you want to split each desire line into multiple lines, e.g. for some kind of simulation. You can do this by assigning origins and destinations to specific subzones with <code><a href="../reference/od_disaggregate.html">od_disaggregate()</a></code> (also called <code><a href="../reference/od_disaggregate.html">od_split()</a></code>):</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span>
-<span class="va">od_disaggregated</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od</span>, z <span class="op">=</span> <span class="va">z</span>, subzones <span class="op">=</span> <span class="va">subzones</span><span class="op">)</span>
-<span class="co">#&gt; Converting subzones to centroids</span>
+<code class="sourceCode R"><span class="va">od</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span>
+<span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span>
+<span class="va">od_disaggregated</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span>, subpoints <span class="op">=</span> <span class="va">subzones</span>, max_per_od <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt; Converting polygons to points</span>
+<span class="co">#&gt; Warning in st_centroid.sf(subpoints): st_centroid assumes attributes are</span>
+<span class="co">#&gt; constant over geometries of x</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_zones_min</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_zones_small</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">5</span>, col <span class="op">=</span> <span class="st">"red"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -392,19 +395,21 @@
 <code class="sourceCode R"><span class="co"># plot(od_disaggregated$geometry[1:5])</span></code></pre></div>
 <p>This preserves column totals:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6429   65  654   68  431  102   96 4986</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">10</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disaggregated</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6429   65  654   68  431  102   96 4986</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 23 20</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disaggregated</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 23 20</span></code></pre></div>
 <p>This also allows the simulation of building-to-building travel.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">od_disaggregated2</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span>od <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">z</span>, <span class="va">od_data_buildings</span><span class="op">)</span>
-<span class="co">#&gt; Converting subzones to centroids</span>
+<code class="sourceCode R"><span class="va">od_disaggregated2</span> <span class="op">=</span> <span class="fu"><a href="../reference/od_disaggregate.html">od_disaggregate</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span>, subpoints <span class="op">=</span> <span class="va">od_data_buildings</span><span class="op">)</span>
+<span class="co">#&gt; Converting polygons to points</span>
+<span class="co">#&gt; Warning in st_centroid.sf(subpoints): st_centroid assumes attributes are</span>
+<span class="co">#&gt; constant over geometries of x</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_buildings</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disaggregated2</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
 <p><img src="od_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
-<p>You can re-aggregate the data with the function <code><a href="../reference/od_aggregate.html">od_aggregate()</a></code>.</p>
-<p>Note: this functionality is work in progress.</p>
+<!-- You can re-aggregate the data with the function `od_aggregate()`. -->
+<!-- Note: this functionality is work in progress. -->
 <!-- # Worked example -->
 <!-- Todo: add this from the stplanr od vignette. -->
 </div>

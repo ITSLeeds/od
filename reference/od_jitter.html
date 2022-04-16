@@ -62,7 +62,20 @@ See <a href="https://github.com/ITSLeeds/od/issues/11" class="external-link">iss
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_jitter</span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span>, zd <span class="op">=</span> <span class="cn">NULL</span>, subpoints_o <span class="op">=</span> <span class="cn">NULL</span>, subpoints_d <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_jitter</span><span class="op">(</span>
+  <span class="va">od</span>,
+  <span class="va">z</span>,
+  subpoints <span class="op">=</span> <span class="cn">NULL</span>,
+  code_append <span class="op">=</span> <span class="st">"_ag"</span>,
+  population_column <span class="op">=</span> <span class="fl">3</span>,
+  max_per_od <span class="op">=</span> <span class="fl">1e+05</span>,
+  keep_ids <span class="op">=</span> <span class="cn">TRUE</span>,
+  integer_outputs <span class="op">=</span> <span class="cn">FALSE</span>,
+  zd <span class="op">=</span> <span class="cn">NULL</span>,
+  subpoints_o <span class="op">=</span> <span class="cn">NULL</span>,
+  subpoints_d <span class="op">=</span> <span class="cn">NULL</span>,
+  disag <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -71,12 +84,33 @@ See <a href="https://github.com/ITSLeeds/od/issues/11" class="external-link">iss
 <dd><p>An origin-destination data frame</p></dd>
 <dt>z</dt>
 <dd><p>Zones representing origins and destinations</p></dd>
+<dt>subpoints</dt>
+<dd><p>Points, lines or polygons within the zones.
+These define the OD data start/end points.</p></dd>
+<dt>code_append</dt>
+<dd><p>The name of the column containing aggregate zone names</p></dd>
+<dt>population_column</dt>
+<dd><p>The column containing the total population (if it exists)</p></dd>
+<dt>max_per_od</dt>
+<dd><p>Maximum flow in the population_column to assign per OD pair.
+This only comes into effect if there are enough subpoints to choose from.</p></dd>
+<dt>keep_ids</dt>
+<dd><p>Should the origin and destination ids be kept?
+<code>TRUE</code> by default, meaning 2 extra columns are appended, with the
+names <code>o_agg</code> and <code>d_agg</code> containing IDs from the original OD data.</p></dd>
+<dt>integer_outputs</dt>
+<dd><p>Should integer outputs be returned? <code>FALSE</code> by default.
+Note: there is a known issue when integer results are generated. See
+https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 <dt>zd</dt>
 <dd><p>Zones with ids matching the destination codes in input OD data</p></dd>
 <dt>subpoints_o</dt>
 <dd><p>Points within origin zones representing possible destinations</p></dd>
 <dt>subpoints_d</dt>
 <dd><p>Points within destination zones representing possible destinations</p></dd>
+<dt>disag</dt>
+<dd><p>Should the od_disaggregate function be used as a 'back end' where possible?
+TRUE by default. See https://github.com/ITSLeeds/od/issues/39.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -93,15 +127,20 @@ See <a href="https://github.com/ITSLeeds/od/issues/11" class="external-link">iss
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using od_disaggregate</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Input object is sf, attempting to convert to a data frame</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
 <span class="r-in"><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">z</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dlr</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dlr</span><span class="op">[</span><span class="st">"all"</span><span class="op">]</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dlr</span><span class="op">$</span><span class="va">all</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  966 1145 1791 1035  453  286  753</span>
+<span class="r-in"><span class="va">desire_lines</span><span class="op">$</span><span class="va">all</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  966 1145 1791 1035  453  286  753</span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">[</span><span class="st">"all"</span><span class="op">]</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="od_jitter-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Example showing use of subpoints</span></span>
@@ -134,11 +173,11 @@ See <a href="https://github.com/ITSLeeds/od/issues/11" class="external-link">iss
 <span class="r-in"><span class="va">z</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_buffer</a></span><span class="op">(</span><span class="va">od_data_centroids2</span>, dist <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">zd</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_buffer</a></span><span class="op">(</span><span class="va">od_data_destinations</span>, dist <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">zd</span> <span class="op">=</span> <span class="va">zd</span><span class="op">[</span><span class="va">zd</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">od</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">od_data_centroids2</span>, <span class="va">od_data_destinations</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">od_data_centroids2</span>, zd <span class="op">=</span> <span class="va">od_data_destinations</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
-<span class="r-in"><span class="va">dlr</span> <span class="op">=</span> <span class="fu">od_jitter</span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span>, <span class="va">zd</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dlr</span> <span class="op">=</span> <span class="fu">od_jitter</span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span>, zd <span class="op">=</span> <span class="va">zd</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
