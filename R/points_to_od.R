@@ -23,7 +23,10 @@
 #' points_to_od(p, ids_only = TRUE)
 #' (l = points_to_odl(p, interzone_only = TRUE))
 #' plot(l)
-#' points_to_od(od_data_centroids[1:2, ], od_data_centroids[3:4, ])
+#' library(sf) # for subsetting sf objects:
+#' points_to_od(od_data_centroids[1:2, ], od_data_centroids[3, ])
+#' l = points_to_odl(od_data_centroids[1:2, ], od_data_centroids[3, ])
+#' plot(l)
 #' (od = points_to_od(p, interzone_only = TRUE))
 #' l2 = od_to_sf(od, od_data_centroids)
 #' l2$v = 1
@@ -38,11 +41,17 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
   single_geometry = is.null(pd)
   if(single_geometry) {
     pd = p
+    odf = data.frame(
+      stringsAsFactors = FALSE,
+      expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)[2:1]
+    )
+  } else {
+    odf = data.frame(
+      stringsAsFactors = FALSE,
+      expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)
+    )
   }
-  odf = data.frame(
-    stringsAsFactors = FALSE,
-    expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)[2:1]
-  )
+
   names(odf) = c("O", "D")
   if(interzone_only) {
     odf = od_interzone(odf)
@@ -53,7 +62,7 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
   if(single_geometry) {
     odc = od_coordinates(odf, p)
   } else {
-    odc = od_coordinates(odf[2:1], p, pd = pd)
+    odc = od_coordinates(odf, p, pd = pd)
   }
   cbind(odf, odc)
 }

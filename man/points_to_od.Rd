@@ -47,7 +47,10 @@ points_to_od(p)
 points_to_od(p, ids_only = TRUE)
 (l = points_to_odl(p, interzone_only = TRUE))
 plot(l)
-points_to_od(od_data_centroids[1:2, ], od_data_centroids[3:4, ])
+library(sf) # for subsetting sf objects:
+points_to_od(od_data_centroids[1:2, ], od_data_centroids[3, ])
+l = points_to_odl(od_data_centroids[1:2, ], od_data_centroids[3, ])
+plot(l)
 (od = points_to_od(p, interzone_only = TRUE))
 l2 = od_to_sf(od, od_data_centroids)
 l2$v = 1
