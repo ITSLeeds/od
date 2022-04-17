@@ -136,12 +136,14 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 E02002353 E02002336 LINESTRING (-1.518058 53.84...</span>
 <span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="points_to_od-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">points_to_od</span><span class="op">(</span><span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="op">]</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             O         D        ox       oy        dx       dy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   E02002353 E02002407 -1.609934 53.79079 -1.518058 53.84066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   E02002353 E02002336 -1.624630 53.88605 -1.518058 53.84066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1.1 E02002399 E02002407 -1.609934 53.79079 -1.502589 53.78754</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2.1 E02002399 E02002336 -1.624630 53.88605 -1.502589 53.78754</span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span> <span class="co"># for subsetting sf objects:</span></span>
+<span class="r-in"><span class="fu">points_to_od</span><span class="op">(</span><span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           O         D        ox       oy        dx       dy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002407 E02002353 -1.609934 53.79079 -1.518058 53.84066</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002336 E02002353 -1.624630 53.88605 -1.518058 53.84066</span>
+<span class="r-in"><span class="va">l</span> <span class="op">=</span> <span class="fu">points_to_odl</span><span class="op">(</span><span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, <span class="va">od_data_centroids</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="points_to_od-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span><span class="va">od</span> <span class="op">=</span> <span class="fu">points_to_od</span><span class="op">(</span><span class="va">p</span>, interzone_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           O         D        ox       oy        dx       dy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002407 E02002336 -1.609934 53.79079 -1.624630 53.88605</span>
@@ -171,7 +173,7 @@ a geographic object representing desire lines in the class <code>sf</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 LINESTRING (-1.609934 53.79...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 LINESTRING (-1.609934 53.79...</span>
 <span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="points_to_od-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="points_to_od-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
