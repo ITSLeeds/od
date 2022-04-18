@@ -1,4 +1,5 @@
-Improved functionality of an important function and fixing a CRAN check NOTE.
+Improved functionality of the points_to_od() function.
+Also fixes a CRAN check NOTE.
 
 ## Test environments
 * local R installation, R 4.1.3
