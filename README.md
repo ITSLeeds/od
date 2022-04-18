@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/od)](https://itsleeds.github.io/od/
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/od)](https://github.com/r-hub/cranlogs.app)
 [![Codecov test
-coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://codecov.io/gh/itsleeds/od?branch=master)
+coverage](https://codecov.io/gh/itsleeds/od/branch/master/graph/badge.svg)](https://app.codecov.io/gh/itsleeds/od?branch=master)
 [![R build
 status](https://github.com/itsleeds/od/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/od/actions)
 [![Dependencies](https://tinyverse.netlify.com/badge/od)](https://cran.r-project.org/package=od)

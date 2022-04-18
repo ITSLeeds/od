@@ -197,7 +197,7 @@ od = od_all[od_all$all > 700, ]
 ```
 
 
-Like all data, the object `od`, created in the preceding code chunk, comes from a specific context, the 2011 [UK Census](https://census.ukdataservice.ac.uk/media/50966/2011_england_household.pdf) questions:
+Like all data, the object `od`, created in the preceding code chunk, comes from a specific context, the 2011 [UK Census](https://ukdataservice.ac.uk/learning-hub/census/) questions:
 
 - In your main job, what is the address of your workplace?
 - How do you usually travel to work (for the longest part, by distance, of your usual journey to work)?
@@ -425,6 +425,6 @@ The following suggestions are based on my own reading  --- if you have any other
 - @martin_origindestination_2018 describe methods for classifying OD pairs based on demographic data.
 - The [kepler.gl](https://kepler.gl/demo/ukcommute) website provides a nifty web application for visualising OD data.
 - Documentation for the open source microscopic transport modelling software [SUMO](https://sumo.dlr.de/userdoc/Demand/Importing_O/D_Matrices.html) describes ways of reading-in OD file formats not covered in this vignette.
-- An excellent introduction to modelling and visualising OD data in the [introductory vignette](https://github.com/rCarto/flows/blob/master/vignettes/flows.Rmd) of the `flows` R package.
+- An excellent introduction to modelling and visualising OD data in the [introductory vignette](https://github.com/riatelab/flows/blob/master/vignettes/flows.Rmd) of the `flows` R package.
 
 # References
