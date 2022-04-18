@@ -16,7 +16,7 @@ od_jitter(
   zd = NULL,
   subpoints_o = NULL,
   subpoints_d = NULL,
-  disag = TRUE
+  disag = FALSE
 )
 }
 \arguments{
@@ -49,7 +49,7 @@ https://github.com/ITSLeeds/od/issues/31 for details.}
 \item{subpoints_d}{Points within destination zones representing possible destinations}
 
 \item{disag}{Should the od_disaggregate function be used as a 'back end' where possible?
-TRUE by default. See https://github.com/ITSLeeds/od/issues/39.}
+FALSE by default. See https://github.com/ITSLeeds/od/issues/39.}
 }
 \value{
 An \code{sf} data frame

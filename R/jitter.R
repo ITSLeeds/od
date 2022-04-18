@@ -9,7 +9,7 @@
 #' @param subpoints_o Points within origin zones representing possible destinations
 #' @param subpoints_d Points within destination zones representing possible destinations
 #' @param disag Should the od_disaggregate function be used as a 'back end' where possible?
-#'   TRUE by default. See https://github.com/ITSLeeds/od/issues/39.
+#'   FALSE by default. See https://github.com/ITSLeeds/od/issues/39.
 #' @inheritParams od_disaggregate
 #'
 #' @return An `sf` data frame
@@ -79,7 +79,7 @@ od_jitter = function(
   zd = NULL,
   subpoints_o = NULL,
   subpoints_d = NULL,
-  disag = TRUE
+  disag = FALSE
   ) {
 
   if (!methods::is(od, "sf")) {
