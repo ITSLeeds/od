@@ -74,7 +74,7 @@ See <a href="https://github.com/ITSLeeds/od/issues/11" class="external-link">iss
   zd <span class="op">=</span> <span class="cn">NULL</span>,
   subpoints_o <span class="op">=</span> <span class="cn">NULL</span>,
   subpoints_d <span class="op">=</span> <span class="cn">NULL</span>,
-  disag <span class="op">=</span> <span class="cn">TRUE</span>
+  disag <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -110,7 +110,7 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 <dd><p>Points within destination zones representing possible destinations</p></dd>
 <dt>disag</dt>
 <dd><p>Should the od_disaggregate function be used as a 'back end' where possible?
-TRUE by default. See https://github.com/ITSLeeds/od/issues/39.</p></dd>
+FALSE by default. See https://github.com/ITSLeeds/od/issues/39.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -127,9 +127,6 @@ TRUE by default. See https://github.com/ITSLeeds/od/issues/39.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Using od_disaggregate</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Input object is sf, attempting to convert to a data frame</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
 <span class="r-in"><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">z</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
