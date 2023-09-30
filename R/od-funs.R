@@ -202,6 +202,12 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
   sf::st_sfc(linestring_list, crs = crs)
 }
 #' Interleave origin and destination coordinates
+#' 
+#' This function takes a matrix with 4 columns representing origin and destination coordinates
+#' and returns a data frame with 3 columns with the ID of each linestring, plus
+#' the coordinates representing origin and destination coordinates.
+#' Essentially the function is a pivot, converting from wide to long format, to feed
+#' into other functions for creating geographic desire lines.
 #' @inheritParams od_to_sf
 #' @export
 #' @examples
