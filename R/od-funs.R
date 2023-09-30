@@ -207,6 +207,14 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
 #' @examples
 #' od_coordinates_ids(od_coordinates(od_data_df, p = od_data_zones, sfnames = TRUE))
 od_coordinates_ids = function(odc) {
+  # If odc has 1 row, do the interleaving manually:
+  if(nrow(odc) == 1) {
+    # rbind without checking column names, to prevent 'names do not match previous names' error:
+    colnames(odc) = c("x", "y", "x", "y")
+    res = rbind(odc[, 1:2], odc[, 3:4])
+    res = data.frame(id = rep(1, 2), x = res[, 1], y = res[, 2])
+    return(res)
+  }
   # Convert odc to matrix if not one already
   if(!is.matrix(odc)) {
     odc = as.matrix(odc)
