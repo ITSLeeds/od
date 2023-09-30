@@ -26,7 +26,8 @@ LazyData: true
 Depends: R (>= 3.4.0)
 Imports: 
     sfheaders,
-    methods
+    methods,
+    vctrs
 Suggests: 
     sf,
     knitr,

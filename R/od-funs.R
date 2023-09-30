@@ -201,12 +201,14 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
     })
   sf::st_sfc(linestring_list, crs = crs)
 }
+#' Interleave origin and destination coordinates
+#' @inheritParams od_to_sf
+#' @export
+#' @examples
+#' od_coordinates_ids(od_coordinates(od_data_df, p = od_data_zones, sfnames = TRUE))
 od_coordinates_ids = function(odc) {
-  res = data.frame(id = rep(1:nrow(odc), each = 2), x = NA, y = NA)
-  ids_odd = seq(1, nrow(res), by = 2)
-  ids_even = ids_odd + 1
-  res[ids_odd, c("x", "y")] = odc[, 1:2]
-  res[ids_even, c("x", "y")] = odc[, 3:4]
+  res = vctrs::vec_interleave(odc[, 1:2], odc[, 3:4])
+  res = data.frame(id = rep(1:nrow(odc), each = 2), x = res[, 1], y = res[, 2])
   res
 }
 
