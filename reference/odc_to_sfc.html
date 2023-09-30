@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -56,18 +56,19 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">odc_to_sfc</span><span class="op">(</span><span class="va">odc</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">odc_to_sfc</span><span class="op">(</span><span class="va">odc</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>odc</dt>
 <dd><p>A matrix containing coordinates representing line start and end points</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">odc</span> <span class="op">=</span> <span class="fu"><a href="od_coordinates.html">od_coordinates</a></span><span class="op">(</span><span class="va">od_data_df</span>, p <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="od_data_zones.html">od_data_zones</a></span>, sfnames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">(</span><span class="va">odc</span> <span class="op">=</span> <span class="fu"><a href="od_coordinates.html">od_coordinates</a></span><span class="op">(</span><span class="va">od_data_df</span>, p <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="od_data_zones.html">od_data_zones</a></span>, sfnames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             x        y         x        y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   -1.544730 53.80928 -1.546024 53.79587</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   -1.518710 53.79223 -1.546024 53.79587</span>
@@ -76,7 +77,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   -1.564756 53.81763 -1.561391 53.80498</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.1 -1.546024 53.79587 -1.561391 53.80498</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   -1.561391 53.80498 -1.546024 53.79587</span>
-<span class="r-in"><span class="op">(</span><span class="va">l</span> <span class="op">=</span> <span class="fu">odc_to_sfc</span><span class="op">(</span><span class="va">odc</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">l</span> <span class="op">=</span> <span class="fu">odc_to_sfc</span><span class="op">(</span><span class="va">odc</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry set for 7 features </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: LINESTRING</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
@@ -88,7 +89,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> LINESTRING (-1.546024 53.79587, -1.546024 53.79...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> LINESTRING (-1.517695 53.77475, -1.546024 53.79...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> LINESTRING (-1.564756 53.81763, -1.561391 53.80...</span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="odc_to_sfc-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -104,7 +105,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

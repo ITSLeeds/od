@@ -21,7 +21,7 @@ to tidyr::pivot_longer()."><!-- mathjax --><script src="https://cdnjs.cloudflare
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -64,53 +64,68 @@ to <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="exte
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_disaggregate</span><span class="op">(</span>
-  <span class="va">od</span>,
-  <span class="va">z</span>,
-  subpoints <span class="op">=</span> <span class="cn">NULL</span>,
-  code_append <span class="op">=</span> <span class="st">"_ag"</span>,
-  population_column <span class="op">=</span> <span class="fl">3</span>,
-  max_per_od <span class="op">=</span> <span class="fl">5</span>,
-  keep_ids <span class="op">=</span> <span class="cn">TRUE</span>,
-  integer_outputs <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">od_split</span><span class="op">(</span>
-  <span class="va">od</span>,
-  <span class="va">z</span>,
-  subpoints <span class="op">=</span> <span class="cn">NULL</span>,
-  code_append <span class="op">=</span> <span class="st">"_ag"</span>,
-  population_column <span class="op">=</span> <span class="fl">3</span>,
-  max_per_od <span class="op">=</span> <span class="fl">5</span>,
-  keep_ids <span class="op">=</span> <span class="cn">TRUE</span>,
-  integer_outputs <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">od_disaggregate</span><span class="op">(</span></span>
+<span>  <span class="va">od</span>,</span>
+<span>  <span class="va">z</span>,</span>
+<span>  subpoints <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  code_append <span class="op">=</span> <span class="st">"_ag"</span>,</span>
+<span>  population_column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  max_per_od <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  keep_ids <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  integer_outputs <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">od_split</span><span class="op">(</span></span>
+<span>  <span class="va">od</span>,</span>
+<span>  <span class="va">z</span>,</span>
+<span>  subpoints <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  code_append <span class="op">=</span> <span class="st">"_ag"</span>,</span>
+<span>  population_column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  max_per_od <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  keep_ids <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  integer_outputs <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>od</dt>
 <dd><p>An origin-destination data frame</p></dd>
+
+
 <dt>z</dt>
 <dd><p>Zones representing origins and destinations</p></dd>
+
+
 <dt>subpoints</dt>
 <dd><p>Points, lines or polygons within the zones.
 These define the OD data start/end points.</p></dd>
+
+
 <dt>code_append</dt>
 <dd><p>The name of the column containing aggregate zone names</p></dd>
+
+
 <dt>population_column</dt>
 <dd><p>The column containing the total population (if it exists)</p></dd>
+
+
 <dt>max_per_od</dt>
 <dd><p>Maximum flow in the population_column to assign per OD pair.
 This only comes into effect if there are enough subpoints to choose from.</p></dd>
+
+
 <dt>keep_ids</dt>
 <dd><p>Should the origin and destination ids be kept?
 <code>TRUE</code> by default, meaning 2 extra columns are appended, with the
 names <code>o_agg</code> and <code>d_agg</code> containing IDs from the original OD data.</p></dd>
+
+
 <dt>integer_outputs</dt>
 <dd><p>Should integer outputs be returned? <code>FALSE</code> by default.
 Note: there is a known issue when integer results are generated. See
 https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -119,33 +134,33 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">od</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">od</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">od</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">9</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">od</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2 bicycle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875      13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875      10</span>
-<span class="r-in"><span class="va">zones</span> <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="od_data_zones.html">od_data_zones_min</a></span></span>
-<span class="r-in"><span class="va">od_sf</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">zones</span> <span class="op">=</span> <span class="fu">od</span><span class="fu">::</span><span class="va"><a href="od_data_zones.html">od_data_zones_min</a></span></span></span>
+<span class="r-in"><span><span class="va">od_sf</span> <span class="op">=</span> <span class="fu"><a href="od_to_sf.html">od_to_sf</a></span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span> <span class="co"># for reproducibility</span></span>
-<span class="r-in"><span class="va">od_disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span> <span class="co"># for reproducibility</span></span></span>
+<span class="r-in"><span><span class="va">od_disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
-<span class="r-in"><span class="va">od_disag2</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, max_per_od <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">od_disag2</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, max_per_od <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_sf</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">9</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"grey"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag2</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_sf</span><span class="op">$</span><span class="va">geometry</span>, lwd <span class="op">=</span> <span class="fl">9</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"grey"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag2</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_disaggregate-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">$</span><span class="va">o_agg</span>, <span class="va">od_disag</span><span class="op">$</span><span class="va">d_agg</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">$</span><span class="va">o_agg</span>, <span class="va">od_disag</span><span class="op">$</span><span class="va">d_agg</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             E02006875</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   E02002384         3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   E02002404         2</span>
-<span class="r-in"><span class="co"># integer results</span></span>
-<span class="r-in"><span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, integer_outputs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># integer results</span></span></span>
+<span class="r-in"><span><span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, integer_outputs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 5 features and 5 fields</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: LINESTRING</span>
@@ -158,25 +173,25 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 3  8       5 E02002384 E02006875 LINESTRING (-1.552041 53.81...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 4 10       5 E02002404 E02006875 LINESTRING (-1.533423 53.79...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 5  7       5 E02002404 E02006875 LINESTRING (-1.515148 53.78...</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with more trips per disaggregated OD pair:</span></span>
-<span class="r-in"><span class="va">disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, z <span class="op">=</span> <span class="va">zones</span>, max_per_od <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with more trips per disaggregated OD pair:</span></span></span>
+<span class="r-in"><span><span class="va">disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span>, z <span class="op">=</span> <span class="va">zones</span>, max_per_od <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating origin and destination points at random locations</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">disag</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">disag</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_disaggregate-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with subpoints</span></span>
-<span class="r-in"><span class="va">subpoints</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="va">zones</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">od_disag_subpoints</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, subpoints <span class="op">=</span> <span class="va">subpoints</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">subpoints</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_subpoints</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with subpoints</span></span></span>
+<span class="r-in"><span><span class="va">subpoints</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="va">zones</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">od_disag_subpoints</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, subpoints <span class="op">=</span> <span class="va">subpoints</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">subpoints</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_subpoints</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_disaggregate-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with buildings data</span></span>
-<span class="r-in"><span class="va">od_disag_buildings</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">od_data_buildings</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with buildings data</span></span></span>
+<span class="r-in"><span><span class="va">od_disag_buildings</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">od_data_buildings</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Converting polygons to points</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries of x</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">od_disag_buildings</span><span class="op">)</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">od_disag_buildings</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       o                  d                bicycle         o_agg          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Length:5           Length:5           Min.   :4.333   Length:5          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Class :character   Class :character   1st Qu.:4.333   Class :character  </span>
@@ -191,38 +206,38 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                      </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_buildings</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_buildings</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_buildings</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_buildings</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_disaggregate-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># mapview::mapview(od_disag_buildings)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">od</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">subzones</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># mapview::mapview(od_disag_buildings)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">od</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">subzones</span> <span class="op">=</span> <span class="va">od_data_zones_small</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">subzones</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Converting polygons to points</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries of x</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in sample.int(length(x), size, replace, prob) : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   cannot take a sample larger than the population when 'replace = FALSE'</span>
-<span class="r-in"><span class="va">od_disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">subzones</span>, max_per_od <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">od_disag</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">subzones</span>, max_per_od <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Converting polygons to points</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries of x</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">)</span> <span class="op">-</span><span class="fl">3</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span> <span class="co"># same number of columns, the same...</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_centroid assumes attributes are constant over geometries</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">)</span> <span class="op">-</span><span class="fl">3</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">od</span><span class="op">)</span> <span class="co"># same number of columns, the same...</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="co"># Except disag data gained geometry and new agg ids:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Except disag data gained geometry and new agg ids:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_disaggregate-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># test with road network dataset (don't run as time consuming):</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">od_disag_net</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">od_road_network</span>, max_per_od <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_road_network</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_net</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">mapview</span><span class="fu">::</span><span class="fu">mapview</span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span> <span class="va">od_disag_net</span> <span class="op">+</span> <span class="va">od_road_network</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="co"># test with road network dataset (don't run as time consuming):</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">od_disag_net</span> <span class="op">=</span> <span class="fu">od_disaggregate</span><span class="op">(</span><span class="va">od</span>, <span class="va">zones</span>, <span class="va">od_road_network</span>, max_per_od <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_road_network</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_disag_net</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">mapview</span><span class="fu">::</span><span class="fu">mapview</span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span> <span class="va">od_disag_net</span> <span class="op">+</span> <span class="va">od_road_network</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -237,7 +252,7 @@ https://github.com/ITSLeeds/od/issues/31 for details.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

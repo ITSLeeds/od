@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -56,43 +56,58 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_oneway</span><span class="op">(</span>
-  <span class="va">x</span>,
-  attrib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span>, <span class="va">is.numeric</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span>,
-  FUN <span class="op">=</span> <span class="va">sum</span>,
-  <span class="va">...</span>,
-  id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
-  oneway_key <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">od_oneway</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  attrib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span>, <span class="va">is.numeric</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  FUN <span class="op">=</span> <span class="va">sum</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  oneway_key <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A data frame or SpatialLinesDataFrame, representing an OD matrix</p></dd>
+
+
 <dt>attrib</dt>
 <dd><p>A vector of column numbers or names, representing variables to be aggregated.
 By default, all numeric variables are selected.</p></dd>
+
+
 <dt>FUN</dt>
 <dd><p>The aggregating function such as <code>sum</code> (the default) and <code>mean</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further arguments passed to or used by methods</p></dd>
+
+
 <dt>id1</dt>
 <dd><p>Optional (it is assumed to be the first column)
 text string referring to the name of the variable containing
 the unique id of the origin</p></dd>
+
+
 <dt>id2</dt>
 <dd><p>Optional (it is assumed to be the second column)
 text string referring to the name of the variable containing
 the unique id of the destination</p></dd>
+
+
 <dt>oneway_key</dt>
 <dd><p>Optional key of unique OD pairs regardless of the order,
 e.g., as generated by <code><a href="od_id.html">od_id_max_min()</a></code> or <code><a href="od_id.html">od_id_szudzik()</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>oneway</code> outputs a data frame (or <code>sf</code> data frame) with rows containing
+    
+
+<p><code>oneway</code> outputs a data frame (or <code>sf</code> data frame) with rows containing
 results for the user-selected attribute values that have been aggregated.</p>
     </div>
     <div id="details">
@@ -110,31 +125,31 @@ for users and are difficult to plot.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">(</span><span class="va">od_min</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">(</span><span class="va">od_min</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     geo_code1 geo_code2  all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   E02002384 E02006875  966    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   E02002404 E02006875 1145     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.1 E02002384 E02006875  966    14</span>
-<span class="r-in"><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">=</span> <span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">-</span> <span class="fl">5</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">=</span> <span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">-</span> <span class="fl">5</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875 1927    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145     6</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span> <span class="co"># result has fewer rows</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span> <span class="co"># result has fewer rows</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="co"># but the same total flow</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="co"># but the same total flow</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           o         d    all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875  963.5  11.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145.0   6.0</span>
-<span class="r-in"><span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, attrib <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, attrib <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875 1927</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145</span>
-<span class="r-in"><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875  966  11.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145   6.0</span>
@@ -152,7 +167,7 @@ for users and are difficult to plot.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

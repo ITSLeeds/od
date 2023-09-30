@@ -18,7 +18,7 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="cn">NULL</span>, pd <span class="op">=</span> <span class="cn">NULL</span>, silent <span class="op">=</span> <span class="cn">TRUE</span>, sfnames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, p <span class="op">=</span> <span class="cn">NULL</span>, pd <span class="op">=</span> <span class="cn">NULL</span>, silent <span class="op">=</span> <span class="cn">TRUE</span>, sfnames <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -66,41 +66,52 @@ and returns a data frame of coordinates representing origin (ox, oy) and destina
     <dl><dt>x</dt>
 <dd><p>A data frame in which the first two columns are codes
 representing points/zones of origin and destination</p></dd>
+
+
 <dt>p</dt>
 <dd><p>Points representing origins and destinations</p></dd>
+
+
 <dt>pd</dt>
 <dd><p>Points representing destinations, if different from origin points</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>Hide messages? <code>FALSE</code> by default.</p></dd>
+
+
 <dt>sfnames</dt>
 <dd><p>Should output column names be compatible with the sf package?</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame with origin and destination coordinates</p>
+    
+
+<p>A data frame with origin and destination coordinates</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">=</span> <span class="va">od_data_centroids</span></span>
-<span class="r-in"><span class="va">res</span> <span class="op">=</span> <span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">od_data_centroids</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">=</span> <span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "data.frame"</span>
-<span class="r-in"><span class="va">res</span></span>
+<span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ox       oy        dx       dy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.545094 53.80925 -1.545708 53.79593</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.518911 53.79230 -1.545708 53.79593</span>
-<span class="r-in"><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, sfnames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span>
+<span class="r-in"><span><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, sfnames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           x        y         x        y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.545094 53.80925 -1.545708 53.79593</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.518911 53.79230 -1.545708 53.79593</span>
-<span class="r-in"><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span>
+<span class="r-in"><span><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="op">]</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ox       oy        dx       dy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 -1.545094 53.80925 -1.545708 53.79593</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 -1.518911 53.79230 -1.545708 53.79593</span>
-<span class="r-in"><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            ox       oy        dx       dy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   -1.545094 53.80925 -1.545708 53.79593</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   -1.518911 53.79230 -1.545708 53.79593</span>
@@ -109,10 +120,10 @@ representing points/zones of origin and destination</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   -1.564659 53.81767 -1.561249 53.80470</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.1 -1.545708 53.79593 -1.561249 53.80470</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   -1.561249 53.80470 -1.545708 53.79593</span>
-<span class="r-in"><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">=</span> <span class="va">od_data_centroids2</span></span>
-<span class="r-in"><span class="va">pd</span> <span class="op">=</span> <span class="va">od_data_destinations</span></span>
-<span class="r-in"><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, <span class="va">pd</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">od_data_centroids2</span></span></span>
+<span class="r-in"><span><span class="va">pd</span> <span class="op">=</span> <span class="va">od_data_destinations</span></span></span>
+<span class="r-in"><span><span class="fu">od_coordinates</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, <span class="va">pd</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ox       oy        dx       dy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 -1.679672 53.86497 -1.664912 53.87430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -1.376812 53.76545 -1.508841 53.80662</span>
@@ -131,7 +142,7 @@ representing points/zones of origin and destination</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

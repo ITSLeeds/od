@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -56,26 +56,26 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_to_sf</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">z</span>,
-  zd <span class="op">=</span> <span class="cn">NULL</span>,
-  odc <span class="op">=</span> <span class="cn">NULL</span>,
-  silent <span class="op">=</span> <span class="cn">FALSE</span>,
-  filter <span class="op">=</span> <span class="cn">TRUE</span>,
-  package <span class="op">=</span> <span class="st">"sfheaders"</span>,
-  crs <span class="op">=</span> <span class="fl">4326</span>
-<span class="op">)</span>
-
-<span class="fu">od_to_sfc</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">z</span>,
-  zd <span class="op">=</span> <span class="cn">NULL</span>,
-  silent <span class="op">=</span> <span class="cn">TRUE</span>,
-  package <span class="op">=</span> <span class="st">"sfheaders"</span>,
-  crs <span class="op">=</span> <span class="fl">4326</span>,
-  filter <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">od_to_sf</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">z</span>,</span>
+<span>  zd <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  odc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  silent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"sfheaders"</span>,</span>
+<span>  crs <span class="op">=</span> <span class="fl">4326</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">od_to_sfc</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">z</span>,</span>
+<span>  zd <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  silent <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"sfheaders"</span>,</span>
+<span>  crs <span class="op">=</span> <span class="fl">4326</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -83,32 +83,47 @@
     <dl><dt>x</dt>
 <dd><p>A data frame in which the first two columns are codes
 representing points/zones of origin and destination</p></dd>
+
+
 <dt>z</dt>
 <dd><p>Zones representing origins and destinations</p></dd>
+
+
 <dt>zd</dt>
 <dd><p>Zones representing destinations</p></dd>
+
+
 <dt>odc</dt>
 <dd><p>A matrix containing coordinates representing line start and end points</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>Hide messages? <code>FALSE</code> by default.</p></dd>
+
+
 <dt>filter</dt>
 <dd><p>Remove rows with no matches in <code>z</code>? <code>TRUE</code> by default</p></dd>
+
+
 <dt>package</dt>
 <dd><p>Which package to use to create the sf object? <code>sfheaders</code> is the default.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>The coordinate reference system of the output, if not known in <code>z</code>.
 4326 by default.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">=</span> <span class="va">od_data_zones</span></span>
-<span class="r-in"><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu">od_to_sf</span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">=</span> <span class="va">od_data_zones</span></span></span>
+<span class="r-in"><span><span class="va">desire_lines</span> <span class="op">=</span> <span class="fu">od_to_sf</span><span class="op">(</span><span class="va">x</span>, <span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
-<span class="r-in"><span class="va">desire_lines</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="va">desire_lines</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 7 features and 3 fields</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: LINESTRING</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
@@ -122,29 +137,29 @@ representing points/zones of origin and destination</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 E02006861 E02002392  453 LINESTRING (-1.564756 53.81...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 E02006875 E02002392  286 LINESTRING (-1.546024 53.79...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 E02002392 E02006875  753 LINESTRING (-1.561391 53.80...</span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>plotting the first 9 out of 10 attributes; use max.plot = 10 to plot all</span>
 <span class="r-plt img"><img src="od_to_sf-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">desire_lines_d</span> <span class="op">=</span> <span class="fu">od_to_sf</span><span class="op">(</span><span class="va">od_data_df2</span>, <span class="va">od_data_centroids2</span>, <span class="va">od_data_destinations</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">desire_lines_d</span> <span class="op">=</span> <span class="fu">od_to_sf</span><span class="op">(</span><span class="va">od_data_df2</span>, <span class="va">od_data_centroids2</span>, <span class="va">od_data_destinations</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 origins with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 0 destinations with no match in zone ids</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  points not in od data removed.</span>
-<span class="r-in"><span class="va">o1</span> <span class="op">=</span> <span class="va">od_data_centroids2</span><span class="op">[</span><span class="va">od_data_centroids2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">d1</span> <span class="op">=</span> <span class="va">od_data_destinations</span><span class="op">[</span><span class="va">od_data_destinations</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_centroids2</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_destinations</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">o1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">3</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">o1</span> <span class="op">=</span> <span class="va">od_data_centroids2</span><span class="op">[</span><span class="va">od_data_centroids2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">d1</span> <span class="op">=</span> <span class="va">od_data_destinations</span><span class="op">[</span><span class="va">od_data_destinations</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_centroids2</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">od_data_destinations</span><span class="op">$</span><span class="va">geometry</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">o1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">3</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_to_sf-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">n</span> <span class="op">=</span> <span class="fl">7</span></span>
-<span class="r-in"><span class="va">on</span> <span class="op">=</span> <span class="va">od_data_centroids2</span><span class="op">[</span><span class="va">od_data_centroids2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">dn</span> <span class="op">=</span> <span class="va">od_data_destinations</span><span class="op">[</span><span class="va">od_data_destinations</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">on</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dn</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">3</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">=</span> <span class="fl">7</span></span></span>
+<span class="r-in"><span><span class="va">on</span> <span class="op">=</span> <span class="va">od_data_centroids2</span><span class="op">[</span><span class="va">od_data_centroids2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">dn</span> <span class="op">=</span> <span class="va">od_data_destinations</span><span class="op">[</span><span class="va">od_data_destinations</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">od_data_df2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">on</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dn</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines_d</span><span class="op">$</span><span class="va">geometry</span><span class="op">[</span><span class="va">n</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">3</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="od_to_sf-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -160,7 +175,7 @@ representing points/zones of origin and destination</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

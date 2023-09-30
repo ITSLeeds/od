@@ -22,7 +22,7 @@ origins and destinations."><!-- mathjax --><script src="https://cdnjs.cloudflare
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">od</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1</span>
       </span>
     </div>
 
@@ -66,20 +66,27 @@ origins and destinations.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span>, attrib <span class="op">=</span> <span class="fl">3</span>, name_orig <span class="op">=</span> <span class="fl">1</span>, name_dest <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span>, attrib <span class="op">=</span> <span class="fl">3</span>, name_orig <span class="op">=</span> <span class="fl">1</span>, name_dest <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A data frame representing flows between origin and destinations</p></dd>
+
+
 <dt>attrib</dt>
 <dd><p>A number or character string representing the column containing the attribute data
 of interest from the <code>flow</code> data frame</p></dd>
+
+
 <dt>name_orig</dt>
 <dd><p>A number or character string representing the zone of origin</p></dd>
+
+
 <dt>name_dest</dt>
 <dd><p>A number or character string representing the zone of destination</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -90,11 +97,11 @@ of interest from the <code>flow</code> data frame</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">x_matrix</span> <span class="op">=</span> <span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x_matrix</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="va">od_data_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x_matrix</span> <span class="op">=</span> <span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x_matrix</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "matrix" "array" </span>
-<span class="r-in"><span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span>, attrib <span class="op">=</span> <span class="st">"bicycle"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">od_to_odmatrix</span><span class="op">(</span><span class="va">x</span>, attrib <span class="op">=</span> <span class="st">"bicycle"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           E02006875</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E02002384        13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E02002404        10</span>
@@ -114,7 +121,7 @@ of interest from the <code>flow</code> data frame</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
