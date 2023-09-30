@@ -1,3 +1,5 @@
+# od 0.4.2
+
 # od 0.4.1 (2023-09)
 
 * `od_coordinates_ids()` faster, uses `vctrs::vec_interleave()` (#45)
