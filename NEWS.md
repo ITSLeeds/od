@@ -1,3 +1,5 @@
+# od 0.4.1
+
 # od 0.4.0 (2022-04)
 
 * `od_disaggregate()` can now take route networks as inputs
