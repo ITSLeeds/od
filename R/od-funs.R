@@ -207,6 +207,10 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
 #' @examples
 #' od_coordinates_ids(od_coordinates(od_data_df, p = od_data_zones, sfnames = TRUE))
 od_coordinates_ids = function(odc) {
+  # Convert odc to matrix if not one already
+  if(!is.matrix(odc)) {
+    odc = as.matrix(odc)
+  }
   res = vctrs::vec_interleave(odc[, 1:2], odc[, 3:4])
   res = data.frame(id = rep(1:nrow(odc), each = 2), x = res[, 1], y = res[, 2])
   res
