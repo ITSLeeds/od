@@ -1,4 +1,7 @@
-# od 0.4.2
+# od 0.4.2 (2023-09)
+
+* `od_coordinates_ids()` exported
+* Fixes for CRAN checks
 
 # od 0.4.1 (2023-09)
 
