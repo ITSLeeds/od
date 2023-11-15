@@ -41,11 +41,23 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
   single_geometry = is.null(pd)
   if(single_geometry) {
     pd = p
+    ids = p[[1]]
+    if(any(duplicated(ids))) {
+      warning("Duplicated ids found in first column of origins")
+    }
     odf = data.frame(
       stringsAsFactors = FALSE,
       expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)[2:1]
     )
   } else {
+    ids = p[[1]]
+    if(any(duplicated(ids))) {
+      warning("Duplicated ids found in first column of origins")
+    }
+    ids = pd[[1]]
+    if(any(duplicated(ids))) {
+      warning("Duplicated ids found in first column of destinations")
+    }
     odf = data.frame(
       stringsAsFactors = FALSE,
       expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE)

@@ -202,7 +202,7 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
   sf::st_sfc(linestring_list, crs = crs)
 }
 #' Interleave origin and destination coordinates
-#' 
+#'
 #' This function takes a matrix with 4 columns representing origin and destination coordinates
 #' and returns a data frame with 3 columns with the ID of each linestring, plus
 #' the coordinates representing origin and destination coordinates.
@@ -292,12 +292,14 @@ odmatrix_to_od = function(odmatrix) {
 
 geometry_contains_polygons = function(z) {
   # The sf way:
-  # if(!requireNamespace("sf", quietly = TRUE)) {
-  #   stop("sf package required, to install it see https://github.com/r-spatial/sf#installing")
-  # }
-  # grepl(pattern = "POLY", unique(sf::st_geometry_type(z)))
-  # without sf:
-  grepl(pattern = "POLY", class(z$geometry)[1])
+  if(!requireNamespace("sf", quietly = TRUE)) {
+    # stop("sf package required, to install it see https://github.com/r-spatial/sf#installing")
+    # without sf:
+    res = grepl(pattern = "POLY", class(z$geometry)[1])
+  } else {
+    res = grepl(pattern = "POLY", unique(sf::st_geometry_type(z)))
+  }
+  res
 }
 
 #' Filter OD datasets
