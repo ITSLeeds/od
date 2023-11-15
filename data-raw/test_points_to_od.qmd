@@ -1,0 +1,52 @@
+---
+format: gfm
+---
+
+```{bash}
+#| eval: false
+# Get data from the web
+gh release 
+```
+
+
+```{r}
+#| eval: false
+piggyback::pb_list(repo = "itsleeds/atumie")
+piggyback::pb_download("zones_test.gpkg", repo = "itsleeds/atumie")
+piggyback::pb_download("social_grid.gpkg", repo = "itsleeds/atumie")
+piggyback::pb_upload("zones_test.gpkg")
+piggyback::pb_upload("social_grid.gpkg")
+# Get urls from v0.0.5 release:
+url_zones = "https://github.com/Robinlovelace/simodels/releases/download/v0.0.5/zones_test.gpkg"
+f_zones = basename(url_zones)
+download.file(url_zones, f_zones)
+url_grid = "https://github.com/Robinlovelace/simodels/releases/download/v0.0.5/social_grid.gpkg"
+download.file(url_grid, basename(url_grid))
+```
+
+```{r}
+url_zones = "https://github.com/Robinlovelace/simodels/releases/download/v0.0.5/zones_test.gpkg"
+zones = sf::read_sf(url_zones)
+url_grid = "https://github.com/Robinlovelace/simodels/releases/download/v0.0.5/social_grid.gpkg"
+grid = sf::read_sf(url_grid)
+plot(zones$geom)
+plot(grid$geom, add = TRUE, col = "red")
+```
+
+```{r}
+devtools::load_all()
+od = points_to_od(zones, grid)
+zonesp = sf::st_centroid(zones)
+gridp = sf::st_centroid(grid)
+odp = points_to_od(zonesp, gridp)
+
+zonesg = sf::st_sf(
+  sf::st_drop_geometry(zones),
+  geometry = zones$geom
+)
+gridg = sf::st_sf(
+  sf::st_drop_geometry(grid),
+  geometry = grid$geom
+)
+odp = points_to_od(zonesg, gridg)
+```
