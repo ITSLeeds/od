@@ -1,4 +1,6 @@
-# od 0.4.3
+# od 0.4.3 (2023-11)
+
+* Check for duplicate ids
 
 # od 0.4.2 (2023-09)
 
