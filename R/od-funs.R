@@ -202,7 +202,7 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
   sf::st_sfc(linestring_list, crs = crs)
 }
 #' Interleave origin and destination coordinates
-#'
+#' 
 #' This function takes a matrix with 4 columns representing origin and destination coordinates
 #' and returns a data frame with 3 columns with the ID of each linestring, plus
 #' the coordinates representing origin and destination coordinates.
@@ -229,7 +229,6 @@ od_coordinates_ids = function(odc) {
   res = data.frame(id = rep(1:nrow(odc), each = 2), x = res[, 1], y = res[, 2])
   res
 }
-
 
 #' Convert origin-destination data from long to wide format
 #'
@@ -297,7 +296,7 @@ geometry_contains_polygons = function(z) {
     # without sf:
     res = grepl(pattern = "POLY", class(z$geometry)[1])
   } else {
-    res = grepl(pattern = "POLY", unique(sf::st_geometry_type(z)))
+    res = any(grepl(pattern = "POLY", unique(sf::st_geometry_type(z))))
   }
   res
 }
