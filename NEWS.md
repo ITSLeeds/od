@@ -1,4 +1,6 @@
-# od 0.4.4
+# od 0.4.4 (2024-03)
+
+* Fix minor issue with geometry checking, result of upstream changes
 
 # od 0.4.3 (2023-11)
 
