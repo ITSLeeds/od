@@ -1,4 +1,4 @@
-Incorrect URLs fixed.
+Minor release fixing a minor issue with geometry checking, result of upstream changes.
 
 ## R CMD check results
 
