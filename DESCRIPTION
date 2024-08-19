@@ -27,6 +27,7 @@ Depends: R (>= 3.4.0)
 Imports: 
     sfheaders,
     methods,
+    nngeo,
     vctrs
 Suggests: 
     sf,

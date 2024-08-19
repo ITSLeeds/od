@@ -5,7 +5,14 @@
 \alias{points_to_odl}
 \title{Convert a series of points into a dataframe of origins and destinations}
 \usage{
-points_to_od(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE)
+points_to_od(
+  p,
+  pd = NULL,
+  interzone_only = FALSE,
+  ids_only = FALSE,
+  max_dist = Inf,
+  max_dest = Inf
+)
 
 points_to_odl(
   p,
@@ -16,29 +23,38 @@ points_to_odl(
 )
 }
 \arguments{
-\item{p}{A spatial points object or a matrix of coordinates representing points}
+\item{p}{A spatial points object or a matrix of coordinates representing
+points}
 
-\item{pd}{Optional spatial points object or matrix objects representing destinations}
+\item{pd}{Optional spatial points object or matrix objects representing
+destinations}
 
-\item{interzone_only}{Should the result only include interzonal OD pairs, in which
-the ID of the origin is different from the ID of the destination zone?
-\code{FALSE} by default}
+\item{interzone_only}{Should the result only include interzonal OD pairs, in
+which the ID of the origin is different from the ID of the destination
+zone? \code{FALSE} by default}
 
-\item{ids_only}{Should a data frame with only 2 columns (origin and destination IDs)
-be returned? The default is \code{FALSE}, meaning the result should also contain the
-coordinates of the start and end points of each OD pair.}
+\item{ids_only}{Should a data frame with only 2 columns (origin and
+destination IDs) be returned? The default is \code{FALSE}, meaning the result
+should also contain the coordinates of the start and end points of each OD
+pair.}
+
+\item{max_dist}{Numeric, maximum distance to consider. Default Inf}
+
+\item{max_dest}{The maximum number of destinations for each origin (numeric)
+sorted from closets to furthest. Default is Inf. Alternative to max_dist
+for limiting the number of ODs.}
 
 \item{crs}{The coordinate reference system of the output, if not known in \code{z}.
 4326 by default.}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
-representing the potential flows, or 'spatial interaction', between every combination
-of points.
+representing the potential flows, or 'spatial interaction', between every
+combination of points.
 }
 \details{
-\code{points_to_odl()} generates the same output but returns
-a geographic object representing desire lines in the class \code{sf}.
+\code{points_to_odl()} generates the same output but returns a geographic object
+representing desire lines in the class \code{sf}.
 }
 \examples{
 library(sf)
