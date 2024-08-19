@@ -34,7 +34,6 @@
 #' points_to_od(p, ids_only = TRUE)
 #' (l = points_to_odl(p, interzone_only = TRUE))
 #' plot(l)
-#' library(sf) # for subsetting sf objects:
 #' points_to_od(od_data_centroids[1:2, ], od_data_centroids[3, ])
 #' l = points_to_odl(od_data_centroids[1:2, ], od_data_centroids[3, ])
 #' plot(l)
@@ -42,7 +41,10 @@
 #' l2 = od_to_sf(od, od_data_centroids)
 #' l2$v = 1
 #' (l2_oneway = od_oneway(l2))
-#' plot(l2)
+#' sf::st_length(l2)
+#' # With max_dist:
+#' (l3 = points_to_odl(p, max_dist = 10000))
+#' sf::st_length(l3)
 points_to_od = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE,
                         max_dist = Inf, max_dest = Inf) {
   # to work with other classes at some point, possibly, it's a generic:
@@ -107,9 +109,10 @@ points_to_od.matrix =  function(p, pd = NULL, interzone_only = FALSE, ids_only =
 #' @rdname points_to_od
 #' @inheritParams points_to_od
 #' @inheritParams odc_to_sf
+#' @param ... Additional arguments passed to `points_to_od)`
 #' @export
-points_to_odl = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE, crs = 4326) {
-  odf = points_to_od(p, pd, interzone_only, ids_only)
+points_to_odl = function(p, pd = NULL, crs = 4326, ...) {
+  odf = points_to_od(p, pd, ...)
   odc_to_sf(odf[3:6], d = odf[1:2], crs = crs)
 }
 #' Convert coordinates into a data frame of origins and destinations

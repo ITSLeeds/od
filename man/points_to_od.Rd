@@ -14,13 +14,7 @@ points_to_od(
   max_dest = Inf
 )
 
-points_to_odl(
-  p,
-  pd = NULL,
-  interzone_only = FALSE,
-  ids_only = FALSE,
-  crs = 4326
-)
+points_to_odl(p, pd = NULL, crs = 4326, ...)
 }
 \arguments{
 \item{p}{A spatial points object or a matrix of coordinates representing
@@ -50,6 +44,8 @@ Not applicable when \code{p} is a matrix.}
 
 \item{crs}{The coordinate reference system of the output, if not known in \code{z}.
 4326 by default.}
+
+\item{...}{Additional arguments passed to \verb{points_to_od)}}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
@@ -67,7 +63,6 @@ points_to_od(p)
 points_to_od(p, ids_only = TRUE)
 (l = points_to_odl(p, interzone_only = TRUE))
 plot(l)
-library(sf) # for subsetting sf objects:
 points_to_od(od_data_centroids[1:2, ], od_data_centroids[3, ])
 l = points_to_odl(od_data_centroids[1:2, ], od_data_centroids[3, ])
 plot(l)
@@ -75,5 +70,8 @@ plot(l)
 l2 = od_to_sf(od, od_data_centroids)
 l2$v = 1
 (l2_oneway = od_oneway(l2))
-plot(l2)
+sf::st_length(l2)
+# With max_dist:
+(l3 = points_to_odl(p, max_dist = 10000))
+sf::st_length(l3)
 }
