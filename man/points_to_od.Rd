@@ -5,40 +5,56 @@
 \alias{points_to_odl}
 \title{Convert a series of points into a dataframe of origins and destinations}
 \usage{
-points_to_od(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE)
-
-points_to_odl(
+points_to_od(
   p,
   pd = NULL,
   interzone_only = FALSE,
   ids_only = FALSE,
-  crs = 4326
+  max_dist = Inf,
+  max_dest = Inf
 )
+
+points_to_odl(p, pd = NULL, crs = 4326, ...)
 }
 \arguments{
-\item{p}{A spatial points object or a matrix of coordinates representing points}
+\item{p}{A spatial points object or a matrix of coordinates representing
+points}
 
-\item{pd}{Optional spatial points object or matrix objects representing destinations}
+\item{pd}{Optional spatial points object objects representing
+destinations.
+\code{pd} is ignored if \code{p} is a matrix.
+If \code{pd} is not provided, \code{p} is used as the destination points.}
 
-\item{interzone_only}{Should the result only include interzonal OD pairs, in which
-the ID of the origin is different from the ID of the destination zone?
-\code{FALSE} by default}
+\item{interzone_only}{Should the result only include interzonal OD pairs, in
+which the ID of the origin is different from the ID of the destination
+zone? \code{FALSE} by default}
 
-\item{ids_only}{Should a data frame with only 2 columns (origin and destination IDs)
-be returned? The default is \code{FALSE}, meaning the result should also contain the
-coordinates of the start and end points of each OD pair.}
+\item{ids_only}{Should a data frame with only 2 columns (origin and
+destination IDs) be returned? The default is \code{FALSE}, meaning the result
+should also contain the coordinates of the start and end points of each OD
+pair.}
+
+\item{max_dist}{Numeric, maximum distance to consider. Default Inf.
+Not applicable when \code{p} is a matrix.}
+
+\item{max_dest}{The maximum number of destinations for each origin (numeric)
+sorted from closest to furthest. Default is Inf. Alternative to max_dist
+for limiting the number of ODs.
+Not applicable when \code{p} is a matrix.}
 
 \item{crs}{The coordinate reference system of the output, if not known in \code{z}.
 4326 by default.}
+
+\item{...}{Additional arguments passed to \verb{points_to_od)}}
 }
 \description{
 Takes a series of geographical points and converts them into a data.frame
-representing the potential flows, or 'spatial interaction', between every combination
-of points.
+representing the potential flows, or 'spatial interaction', between every
+combination of points.
 }
 \details{
-\code{points_to_odl()} generates the same output but returns
-a geographic object representing desire lines in the class \code{sf}.
+\code{points_to_odl()} generates the same output but returns a geographic object
+representing desire lines in the class \code{sf}.
 }
 \examples{
 library(sf)
@@ -47,7 +63,6 @@ points_to_od(p)
 points_to_od(p, ids_only = TRUE)
 (l = points_to_odl(p, interzone_only = TRUE))
 plot(l)
-library(sf) # for subsetting sf objects:
 points_to_od(od_data_centroids[1:2, ], od_data_centroids[3, ])
 l = points_to_odl(od_data_centroids[1:2, ], od_data_centroids[3, ])
 plot(l)
@@ -55,5 +70,8 @@ plot(l)
 l2 = od_to_sf(od, od_data_centroids)
 l2$v = 1
 (l2_oneway = od_oneway(l2))
-plot(l2)
+sf::st_length(l2)
+# With max_dist:
+(l3 = points_to_odl(p, max_dist = 10000))
+sf::st_length(l3)
 }

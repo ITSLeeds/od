@@ -7,15 +7,17 @@
 coords_to_od(p, interzone_only = FALSE, ids_only = FALSE)
 }
 \arguments{
-\item{p}{A spatial points object or a matrix of coordinates representing points}
+\item{p}{A spatial points object or a matrix of coordinates representing
+points}
 
-\item{interzone_only}{Should the result only include interzonal OD pairs, in which
-the ID of the origin is different from the ID of the destination zone?
-\code{FALSE} by default}
+\item{interzone_only}{Should the result only include interzonal OD pairs, in
+which the ID of the origin is different from the ID of the destination
+zone? \code{FALSE} by default}
 
-\item{ids_only}{Should a data frame with only 2 columns (origin and destination IDs)
-be returned? The default is \code{FALSE}, meaning the result should also contain the
-coordinates of the start and end points of each OD pair.}
+\item{ids_only}{Should a data frame with only 2 columns (origin and
+destination IDs) be returned? The default is \code{FALSE}, meaning the result
+should also contain the coordinates of the start and end points of each OD
+pair.}
 }
 \value{
 A data frame object with O and D codes and origin and destination coordinates.
