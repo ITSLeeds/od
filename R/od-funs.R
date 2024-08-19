@@ -77,8 +77,14 @@ od_to_sfc = function(x,
 
 #' Create matrices representing origin-destination coordinates
 #'
-#' This function takes a wide range of input data types (spatial lines, points or text strings)
-#' and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.
+#' This function takes an 'od data frame' with the first
+#' two columns matching IDs of spatial objects, and
+#' matches them with objects representing origins and destinations
+#' in wide range of input data types (spatial lines, points or text strings).
+#' It returns a data frame of coordinates representing movement between all origin (ox, oy) and destination (dx, dy) points.
+#' 
+#' See [points_to_od()] for a function that creates
+#' an 'od data frame' from a set (or two sets) of points.
 #' @param p Points representing origins and destinations
 #' @param pd Points representing destinations, if different from origin points
 #' @param sfnames Should output column names be compatible with the sf package?

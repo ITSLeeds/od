@@ -22,8 +22,15 @@ representing points/zones of origin and destination}
 A data frame with origin and destination coordinates
 }
 \description{
-This function takes a wide range of input data types (spatial lines, points or text strings)
-and returns a data frame of coordinates representing origin (ox, oy) and destination (dx, dy) points.
+This function takes an 'od data frame' with the first
+two columns matching IDs of spatial objects, and
+matches them with objects representing origins and destinations
+in wide range of input data types (spatial lines, points or text strings).
+It returns a data frame of coordinates representing movement between all origin (ox, oy) and destination (dx, dy) points.
+}
+\details{
+See \code{\link[=points_to_od]{points_to_od()}} for a function that creates
+an 'od data frame' from a set (or two sets) of points.
 }
 \examples{
 x = od_data_df
