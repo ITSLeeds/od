@@ -26,8 +26,10 @@ points_to_odl(
 \item{p}{A spatial points object or a matrix of coordinates representing
 points}
 
-\item{pd}{Optional spatial points object or matrix objects representing
-destinations}
+\item{pd}{Optional spatial points object objects representing
+destinations.
+\code{pd} is ignored if \code{p} is a matrix.
+If \code{pd} is not provided, \code{p} is used as the destination points.}
 
 \item{interzone_only}{Should the result only include interzonal OD pairs, in
 which the ID of the origin is different from the ID of the destination
@@ -38,11 +40,13 @@ destination IDs) be returned? The default is \code{FALSE}, meaning the result
 should also contain the coordinates of the start and end points of each OD
 pair.}
 
-\item{max_dist}{Numeric, maximum distance to consider. Default Inf}
+\item{max_dist}{Numeric, maximum distance to consider. Default Inf.
+Not applicable when \code{p} is a matrix.}
 
 \item{max_dest}{The maximum number of destinations for each origin (numeric)
-sorted from closets to furthest. Default is Inf. Alternative to max_dist
-for limiting the number of ODs.}
+sorted from closest to furthest. Default is Inf. Alternative to max_dist
+for limiting the number of ODs.
+Not applicable when \code{p} is a matrix.}
 
 \item{crs}{The coordinate reference system of the output, if not known in \code{z}.
 4326 by default.}

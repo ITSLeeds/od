@@ -9,8 +9,10 @@
 #'
 #' @param p A spatial points object or a matrix of coordinates representing
 #'   points
-#' @param pd Optional spatial points object or matrix objects representing
-#'   destinations
+#' @param pd Optional spatial points object objects representing
+#'   destinations.
+#'   `pd` is ignored if `p` is a matrix.
+#'    If `pd` is not provided, `p` is used as the destination points.
 #' @param interzone_only Should the result only include interzonal OD pairs, in
 #'   which the ID of the origin is different from the ID of the destination
 #'   zone? `FALSE` by default
@@ -18,10 +20,12 @@
 #'   destination IDs) be returned? The default is `FALSE`, meaning the result
 #'   should also contain the coordinates of the start and end points of each OD
 #'   pair.
-#' @param max_dist Numeric, maximum distance to consider. Default Inf
+#' @param max_dist Numeric, maximum distance to consider. Default Inf.
+#'   Not applicable when `p` is a matrix.
 #' @param max_dest The maximum number of destinations for each origin (numeric)
-#'   sorted from closets to furthest. Default is Inf. Alternative to max_dist
+#'   sorted from closest to furthest. Default is Inf. Alternative to max_dist
 #'   for limiting the number of ODs.
+#'   Not applicable when `p` is a matrix.
 #' @export
 #' @examples
 #' library(sf)
@@ -97,7 +101,7 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
   cbind(odf, odc)
 }
 #' @export
-points_to_od.matrix =  function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE) {
+points_to_od.matrix =  function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE, max_dist = NULL, max_dest = NULL) {
   coords_to_od(p, interzone_only = interzone_only, ids_only = ids_only)
 }
 #' @rdname points_to_od
