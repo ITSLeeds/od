@@ -84,15 +84,15 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
 
 
   if(interzone_only) {
-    odf = od::od_interzone(odf)
+    odf = od_interzone(odf)
   }
   if(ids_only) {
     return(odf)
   }
   if(single_geometry) {
-    odc = od::od_coordinates(odf, p)
+    odc = od_coordinates(odf, p)
   } else {
-    odc = od::od_coordinates(odf, p, pd = pd)
+    odc = od_coordinates(odf, p, pd = pd)
   }
   cbind(odf, odc)
 }
