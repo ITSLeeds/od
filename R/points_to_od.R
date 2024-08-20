@@ -43,8 +43,10 @@
 #' (l2_oneway = od_oneway(l2))
 #' sf::st_length(l2)
 #' # With max_dist:
-#' (l3 = points_to_odl(p, max_dist = 10000))
-#' sf::st_length(l3)
+#' if (require(nngeo)) {
+#'   (l3 = points_to_odl(p, max_dist = 10000))
+#'   sf::st_length(l3)
+#' }
 points_to_od = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE,
                         max_dist = Inf, max_dest = Inf) {
   # to work with other classes at some point, possibly, it's a generic:
@@ -81,6 +83,10 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
 
   # Use nngeo implementation if max_dist or max_dest is provided
   if(max_dist < Inf || max_dest < Inf) {
+    # Fail gracefully if nngeo is not available:
+    if(!requireNamespace("nngeo", quietly = TRUE)) {
+      stop("nngeo must be installed for max_dist and max_dest arguments")
+    }
     if(max_dest > nrow(pd)){
       max_dest = nrow(pd)
     }

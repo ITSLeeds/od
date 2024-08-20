@@ -72,6 +72,8 @@ l2$v = 1
 (l2_oneway = od_oneway(l2))
 sf::st_length(l2)
 # With max_dist:
-(l3 = points_to_odl(p, max_dist = 10000))
-sf::st_length(l3)
+if (require(nngeo)) {
+  (l3 = points_to_odl(p, max_dist = 10000))
+  sf::st_length(l3)
+}
 }
