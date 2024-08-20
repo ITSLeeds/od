@@ -1,3 +1,7 @@
+# od 0.5.1 (2024-08)
+
+* Bug fix that was causing incorrect column names (#50)
+
 # od 0.5.0 (2024-08)
 
 * New `max_dist` argument in `points_to_od()` (also applicable to `points_to_odl()`) to limit the distance between origins and destinations. Credit to Malcolm Morgan @mem48 for this contribution, closing 4-year-old issue #18.

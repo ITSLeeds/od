@@ -58,7 +58,7 @@ representing desire lines in the class \code{sf}.
 }
 \examples{
 library(sf)
-p = od_data_centroids[1:3, ]
+p = od_data_centroids[1:2, ]
 points_to_od(p)
 points_to_od(p, ids_only = TRUE)
 (l = points_to_odl(p, interzone_only = TRUE))
