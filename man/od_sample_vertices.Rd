@@ -18,7 +18,7 @@ Todo: export this at some point
 \dontrun{
 u = "https://github.com/ITSLeeds/od/releases/download/v0.3.1/road_network_min.Rds"
 f = basename(u)
-if(!file.exists(f)) download.file(u, f)
+if (!file.exists(f)) download.file(u, f)
 road_network_min = readRDS(f)
 od_sample_vertices(road_network_min)
 }

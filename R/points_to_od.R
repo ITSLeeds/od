@@ -55,57 +55,60 @@ points_to_od = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE,
 #' @export
 points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE,
                            max_dist = Inf, max_dest = Inf) {
-
   single_geometry = is.null(pd)
 
-  if(any(duplicated(p[[1]]))) {
+  if (any(duplicated(p[[1]]))) {
     warning("Duplicated ids found in first column of origins")
   }
 
-  if(any(sf::st_geometry_type(p) != "POINT")){
+  if (any(sf::st_geometry_type(p) != "POINT")) {
     message("Converting p to centroids")
     suppressWarnings(p <- sf::st_centroid(p))
   }
 
-  if(!single_geometry){
-    if(any(duplicated(pd[[1]]))) {
+  if (!single_geometry) {
+    if (any(duplicated(pd[[1]]))) {
       warning("Duplicated ids found in first column of destinations")
     }
-    if(any(sf::st_geometry_type(p) != "POINT")){
+    if (any(sf::st_geometry_type(p) != "POINT")) {
       message("Converting pd to centroids")
       suppressWarnings(p <- sf::st_centroid(p))
     }
   }
 
-  if(single_geometry) {
+  if (single_geometry) {
     pd = p
   }
 
   # Use nngeo implementation if max_dist or max_dest is provided
-  if(max_dist < Inf || max_dest < Inf) {
+  if (max_dist < Inf || max_dest < Inf) {
     # Fail gracefully if nngeo is not available:
-    if(!requireNamespace("nngeo", quietly = TRUE)) {
+    if (!requireNamespace("nngeo", quietly = TRUE)) {
       stop("nngeo must be installed for max_dist and max_dest arguments")
     }
-    if(max_dest > nrow(pd)){
+    if (max_dest > nrow(pd)) {
       max_dest = nrow(pd)
     }
-  
-    nn <- nngeo::st_nn(p, pd, k = max_dest, maxdist = max_dist, returnDist = FALSE,
-                       progress = FALSE)
-    odf = data.frame(O = rep(p[[1]], lengths(nn)),
-                     D = pd[[1]][unlist(nn, use.names = FALSE)])
+
+    nn = nngeo::st_nn(p, pd,
+      k = max_dest, maxdist = max_dist, returnDist = FALSE,
+      progress = FALSE
+    )
+    odf = data.frame(
+      O = rep(p[[1]], lengths(nn)),
+      D = pd[[1]][unlist(nn, use.names = FALSE)]
+    )
   } else {
     odf = data.frame(expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE))
   }
 
-  if(interzone_only) {
+  if (interzone_only) {
     odf = od_interzone(odf)
   }
-  if(ids_only) {
+  if (ids_only) {
     return(odf)
   }
-  if(single_geometry) {
+  if (single_geometry) {
     odc = od_coordinates(odf, p)
   } else {
     odc = od_coordinates(odf, p, pd = pd)
@@ -113,7 +116,7 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
   cbind(odf, odc)
 }
 #' @export
-points_to_od.matrix =  function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE, max_dist = NULL, max_dest = NULL) {
+points_to_od.matrix = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALSE, max_dist = NULL, max_dest = NULL) {
   coords_to_od(p, interzone_only = interzone_only, ids_only = ids_only)
 }
 #' @rdname points_to_od
@@ -146,11 +149,11 @@ points_to_odl = function(p, pd = NULL, crs = 4326, ...) {
 coords_to_od = function(p, interzone_only = FALSE, ids_only = FALSE) {
   id = seq(nrow(p))
   odf = data.frame(expand.grid(id, id, stringsAsFactors = FALSE)[2:1])
-  if(interzone_only) {
+  if (interzone_only) {
     odf = od_interzone(odf)
   }
   names(odf) = c("O", "D")
-  if(ids_only) {
+  if (ids_only) {
     return(odf)
   }
   coords_o = p[odf$O, ]

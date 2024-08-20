@@ -44,8 +44,7 @@ od_oneway = function(x,
                      ...,
                      id1 = names(x)[1],
                      id2 = names(x)[2],
-                     oneway_key = NULL
-                     ) {
+                     oneway_key = NULL) {
   # is_sf = is(x, "sf") # only make it work with dfs for now
 
   if (is.null(oneway_key)) {

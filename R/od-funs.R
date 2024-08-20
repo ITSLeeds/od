@@ -35,14 +35,13 @@
 #' plot(desire_lines_d$geometry[n], lwd = 3, add = TRUE)
 od_to_sf = function(x, z, zd = NULL, odc = NULL, silent = FALSE, filter = TRUE,
                     package = "sfheaders", crs = 4326) {
-
-  if(!is.null(odc)) {
+  if (!is.null(odc)) {
     return(odc_to_sf(odc = odc, crs = crs))
   }
   if (filter && is.null(zd)) {
     x = od_filter(x, codes = z[[1]], silent = silent)
   }
-  if(filter && !is.null(zd)) {
+  if (filter && !is.null(zd)) {
     x = od_filter(x, codes = c(z[[1]], zd[[1]]))
   }
   od_sfc = od_to_sfc(x, z, zd, silent, package, crs, filter)
@@ -57,11 +56,11 @@ od_to_sfc = function(x,
                      package = "sfheaders",
                      crs = 4326,
                      filter = TRUE) {
-  if(package == "sfheaders") {
+  if (package == "sfheaders") {
     odc = od_coordinates(x, z, zd, silent = silent) # todo: add support for p
     od_sfc = odc_to_sfc(odc)
-    if(requireNamespace("sf", quietly = TRUE)) {
-      if(!is.na(sf::st_crs(z))) {
+    if (requireNamespace("sf", quietly = TRUE)) {
+      if (!is.na(sf::st_crs(z))) {
         crs = sf::st_crs(z)
       }
       sf::st_crs(od_sfc) = sf::st_crs(crs)
@@ -82,7 +81,7 @@ od_to_sfc = function(x,
 #' matches them with objects representing origins and destinations
 #' in wide range of input data types (spatial lines, points or text strings).
 #' It returns a data frame of coordinates representing movement between all origin (ox, oy) and destination (dx, dy) points.
-#' 
+#'
 #' See [points_to_od()] for a function that creates
 #' an 'od data frame' from a set (or two sets) of points.
 #' @param p Points representing origins and destinations
@@ -105,29 +104,29 @@ od_to_sfc = function(x,
 #' pd = od_data_destinations
 #' od_coordinates(x, p, pd)
 od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE) {
-  if(methods::is(x, "sf")) {
+  if (methods::is(x, "sf")) {
     return(od_coordinates_sf(x))
   }
   o_code = x[[1]]
   d_code = x[[2]]
-  if(methods::is(o_code, "factor")) {
+  if (methods::is(o_code, "factor")) {
     message("Converting origin ID from factor to character")
     o_code = as.character(o_code)
   }
-  if(methods::is(d_code, "factor")) {
+  if (methods::is(d_code, "factor")) {
     message("Converting destination ID from factor to character")
     d_code = as.character(d_code)
   }
   p_code_original = p[[1]]
-  if(methods::is(p_code_original, "factor")) {
+  if (methods::is(p_code_original, "factor")) {
     message("Converting geometry ID from factor to character")
     p_code_original = as.character(p_code_original)
   }
   od_code = unique(c(o_code, d_code))
   sel_p_in_x = p_code_original %in% od_code
   geometry_contains_polygons = geometry_contains_polygons(p)
-  if(geometry_contains_polygons) {
-    if(requireNamespace("sf", quietly = TRUE)) {
+  if (geometry_contains_polygons) {
+    if (requireNamespace("sf", quietly = TRUE)) {
       suppressWarnings({
         p_in_x = sf::st_centroid(sf::st_geometry(p)[sel_p_in_x])
       })
@@ -137,16 +136,16 @@ od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE
   } else {
     p_in_x = sf::st_geometry(p)[sel_p_in_x]
   }
-  if(!silent) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
+  if (!silent) message(nrow(p) - nrow(p_in_x), " points not in od data removed.")
   p_code = p_code_original[sel_p_in_x]
   stopifnot(all(o_code %in% p_code)) # todo: add error message
-  if(is.null(pd)) {
+  if (is.null(pd)) {
     stopifnot(all(d_code %in% p_code)) # todo: add error message
   } else {
     stopifnot(all(d_code %in% pd[[1]])) # todo: add error message
   }
   o_matching_p = match(o_code, p_code)
-  if(is.null(pd)) {
+  if (is.null(pd)) {
     d_matching_p = match(d_code, p_code)
   } else {
     pcode_d = pd[[1]]
@@ -156,11 +155,13 @@ od_coordinates = function(x, p = NULL, pd = NULL, silent = TRUE, sfnames = FALSE
   }
   p_coordinates = sfheaders::sfc_to_df(p_in_x)[c("x", "y")]
   o_coords = p_coordinates[o_matching_p, ]
-  if(is.null(pd)) {
+  if (is.null(pd)) {
     d_coords = p_coordinates[d_matching_p, ]
   }
   odc = cbind(o_coords, d_coords)
-  if(sfnames) return(as.matrix(odc)) # return without updating column names
+  if (sfnames) {
+    return(as.matrix(odc))
+  } # return without updating column names
   colnames(odc) = c("ox", "oy", "dx", "dy")
   odc
 }
@@ -184,7 +185,7 @@ od_coordinates_sf = function(x) {
 odc_to_sf = function(odc, d = NULL, crs = 4326) {
   odc_id = od_coordinates_ids(odc)
   odc_sfc = sfheaders::sfc_linestring(obj = odc_id, x = "x", y = "y", linestring_id = "id")
-  if(is.null(d)) {
+  if (is.null(d)) {
     return(sf::st_sf(geometry = odc_sfc, crs = crs))
   }
   sf::st_sf(d, geometry = odc_sfc, crs = crs)
@@ -204,11 +205,11 @@ odc_to_sfc = function(odc) {
 odc_to_sfc_sf = function(odc, crs = 4326) {
   linestring_list = lapply(seq(nrow(odc)), function(i) {
     sf::st_linestring(rbind(odc[i, 1:2], odc[i, 3:4]))
-    })
+  })
   sf::st_sfc(linestring_list, crs = crs)
 }
 #' Interleave origin and destination coordinates
-#' 
+#'
 #' This function takes a matrix with 4 columns representing origin and destination coordinates
 #' and returns a data frame with 3 columns with the ID of each linestring, plus
 #' the coordinates representing origin and destination coordinates.
@@ -220,7 +221,7 @@ odc_to_sfc_sf = function(odc, crs = 4326) {
 #' od_coordinates_ids(od_coordinates(od_data_df, p = od_data_zones, sfnames = TRUE))
 od_coordinates_ids = function(odc) {
   # If odc has 1 row, do the interleaving manually:
-  if(nrow(odc) == 1) {
+  if (nrow(odc) == 1) {
     # rbind without checking column names, to prevent 'names do not match previous names' error:
     colnames(odc) = c("x", "y", "x", "y")
     res = rbind(odc[, 1:2], odc[, 3:4])
@@ -228,7 +229,7 @@ od_coordinates_ids = function(odc) {
     return(res)
   }
   # Convert odc to matrix if not one already
-  if(!is.matrix(odc)) {
+  if (!is.matrix(odc)) {
     odc = as.matrix(odc)
   }
   res = vctrs::vec_interleave(odc[, 1:2], odc[, 3:4])
@@ -297,7 +298,7 @@ odmatrix_to_od = function(odmatrix) {
 
 geometry_contains_polygons = function(z) {
   # The sf way:
-  if(!requireNamespace("sf", quietly = TRUE)) {
+  if (!requireNamespace("sf", quietly = TRUE)) {
     # stop("sf package required, to install it see https://github.com/r-spatial/sf#installing")
     # without sf:
     res = grepl(pattern = "POLY", class(z$geometry)[1])
@@ -336,7 +337,7 @@ geometry_contains_polygons = function(z) {
 od_filter = function(x, codes, silent = FALSE) {
   sel_o_in_codes = x[[1]] %in% codes
   sel_d_in_codes = x[[2]] %in% codes
-  if(!silent) {
+  if (!silent) {
     message(sum(!sel_o_in_codes), " origins with no match in zone ids")
     message(sum(!sel_d_in_codes), " destinations with no match in zone ids")
   }

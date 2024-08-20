@@ -61,7 +61,7 @@
 #' subzones = od_data_zones_small
 #' try(od_disaggregate(od, zones, subzones))
 #' od_disag = od_disaggregate(od, zones, subzones, max_per_od = 500)
-#' ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
+#' ncol(od_disag) - 3 == ncol(od) # same number of columns, the same...
 #' # Except disag data gained geometry and new agg ids:
 #' sum(od_disag[[3]]) == sum(od[[3]])
 #' sum(od_disag[[4]]) == sum(od[[4]])
@@ -81,12 +81,11 @@ od_disaggregate = function(od,
                            population_column = 3,
                            max_per_od = 5,
                            keep_ids = TRUE,
-                           integer_outputs = FALSE
-                           ) {
+                           integer_outputs = FALSE) {
   od$nrows = od_nrows(od, population_column, max_per_od)
   azn = paste0(names(z)[1], code_append)
   # is the input od data an sf object? tell the user and convert to df if so
-  if(methods::is(object = od, class2 = "sf")) {
+  if (methods::is(object = od, class2 = "sf")) {
     message("Input object is sf, attempting to convert to a data frame")
     od = sf::st_drop_geometry(od)
   }
@@ -134,7 +133,7 @@ od_disaggregate = function(od,
       max_n_od = ceiling(od[[population_column]][i] / max_per_od)
       o_options = subpoints[[1]][subpoints[[azn]] == od[[1]][i]]
       d_options = subpoints[[1]][subpoints[[azn]] == od[[2]][i]]
-      if(max_n_od > length(o_options) || max_n_od > length(d_options)) {
+      if (max_n_od > length(o_options) || max_n_od > length(d_options)) {
         warning("Insufficient subzones/points to prevent duplicate desire lines")
         message("Sampling may fail. Try again with larger max_per_od")
       }
@@ -145,17 +144,17 @@ od_disaggregate = function(od,
       odn_list = lapply(od[i, -c(1, 2)], function(x) x / nrow(od_new))
       odns = as.data.frame(odn_list)[rep(1, nrow(od_new)), , drop = FALSE]
       names(odns) = numeric_col_names
-      if(integer_outputs) {
+      if (integer_outputs) {
         odns[] = apply(odns, 2, function(x) smart.round(x))
       }
       od_new = cbind(od_new, odns)
-      if(keep_ids) {
+      if (keep_ids) {
         od_new$o_agg = od[[1]][i]
         od_new$d_agg = od[[2]][i]
       }
       od_new_sf = od::od_to_sf(od_new, subpoints, silent = TRUE)
       # Remove sampled points from 'universe' of available points
-      if(i < nrow(od)) {
+      if (i < nrow(od)) {
         subpoints <<- subpoints[!subpoints[[1]] %in% c(o, d), ]
       }
       od_new_sf
@@ -225,7 +224,7 @@ od_split = od_disaggregate
 
 smart.round = function(x) {
   y = floor(x)
-  indices = utils::tail(order(x-y), round(sum(x)) - sum(y))
+  indices = utils::tail(order(x - y), round(sum(x)) - sum(y))
   y[indices] = y[indices] + 1
   y
 }
@@ -240,7 +239,7 @@ smart.round = function(x) {
 #' \dontrun{
 #' u = "https://github.com/ITSLeeds/od/releases/download/v0.3.1/road_network_min.Rds"
 #' f = basename(u)
-#' if(!file.exists(f)) download.file(u, f)
+#' if (!file.exists(f)) download.file(u, f)
 #' road_network_min = readRDS(f)
 #' od_sample_vertices(road_network_min)
 #' }
@@ -292,7 +291,7 @@ od_sample_points = function(subpoints, subdf, z, per_zone, azn = "azn") {
   subpoints_joined = sf::st_join(sf::st_sf(subpoints), z[1])
   sel_list = lapply(1:nrow(per_zone), function(i) {
     which_points = which(subpoints_joined[[1]] == per_zone[[1]][i])
-    if(length(which_points) == 0) {
+    if (length(which_points) == 0) {
       return(NULL)
     }
     sample(which_points, size = per_zone[[2]][i])

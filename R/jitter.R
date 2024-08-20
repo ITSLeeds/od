@@ -67,30 +67,30 @@
 #' # plot(dlr3[od$all > 200, 1])
 #' # mapview::mapview(od_sf$geometry[od$all > 200])
 od_jitter = function(
-  od,
-  z,
-  subpoints = NULL,
-  code_append = "_ag",
-  population_column = 3,
-  max_per_od = 100000,
-  keep_ids = TRUE,
-  integer_outputs = FALSE,
-  # od_jitter-specific arguments (and zd)
-  zd = NULL,
-  subpoints_o = NULL,
-  subpoints_d = NULL,
-  disag = FALSE
-  ) {
-
+    od,
+    z,
+    subpoints = NULL,
+    code_append = "_ag",
+    population_column = 3,
+    max_per_od = 100000,
+    keep_ids = TRUE,
+    integer_outputs = FALSE,
+    # od_jitter-specific arguments (and zd)
+    zd = NULL,
+    subpoints_o = NULL,
+    subpoints_d = NULL,
+    disag = FALSE) {
   if (!methods::is(od, "sf")) {
     # the data structure to reproduce for matching OD pairs
     od = od::od_to_sf(od, z = z, zd = zd)
   }
   disag = all(is.null(zd), is.null(subpoints_o), is.null(subpoints_d), disag)
-  if(disag) {
+  if (disag) {
     message("Using od_disaggregate") # todo remove once tested
-    return(od_disaggregate(od, z, subpoints, code_append, population_column,
-                           max_per_od, keep_ids, integer_outputs))
+    return(od_disaggregate(
+      od, z, subpoints, code_append, population_column,
+      max_per_od, keep_ids, integer_outputs
+    ))
   }
   odc_new = odc_original = od::od_coordinates(od)
   od = sf::st_drop_geometry(od)
@@ -101,7 +101,7 @@ od_jitter = function(
   names(points_per_zone)[1] = names(z)[1]
   points_per_zone_joined = merge(sf::st_drop_geometry(z), points_per_zone)
   # unique_zone_codes = points_per_zone_joined[[1]]
-  zo = z[match(points_per_zone[[1]], z[[1]], nomatch = FALSE) ,]
+  zo = z[match(points_per_zone[[1]], z[[1]], nomatch = FALSE), ]
   # browser()
   if (is.null(subpoints_o)) {
     subpoints_o = sf::st_sample(zo, size = points_per_zone_joined$Freq)
@@ -118,10 +118,11 @@ od_jitter = function(
   for (i in unique_zones) {
     # total number of origins and destinations
     n_origins = sum(od[[1]] == i)
-    if (n_origins == 0)
+    if (n_origins == 0) {
       next()
+    }
     sel_sj = which(sj_df$geo_code == i)
-    if(n_origins > length(sel_sj)) {
+    if (n_origins > length(sel_sj)) {
       sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins, replace = TRUE)]
     } else {
       sel_sj_o = sel_sj[sample(length(sel_sj), size = n_origins)]
@@ -129,7 +130,7 @@ od_jitter = function(
     odc_new[od[[1]] == i, "ox"] = sj_df$x[sel_sj_o]
     odc_new[od[[1]] == i, "oy"] = sj_df$y[sel_sj_o]
     # remove those random points from the list of options
-    sj_df = sj_df[-sel_sj_o,]
+    sj_df = sj_df[-sel_sj_o, ]
   }
 
   if (is.null(zd)) {
@@ -140,7 +141,7 @@ od_jitter = function(
 
   id_destinations = od[[2]]
   points_per_zone = data.frame(table(id_destinations))
-  zd = zd[match(points_per_zone[[1]], zd[[1]], nomatch = FALSE) ,]
+  zd = zd[match(points_per_zone[[1]], zd[[1]], nomatch = FALSE), ]
   if (is.null(subpoints_d)) {
     names(points_per_zone)[1] = names(zd)[1]
     points_per_zone_joined_d = merge(sf::st_drop_geometry(zd), points_per_zone)
@@ -159,11 +160,12 @@ od_jitter = function(
   i = unique_zones_d[1]
   for (i in unique_zones_d) {
     n_destinations = sum(od[[2]] == i)
-    if (n_destinations == 0)
+    if (n_destinations == 0) {
       next()
+    }
     # when there are subpoints
     sel_sj = which(sj_df_d$geo_code == i)
-    if(n_destinations > length(sel_sj)) {
+    if (n_destinations > length(sel_sj)) {
       sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations, replace = TRUE)]
     } else {
       sel_sj_d = sel_sj[sample(length(sel_sj), size = n_destinations)]
@@ -171,7 +173,7 @@ od_jitter = function(
     odc_new[od[[2]] == i, "dx"] = sj_df_d$x[sel_sj_d]
     odc_new[od[[2]] == i, "dy"] = sj_df_d$y[sel_sj_d]
     # remove those random points from the list of options
-    sj_df = sj_df[-sel_sj_d,]
+    sj_df = sj_df[-sel_sj_d, ]
   }
   sf::st_sf(od, geometry = odc_to_sfc_sf(odc_new, crs = sf::st_crs(z)))
 }

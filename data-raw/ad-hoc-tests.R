@@ -6,7 +6,7 @@
 x = od_data_df
 p = od_data_centroids
 
-x[[1]][1] =  "404"
+x[[1]][1] = "404"
 # Next line will error:
 od_coordinates(x, p, silent = FALSE)[1:2, ]
 # From original stplanr function:
@@ -27,10 +27,9 @@ network = od_data_network
 library(tmap)
 tmap_mode("view")
 tm_shape(lines_to_points_on_network) + tm_lines(lwd = 5) +
- tm_shape(lines_to_points) + tm_lines(col = "grey", lwd = 5) +
- tm_shape(od_data_zones_min) + tm_borders() +
- qtm(od_data_network, lines.col = "yellow")
+  tm_shape(lines_to_points) + tm_lines(col = "grey", lwd = 5) +
+  tm_shape(od_data_zones_min) + tm_borders() +
+  qtm(od_data_network, lines.col = "yellow")
 plot(sf::st_geometry(lines_to_points_on_network))
 plot(lines_to_points, col = "grey", add = TRUE)
 plot(sf::st_geometry(z), add = TRUE)
-

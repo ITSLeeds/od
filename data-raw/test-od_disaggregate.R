@@ -2,13 +2,13 @@ library(tidyverse)
 
 u = "https://github.com/ITSLeeds/od/releases/download/0.2.1/od_iz_ed.Rds"
 f = basename(u)
-if(!file.exists(f)) download.file(u, f)
+if (!file.exists(f)) download.file(u, f)
 od = readRDS("od_iz_ed.Rds")
 # head(od)
 
 u = "https://github.com/ITSLeeds/od/releases/download/0.2.1/iz_zones11_ed.Rds"
 f = basename(u)
-if(!file.exists(f)) download.file(u, f)
+if (!file.exists(f)) download.file(u, f)
 zones = readRDS("iz_zones11_ed.Rds")
 # head(zones)
 

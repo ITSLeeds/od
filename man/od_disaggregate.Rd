@@ -97,7 +97,7 @@ od = od_data_df[1:2, 1:4]
 subzones = od_data_zones_small
 try(od_disaggregate(od, zones, subzones))
 od_disag = od_disaggregate(od, zones, subzones, max_per_od = 500)
-ncol(od_disag) -3 == ncol(od) # same number of columns, the same...
+ncol(od_disag) - 3 == ncol(od) # same number of columns, the same...
 # Except disag data gained geometry and new agg ids:
 sum(od_disag[[3]]) == sum(od[[3]])
 sum(od_disag[[4]]) == sum(od[[4]])

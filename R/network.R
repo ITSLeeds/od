@@ -37,20 +37,24 @@ od_to_network = function(x, z, zd = NULL, silent = TRUE, package = "sf", crs = 4
   #          g[sample(nrow(g), size = uoid[i]), ]
   #        })
   # i = 1
-  l_origin = lapply(seq(nrow(x)),
-                    function(i) {
-                      g = net_o[net_o[[z_nm]] == x[[1]][i], ]
-                      g[sample(nrow(g), size = 1), ]
-                    })
+  l_origin = lapply(
+    seq(nrow(x)),
+    function(i) {
+      g = net_o[net_o[[z_nm]] == x[[1]][i], ]
+      g[sample(nrow(g), size = 1), ]
+    }
+  )
   d_origin = do.call(rbind, l_origin)
   # d_origin$geo_code == x[[1]] TRUE
   odc_origin = sf::st_coordinates(d_origin)
 
-  l_destination = lapply(seq(nrow(x)),
-                         function(i) {
-                           g = net_d[net_d[[z_nm]] == x[[2]][i], ]
-                           g[sample(nrow(g), size = 1), ]
-                         })
+  l_destination = lapply(
+    seq(nrow(x)),
+    function(i) {
+      g = net_d[net_d[[z_nm]] == x[[2]][i], ]
+      g[sample(nrow(g), size = 1), ]
+    }
+  )
   d_destination = do.call(rbind, l_destination)
   odc_destination = sf::st_coordinates(d_destination)
 

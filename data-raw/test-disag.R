@@ -10,7 +10,7 @@ od = od_data_df[1:2, ]
 zones = od_data_zones_min
 subzones = od_data_zones_small
 od_disag = od_disaggregate(od, zones, subzones)
-ncol(od_disag) -1 == ncol(od) # same number of columns (except disag data gained geometry)
+ncol(od_disag) - 1 == ncol(od) # same number of columns (except disag data gained geometry)
 sum(od_disag[[3]]) == sum(od[[3]])
 sum(od_disag[[4]]) == sum(od[[4]])
 od_sf = od_to_sf(od, zones)
@@ -42,7 +42,9 @@ qtm(zones_many, borders.lwd = 3) +
   tm_shape(zones_lsoa_many) + tm_borders("red", lty = 3) +
   qtm(centroids_lsoa_many)
 
-od_test = desire_lines_many %>% select(geo_code1, geo_code2, all_base) %>% sf::st_drop_geometry()
+od_test = desire_lines_many %>%
+  select(geo_code1, geo_code2, all_base) %>%
+  sf::st_drop_geometry()
 
 # fails:
 desire_lines_disag = od_disaggregate(od = od_test, z = zones_many, subzones = zones_lsoa_many)
@@ -55,7 +57,8 @@ summary(zones_many$geo_code %in% od_test$geo_code2)
 summary(zones_many$geo_code %in% od_test$geo_code1)
 
 # remove missing line
-od_test = desire_lines_many %>% select(geo_code1, geo_code2, all_base) %>%
+od_test = desire_lines_many %>%
+  select(geo_code1, geo_code2, all_base) %>%
   sf::st_drop_geometry() %>%
   slice(-nrow(od_test))
 
