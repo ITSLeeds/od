@@ -1,4 +1,4 @@
-Minor release fixing a minor issue with geometry checking, result of upstream changes.
+Fixes issue associated with revdep check on CRAN.
 
 ## R CMD check results
 
