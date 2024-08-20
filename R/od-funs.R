@@ -351,3 +351,8 @@ od_filter_destinations = function(x, codes) {
   sel_d_in_codes = x[[2]] %in% codes
   x[sel_d_in_codes, ]
 }
+# See https://stackoverflow.com/a/67872362
+od_expand = function(ids) {
+  rev(expand.grid(rev(ids), stringsAsFactors = FALSE))
+}
+# od_expand(list(O = 1:3, D = 1:2))
