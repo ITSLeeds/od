@@ -4,6 +4,8 @@ Version: 0.5.1
 Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-5679-6536")),
+        person("Malcolm", "Morgan", role = "aut",
+           comment = c(ORCID = "0000-0002-9488-9183")),
     person("David", "Cooley", role = c("ctb"))
     )
 Description: The aim of 'od' is to provide tools and example datasets for working with
