@@ -1,4 +1,6 @@
-# od 0.5.1
+# od 0.5.1 (2024-08)
+
+* Bug fix that was causing incorrect column names (#50)
 
 # od 0.5.0 (2024-08)
 
