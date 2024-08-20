@@ -79,15 +79,19 @@ points_to_od.sf = function(p, pd = NULL, interzone_only = FALSE, ids_only = FALS
     pd = p
   }
 
-  if(max_dest > nrow(pd)){
-    max_dest = nrow(pd)
+  # Use nngeo implementation if max_dist or max_dest is provided
+  if(max_dist < Inf || max_dest < Inf) {
+    if(max_dest > nrow(pd)){
+      max_dest = nrow(pd)
+    }
+  
+    nn <- nngeo::st_nn(p, pd, k = max_dest, maxdist = max_dist, returnDist = FALSE,
+                       progress = FALSE)
+    odf = data.frame(O = rep(p[[1]], lengths(nn)),
+                     D = pd[[1]][unlist(nn, use.names = FALSE)])
+  } else {
+    odf = data.frame(expand.grid(p[[1]], pd[[1]], stringsAsFactors = FALSE))
   }
-
-  nn <- nngeo::st_nn(p, pd, k = max_dest, maxdist = max_dist, returnDist = FALSE,
-                     progress = FALSE)
-  odf = data.frame(O = rep(p[[1]], lengths(nn)),
-                   D = pd[[1]][unlist(nn, use.names = FALSE)])
-
 
   if(interzone_only) {
     odf = od_interzone(odf)
@@ -135,10 +139,7 @@ points_to_odl = function(p, pd = NULL, crs = 4326, ...) {
 #' @export
 coords_to_od = function(p, interzone_only = FALSE, ids_only = FALSE) {
   id = seq(nrow(p))
-  odf = data.frame(
-    stringsAsFactors = FALSE,
-    expand.grid(id, id, stringsAsFactors = FALSE)[2:1]
-  )
+  odf = data.frame(expand.grid(id, id, stringsAsFactors = FALSE)[2:1])
   if(interzone_only) {
     odf = od_interzone(odf)
   }
