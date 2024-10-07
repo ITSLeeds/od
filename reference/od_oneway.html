@@ -47,7 +47,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Aggregate OD pairs they become non-directional</h1>
-    <small class="dont-index">Source: <a href="https://github.com/itsleeds/od/blob/v0.5.1/R/oneway.R" class="external-link"><code>R/oneway.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/itsleeds/od/blob/main/R/oneway.R" class="external-link"><code>R/oneway.R</code></a></small>
     <div class="hidden name"><code>od_oneway.Rd</code></div>
     </div>
 
@@ -133,7 +133,7 @@ for users and are difficult to plot.</p>
 <span class="r-in"><span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">=</span> <span class="va">od_min</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="op">-</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all train</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2  all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875 1927    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145     6</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">)</span> <span class="co"># result has fewer rows</span></span></span>
@@ -141,16 +141,16 @@ for users and are difficult to plot.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">od_oneway</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="co"># but the same total flow</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           o         d    all train</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2    all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875  963.5  11.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145.0   6.0</span>
 <span class="r-in"><span><span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, attrib <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2  all</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875 1927</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145</span>
 <span class="r-in"><span><span class="va">od_min</span><span class="op">$</span><span class="va">all</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">od_oneway</span> <span class="op">=</span> <span class="fu">od_oneway</span><span class="op">(</span><span class="va">od_min</span>, FUN <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           o         d  all train</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2  all train</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 E02002384 E02006875  966  11.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 E02002404 E02006875 1145   6.0</span>
 </code></pre></div>
@@ -167,7 +167,7 @@ for users and are difficult to plot.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
