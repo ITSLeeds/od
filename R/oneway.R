@@ -58,6 +58,8 @@ od_oneway = function(x,
   }
   x_oneway = stats::aggregate(x[attrib], list(o = x[[id1]], d = x[[id2]]), FUN, ...)
 
+  names(x_oneway)[c(1,2)] = c(id1, id2) # rename columns with original names
+
   if (is.numeric(attrib)) {
     attrib_names = names(x)[attrib]
   } else {
