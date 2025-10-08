@@ -132,15 +132,15 @@ od_id_szudzik = function(x, y, ordermatters = FALSE) {
     y = as.character(y)
   }
   lvls = unique(c(x, y))
-  x = as.integer(factor(x, levels = lvls))
-  y = as.integer(factor(y, levels = lvls))
+  x = match(x, lvls)
+  y = match(y, lvls)
   if (ordermatters) {
     ismax = x > y
-    oneway_key = (ismax * 1) * (x^2 + x + y) + ((!ismax) * 1) * (y^2 + x)
+    oneway_key = (ismax * 1L) * (x*x + x + y) + ((!ismax) * 1L) * (y*y + x)
   } else {
-    a = ifelse(x > y, y, x)
-    b = ifelse(x > y, x, y)
-    oneway_key = b^2 + a
+    a = pmin(x, y)
+    b = pmax(x, y)
+    oneway_key = b*b + a
   }
   return(oneway_key)
 }
